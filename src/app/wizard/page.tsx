@@ -1,5 +1,5 @@
 import SiteShell from '@/components/layout/site-shell';
-import { RevenueIntelligenceWizard } from '@/components/wizard/IntelligenceWizard';
+import { RevenueIntelligenceWizard } from '@/components/wizard/intelligence-wizard';
 
 export default function WizardPage() {
     return (

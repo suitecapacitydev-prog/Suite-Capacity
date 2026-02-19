@@ -1,5 +1,5 @@
 import SiteShell from '@/components/layout/site-shell';
-import { Hero } from '@/components/marketing/Hero';
+import { Hero } from '@/components/marketing/hero';
 
 /**
  * Suite Capacity Landing Page
