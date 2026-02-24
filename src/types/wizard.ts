@@ -1,44 +1,84 @@
-export type PropertyType = 'house' | 'apartment' | 'condo' | 'townhouse' | 'other';
+export type PropertyType =
+    | 'single-family'
+    | 'condo'
+    | 'townhome'
+    | 'multi-unit'
+    | 'luxury-estate'
+    | 'boutique-hotel'
+    | 'other';
+
+export type OperatingStatus = 'yes' | 'considering' | 'researching';
+export type OwnershipStatus = 'own' | 'contract' | 'shopping' | 'researching';
+export type Timeline = 'immediately' | '30-days' | '1-3-months' | 'just-researching';
+
+export interface QualificationData {
+    isOperating: OperatingStatus;
+    ownershipStatus: OwnershipStatus;
+    timeline: Timeline;
+}
 
 export interface PropertyProfile {
     address: string;
+    propertyType: PropertyType;
     bedrooms: number;
     bathrooms: number;
-    sleeps: number;
-    propertyType: PropertyType;
+    maxOccupancy: number;
     amenities: string[];
-    hasPool: boolean;
-    hasHotTub: boolean;
-    isWaterfront: boolean;
-    hoaRestrictions: boolean;
-    parkingSpaces: number;
+    parking: 'ample' | 'limited' | 'none';
 }
 
-export interface PerformanceBaseline {
-    adr: number;
-    occupancy: number;
-    platforms: ('airbnb' | 'vrbo' | 'direct' | 'other')[];
-    cleaningFee: number;
-    cancellationPolicy: 'flexible' | 'moderate' | 'strict';
-    directBookingPercentage: number;
+export interface RevenueBaseline {
+    type: 'str' | 'ltr';
+    // STR specific
+    adr?: number;
+    occupancy?: number;
+    annualRevenue?: number;
+    platforms?: ('airbnb' | 'vrbo' | 'booking' | 'direct' | 'other')[];
+    directPercentage?: number;
+    reviewRating?: number;
+    // LTR specific
+    monthlyRent?: number;
+    leaseStructure?: 'annual' | 'month-to-month';
 }
 
-export interface AssetOptimization {
-    photographyQuality: number; // 1-5
-    designLevel: number; // 1-5
-    furnishingLevel: number; // 1-5
-    descriptionStrength: number; // 1-5
-    automationLevel: number; // 1-5
-    reviewScore: number;
+export interface OperationsAudit {
+    photography: 'yes-recent' | 'yes-old' | 'no';
+    designLevel: 'basic' | 'updated' | 'pro' | 'luxury';
+    listingOptimization: 'basic' | 'seo' | 'pro' | 'ai';
+    targetDemographic: 'families' | 'couples' | 'groups' | 'luxury' | 'none';
+    seasonalPricing: 'yes' | 'somewhat' | 'no';
+    dynamicPricing: 'yes' | 'no' | 'manual';
+    guestMessaging: 'automated' | 'partial' | 'manual';
+    cleaningModel: 'dedicated' | 'marketplace' | 'owner';
+    maintenance: 'quarterly' | 'annual' | 'reactive';
+    responseTime: 'under-10' | '10-60' | '1-hour-plus';
 }
 
-export interface WizardSubmission {
-    id?: string;
-    ownerEmail: string;
-    propertyData: PropertyProfile;
-    performanceData: PerformanceBaseline;
-    assetData: AssetOptimization;
-    status: 'draft' | 'processing' | 'complete';
+export interface AIDesignUpload {
+    images: {
+        id: string;
+        category: 'living-room' | 'bedroom' | 'outdoor' | 'kitchen' | 'bathroom' | 'exterior';
+        url: string;
+        enhancedUrl?: string;
+    }[];
+}
+
+export interface LeadCapture {
+    name: string;
+    email: string;
+    phone: string;
+    timeline: Timeline;
+    switchingManagement: 'yes' | 'maybe' | 'no';
+    currentManager?: string;
+}
+
+export interface WizardData {
+    qualification: QualificationData;
+    property: PropertyProfile;
+    baseline: RevenueBaseline;
+    audit: OperationsAudit;
+    aiDesign: AIDesignUpload;
+    lead: LeadCapture;
 }
 
 export interface RevenueProjection {
@@ -47,11 +87,12 @@ export interface RevenueProjection {
     pricingLift: number;
     conversionLift: number;
     ecosystemLift: number;
-    automationLift: number;
     designLift: number;
+    efficiencyLift: number;
     marketComparison: {
-        marketAverageAdr: number;
+        marketMedianAdr: number;
+        topQuartileAdr: number;
+        marketOccupancy: number;
         demandIndex: number;
-        seasonalityCurve: number[];
     };
 }

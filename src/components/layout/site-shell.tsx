@@ -28,9 +28,11 @@ export default function RootLayout({
 
                     <div className="flex items-center gap-4">
                         <Link href="/login" className="text-sm font-medium hover:text-primary transition-colors">Owner Login</Link>
-                        <Button variant="intelligence" size="sm" className="hidden sm:inline-flex">
-                            Initial Audit
-                        </Button>
+                        <Link href="/wizard">
+                            <Button variant="intelligence" size="sm" className="hidden sm:inline-flex">
+                                Initial Audit
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </header>

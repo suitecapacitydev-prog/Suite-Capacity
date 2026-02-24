@@ -14,10 +14,6 @@ export function Hero() {
 
             <div className="container relative z-10 mx-auto px-6">
                 <div className="max-w-4xl mx-auto text-center space-y-8">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-bold tracking-widest uppercase mb-4 animate-fade-in">
-                        <Activity className="w-3 h-3" />
-                        Platform v2.0 Live
-                    </div>
 
                     <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
                         Centralized STR <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Operating Platform.</span>
@@ -31,17 +27,19 @@ export function Hero() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                        <Button size="lg" variant="intelligence" className="w-full sm:w-auto gap-2 group">
-                            Get My Revenue Intelligence Report
-                            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                        </Button>
+                        <Link href="/wizard" className="w-full sm:w-auto">
+                            <Button size="lg" variant="intelligence" className="w-full gap-2 group">
+                                Get My Revenue Intelligence Report
+                                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                            </Button>
+                        </Link>
                         <Button size="lg" variant="outline" className="w-full sm:w-auto">
                             See How the Platform Works
                         </Button>
                     </div>
 
                     {/* Quick Metrics / Stats Overlay */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 border-t border-border/50">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 border-t border-border/50">
                         <div className="space-y-1">
                             <p className="text-3xl font-bold text-primary">$42M+</p>
                             <p className="text-xs text-secondary-foreground uppercase tracking-widest">Revenue Managed</p>
@@ -49,10 +47,6 @@ export function Hero() {
                         <div className="space-y-1">
                             <p className="text-3xl font-bold text-success-teal">24.2%</p>
                             <p className="text-xs text-secondary-foreground uppercase tracking-widest">Avg Revenue Lift</p>
-                        </div>
-                        <div className="space-y-1">
-                            <p className="text-3xl font-bold">14 Days</p>
-                            <p className="text-xs text-secondary-foreground uppercase tracking-widest">Deployment Speed</p>
                         </div>
                         <div className="space-y-1">
                             <p className="text-3xl font-bold">1,200+</p>
