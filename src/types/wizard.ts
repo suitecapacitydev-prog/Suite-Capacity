@@ -96,3 +96,10 @@ export interface RevenueProjection {
         demandIndex: number;
     };
 }
+
+// Backwards-compatible alias used by API routes
+export type WizardSubmission = WizardData;
+
+// Aliases for older type names used elsewhere
+export type PerformanceBaseline = RevenueBaseline;
+export type AssetOptimization = OperationsAudit;
