@@ -72,6 +72,7 @@ export function RevenueIntelligenceWizard() {
     });
 
     const [projection, setProjection] = useState<RevenueProjection | null>(null);
+    const [submissionError, setSubmissionError] = useState<string | null>(null);
 
     const totalSteps = 10;
 
@@ -106,6 +107,7 @@ export function RevenueIntelligenceWizard() {
         }
 
         if (currentStep === 7) {
+            setSubmissionError(null);
             setIsSubmitting(true);
             try {
                 const res = await submitWizardData(wizardData, projection!);
@@ -113,7 +115,12 @@ export function RevenueIntelligenceWizard() {
                     setCurrentStep((prev) => prev + 1);
                 } else {
                     console.error('Submission failed:', res.error);
+                    setSubmissionError(res.error || 'Submission failed. Please try again.');
                 }
+            } catch (error: any) {
+                const message = error?.message || String(error);
+                console.error('Submission exception:', message);
+                setSubmissionError(message);
             } finally {
                 setIsSubmitting(false);
             }
@@ -185,7 +192,7 @@ export function RevenueIntelligenceWizard() {
                                 <RevenueBaselineStep
                                     data={wizardData.baseline}
                                     updateData={(d) => setWizardData(prev => ({ ...prev, baseline: { ...prev.baseline, ...d } }))}
-                                    isOperating={wizardData.qualification.isOperating === 'yes'}
+                                    operatingMode={wizardData.qualification.isOperating}
                                 />
                             )}
                             {currentStep === 4 && (
@@ -222,7 +229,13 @@ export function RevenueIntelligenceWizard() {
                     </div>
 
                     {currentStep !== 6 && (
-                        <div className="flex justify-between items-center pt-10 mt-8 border-t border-border/50 bg-background/50 backdrop-blur-md sticky bottom-0 z-20">
+                        <div className="space-y-3">
+                            {submissionError && (
+                                <div className="rounded-lg bg-destructive/10 border border-destructive text-destructive-foreground p-3 text-sm">
+                                    <strong className="font-semibold">Submission error:</strong> {submissionError}
+                                </div>
+                            )}
+                            <div className="flex justify-between items-center pt-10 mt-8 border-t border-border/50 bg-background/50 backdrop-blur-md sticky bottom-0 z-20">
                             <Button
                                 variant="outline"
                                 onClick={prevStep}
@@ -249,6 +262,7 @@ export function RevenueIntelligenceWizard() {
                                     </>
                                 )}
                             </Button>
+                        </div>
                         </div>
                     )}
                 </div>

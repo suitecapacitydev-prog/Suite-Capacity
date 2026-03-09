@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS public.leads (
     phone TEXT,
     timeline TEXT,
     switching_management TEXT,
+    operating_status TEXT,
+    ownership_status TEXT,
     current_manager TEXT,
     lead_score INTEGER DEFAULT 0,
     created_at TIMESTAMPTZ DEFAULT now(),
@@ -60,22 +62,94 @@ ALTER TABLE public.wizard_submissions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.ai_enhancements ENABLE ROW LEVEL SECURITY;
 
 -- Policies (Simplified for now - allowed for anon/authenticated for the wizard flow)
-CREATE POLICY "Allow anon insert leads" ON public.leads FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anon insert properties" ON public.properties FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anon insert submissions" ON public.wizard_submissions FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anon insert enhancements" ON public.ai_enhancements FOR INSERT WITH CHECK (true);
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies
+        WHERE schemaname = 'public' AND tablename = 'leads' AND policyname = 'Allow anon insert leads'
+    ) THEN
+        CREATE POLICY "Allow anon insert leads" ON public.leads FOR INSERT WITH CHECK (true);
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies
+        WHERE schemaname = 'public' AND tablename = 'properties' AND policyname = 'Allow anon insert properties'
+    ) THEN
+        CREATE POLICY "Allow anon insert properties" ON public.properties FOR INSERT WITH CHECK (true);
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies
+        WHERE schemaname = 'public' AND tablename = 'wizard_submissions' AND policyname = 'Allow anon insert submissions'
+    ) THEN
+        CREATE POLICY "Allow anon insert submissions" ON public.wizard_submissions FOR INSERT WITH CHECK (true);
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_policies
+        WHERE schemaname = 'public' AND tablename = 'ai_enhancements' AND policyname = 'Allow anon insert enhancements'
+    ) THEN
+        CREATE POLICY "Allow anon insert enhancements" ON public.ai_enhancements FOR INSERT WITH CHECK (true);
+    END IF;
+END;
+$$;
 
 -- Functions for lead scoring (Automatic)
 CREATE OR REPLACE FUNCTION calculate_lead_score() RETURNS TRIGGER AS $$
 BEGIN
-    -- Base scoring logic
+    -- Start with a base score
     NEW.lead_score := 0;
-    IF NEW.timeline = 'immediately' THEN NEW.lead_score := NEW.lead_score + 10; END IF;
-    IF NEW.switching_management = 'yes' THEN NEW.lead_score := NEW.lead_score + 15; END IF;
+
+    -- Timeline urgency
+    IF NEW.timeline = 'immediately' THEN
+        NEW.lead_score := NEW.lead_score + 10;
+    ELSIF NEW.timeline = '30-days' THEN
+        NEW.lead_score := NEW.lead_score + 7;
+    ELSIF NEW.timeline = '1-3-months' THEN
+        NEW.lead_score := NEW.lead_score + 5;
+    END IF;
+
+    -- Operating status (soft disqualification for researching)
+    IF NEW.operating_status = 'yes' THEN
+        NEW.lead_score := NEW.lead_score + 15;
+    ELSIF NEW.operating_status = 'considering' THEN
+        NEW.lead_score := NEW.lead_score + 8;
+    ELSIF NEW.operating_status = 'researching' THEN
+        NEW.lead_score := NEW.lead_score - 10; -- soft disqualify
+    END IF;
+
+    -- Ownership status (highest priority for owners / contracted)
+    IF NEW.ownership_status = 'own' OR NEW.ownership_status = 'contract' THEN
+        NEW.lead_score := NEW.lead_score + 20;
+    ELSIF NEW.ownership_status = 'shopping' THEN
+        NEW.lead_score := NEW.lead_score + 8;
+    ELSIF NEW.ownership_status = 'researching' THEN
+        NEW.lead_score := NEW.lead_score - 10; -- soft disqualify
+    END IF;
+
+    -- Switching management (sign of hot lead)
+    IF NEW.switching_management = 'yes' THEN
+        NEW.lead_score := NEW.lead_score + 15;
+    END IF;
+
+    -- Prevent negative scoring
+    IF NEW.lead_score < 0 THEN
+        NEW.lead_score := 0;
+    END IF;
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER tr_calculate_lead_score
-BEFORE INSERT OR UPDATE ON public.leads
-FOR EACH ROW EXECUTE FUNCTION calculate_lead_score();
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_trigger
+        WHERE tgname = 'tr_calculate_lead_score'
+    ) THEN
+        CREATE TRIGGER tr_calculate_lead_score
+        BEFORE INSERT OR UPDATE ON public.leads
+        FOR EACH ROW EXECUTE FUNCTION calculate_lead_score();
+    END IF;
+END;
+$$;

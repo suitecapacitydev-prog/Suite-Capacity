@@ -57,7 +57,7 @@ export function ConversionOperationsAuditStep({ data, updateData }: ConversionOp
             questions: [
                 {
                     id: 'dynamicPricing',
-                    label: 'Dynamic Pricing',
+                    label: 'Dynamic Pricing Software?',
                     options: [
                         { value: 'yes', label: 'Yes (Software)' },
                         { value: 'no', label: 'No' },
@@ -67,7 +67,7 @@ export function ConversionOperationsAuditStep({ data, updateData }: ConversionOp
                 },
                 {
                     id: 'guestMessaging',
-                    label: 'Guest Messaging',
+                    label: 'Guest Messaging System',
                     options: [
                         { value: 'automated', label: 'Fully automated' },
                         { value: 'partial', label: 'Partially automated' },
@@ -76,11 +76,31 @@ export function ConversionOperationsAuditStep({ data, updateData }: ConversionOp
                     icon: <MessageSquare className="w-5 h-5" />
                 },
                 {
-                    id: 'responseTime',
-                    label: 'Inquiry Response Time',
+                    id: 'cleaningModel',
+                    label: 'Cleaning Model',
                     options: [
-                        { value: 'under-10', label: 'Under 10 mins' },
-                        { value: '10-60', label: '10–60 mins' },
+                        { value: 'dedicated', label: 'Dedicated team' },
+                        { value: 'marketplace', label: 'Marketplace' },
+                        { value: 'owner', label: 'Owner managed' },
+                    ],
+                    icon: <Brush className="w-5 h-5" />
+                },
+                {
+                    id: 'maintenance',
+                    label: 'Preventative Maintenance Inspections',
+                    options: [
+                        { value: 'quarterly', label: 'Quarterly' },
+                        { value: 'annual', label: 'Annual' },
+                        { value: 'reactive', label: 'Reactive only' },
+                    ],
+                    icon: <Drill className="w-5 h-5" />
+                },
+                {
+                    id: 'responseTime',
+                    label: 'Response Time to Guest Inquiries',
+                    options: [
+                        { value: 'under-10', label: 'Under 10 minutes' },
+                        { value: '10-60', label: '10–60 minutes' },
                         { value: '1-hour-plus', label: '1+ hour' },
                     ],
                     icon: <Clock className="w-5 h-5" />

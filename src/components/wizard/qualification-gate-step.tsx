@@ -31,8 +31,17 @@ export function QualificationGateStep({ data, updateData }: QualificationGateSte
         { value: 'just-researching', label: 'Just researching' },
     ];
 
+    const isSoftDisqualified =
+        data.isOperating === 'researching' || data.ownershipStatus === 'researching';
+
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {isSoftDisqualified && (
+                <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive-foreground">
+                    <strong className="font-semibold">Note:</strong> Selecting “Just exploring” lowers your lead score and may reduce follow-up priority.
+                </div>
+            )}
+
             <div className="space-y-4">
                 <label className="text-sm font-semibold text-secondary-foreground uppercase tracking-wider">
                     Are you currently operating this property as a short-term rental?

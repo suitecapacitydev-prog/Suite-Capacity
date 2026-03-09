@@ -12,24 +12,74 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key');
 
 /**
+ * Utility to upsert a record while gracefully handling schema mismatches.
+ *
+ * Supabase client caches the schema. If a column is missing in the remote
+ * database (e.g. the project hasn't run the latest migration), we'll retry
+ * the operation after removing the missing column(s) from the payload.
+ */
+async function upsertWithSchemaFallback<T = any>(
+  table: string,
+  payload: Record<string, unknown>,
+  opts?: any
+) {
+  const maxRetries = 5;
+  const payloadCopy = { ...payload };
+
+  for (let attempt = 0; attempt < maxRetries; attempt += 1) {
+    const { data, error } = await supabase
+      .from(table)
+      .upsert(payloadCopy, opts)
+      .select()
+      .single();
+
+    if (!error) {
+      return { data, error: null };
+    }
+
+    const message = error?.message || '';
+    const match = /Could not find the '(.+?)' column of '(.+?)' in the schema cache/i.exec(message);
+
+    if (match && match[2] === table && match[1] in payloadCopy) {
+      // Remove the unsupported column and retry
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      delete payloadCopy[match[1]];
+      console.warn(`Supabase schema mismatch: removed column ${match[1]} from payload and retrying`);
+      continue;
+    }
+
+    return { data: null, error };
+  }
+
+  return {
+    data: null,
+    error: new Error(`Failed to upsert into ${table} after ${maxRetries} attempts due to schema mismatch.`),
+  };
+}
+
+/**
  * Submits the full wizard data to the backend.
  * This is called at the end of the 10-step flow.
  */
 export async function submitWizardData(data: WizardData, projection: RevenueProjection) {
     try {
         // 1. Create or Find Lead
-        const { data: lead, error: leadError } = await supabase
-            .from('leads')
-            .upsert({
-                name: data.lead.name,
-                email: data.lead.email,
-                phone: data.lead.phone,
-                timeline: data.lead.timeline,
-                switching_management: data.lead.switchingManagement,
-                current_manager: data.lead.currentManager,
-            }, { onConflict: 'email' })
-            .select()
-            .single();
+        const leadPayload = {
+            name: data.lead.name,
+            email: data.lead.email,
+            phone: data.lead.phone,
+            timeline: data.lead.timeline,
+            switching_management: data.lead.switchingManagement,
+            operating_status: data.qualification.isOperating,
+            ownership_status: data.qualification.ownershipStatus,
+            current_manager: data.lead.currentManager,
+        };
+
+        const { data: lead, error: leadError } = await upsertWithSchemaFallback(
+            'leads',
+            leadPayload,
+            { onConflict: 'email' }
+        );
 
         if (leadError) throw leadError;
 
@@ -112,7 +162,11 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
         return { success: true, submissionId: lead.id };
     } catch (error: any) {
         console.error('Wizard Submission Error:', error);
-        return { success: false, error: error.message };
+        const message = error?.message || String(error);
+        const hint = message.toLowerCase().includes('fetch')
+            ? 'Submission failed due to network or Supabase configuration issues. Verify your NEXT_PUBLIC_SUPABASE_URL and keys.'
+            : message;
+        return { success: false, error: hint };
     }
 }
 
@@ -131,18 +185,26 @@ export async function uploadPropertyPhoto(file: File, category: string) {
 
         if (error) throw error;
 
-        // Get public URL
-        const { data: { publicUrl } } = supabase.storage
+        // Get signed URL so that the uploaded image can be accessed even if the bucket is private
+        const { data: signedUrlData, error: signedUrlError } = await supabaseAdmin.storage
             .from('property-photos')
-            .getPublicUrl(filePath);
+            .createSignedUrl(filePath, 60 * 60); // 1 hour
+
+        if (signedUrlError) {
+            throw signedUrlError;
+        }
 
         return {
-            url: publicUrl,
+            url: signedUrlData.signedUrl,
             success: true
         };
     } catch (error: any) {
         console.error('Upload Error:', error);
-        return { success: false, error: error.message };
+        const message = error?.message || String(error);
+        const hint = message.toLowerCase().includes('fetch')
+            ? 'Unable to reach Supabase. Check your NEXT_PUBLIC_SUPABASE_URL and network connectivity.'
+            : message;
+        return { success: false, error: hint };
     }
 }
 

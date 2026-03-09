@@ -18,6 +18,7 @@ interface AIDesignUploadStepProps {
 export function AIDesignUploadStep({ data, updateData }: AIDesignUploadStepProps) {
     const [isDragging, setIsDragging] = useState<string | null>(null);
     const [uploading, setUploading] = useState<Record<string, boolean>>({});
+    const [uploadErrors, setUploadErrors] = useState<Record<string, string>>({});
 
     const categories: { id: AIDesignUpload['images'][0]['category']; label: string; required: boolean }[] = [
         { id: 'living-room', label: 'Living Room', required: true },
@@ -29,6 +30,7 @@ export function AIDesignUploadStep({ data, updateData }: AIDesignUploadStepProps
     ];
 
     const handleFileUpload = async (category: AIDesignUpload['images'][0]['category'], file: File) => {
+        setUploadErrors(prev => ({ ...prev, [category]: '' }));
         setUploading(prev => ({ ...prev, [category]: true }));
         try {
             const result = await uploadPropertyPhoto(file, category);
@@ -44,7 +46,11 @@ export function AIDesignUploadStep({ data, updateData }: AIDesignUploadStepProps
                 // Remove existing image in same category if any
                 const filteredImages = currentImages.filter(img => img.category !== category);
                 updateData({ images: [...filteredImages, newImage] });
+            } else {
+                setUploadErrors(prev => ({ ...prev, [category]: result.error || 'Upload failed' }));
             }
+        } catch (error: any) {
+            setUploadErrors(prev => ({ ...prev, [category]: error?.message || String(error) }));
         } finally {
             setUploading(prev => ({ ...prev, [category]: false }));
         }
@@ -135,6 +141,9 @@ export function AIDesignUploadStep({ data, updateData }: AIDesignUploadStepProps
                                     </label>
                                 )}
                             </div>
+                            {uploadErrors[cat.id] && (
+                                <p className="text-xs text-destructive mt-1">{uploadErrors[cat.id]}</p>
+                            )}
                         </div>
                     );
                 })}
