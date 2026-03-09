@@ -17,6 +17,8 @@ interface ResultsDashboardStepProps {
         emailSent?: boolean;
         emailError?: string | null;
         emailHint?: string | null;
+        emailId?: string | null;
+        emailStatus?: any;
     } | null;
 }
 
@@ -68,6 +70,16 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                     )}
                     {submissionStatus.emailError && (
                         <p className="mt-1 text-xs">Error: {submissionStatus.emailError}</p>
+                    )}
+                    {submissionStatus.emailId && (
+                        <p className="mt-1 text-xs">
+                            Resend email ID: <span className="font-mono">{submissionStatus.emailId}</span>
+                        </p>
+                    )}
+                    {submissionStatus.emailStatus && (
+                        <p className="mt-1 text-xs">
+                            Resend delivery status: <span className="font-mono">{JSON.stringify(submissionStatus.emailStatus)}</span>
+                        </p>
                     )}
                 </div>
             )}
@@ -181,7 +193,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                         style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80"
+                            src={wizardData.aiDesign.images[0]?.enhancedUrl || wizardData.aiDesign.images[0]?.url || "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80"}
                             alt="Enhanced"
                             className="w-full h-full object-cover"
                         />

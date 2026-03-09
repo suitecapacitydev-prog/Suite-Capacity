@@ -40,6 +40,8 @@ export function AIDesignUploadStep({ data, updateData }: AIDesignUploadStepProps
                     id: Math.random().toString(36).substr(2, 9),
                     category,
                     url: result.url,
+                    enhancedUrl: result.enhancedUrl,
+                    enhancedStatus: result.enhancedStatus,
                 };
 
                 const currentImages = data.images || [];

@@ -10,7 +10,12 @@ import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { Resend } from 'resend';
 
 // Initialize Resend with your API key
+// NOTE: Make sure RESEND_API_KEY is set in your environment.
 const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key');
+
+// Use an explicit verified sender email via env to avoid delivery issues.
+// If you are using the Resend test sender, use "onboarding@resend.dev".
+const resendFromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
 /**
  * Utility to upsert a record while gracefully handling schema mismatches.
@@ -254,6 +259,8 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
         let emailSent = false;
         let emailError: string | null = null;
         let emailHint: string | null = null;
+        let emailResponseId: string | null = null;
+        let emailStatus: any = null;
 
         if (process.env.RESEND_API_KEY) {
             try {
@@ -261,9 +268,9 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                 const pdfBase64 = Buffer.from(pdfBytes).toString('base64');
                 const strategyUrl = process.env.STRATEGY_CALL_URL || 'https://yourdomain.com/schedule';
 
-                await resend.emails.send({
-                    from: 'Suite Capacity <onboarding@resend.dev>', // Update with your verified domain in production
-                    to: [data.lead.email],
+                const emailResult = await resend.emails.send({
+                    from: resendFromEmail,
+                    to: data.lead.email,
                     subject: 'Your Revenue Intelligence Report is Ready',
                     html: `
                         <h1>Hi ${data.lead.name},</h1>
@@ -300,7 +307,28 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                     ],
                 });
                 emailSent = true;
-                console.log('Confirmation email sent to:', data.lead.email);
+                emailResponseId = emailResult?.data?.id || null;
+
+                if (emailResponseId) {
+                    try {
+                        // Resend can return delivery status (delivered/bounced/etc.)
+                        const statusResult: any = await (resend as any).emails.retrieve(emailResponseId);
+                        emailStatus = statusResult?.data ?? statusResult;
+                    } catch (statusErr) {
+                        console.warn('Failed to retrieve Resend email status:', statusErr);
+                    }
+                }
+
+                console.log(
+                    'Confirmation email sent to:',
+                    data.lead.email,
+                    'emailId:',
+                    emailResponseId,
+                    'resendResult:',
+                    emailResult,
+                    'emailStatus:',
+                    emailStatus
+                );
             } catch (emailErr: any) {
                 emailError = String(emailErr?.message ?? emailErr);
                 emailHint = 'Email failed to send; check Resend API key/permissions.';
@@ -323,6 +351,8 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
             emailSent: emailSent,
             emailError: emailError,
             emailHint: emailHint,
+            emailResponseId: emailResponseId,
+            emailStatus,
         };
     } catch (error: any) {
         console.error('Wizard Submission Error:', error);
@@ -358,8 +388,26 @@ export async function uploadPropertyPhoto(file: File, category: string) {
             throw signedUrlError;
         }
 
+        // Attempt to generate an enhanced version of the image via AI (Replicate)
+        let enhancedUrl: string | undefined;
+        let enhancedStatus: 'pending' | 'completed' | 'failed' = 'pending';
+
+        try {
+            const aiResult = await AIREnderingService.enhanceImage({
+                imageUrl: signedUrlData.signedUrl,
+                category: category as any,
+            });
+            enhancedUrl = aiResult.enhancedUrl;
+            enhancedStatus = enhancedUrl ? 'completed' : 'failed';
+        } catch (aiError) {
+            console.warn('AI rendering failed, using original upload:', aiError);
+            enhancedStatus = 'failed';
+        }
+
         return {
             url: signedUrlData.signedUrl,
+            enhancedUrl,
+            enhancedStatus,
             success: true
         };
     } catch (error: any) {

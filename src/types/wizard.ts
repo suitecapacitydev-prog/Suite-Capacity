@@ -61,6 +61,7 @@ export interface AIDesignUpload {
         category: 'living-room' | 'bedroom' | 'outdoor' | 'kitchen' | 'bathroom' | 'exterior';
         url: string;
         enhancedUrl?: string;
+        enhancedStatus?: 'pending' | 'completed' | 'failed';
     }[];
 }
 

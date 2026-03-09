@@ -77,6 +77,8 @@ export function RevenueIntelligenceWizard() {
         emailSent?: boolean;
         emailError?: string | null;
         emailHint?: string | null;
+        emailId?: string | null;
+        emailStatus?: any;
     } | null>(null);
 
     const totalSteps = 10;
@@ -156,6 +158,8 @@ export function RevenueIntelligenceWizard() {
                         emailSent: res.emailSent,
                         emailError: res.emailError,
                         emailHint: res.emailHint,
+                        emailId: res.emailResponseId,
+                        emailStatus: res.emailStatus,
                     });
                     setCurrentStep((prev) => prev + 1);
                 } else {
