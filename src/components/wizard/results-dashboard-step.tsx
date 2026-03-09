@@ -13,9 +13,14 @@ import { Button } from '@/components/ui/button';
 interface ResultsDashboardStepProps {
     projection: RevenueProjection;
     wizardData: WizardData;
+    submissionStatus?: {
+        emailSent?: boolean;
+        emailError?: string | null;
+        emailHint?: string | null;
+    } | null;
 }
 
-export function ResultsDashboardStep({ projection, wizardData }: ResultsDashboardStepProps) {
+export function ResultsDashboardStep({ projection, wizardData, submissionStatus }: ResultsDashboardStepProps) {
     const [animatedRevenue, setAnimatedRevenue] = useState(0);
     const [sliderPos, setSliderPos] = useState(50);
 
@@ -44,6 +49,29 @@ export function ResultsDashboardStep({ projection, wizardData }: ResultsDashboar
 
     return (
         <div className="space-y-12 animate-in zoom-in-95 duration-700">
+            {submissionStatus && (
+                <div
+                    className={cn(
+                        'rounded-xl border p-4 text-sm',
+                        submissionStatus.emailSent
+                            ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+                            : 'bg-amber-50 border-amber-200 text-amber-900'
+                    )}
+                >
+                    {submissionStatus.emailSent ? (
+                        <div className="font-semibold">Submission succeeded! Your report email was sent.</div>
+                    ) : (
+                        <div className="font-semibold">Submission completed, but email was not delivered.</div>
+                    )}
+                    {submissionStatus.emailHint && (
+                        <p className="mt-1 text-xs">{submissionStatus.emailHint}</p>
+                    )}
+                    {submissionStatus.emailError && (
+                        <p className="mt-1 text-xs">Error: {submissionStatus.emailError}</p>
+                    )}
+                </div>
+            )}
+
             {/* Section 1: Revenue Overview */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="glass-panel p-8 space-y-4 border-border/50">

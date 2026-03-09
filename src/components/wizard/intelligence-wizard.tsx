@@ -94,7 +94,41 @@ export function RevenueIntelligenceWizard() {
         { id: 10, title: 'Booking', description: 'Strategy Call' },
     ];
 
+    const validateStep = (): string | null => {
+        if (currentStep === 2) {
+            if (!wizardData.property.address?.trim()) return 'Please enter a property address.';
+        }
+
+        if (currentStep === 3) {
+            if (wizardData.baseline.type === 'str') {
+                if (!wizardData.baseline.adr) return 'Please enter an average nightly rate (ADR).';
+                if (!wizardData.baseline.occupancy) return 'Please enter your average occupancy.';
+            } else {
+                if (!wizardData.baseline.monthlyRent) return 'Please enter your current monthly rent.';
+                if (!wizardData.baseline.leaseStructure) return 'Please select your lease structure.';
+            }
+        }
+
+        if (currentStep === 7) {
+            if (!wizardData.lead.name?.trim()) return 'Please enter your full name.';
+            if (!wizardData.lead.email?.trim()) return 'Please enter your email address.';
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(wizardData.lead.email)) return 'Please enter a valid email address.';
+        }
+
+        return null;
+    };
+
     const nextStep = async () => {
+        const validationError = validateStep();
+        if (validationError) {
+            setSubmissionError(validationError);
+            return;
+        }
+
+        // Clear any previous error state when progressing
+        setSubmissionError(null);
+
         if (currentStep === 5) {
             setIsSubmitting(true);
             try {
@@ -112,17 +146,19 @@ export function RevenueIntelligenceWizard() {
         }
 
         if (currentStep === 7) {
-            setSubmissionError(null);
             setSubmissionStatus(null);
             setIsSubmitting(true);
             try {
                 const res = await submitWizardData(wizardData, projection!);
+
                 if (res.success) {
                     setSubmissionStatus({
                         emailSent: res.emailSent,
                         emailError: res.emailError,
                         emailHint: res.emailHint,
                     });
+                    setCurrentStep((prev) => prev + 1);
+                } else {
                     console.error('Submission failed:', res.error);
                     setSubmissionError(res.error || 'Submission failed. Please try again.');
                 }
@@ -226,7 +262,11 @@ export function RevenueIntelligenceWizard() {
                                 />
                             )}
                             {currentStep === 8 && projection && (
-                                <ResultsDashboardStep projection={projection} wizardData={wizardData} />
+                                <ResultsDashboardStep
+                                    projection={projection}
+                                    wizardData={wizardData}
+                                    submissionStatus={submissionStatus}
+                                />
                             )}
                             {currentStep === 9 && (
                                 <CustomActionPlanStep data={wizardData} />

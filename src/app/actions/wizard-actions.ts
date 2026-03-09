@@ -311,7 +311,12 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
             console.warn('RESEND_API_KEY is not set. Skipping email send.');
         }
 
-        revalidatePath('/dashboard'); // Mock path
+        try {
+            revalidatePath('/dashboard'); // Mock path
+        } catch (revalidateError) {
+            console.warn('Failed to revalidate path:', revalidateError);
+        }
+
         return {
             success: true,
             submissionId: lead.id,
