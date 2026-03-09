@@ -190,6 +190,28 @@ export function RevenueBaselineStep({ data, updateData, operatingMode }: Revenue
                         ))}
                     </select>
                 </div>
+
+                <div className="space-y-2">
+                    <label className="text-sm font-semibold text-secondary-foreground uppercase tracking-wider">
+                        Do you use pricing software?
+                    </label>
+                    <div className="flex gap-3">
+                        {['yes', 'no'].map((v) => (
+                            <button
+                                key={v}
+                                onClick={() => updateData({ hasPricingSoftware: v === 'yes', type: 'str' })}
+                                className={cn(
+                                    'flex-1 px-4 py-3 rounded-xl border text-sm font-bold transition-all',
+                                    data.hasPricingSoftware === (v === 'yes')
+                                        ? 'bg-primary/10 border-primary text-primary shadow-glow'
+                                        : 'border-border hover:border-primary/50 text-muted-foreground'
+                                )}
+                            >
+                                {v === 'yes' ? 'Yes' : 'No'}
+                            </button>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -52,7 +52,7 @@ export function CalendarBookingStep() {
                             </Button>
                             <Button size="lg" variant="outline" className="flex-1 h-16 text-lg font-bold gap-2">
                                 <MessageSquare className="w-5 h-5" />
-                                Chat With Consultant
+                                Book Strategy Session
                             </Button>
                         </div>
                     </div>

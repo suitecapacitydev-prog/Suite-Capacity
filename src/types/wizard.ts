@@ -36,6 +36,7 @@ export interface RevenueBaseline {
     platforms?: ('airbnb' | 'vrbo' | 'booking' | 'direct' | 'other')[];
     directPercentage?: number;
     reviewRating?: number;
+    hasPricingSoftware?: boolean;
     // LTR specific
     monthlyRent?: number;
     leaseStructure?: 'annual' | 'month-to-month';

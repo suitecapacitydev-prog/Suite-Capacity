@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { AirDNAService } from '@/services/airdna';
 import { PriceLabsService } from '@/services/pricelabs';
 import { AIREnderingService } from '@/services/ai-rendering';
+import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { Resend } from 'resend';
 
 // Initialize Resend with your API key
@@ -57,6 +58,114 @@ async function upsertWithSchemaFallback<T = any>(
   };
 }
 
+function calculateEstimateRevenue(data: WizardData) {
+  if (data.baseline.annualRevenue) return data.baseline.annualRevenue;
+
+  if (data.baseline.type === 'ltr' && data.baseline.monthlyRent) {
+    return data.baseline.monthlyRent * 12;
+  }
+
+  // Default to STR calculation
+  const adr = data.baseline.adr || 0;
+  const occupancy = data.baseline.occupancy || 0;
+  return Math.round(adr * (occupancy / 100) * 365);
+}
+
+function computeLeadScore(data: WizardData, estimatedRevenue: number) {
+  let score = 0;
+
+  // Ownership (high priority)
+  if (data.qualification.ownershipStatus === 'own' || data.qualification.ownershipStatus === 'contract') {
+    score += 3;
+  }
+
+  // Active STR
+  if (data.qualification.isOperating === 'yes') {
+    score += 3;
+  }
+
+  // Timeline urgency
+  if (data.qualification.timeline === 'immediately') {
+    score += 3;
+  }
+
+  // Revenue threshold
+  if (estimatedRevenue > 75000) {
+    score += 2;
+  }
+
+  // Pricing software (prefer no software = higher priority)
+  if (data.baseline.hasPricingSoftware === false) {
+    score += 2;
+  }
+
+  // Direct booking (lower % = higher priority)
+  if ((data.baseline.directPercentage ?? 0) < 30) {
+    score += 2;
+  }
+
+  return score;
+}
+
+function buildCrmTags(data: WizardData, leadScore: number, estimatedRevenue: number) {
+  const tags = [] as string[];
+
+  tags.push(data.qualification.isOperating === 'yes' ? 'active-str' : 'active-ltr');
+  tags.push(estimatedRevenue > 75000 ? 'revenue->75k' : 'revenue-<75k');
+  tags.push(`timeline-${data.qualification.timeline}`);
+  tags.push(`lead-score-${leadScore}`);
+
+  return tags;
+}
+
+async function generateReportPdf(data: WizardData, projection: RevenueProjection) {
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([612, 792]); // US Letter
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+
+  const lineHeight = 18;
+  let y = 760;
+
+  const drawText = (text: string, options: { size?: number; bold?: boolean } = {}) => {
+    const usedFont = options.bold ? fontBold : font;
+    const size = options.size ?? 12;
+    page.drawText(text, { x: 50, y, size, font: usedFont });
+    y -= lineHeight;
+  };
+
+  drawText('Revenue Intelligence Report', { size: 18, bold: true });
+  y -= 10;
+  drawText(`Property: ${data.property.address}`, { bold: true });
+  y -= 10;
+  drawText(`Prepared for: ${data.lead.name}`);
+  y -= 20;
+
+  drawText('Revenue Breakdown', { size: 14, bold: true });
+  const estimatedRevenue = calculateEstimateRevenue(data);
+  drawText(`• Estimated Current Revenue: $${estimatedRevenue.toLocaleString()}`);
+  drawText(`• Projected Revenue: $${projection.optimizedRevenue.toLocaleString()}`);
+  drawText(`• Projected Lift: $${(projection.optimizedRevenue - estimatedRevenue).toLocaleString()}`);
+  y -= 10;
+
+  drawText('Action Plan', { size: 14, bold: true });
+  drawText('• Improve listing conversion with updated photography and copy.');
+  drawText('• Implement dynamic pricing and automated messaging.');
+  drawText('• Increase direct bookings via direct checkout integration.');
+  y -= 10;
+
+  drawText('Case Study', { size: 14, bold: true });
+  drawText('Property X increased revenue by 22% in 90 days using the same playbook.');
+  y -= 10;
+
+  const strategyUrl = process.env.STRATEGY_CALL_URL || 'https://yourdomain.com/schedule';
+  drawText('Strategy Call', { size: 14, bold: true });
+  drawText(`Book your strategy session: ${strategyUrl}`);
+
+  const pdfBytes = await pdfDoc.save();
+  return pdfBytes;
+}
+
 /**
  * Submits the full wizard data to the backend.
  * This is called at the end of the 10-step flow.
@@ -64,6 +173,10 @@ async function upsertWithSchemaFallback<T = any>(
 export async function submitWizardData(data: WizardData, projection: RevenueProjection) {
     try {
         // 1. Create or Find Lead
+        const estimatedRevenue = calculateEstimateRevenue(data);
+        const leadScore = computeLeadScore(data, estimatedRevenue);
+        const crmTags = buildCrmTags(data, leadScore, estimatedRevenue);
+
         const leadPayload = {
             name: data.lead.name,
             email: data.lead.email,
@@ -73,6 +186,11 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
             operating_status: data.qualification.isOperating,
             ownership_status: data.qualification.ownershipStatus,
             current_manager: data.lead.currentManager,
+            estimated_revenue: estimatedRevenue,
+            has_pricing_software: data.baseline.hasPricingSoftware,
+            direct_booking_pct: data.baseline.directPercentage,
+            lead_score: leadScore,
+            crm_tags: crmTags,
         };
 
         const { data: lead, error: leadError } = await upsertWithSchemaFallback(
@@ -133,8 +251,16 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
         }
 
         // 5. Send Email via Resend
+        let emailSent = false;
+        let emailError: string | null = null;
+        let emailHint: string | null = null;
+
         if (process.env.RESEND_API_KEY) {
             try {
+                const pdfBytes = await generateReportPdf(data, projection);
+                const pdfBase64 = Buffer.from(pdfBytes).toString('base64');
+                const strategyUrl = process.env.STRATEGY_CALL_URL || 'https://yourdomain.com/schedule';
+
                 await resend.emails.send({
                     from: 'Suite Capacity <onboarding@resend.dev>', // Update with your verified domain in production
                     to: [data.lead.email],
@@ -142,24 +268,57 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                     html: `
                         <h1>Hi ${data.lead.name},</h1>
                         <p>Thank you for submitting your property details for ${data.property.address}.</p>
-                        <p>Your custom Revenue Intelligence Report has been generated successfully.</p>
-                        <p>Based on our analysis, your property has an optimized revenue potential of <strong>$${projection.optimizedRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}</strong>.</p>
-                        <p>Our team will follow up shortly to discuss these insights.</p>
+
+                        <h2>Revenue Breakdown</h2>
+                        <p><strong>Current Estimate:</strong> $${estimatedRevenue.toLocaleString()}</p>
+                        <p><strong>Optimized Potential:</strong> $${projection.optimizedRevenue.toLocaleString()}</p>
+                        <p><strong>Projected Lift:</strong> $${(projection.optimizedRevenue - estimatedRevenue).toLocaleString()}</p>
+
+                        <h2>Action Plan</h2>
+                        <ul>
+                            <li>Refresh listing visuals + copy.</li>
+                            <li>Enable dynamic pricing + automated guest messaging.</li>
+                            <li>Boost direct bookings with a direct checkout flow.</li>
+                        </ul>
+
+                        <h2>Case Study</h2>
+                        <p>Property X scaled revenue +22% in 90 days using the same playbook.</p>
+
+                        <h2>Next Step</h2>
+                        <p><a href="${strategyUrl}">Book a 1:1 Strategy Session</a> to activate the full revenue optimization plan.</p>
+
                         <br/>
                         <p>Best Regards,</p>
                         <p>The Suite Capacity Team</p>
-                    `
+                    `,
+                    attachments: [
+                        {
+                            contentType: 'application/pdf',
+                            filename: 'Revenue Intelligence Report.pdf',
+                            content: pdfBase64,
+                        },
+                    ],
                 });
+                emailSent = true;
                 console.log('Confirmation email sent to:', data.lead.email);
-            } catch (emailError) {
-                console.error('Failed to send email:', emailError);
+            } catch (emailErr: any) {
+                emailError = String(emailErr?.message ?? emailErr);
+                emailHint = 'Email failed to send; check Resend API key/permissions.';
+                console.error('Failed to send email:', emailErr);
             }
         } else {
+            emailHint = 'RESEND_API_KEY is not set; email was not sent.';
             console.warn('RESEND_API_KEY is not set. Skipping email send.');
         }
 
         revalidatePath('/dashboard'); // Mock path
-        return { success: true, submissionId: lead.id };
+        return {
+            success: true,
+            submissionId: lead.id,
+            emailSent: emailSent,
+            emailError: emailError,
+            emailHint: emailHint,
+        };
     } catch (error: any) {
         console.error('Wizard Submission Error:', error);
         const message = error?.message || String(error);

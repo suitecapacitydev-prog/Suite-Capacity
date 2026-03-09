@@ -73,6 +73,11 @@ export function RevenueIntelligenceWizard() {
 
     const [projection, setProjection] = useState<RevenueProjection | null>(null);
     const [submissionError, setSubmissionError] = useState<string | null>(null);
+    const [submissionStatus, setSubmissionStatus] = useState<{
+        emailSent?: boolean;
+        emailError?: string | null;
+        emailHint?: string | null;
+    } | null>(null);
 
     const totalSteps = 10;
 
@@ -108,12 +113,16 @@ export function RevenueIntelligenceWizard() {
 
         if (currentStep === 7) {
             setSubmissionError(null);
+            setSubmissionStatus(null);
             setIsSubmitting(true);
             try {
                 const res = await submitWizardData(wizardData, projection!);
                 if (res.success) {
-                    setCurrentStep((prev) => prev + 1);
-                } else {
+                    setSubmissionStatus({
+                        emailSent: res.emailSent,
+                        emailError: res.emailError,
+                        emailHint: res.emailHint,
+                    });
                     console.error('Submission failed:', res.error);
                     setSubmissionError(res.error || 'Submission failed. Please try again.');
                 }
@@ -233,6 +242,21 @@ export function RevenueIntelligenceWizard() {
                             {submissionError && (
                                 <div className="rounded-lg bg-destructive/10 border border-destructive text-destructive-foreground p-3 text-sm">
                                     <strong className="font-semibold">Submission error:</strong> {submissionError}
+                                </div>
+                            )}
+                            {submissionStatus && (
+                                <div className="rounded-lg bg-primary/10 border border-primary text-primary-foreground p-3 text-sm">
+                                    <strong className="font-semibold">Submission status:</strong>
+                                    <div className="mt-1">
+                                        {submissionStatus.emailSent ? (
+                                            <span>Email sent successfully to {wizardData.lead.email}.</span>
+                                        ) : (
+                                            <span>
+                                                Email not sent. {submissionStatus.emailHint ?? 'Check server configuration.'}
+                                                {submissionStatus.emailError ? ` Error: ${submissionStatus.emailError}` : ''}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             )}
                             <div className="flex justify-between items-center pt-10 mt-8 border-t border-border/50 bg-background/50 backdrop-blur-md sticky bottom-0 z-20">

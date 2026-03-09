@@ -11,6 +11,10 @@ CREATE TABLE IF NOT EXISTS public.leads (
     operating_status TEXT,
     ownership_status TEXT,
     current_manager TEXT,
+    estimated_revenue NUMERIC,
+    has_pricing_software BOOLEAN,
+    direct_booking_pct INTEGER,
+    crm_tags TEXT[],
     lead_score INTEGER DEFAULT 0,
     created_at TIMESTAMPTZ DEFAULT now(),
     updated_at TIMESTAMPTZ DEFAULT now()
@@ -100,41 +104,34 @@ BEGIN
     -- Start with a base score
     NEW.lead_score := 0;
 
-    -- Timeline urgency
-    IF NEW.timeline = 'immediately' THEN
-        NEW.lead_score := NEW.lead_score + 10;
-    ELSIF NEW.timeline = '30-days' THEN
-        NEW.lead_score := NEW.lead_score + 7;
-    ELSIF NEW.timeline = '1-3-months' THEN
-        NEW.lead_score := NEW.lead_score + 5;
+    -- Ownership status
+    IF NEW.ownership_status IN ('own', 'contract') THEN
+        NEW.lead_score := NEW.lead_score + 3;
     END IF;
 
-    -- Operating status (soft disqualification for researching)
+    -- Active STR
     IF NEW.operating_status = 'yes' THEN
-        NEW.lead_score := NEW.lead_score + 15;
-    ELSIF NEW.operating_status = 'considering' THEN
-        NEW.lead_score := NEW.lead_score + 8;
-    ELSIF NEW.operating_status = 'researching' THEN
-        NEW.lead_score := NEW.lead_score - 10; -- soft disqualify
+        NEW.lead_score := NEW.lead_score + 3;
     END IF;
 
-    -- Ownership status (highest priority for owners / contracted)
-    IF NEW.ownership_status = 'own' OR NEW.ownership_status = 'contract' THEN
-        NEW.lead_score := NEW.lead_score + 20;
-    ELSIF NEW.ownership_status = 'shopping' THEN
-        NEW.lead_score := NEW.lead_score + 8;
-    ELSIF NEW.ownership_status = 'researching' THEN
-        NEW.lead_score := NEW.lead_score - 10; -- soft disqualify
+    -- Immediate timeline
+    IF NEW.timeline = 'immediately' THEN
+        NEW.lead_score := NEW.lead_score + 3;
     END IF;
 
-    -- Switching management (sign of hot lead)
-    IF NEW.switching_management = 'yes' THEN
-        NEW.lead_score := NEW.lead_score + 15;
+    -- Revenue threshold
+    IF COALESCE(NEW.estimated_revenue, 0) > 75000 THEN
+        NEW.lead_score := NEW.lead_score + 2;
     END IF;
 
-    -- Prevent negative scoring
-    IF NEW.lead_score < 0 THEN
-        NEW.lead_score := 0;
+    -- No pricing software (more qualified if not using any)
+    IF NEW.has_pricing_software = FALSE THEN
+        NEW.lead_score := NEW.lead_score + 2;
+    END IF;
+
+    -- Low direct booking percentage
+    IF COALESCE(NEW.direct_booking_pct, 0) < 30 THEN
+        NEW.lead_score := NEW.lead_score + 2;
     END IF;
 
     RETURN NEW;
