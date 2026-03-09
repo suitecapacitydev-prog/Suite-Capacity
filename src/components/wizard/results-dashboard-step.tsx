@@ -26,6 +26,21 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
     const [animatedRevenue, setAnimatedRevenue] = useState(0);
     const [sliderPos, setSliderPos] = useState(50);
 
+    const formatEmailStatus = (status: any) => {
+        if (!status) return null;
+        if (typeof status === 'string') return status;
+        if (typeof status === 'object') {
+            if (status.status) return status.status;
+            if (status.state) return status.state;
+            if (status.delivered !== undefined) return status.delivered ? 'delivered' : 'undelivered';
+            if (status.message) return status.message;
+            return JSON.stringify(status);
+        }
+        return String(status);
+    };
+
+    const deliveryStatusText = formatEmailStatus(submissionStatus?.emailStatus);
+
     useEffect(() => {
         const duration = 2000;
         const start = 0;
@@ -73,12 +88,12 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                     )}
                     {submissionStatus.emailId && (
                         <p className="mt-1 text-xs">
-                            Resend email ID: <span className="font-mono">{submissionStatus.emailId}</span>
+                            Message ID: <span className="font-mono">{submissionStatus.emailId}</span>
                         </p>
                     )}
-                    {submissionStatus.emailStatus && (
+                    {deliveryStatusText && (
                         <p className="mt-1 text-xs">
-                            Resend delivery status: <span className="font-mono">{JSON.stringify(submissionStatus.emailStatus)}</span>
+                            Delivery status: <span className="font-mono">{deliveryStatusText}</span>
                         </p>
                     )}
                 </div>
