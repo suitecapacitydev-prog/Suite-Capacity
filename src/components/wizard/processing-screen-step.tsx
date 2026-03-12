@@ -1,12 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Sparkles, BarChart3, Search, Zap, CheckCircle2 } from 'lucide-react';
+import { Sparkles, BarChart3, Search, Zap, CheckCircle2, X } from 'lucide-react';
 
-export function ProcessingScreenStep({ onComplete }: { onComplete: () => void }) {
+export function ProcessingScreenStep({
+    onComplete,
+    onCancel,
+}: {
+    onComplete: () => void;
+    onCancel?: () => void;
+}) {
     const [progress, setProgress] = useState(0);
     const [currentMessageIdx, setCurrentMessageIdx] = useState(0);
+    const cancelledRef = useRef(false);
 
     const messages = [
         { text: "Analyzing Market Demand", icon: <Search className="w-5 h-5" /> },
@@ -23,7 +30,7 @@ export function ProcessingScreenStep({ onComplete }: { onComplete: () => void })
 
         const timer = setInterval(() => {
             setProgress((prev) => {
-                if (prev >= 100) {
+                if (prev >= 100 || cancelledRef.current) {
                     clearInterval(timer);
                     return 100;
                 }
@@ -43,10 +50,15 @@ export function ProcessingScreenStep({ onComplete }: { onComplete: () => void })
     }, [messages.length]);
 
     useEffect(() => {
-        if (progress >= 100) {
+        if (progress >= 100 && !cancelledRef.current) {
             onComplete();
         }
     }, [progress, onComplete]);
+
+    const handleCancel = () => {
+        cancelledRef.current = true;
+        onCancel?.();
+    };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-[400px] space-y-12 animate-in fade-in duration-1000">
@@ -102,6 +114,17 @@ export function ProcessingScreenStep({ onComplete }: { onComplete: () => void })
                 <div className="text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground animate-pulse">
                     Processing Intelligence Data... {Math.round(progress)}%
                 </div>
+            </div>
+
+            <div className="flex justify-center">
+                <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-muted bg-muted/60 text-sm font-bold text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                >
+                    <X className="w-4 h-4" />
+                    Cancel
+                </button>
             </div>
         </div>
     );

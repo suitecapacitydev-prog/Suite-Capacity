@@ -1,39 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand Palette - Deep Navy / Data Command */
-  --background: #05070a;
-  --foreground: #f0f4f8;
+  /* Brand Palette (suitecapacity.com styles) */
+  --background: #F4F3F2;
+  --foreground: #000000;
 
-  --card: #0c0f16;
-  --card-foreground: #f0f4f8;
+  --card: #ffffff;
+  --card-foreground: #000000;
 
-  --popover: #0c0f16;
-  --popover-foreground: #f0f4f8;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
 
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
+  --primary: #ABD1C7;
+  --primary-foreground: #000000;
 
-  --secondary: #1e293b;
-  --secondary-foreground: #94a3b8;
+  --secondary: #5A6D68;
+  --secondary-foreground: #000000;
 
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
+  --muted: #C0CBC8;
+  --muted-foreground: #000000;
 
-  --accent: #2563eb;
-  --accent-foreground: #ffffff;
+  --accent: #D9907D;
+  --accent-foreground: #000000;
 
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
+  --destructive: #D9907D;
+  --destructive-foreground: #000000;
 
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #3b82f6;
+  --border: #C0CBC8;
+  --input: #ffffff;
+  --ring: #D9907D;
 
   /* Data Accents */
-  --intelligence-glow: 0 0 20px rgba(59, 130, 246, 0.3);
-  --success-teal: #14b8a6;
-  --warning-amber: #f59e0b;
+  --intelligence-glow: 0 0 20px rgba(217, 144, 125, 0.25);
+  --success-teal: #ABD1C7;
+  --warning-amber: #D9907D;
 }
 
 @theme inline {
@@ -64,8 +64,8 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   background-image:
-    radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.02) 0%, transparent 50%);
+    radial-gradient(circle at 50% 0%, rgba(217, 144, 125, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 0% 100%, rgba(171, 209, 199, 0.10) 0%, transparent 55%);
   background-attachment: fixed;
 }
 
@@ -88,10 +88,11 @@ body {
 }
 
 .glass-panel {
-  background: rgba(12, 15, 22, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
+  color: var(--card-foreground);
 }
 
 .intelligence-border {
@@ -123,6 +124,11 @@ body {
   100% {
     transform: translateY(100%);
   }
+}
+
+/* Ensure white text is rendered as black/foreground for better contrast */
+.text-white {
+  color: var(--foreground) !important;
 }
 
 .scan-line {

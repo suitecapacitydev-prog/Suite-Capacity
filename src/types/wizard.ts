@@ -91,6 +91,9 @@ export interface RevenueProjection {
     ecosystemLift: number;
     designLift: number;
     efficiencyLift: number;
+    // Indicates whether the projection was generated using fallback/demo values
+    // (e.g., missing AirDNA API key or failed marketplace lookup).
+    usingMockData?: boolean;
     marketComparison: {
         marketMedianAdr: number;
         topQuartileAdr: number;

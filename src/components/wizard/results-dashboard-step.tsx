@@ -99,6 +99,16 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                 </div>
             )}
 
+            {projection.usingMockData && (
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-900">
+                    <div className="font-semibold">Note: Market data is estimated.</div>
+                    <p className="mt-1">
+                        The dashboard is using mock market data because AirDNA could not be accessed.
+                        Ensure <code>AIRDNA_API_KEY</code> is configured and the address is valid.
+                    </p>
+                </div>
+            )}
+
             {/* Section 1: Revenue Overview */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="glass-panel p-8 space-y-4 border-border/50">

@@ -176,6 +176,15 @@ export function RevenueIntelligenceWizard() {
             return;
         }
 
+        if (currentStep === totalSteps) {
+            // At the end of the flow, allow users to restart and try another property.
+            setSubmissionStatus(null);
+            setSubmissionError(null);
+            setProjection(null);
+            setCurrentStep(1);
+            return;
+        }
+
         setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
     };
 
@@ -257,7 +266,10 @@ export function RevenueIntelligenceWizard() {
                                 />
                             )}
                             {currentStep === 6 && (
-                                <ProcessingScreenStep onComplete={nextStep} />
+                                <ProcessingScreenStep
+                                    onComplete={nextStep}
+                                    onCancel={() => setCurrentStep(5)}
+                                />
                             )}
                             {currentStep === 7 && (
                                 <LeadCaptureGateStep
@@ -276,7 +288,10 @@ export function RevenueIntelligenceWizard() {
                                 <CustomActionPlanStep data={wizardData} />
                             )}
                             {currentStep === 10 && (
-                                <CalendarBookingStep />
+                                <CalendarBookingStep
+                                    onBack={prevStep}
+                                    onContinue={() => setCurrentStep(1)}
+                                />
                             )}
                         </div>
                     </div>
@@ -286,21 +301,6 @@ export function RevenueIntelligenceWizard() {
                             {submissionError && (
                                 <div className="rounded-lg bg-destructive/10 border border-destructive text-destructive-foreground p-3 text-sm">
                                     <strong className="font-semibold">Submission error:</strong> {submissionError}
-                                </div>
-                            )}
-                            {submissionStatus && (
-                                <div className="rounded-lg bg-primary/10 border border-primary text-primary-foreground p-3 text-sm">
-                                    <strong className="font-semibold">Submission status:</strong>
-                                    <div className="mt-1">
-                                        {submissionStatus.emailSent ? (
-                                            <span>Email sent successfully to {wizardData.lead.email}.</span>
-                                        ) : (
-                                            <span>
-                                                Email not sent. {submissionStatus.emailHint ?? 'Check server configuration.'}
-                                                {submissionStatus.emailError ? ` Error: ${submissionStatus.emailError}` : ''}
-                                            </span>
-                                        )}
-                                    </div>
                                 </div>
                             )}
                             <div className="flex justify-between items-center pt-10 mt-8 border-t border-border/50 bg-background/50 backdrop-blur-md sticky bottom-0 z-20">
@@ -316,7 +316,7 @@ export function RevenueIntelligenceWizard() {
                                 variant="intelligence"
                                 onClick={nextStep}
                                 className="px-10 gap-2 shadow-glow font-black uppercase tracking-widest text-xs"
-                                disabled={currentStep === 10 || isSubmitting}
+                                disabled={isSubmitting}
                             >
                                 {isSubmitting ? (
                                     <>
@@ -325,7 +325,13 @@ export function RevenueIntelligenceWizard() {
                                     </>
                                 ) : (
                                     <>
-                                        {currentStep === 5 ? 'Process Intelligence' : currentStep === 7 ? 'Generate Dashboard' : 'Continue'}
+                                        {currentStep === 5
+                                            ? 'Process Intelligence'
+                                            : currentStep === 7
+                                            ? 'Generate Dashboard'
+                                            : currentStep === 10
+                                            ? 'Restart' 
+                                            : 'Continue'}
                                         <ArrowRight className="w-4 h-4" />
                                     </>
                                 )}

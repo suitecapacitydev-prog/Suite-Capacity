@@ -4,7 +4,28 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar, MessageSquare, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 
-export function CalendarBookingStep() {
+interface CalendarBookingStepProps {
+    onBack?: () => void;
+    onContinue?: () => void;
+    strategyUrl?: string;
+}
+
+export function CalendarBookingStep({ onBack, onContinue, strategyUrl }: CalendarBookingStepProps) {
+    const defaultUrl = process.env.NEXT_PUBLIC_STRATEGY_CALL_URL || 'https://yourdomain.com/schedule';
+    const callUrl = strategyUrl || defaultUrl;
+
+    const openBooking = () => {
+        window.open(callUrl, '_blank');
+    };
+
+    const handleActivate = () => {
+        if (onContinue) {
+            onContinue();
+            return;
+        }
+        openBooking();
+    };
+
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center max-w-3xl mx-auto">
             <div className="space-y-4">
@@ -39,21 +60,47 @@ export function CalendarBookingStep() {
                     </div>
 
                     <div className="space-y-4">
-                        <div className="w-full aspect-[16/9] bg-muted/50 rounded-xl border-2 border-dashed border-border flex flex-col items-center justify-center gap-4 group hover:bg-muted transition-all cursor-pointer">
+                        <div
+                            className="w-full aspect-[16/9] bg-muted/50 rounded-xl border-2 border-dashed border-border flex flex-col items-center justify-center gap-4 group hover:bg-muted transition-all cursor-pointer"
+                            onClick={openBooking}
+                        >
                             <Calendar className="w-12 h-12 text-muted-foreground group-hover:text-primary transition-colors" />
                             <p className="font-bold text-muted-foreground uppercase tracking-widest">[ Calendar Embed Widget ]</p>
                             <p className="text-xs text-muted-foreground/50">Calendly / SavvyCal integration would load here</p>
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <Button size="lg" variant="intelligence" className="flex-1 h-16 text-lg font-black gap-2 shadow-glow uppercase tracking-widest">
+                            <Button
+                                size="lg"
+                                variant="intelligence"
+                                className="flex-1 h-16 text-lg font-black gap-2 shadow-glow uppercase tracking-widest"
+                                onClick={handleActivate}
+                            >
                                 Activate My Property
                                 <ArrowRight className="w-5 h-5" />
                             </Button>
-                            <Button size="lg" variant="outline" className="flex-1 h-16 text-lg font-bold gap-2">
+                            <Button
+                                size="lg"
+                                variant="outline"
+                                className="flex-1 h-16 text-lg font-bold gap-2"
+                                onClick={openBooking}
+                            >
                                 <MessageSquare className="w-5 h-5" />
                                 Book Strategy Session
                             </Button>
+                        </div>
+
+                        <div className="flex justify-between items-center gap-4 pt-4">
+                            {onBack && (
+                                <Button variant="outline" onClick={onBack} className="flex-1 h-14">
+                                    Back
+                                </Button>
+                            )}
+                            {onContinue && (
+                                <Button variant="intelligence" onClick={onContinue} className="flex-1 h-14">
+                                    Continue
+                                </Button>
+                            )}
                         </div>
                     </div>
                 </div>

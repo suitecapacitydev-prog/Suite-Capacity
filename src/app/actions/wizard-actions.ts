@@ -452,6 +452,7 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
             ecosystemLift: totalLift * 0.15,
             designLift: totalLift * 0.15,
             efficiencyLift: totalLift * 0.05,
+            usingMockData: false,
             marketComparison: {
                 marketMedianAdr: marketData.adr,
                 topQuartileAdr: marketData.adr * 1.4,
@@ -461,20 +462,32 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
         };
     } catch (error) {
         console.error('Intelligence Calculation Error:', error);
-        // Fallback for demo if APIs are still setup
+
+        // Fallback for demo mode: derive projections from user input instead of hard-coded constants.
+        const currentRevenue = calculateEstimateRevenue(data);
+
+        // Simple lift assumptions when external APIs are not available
+        const baseLiftPct = 0.18; // 18% lift assumed for baseline improvement
+        const optimizedRevenue = Math.round(currentRevenue * (1 + baseLiftPct));
+        const totalLift = optimizedRevenue - currentRevenue;
+
+        const estimatedAdr = data.baseline.adr || 250;
+        const estimatedOccupancy = data.baseline.occupancy || 60;
+
         return {
-            currentRevenue: 100000,
-            optimizedRevenue: 125000,
-            pricingLift: 10000,
-            conversionLift: 5000,
-            ecosystemLift: 5000,
-            designLift: 4000,
-            efficiencyLift: 1000,
+            currentRevenue,
+            optimizedRevenue,
+            pricingLift: Math.round(totalLift * 0.4),
+            conversionLift: Math.round(totalLift * 0.25),
+            ecosystemLift: Math.round(totalLift * 0.15),
+            designLift: Math.round(totalLift * 0.15),
+            efficiencyLift: Math.round(totalLift * 0.05),
+            usingMockData: true,
             marketComparison: {
-                marketMedianAdr: 250,
-                topQuartileAdr: 350,
-                marketOccupancy: 65,
-                demandIndex: 85
+                marketMedianAdr: estimatedAdr,
+                topQuartileAdr: Math.round(estimatedAdr * 1.2),
+                marketOccupancy: Math.min(100, Math.max(0, estimatedOccupancy)),
+                demandIndex: 80,
             }
         };
     }
