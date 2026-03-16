@@ -5,7 +5,7 @@ export function GuestEcosystemSection() {
     <section id="guest-ecosystem" className="py-24 relative overflow-hidden bg-black/40 border-t border-b border-white/5">
       {/* Background glow effects */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-      
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight uppercase text-black">
@@ -19,10 +19,7 @@ export function GuestEcosystemSection() {
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           {/* Left Column: Visual Flywheel Diagram */}
           <div className="relative aspect-square max-w-[500px] mx-auto w-full group">
-            <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-[10px] font-black uppercase tracking-[0.4em] text-black/40 whitespace-nowrap">
-              Demand Flywheel Diagram
-            </div>
-            
+
             {/* Center Node */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 rounded-full glass-panel border border-black/20 flex flex-col items-center justify-center z-20 shadow-[0_0_50px_rgba(0,0,0,0.15)] group-hover:scale-110 transition-transform duration-700">
               <Network className="w-12 h-12 text-black mb-2" />
