@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { LayoutGrid, BarChart3, Users2, ShieldCheck, Map, Menu, X } from 'lucide-react';
 import { useState } from 'react';
@@ -70,7 +71,17 @@ export default function RootLayout({
             </header>
 
             <main className="flex-grow pt-20">
-                {children}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key="content"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {children}
+                    </motion.div>
+                </AnimatePresence>
             </main>
 
             <footer className="bg-card border-t border-border py-12">
