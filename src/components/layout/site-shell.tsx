@@ -34,7 +34,7 @@ export default function RootLayout({
                     </nav>
 
                     <div className="flex items-center gap-4">
-                        <Link href="/login" className="hidden sm:inline-block text-sm font-semibold text-black px-4 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Owner Login</Link>
+                        <Link href="/platform/owner-dashboard" className="hidden sm:inline-block text-sm font-semibold text-black px-4 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Owner Login</Link>
                         <Link href="/wizard">
                             <Button variant="intelligence" size="sm" className="hidden sm:inline-flex shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-95">
                                 Initial Audit
@@ -59,7 +59,7 @@ export default function RootLayout({
                             <Link href="/case-studies" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">Performance</Link>
                             <Link href="/about" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">About</Link>
                             <div className="pt-4 mt-2 border-t border-black/5 flex flex-col gap-4">
-                                <Link href="/login" onClick={() => setIsMenuOpen(false)} className="px-4 py-2 font-semibold text-black transition-colors">Owner Login</Link>
+                                <Link href="/platform/owner-dashboard" onClick={() => setIsMenuOpen(false)} className="px-4 py-2 font-semibold text-black transition-colors">Owner Login</Link>
                                 <Link href="/wizard" onClick={() => setIsMenuOpen(false)}>
                                     <Button variant="intelligence" className="w-full">Initial Audit</Button>
                                 </Link>

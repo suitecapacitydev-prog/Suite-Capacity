@@ -33,11 +33,16 @@ export function Hero() {
                                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                             </Button>
                         </Link>
-                        <Link href="#how-it-works" className="w-full sm:w-auto">
-                            <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                                See How the Platform Works
-                            </Button>
-                        </Link>
+                        <Button 
+                            size="lg" 
+                            variant="outline" 
+                            className="w-full sm:w-auto"
+                            onClick={() => {
+                                document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                        >
+                            See How the Platform Works
+                        </Button>
                     </div>
 
                     {/* Quick Metrics / Stats Overlay */}
