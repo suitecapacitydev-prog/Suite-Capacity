@@ -46,23 +46,38 @@ export default function MarketsPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {markets.map((market, index) => (
-              <div key={index} className="glass-panel p-8 group hover:border-primary/30 transition-all hover:scale-[1.02] flex flex-col">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-                  <market.icon className="w-6 h-6 text-primary" />
+              <div key={index} className="glass-panel overflow-hidden group hover:border-primary/30 transition-all hover:scale-[1.02] flex flex-col">
+                <div className="h-48 overflow-hidden relative">
+                    <img 
+                        src={
+                            market.name === 'Jersey Shore' ? '/images/properties/waterfront.jpg' :
+                            market.name === 'Florida Coastal' ? '/images/properties/beachside.jpg' :
+                            '/images/properties/hot-tub.jpg'
+                        } 
+                        alt={market.name} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                            <market.icon className="w-5 h-5 text-black" />
+                        </div>
+                    </div>
                 </div>
-                <h3 className="text-2xl font-bold mb-3">{market.name}</h3>
-                <p className="text-black opacity-70 text-sm leading-relaxed mb-6 flex-grow">
-                  {market.desc}
-                </p>
-                <div className="pt-6 border-t border-border flex justify-between items-center text-sm">
-                  <div className="space-y-1">
-                    <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Rev Lift</p>
-                    <p className="text-lg font-bold text-black">{market.performance}</p>
-                  </div>
-                  <div className="space-y-1 text-right">
-                    <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Managed</p>
-                    <p className="text-lg font-bold text-black">{market.stats}</p>
-                  </div>
+                <div className="p-8 flex flex-col flex-grow">
+                    <h3 className="text-2xl font-bold mb-3">{market.name}</h3>
+                    <p className="text-black opacity-70 text-sm leading-relaxed mb-6 flex-grow">
+                    {market.desc}
+                    </p>
+                    <div className="pt-6 border-t border-border flex justify-between items-center text-sm">
+                    <div className="space-y-1">
+                        <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Rev Lift</p>
+                        <p className="text-lg font-bold text-black">{market.performance}</p>
+                    </div>
+                    <div className="space-y-1 text-right">
+                        <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Managed</p>
+                        <p className="text-lg font-bold text-black">{market.stats}</p>
+                    </div>
+                    </div>
                 </div>
               </div>
             ))}

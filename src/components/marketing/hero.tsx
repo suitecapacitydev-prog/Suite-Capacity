@@ -22,8 +22,14 @@ export function Hero() {
     return (
         <section className="relative overflow-hidden py-24 md:py-32">
             {/* Background Data Overlay Visuals */}
-            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                <img 
+                    src="/images/hero-bg.jpg" 
+                    alt="Jersey Shore" 
+                    className="absolute inset-0 w-full h-full object-cover opacity-20"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white" />
+                <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10" />
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}

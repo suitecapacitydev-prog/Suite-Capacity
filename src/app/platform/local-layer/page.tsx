@@ -82,27 +82,34 @@ export default function LocalLayerPage() {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="relative">
             <div className="absolute -inset-4 bg-primary/10 blur-[40px] rounded-full pointer-events-none" />
-            <div className="glass-panel p-8 relative z-10 border-l-4 border-l-black/30">
-              <h3 className="text-2xl font-bold mb-4">Precision Inspections</h3>
-              <p className="text-black mb-6">
-                Our "120-Point Scan" is performed before every peak season and after major guest stays. We don't just look for "broken" things—we look for optimization opportunities.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm">
-                  <ClipboardCheck className="w-4 h-4 text-black" />
-                  <span>Furniture & Furnishing Condition</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <ClipboardCheck className="w-4 h-4 text-black" />
-                  <span>Safety & Compliance Verification</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <ClipboardCheck className="w-4 h-4 text-black" />
-                  <span>Connectivity & Tech Audit</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <ClipboardCheck className="w-4 h-4 text-black" />
-                  <span>Inventory Precision Check</span>
+            <div className="glass-panel overflow-hidden relative z-10 border-l-4 border-l-black/30">
+              <img 
+                src="/images/repairs.jpg" 
+                alt="Proactive Maintenance" 
+                className="w-full h-48 object-cover opacity-80"
+              />
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-4">Precision Inspections</h3>
+                <p className="text-black mb-6">
+                    Our "120-Point Scan" is performed before every peak season and after major guest stays. We don't just look for "broken" things—we look for optimization opportunities.
+                </p>
+                <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-sm">
+                    <ClipboardCheck className="w-4 h-4 text-black" />
+                    <span>Furniture & Furnishing Condition</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                    <ClipboardCheck className="w-4 h-4 text-black" />
+                    <span>Safety & Compliance Verification</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                    <ClipboardCheck className="w-4 h-4 text-black" />
+                    <span>Connectivity & Tech Audit</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                    <ClipboardCheck className="w-4 h-4 text-black" />
+                    <span>Inventory Precision Check</span>
+                    </div>
                 </div>
               </div>
             </div>
@@ -110,14 +117,28 @@ export default function LocalLayerPage() {
           <div>
             <h2 className="text-3xl font-bold mb-6">Market-specific expertise that scales.</h2>
             <p className="text-lg text-black mb-8">
-              We understand the nuances of every market we enter. From beachfront maintenance requirements in the Jersey Shore to heat-sensitive seasonal protocols in Arizona—our teams are trained for local excellence.
+                We understand the nuances of every market we enter. From beachfront maintenance requirements in the Jersey Shore to heat-sensitive seasonal protocols in Arizona—our teams are trained for local excellence.
             </p>
-            <div className="flex items-center gap-4 p-4 rounded-lg bg-primary/10 border border-primary/20">
+            <div className="flex items-center gap-4 p-4 rounded-lg bg-primary/10 border border-primary/20 mb-8">
               <Microscope className="w-8 h-8 text-black" />
               <div>
                 <p className="text-sm font-bold text-black">14-Day Deployment Protocol</p>
                 <p className="text-xs text-black">We scout and activate your local team in under 14 days.</p>
               </div>
+            </div>
+            
+            <div className="glass-panel p-6 flex items-center gap-6 border-r-4 border-r-primary/30">
+                <div className="w-20 h-20 rounded-full overflow-hidden shrink-0">
+                    <img 
+                        src="/images/concierge.jpg" 
+                        alt="Property Concierge" 
+                        className="w-full h-full object-cover"
+                    />
+                </div>
+                <div>
+                    <h4 className="font-bold">Property Concierge</h4>
+                    <p className="text-sm text-black opacity-70">Dedicated local support for every guest and owner.</p>
+                </div>
             </div>
           </div>
         </div>
