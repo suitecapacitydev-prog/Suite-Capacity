@@ -122,12 +122,12 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                     <div className="absolute top-0 right-0 p-4">
                         <TrendingUp className="text-primary w-8 h-8 animate-bounce" />
                     </div>
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest">Optimized Revenue Potential</p>
+                    <p className="text-xs font-bold text-black uppercase tracking-widest opacity-70">Optimized Revenue Potential</p>
                     <div className="space-y-1">
-                        <h4 className="text-5xl font-black text-primary">{formatCurrency(animatedRevenue)}</h4>
-                        <p className="text-sm text-primary/80">Projected with Suite Capacity System</p>
+                        <h4 className="text-5xl font-black text-black">{formatCurrency(animatedRevenue)}</h4>
+                        <p className="text-sm text-black opacity-80">Projected with Suite Capacity System</p>
                     </div>
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-black italic">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-black text-sm font-black italic">
                         +{Math.round((projection.optimizedRevenue / projection.currentRevenue - 1) * 100)}% LIFT
                     </div>
                 </div>
@@ -156,8 +156,8 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                                     <p className="text-[10px] text-muted-foreground">Your Input</p>
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-xl font-bold text-primary">{stat.target}</p>
-                                    <p className="text-[10px] text-primary/70">Market Leader</p>
+                                    <p className="text-xl font-bold text-black">{stat.target}</p>
+                                    <p className="text-[10px] text-black opacity-70">Market Leader</p>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +182,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                         <div key={item.label} className="p-5 rounded-2xl border border-border bg-card/50 hover:border-primary/50 transition-all group">
                             <item.icon className={cn(item.color, "w-6 h-6 mb-3 transition-transform group-hover:scale-110")} />
                             <p className="text-[10px] font-black text-muted-foreground uppercase tracking-tighter mb-1">{item.label}</p>
-                            <p className="text-xl font-black text-primary mb-1">+{formatCurrency(item.value)}</p>
+                            <p className="text-xl font-black text-black mb-1">+{formatCurrency(item.value)}</p>
                             <p className="text-[9px] text-muted-foreground leading-tight">{item.desc}</p>
                         </div>
                     ))}
@@ -196,7 +196,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                         <Sparkles className="text-primary w-5 h-5" />
                         Visual Revenue Enhancement Preview™
                     </h3>
-                    <p className="text-xs text-primary font-bold">Design lift can drive 5-12% higher conversion</p>
+                    <p className="text-xs text-black font-bold opacity-70">Design lift can drive 5-12% higher conversion</p>
                 </div>
 
                 <div className="relative aspect-[21/9] rounded-3xl overflow-hidden border-4 border-primary/20 bg-muted group">

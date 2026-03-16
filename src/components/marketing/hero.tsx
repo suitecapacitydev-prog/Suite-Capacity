@@ -18,10 +18,10 @@ export function Hero() {
                     <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
                         Centralized STR <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Operating Platform.</span>
                         <br />
-                        <span className="text-secondary-foreground">Hyper-Localized Execution.</span>
+                        <span className="text-black">Hyper-Localized Execution.</span>
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-secondary-foreground max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl md:text-2xl text-black opacity-70 max-w-2xl mx-auto leading-relaxed">
                         Data-driven strategy from our central command center.
                         Boots-on-the-ground teams in every market.
                     </p>
@@ -41,16 +41,16 @@ export function Hero() {
                     {/* Quick Metrics / Stats Overlay */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 border-t border-border/50">
                         <div className="space-y-1">
-                            <p className="text-3xl font-bold text-primary">$42M+</p>
-                            <p className="text-xs text-secondary-foreground uppercase tracking-widest">Revenue Managed</p>
+                            <p className="text-3xl font-bold text-black">$42M+</p>
+                            <p className="text-xs text-black uppercase tracking-widest opacity-60">Revenue Managed</p>
                         </div>
                         <div className="space-y-1">
-                            <p className="text-3xl font-bold text-success-teal">24.2%</p>
-                            <p className="text-xs text-secondary-foreground uppercase tracking-widest">Avg Revenue Lift</p>
+                            <p className="text-3xl font-bold text-black">24.2%</p>
+                            <p className="text-xs text-black uppercase tracking-widest opacity-60">Avg Revenue Lift</p>
                         </div>
                         <div className="space-y-1">
-                            <p className="text-3xl font-bold">1,200+</p>
-                            <p className="text-xs text-secondary-foreground uppercase tracking-widest">Active Units</p>
+                            <p className="text-3xl font-bold text-black">1,200+</p>
+                            <p className="text-xs text-black uppercase tracking-widest opacity-60">Active Units</p>
                         </div>
                     </div>
                 </div>

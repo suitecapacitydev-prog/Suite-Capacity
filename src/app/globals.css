@@ -60,7 +60,7 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: #000000;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   background-image:
@@ -92,7 +92,7 @@ body {
   backdrop-filter: blur(16px);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  color: var(--card-foreground);
+  color: #000000;
 }
 
 .intelligence-border {
@@ -126,9 +126,16 @@ body {
   }
 }
 
-/* Ensure white text is rendered as black/foreground for better contrast */
-.text-white {
-  color: var(--foreground) !important;
+/* Force black text for white and foreground utility classes */
+.text-white, 
+.text-foreground,
+.text-primary-foreground,
+.text-secondary-foreground,
+.text-accent-foreground,
+.text-muted-foreground,
+.text-success,
+.text-destructive {
+  color: #000000 !important;
 }
 
 .scan-line {

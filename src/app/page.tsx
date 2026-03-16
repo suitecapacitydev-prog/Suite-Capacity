@@ -1,5 +1,8 @@
 import SiteShell from '@/components/layout/site-shell';
 import { Hero } from '@/components/marketing/hero';
+import { GuestEcosystemSection } from '@/components/marketing/guest-ecosystem-section';
+import { DeploymentProcess } from '@/components/marketing/deployment-process';
+import Link from 'next/link';
 
 /**
  * Suite Capacity Landing Page
@@ -13,26 +16,32 @@ export default function Home() {
       {/* Platform Value Propositions */}
       <section className="py-24 container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="glass-panel p-8 space-y-4 intelligence-border">
-            <h3 className="text-xl font-bold">The Central Brain</h3>
-            <p className="text-secondary-foreground text-sm">
+          <Link href="/platform/central-brain" className="glass-panel p-8 space-y-4 intelligence-border hover:scale-[1.02] transition-transform block group">
+            <h3 className="text-xl font-bold transition-colors text-black group-hover:text-primary">The Central Brain</h3>
+            <p className="text-black text-sm">
               Centralized revenue intelligence, dynamic pricing, and marketing automation powered by proprietary demand modeling.
             </p>
-          </div>
-          <div className="glass-panel p-8 space-y-4">
-            <h3 className="text-xl font-bold">The Local Layer</h3>
-            <p className="text-secondary-foreground text-sm">
+          </Link>
+          <Link href="/platform/local-layer" className="glass-panel p-8 space-y-4 intelligence-border hover:scale-[1.02] transition-transform block group">
+            <h3 className="text-xl font-bold transition-colors text-black group-hover:text-primary">The Local Layer</h3>
+            <p className="text-black text-sm">
               Boots-on-the-ground support for maintenance, inspections, and guest services across our distributed market network.
             </p>
-          </div>
-          <div className="glass-panel p-8 space-y-4">
-            <h3 className="text-xl font-bold">Guest Ecosystem</h3>
-            <p className="text-secondary-foreground text-sm">
+          </Link>
+          <Link href="/platform/guest-ecosystem" className="glass-panel p-8 space-y-4 block group intelligence-border hover:scale-[1.02] transition-transform">
+            <h3 className="text-xl font-bold transition-colors text-black group-hover:text-primary">Guest Ecosystem</h3>
+            <p className="text-black text-sm">
               A vertically integrated network of travelers driving repeat, direct bookings and lifetime guest value growth.
             </p>
-          </div>
+          </Link>
         </div>
       </section>
+
+      {/* Guest Ecosystem Section */}
+      <GuestEcosystemSection />
+
+      {/* Platform Deployment Section */}
+      <DeploymentProcess />
     </SiteShell>
   );
 }
