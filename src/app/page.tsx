@@ -73,10 +73,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Guest Ecosystem Section */}
+      {/* SECTION — GUEST ECOSYSTEM */}
       <GuestEcosystemSection />
 
-      {/* Platform Deployment Section */}
+      {/* SECTION — PLATFORM DEPLOYMENT */}
       <DeploymentProcess />
     </SiteShell>
   );

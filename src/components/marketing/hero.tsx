@@ -1,3 +1,4 @@
+"use client";
 import { Button } from '@/components/ui/button';
 import { BrainCircuit, ArrowRight, Zap, Target, Activity } from 'lucide-react';
 import Link from 'next/link';
@@ -33,9 +34,9 @@ export function Hero() {
                                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                             </Button>
                         </Link>
-                        <Button 
-                            size="lg" 
-                            variant="outline" 
+                        <Button
+                            size="lg"
+                            variant="outline"
                             className="w-full sm:w-auto"
                             onClick={() => {
                                 document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
