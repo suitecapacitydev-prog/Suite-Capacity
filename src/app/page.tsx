@@ -35,6 +35,27 @@ export default function Home() {
             </p>
           </Link>
         </div>
+
+        {/* The Result Section */}
+        <div className="mt-24 pt-16 border-t border-black/5">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-4xl font-bold text-black tracking-tight">The Result</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="text-center space-y-3">
+              <div className="text-3xl font-bold text-black font-mono">Higher Revenue</div>
+              <p className="text-black/60 text-sm">Maximized yield through proprietary intelligence and direct booking demand.</p>
+            </div>
+            <div className="text-center space-y-3 border-x border-black/5 px-6">
+              <div className="text-3xl font-bold text-black font-mono">Scalable Operations</div>
+              <p className="text-black/60 text-sm">Distributed market teams handle the complexity while the platform handles the scale.</p>
+            </div>
+            <div className="text-center space-y-3">
+              <div className="text-3xl font-bold text-black font-mono">Consistent Performance</div>
+              <p className="text-black/60 text-sm">Standardized protocols ensure institutional-grade hospitality across every unit.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Guest Ecosystem Section */}

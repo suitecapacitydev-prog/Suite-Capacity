@@ -30,6 +30,7 @@ export default function RootLayout({
                         <Link href="/markets" className="px-3 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Markets</Link>
                         <Link href="/solutions" className="px-3 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Solutions</Link>
                         <Link href="/case-studies" className="px-3 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Performance</Link>
+                        <Link href="/about" className="px-3 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">About</Link>
                     </nav>
 
                     <div className="flex items-center gap-4">
@@ -56,6 +57,7 @@ export default function RootLayout({
                             <Link href="/markets" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">Markets</Link>
                             <Link href="/solutions" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">Solutions</Link>
                             <Link href="/case-studies" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">Performance</Link>
+                            <Link href="/about" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">About</Link>
                             <div className="pt-4 mt-2 border-t border-black/5 flex flex-col gap-4">
                                 <Link href="/login" onClick={() => setIsMenuOpen(false)} className="px-4 py-2 font-semibold text-black transition-colors">Owner Login</Link>
                                 <Link href="/wizard" onClick={() => setIsMenuOpen(false)}>
@@ -100,9 +102,10 @@ export default function RootLayout({
                     <div>
                         <h4 className="font-semibold mb-4">Markets</h4>
                         <ul className="space-y-2 text-sm text-secondary-foreground">
-                            <li><Link href="#" className="hover:text-primary transition-colors">Jersey Shore</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Florida</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Arizona</Link></li>
+                            <li><Link href="/markets/jersey-shore" className="hover:text-primary transition-colors">Jersey Shore</Link></li>
+                            <li><Link href="#" className="hover:text-primary transition-colors opacity-50 cursor-not-allowed" onClick={(e) => e.preventDefault()}>Florida (Future)</Link></li>
+                            <li><Link href="#" className="hover:text-primary transition-colors opacity-50 cursor-not-allowed" onClick={(e) => e.preventDefault()}>Arizona (Future)</Link></li>
+                            <li><Link href="#" className="hover:text-primary transition-colors opacity-50 cursor-not-allowed" onClick={(e) => e.preventDefault()}>Carolinas (Future)</Link></li>
                         </ul>
                     </div>
 

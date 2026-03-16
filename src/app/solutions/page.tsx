@@ -5,20 +5,27 @@ import Link from 'next/link';
 export default function SolutionsPage() {
   const solutions = [
     {
-      title: 'For Asset Owners',
-      desc: 'Institutional-grade management for individual property owners looking to maximize yield and minimize hands-on operational friction.',
-      items: ['Revenue Intelligence Audit', '14-Day Rapid Deployment', 'Direct Booking Demand Engine'],
+      title: 'Platform Managed™',
+      desc: 'Our full-stack management solution. We deploy the Central Brain, the Local Layer, and the Guest Ecosystem to maximize your property performance.',
+      items: ['Revenue Intelligence', 'Local Market Teams', 'Guest Ecosystem Access'],
       icon: Home,
     },
     {
-      title: 'For Real Estate Portfolios',
-      desc: 'Centralized operating workflows for multi-unit portfolios and institutional investors requiring standardized execution across markets.',
-      items: ['Portfolio Yield Management', 'Standardized Ops Layer', 'Advanced Financial Reporting'],
-      icon: LayoutGrid,
+      title: 'Revenue Engine™',
+      desc: 'A data-first solution focused on yield optimization. For owners who want to handle their own ops but need institutional-grade pricing strategy.',
+      items: ['Dynamic Pricing Engine', 'Market Demand Modeling', 'Channel Management'],
+      icon: TrendingUp,
     },
     {
-      title: 'For Local Market Developers',
-      desc: 'Platform-level support for developers looking to integrate STR revenue strategy into existing residential assets.',
+      title: 'Ops Layer™',
+      desc: 'The infrastructure for local excellence. We provide the field teams, vendor coordination, and maintenance protocols for your portfolio.',
+      items: ['Clean/Inspect Protocols', 'Vendor Ecosystem', 'Compliance Management'],
+      icon: Cpu,
+    },
+    {
+      title: 'Asset Optimization Studio™',
+      desc: 'Designed for property transformation. We handle the design, furnishing, and photography to prepare your asset for the Platform.',
+      items: ['Interior Design Audit', 'High-Impact Furnishing', 'Content Production'],
       icon: Zap,
     },
   ];
