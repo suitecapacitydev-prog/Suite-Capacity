@@ -1,3 +1,4 @@
+import { createServerClient, type CookieOptions } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
@@ -9,31 +10,75 @@ import type { NextRequest } from 'next/server';
  * 3. API Route protection
  */
 export async function middleware(request: NextRequest) {
-    // Placeholder for Supabase auth logic
-    // const { data: { session } } = await supabase.auth.getSession();
+    let response = NextResponse.next({
+        request: {
+            headers: request.headers,
+        },
+    });
+
+    const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+            cookies: {
+                get(name: string) {
+                    return request.cookies.get(name)?.value;
+                },
+                set(name: string, value: string, options: CookieOptions) {
+                    request.cookies.set({
+                        name,
+                        value,
+                        ...options,
+                    });
+                    response = NextResponse.next({
+                        request: {
+                            headers: request.headers,
+                        },
+                    });
+                    response.cookies.set({
+                        name,
+                        value,
+                        ...options,
+                    });
+                },
+                remove(name: string, options: CookieOptions) {
+                    request.cookies.set({
+                        name,
+                        value: '',
+                        ...options,
+                    });
+                    response = NextResponse.next({
+                        request: {
+                            headers: request.headers,
+                        },
+                    });
+                    response.cookies.set({
+                        name,
+                        value: '',
+                        ...options,
+                    });
+                },
+            },
+        }
+    );
+
+    // This will refresh the session if needed
+    const { data: { session } } = await supabase.auth.getSession();
 
     const { pathname } = request.nextUrl;
 
-    // 1. Public Routes
-    if (pathname === '/' || pathname.startsWith('/login') || pathname.startsWith('/wizard')) {
-        return NextResponse.next();
+    // Protection logic for Owner Dashboard
+    if (pathname.startsWith('/platform/owner-dashboard')) {
+        // Check for either a real Supabase session or our demo session cookie
+        const demoSession = request.cookies.get('suite_demo_session')?.value;
+        
+        if (!session && demoSession !== 'admin_active') {
+            // Redirect to home (login modal) if not authenticated
+            return NextResponse.redirect(new URL('/', request.url));
+        }
     }
 
-    // 2. Protected Dashboard Routes (Placeholder Logic)
-    if (pathname.startsWith('/dashboard')) {
-        // Redirect to login if no session (when auth is implemented)
-        // return NextResponse.redirect(new URL('/login', request.url));
-    }
-
-    // 3. Admin Protected Routes
-    if (pathname.startsWith('/admin')) {
-        // Check role from profile (when auth is implemented)
-        // if (userRole !== 'ADMIN' && userRole !== 'SUPER_ADMIN') {
-        //   return NextResponse.redirect(new URL('/dashboard', request.url));
-        // }
-    }
-
-    return NextResponse.next();
+    return response;
 }
 
 export const config = {
