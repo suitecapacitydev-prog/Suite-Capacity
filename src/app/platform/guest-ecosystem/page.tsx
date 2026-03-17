@@ -9,9 +9,9 @@ export default function GuestEcosystemPage() {
       <section className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-black/5 text-black text-sm font-medium mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-primary/5 text-black text-sm font-medium mb-8">
             <Database className="w-4 h-4 text-black" />
             <span>Shared Traveler Database</span>
           </div>
@@ -26,7 +26,7 @@ export default function GuestEcosystemPage() {
       </section>
 
       {/* System Components Architecture */}
-      <section className="py-24 bg-black/40 border-y border-white/5 relative">
+      <section className="py-24 bg-primary/40 border-y border-white/5 relative">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ecosystem Architecture</h2>
@@ -41,7 +41,7 @@ export default function GuestEcosystemPage() {
                 A unified database aggregating millions of traveler data points, booking histories, and preferences across all local markets.
               </p>
             </div>
-            
+
             <div className="glass-panel p-8 group hover:border-black/30 transition-colors">
               <Filter className="w-8 h-8 text-black mb-6" />
               <h3 className="text-xl font-bold mb-3 text-black">Segmentation Engine</h3>
@@ -93,10 +93,10 @@ export default function GuestEcosystemPage() {
             <p className="text-lg text-black mb-8">
               Traditional local property managers rely entirely on Airbnb and Vrbo for bookings. Our ecosystem reduces OTA dependency, increasing both your occupancy and net revenue per booking.
             </p>
-            
+
             <ul className="space-y-6">
               <li className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-5 h-5 text-black" />
                 </div>
                 <div>
@@ -105,7 +105,7 @@ export default function GuestEcosystemPage() {
                 </div>
               </li>
               <li className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center shrink-0">
                   <Zap className="w-5 h-5 text-black" />
                 </div>
                 <div>
@@ -120,15 +120,15 @@ export default function GuestEcosystemPage() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px]" />
             <h3 className="text-2xl font-bold mb-8">Owner Dashboard Metrics</h3>
             <div className="space-y-4">
-              <div className="flex justify-between items-center p-4 rounded-lg bg-black/5 border border-black/5">
+              <div className="flex justify-between items-center p-4 rounded-lg bg-primary/5 border border-black/5">
                 <span className="text-black">Ecosystem Booking %</span>
                 <span className="font-mono text-xl text-black font-extrabold">32%</span>
               </div>
-              <div className="flex justify-between items-center p-4 rounded-lg bg-black/5 border border-black/5">
+              <div className="flex justify-between items-center p-4 rounded-lg bg-primary/5 border border-black/5">
                 <span className="text-black">Repeat Guest Rate</span>
                 <span className="font-mono text-xl text-black font-extrabold">24%</span>
               </div>
-              <div className="flex justify-between items-center p-4 rounded-lg bg-black/5 border border-black/5">
+              <div className="flex justify-between items-center p-4 rounded-lg bg-primary/5 border border-black/5">
                 <span className="text-black">Direct Booking Growth</span>
                 <span className="font-mono text-xl text-black font-extrabold">+48%</span>
               </div>
@@ -149,8 +149,8 @@ export default function GuestEcosystemPage() {
             Our platform can deploy the entire ecosystem for your property, from pricing engines to guest marketing automation, in under 14 days.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/intelligence-wizard" 
+            <Link
+              href="/intelligence-wizard"
               className="px-8 py-4 bg-primary hover:bg-primary/90 text-black rounded-lg font-semibold transition-all hover:shadow-[0_0_20px_rgba(171,209,199,0.4)] flex items-center justify-center gap-2"
             >
               Activate My Property

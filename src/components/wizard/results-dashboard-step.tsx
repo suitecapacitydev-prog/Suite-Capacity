@@ -207,7 +207,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                             alt="Original"
                             className="w-full h-full object-cover grayscale-[50%]"
                         />
-                        <div className="absolute top-4 left-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-widest border border-white/20">
+                        <div className="absolute top-4 left-4 bg-primary/60 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-widest border border-white/20">
                             Original Data
                         </div>
                     </div>

@@ -126,8 +126,7 @@ body {
   }
 }
 
-/* Force black text for white and foreground utility classes */
-.text-white, 
+/* Force black text for foreground utility classes (maintaining brand look) */
 .text-foreground,
 .text-primary-foreground,
 .text-secondary-foreground,

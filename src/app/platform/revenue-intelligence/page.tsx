@@ -42,9 +42,9 @@ export default function RevenueIntelligencePage() {
       <section className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 relative z-10 text-center max-max-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-black/5 text-black text-sm font-medium mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-primary/5 text-black text-sm font-medium mb-8">
             <BarChart3 className="w-4 h-4 text-black" />
             <span>Advanced Yield Management</span>
           </div>
@@ -59,12 +59,12 @@ export default function RevenueIntelligencePage() {
       </section>
 
       {/* Tools Grid */}
-      <section className="py-24 bg-black/40 border-y border-white/5 relative">
+      <section className="py-24 bg-primary/40 border-y border-white/5 relative">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tools.map((tool, index) => (
               <div key={index} className="glass-panel p-8 group hover:border-black/30 transition-colors">
-                <div className="w-12 h-12 rounded-lg bg-black/5 flex items-center justify-center mb-6">
+                <div className="w-12 h-12 rounded-lg bg-primary/5 flex items-center justify-center mb-6">
                   <tool.icon className="w-6 h-6 text-black" />
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-black">{tool.title}</h3>
@@ -79,15 +79,15 @@ export default function RevenueIntelligencePage() {
 
       {/* Intelligence Wizard Preview */}
       <section className="py-24 container mx-auto px-6">
-        <div className="glass-panel p-12 intelligence-border relative overflow-hidden bg-black/5">
+        <div className="glass-panel p-12 intelligence-border relative overflow-hidden bg-primary/5">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold mb-6">Experience the Engine Today</h2>
               <p className="text-lg text-black mb-8">
                 Our Revenue Intelligence Wizard can analyze your specific property’s potential in less than 2 minutes. We compare your data against real-world market throughput to deliver a personalized revenue roadmap.
               </p>
-              <Link 
-                href="/wizard" 
+              <Link
+                href="/wizard"
                 className="px-8 py-4 bg-primary hover:bg-primary/90 text-black rounded-lg font-semibold transition-all hover:shadow-[0_0_20px_rgba(171,209,199,0.4)] inline-flex items-center gap-2"
               >
                 Run My Revenue Audit
@@ -95,16 +95,16 @@ export default function RevenueIntelligencePage() {
               </Link>
             </div>
             <div className="relative">
-              <div className="aspect-video bg-black/40 rounded-lg border border-white/10 flex items-center justify-center overflow-hidden">
+              <div className="aspect-video bg-primary/40 rounded-lg border border-white/10 flex items-center justify-center overflow-hidden">
                 {/* Mockup of a chart or data visualization */}
                 <div className="w-full flex items-end gap-1 px-8 h-32 text-black">
-                  <div className="w-full bg-black/10 h-[30%] rounded-t-sm" />
-                  <div className="w-full bg-black/20 h-[45%] rounded-t-sm" />
-                  <div className="w-full bg-black/30 h-[60%] rounded-t-sm" />
-                  <div className="w-full bg-black/50 h-[85%] rounded-t-sm shadow-[0_0_15px_rgba(0,0,0,0.1)]" />
-                  <div className="w-full bg-black/30 h-[50%] rounded-t-sm" />
-                  <div className="w-full bg-black/20 h-[40%] rounded-t-sm" />
-                  <div className="w-full bg-black/10 h-[25%] rounded-t-sm" />
+                  <div className="w-full bg-primary/10 h-[30%] rounded-t-sm" />
+                  <div className="w-full bg-primary/20 h-[45%] rounded-t-sm" />
+                  <div className="w-full bg-primary/30 h-[60%] rounded-t-sm" />
+                  <div className="w-full bg-primary/50 h-[85%] rounded-t-sm shadow-[0_0_15px_rgba(0,0,0,0.1)]" />
+                  <div className="w-full bg-primary/30 h-[50%] rounded-t-sm" />
+                  <div className="w-full bg-primary/20 h-[40%] rounded-t-sm" />
+                  <div className="w-full bg-primary/10 h-[25%] rounded-t-sm" />
                 </div>
               </div>
               <div className="absolute -top-4 -right-4 glass-panel px-4 py-2 text-xs font-bold text-black border-black/20">

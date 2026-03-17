@@ -36,7 +36,7 @@ export default function SolutionsPage() {
       <section className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
         <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
             Vertical <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Solutions</span>
@@ -48,7 +48,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* Solutions Grid */}
-      <section className="py-24 bg-black/40 border-y border-white/5 relative">
+      <section className="py-24 bg-primary/40 border-y border-white/5 relative">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {solutions.map((solution, index) => (
@@ -70,8 +70,8 @@ export default function SolutionsPage() {
                     ))}
                   </ul>
                 )}
-                <Link 
-                  href="/wizard" 
+                <Link
+                  href="/wizard"
                   className="w-full py-4 bg-primary/10 hover:bg-primary/20 border border-primary/20 rounded-lg text-black text-sm font-bold transition-all text-center"
                 >
                   Request Solution Brief

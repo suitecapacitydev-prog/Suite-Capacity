@@ -64,8 +64,8 @@ export default function PlatformPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {layers.map((layer, index) => (
-              <Link 
-                key={index} 
+              <Link
+                key={index}
                 href={layer.href}
                 className="glass-panel p-8 group hover:border-primary/30 transition-all hover:scale-[1.02] flex flex-col"
               >
@@ -87,14 +87,14 @@ export default function PlatformPage() {
       </section>
 
       {/* Shared CTA */}
-      <section className="py-24 bg-black/40 border-t border-white/5 relative overflow-hidden">
+      <section className="py-24 bg-primary/40 border-t border-white/5 relative overflow-hidden">
         <div className="container mx-auto px-6 text-center max-w-3xl relative z-10">
           <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Experience Infrastructure That Scales</h2>
           <p className="text-lg text-black mb-10">
             Our platform is designed to handle thousands of properties with the same precision as a single boutique home.
           </p>
-          <Link 
-            href="/wizard" 
+          <Link
+            href="/wizard"
             className="px-10 py-5 bg-primary hover:bg-primary/90 text-black rounded-lg font-bold text-lg transition-all hover:shadow-[0_0_30px_rgba(171,209,199,0.4)]"
           >
             Run Revenue Audit
