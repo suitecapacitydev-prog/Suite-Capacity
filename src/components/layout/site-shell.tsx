@@ -5,7 +5,10 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { LayoutGrid, BarChart3, Users2, ShieldCheck, Map, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import LoginModal from '@/components/auth/login-modal';
+import { signOut } from '@/app/actions/auth';
+import { useRouter } from 'next/navigation';
 
 export default function RootLayout({
     children,
@@ -13,35 +16,71 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const router = useRouter();
+
+    // Check for login state on mount and when modal closes
+    useEffect(() => {
+        const checkAuth = () => {
+            const cookies = document.cookie.split('; ');
+            const hasDemoSession = cookies.some(c => c.startsWith('suite_demo_session=admin_active'));
+            const hasSupaSession = cookies.some(c => c.startsWith('sb-')); // Basic check for Supabase cookie
+            setIsLoggedIn(hasDemoSession || hasSupaSession);
+        };
+        checkAuth();
+    }, [isLoginModalOpen]);
+
+    const handleLogout = async () => {
+        await signOut();
+        setIsLoggedIn(false);
+        router.push('/');
+        router.refresh();
+    };
 
     return (
         <div className="min-h-screen flex flex-col">
             <header className="fixed top-0 w-full z-50 border-b border-black/5 bg-white">
                 <div className="container mx-auto px-6 h-20 flex items-center justify-between">
                     <Link href="/" className="flex items-center group">
-                        <img 
-                            src="/logo.png" 
-                            alt="Suite Capacity Logo" 
+                        <img
+                            src="/logo.png"
+                            alt="Suite Capacity Logo"
                             className="h-10 md:h-12 w-auto transition-transform group-hover:scale-105"
                         />
                     </Link>
 
                     <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-black">
-                        <Link href="/platform" className="px-3 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Platform</Link>
-                        <Link href="/markets" className="px-3 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Markets</Link>
-                        <Link href="/solutions" className="px-3 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Solutions</Link>
-                        <Link href="/case-studies" className="px-3 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Performance</Link>
-                        <Link href="/about" className="px-3 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">About</Link>
+                        <Link href="/platform" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Platform</Link>
+                        <Link href="/platform/guest-dashboard" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Guest Access</Link>
+                        <Link href="/markets" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Markets</Link>
+                        <Link href="/solutions" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Solutions</Link>
+                        <Link href="/case-studies" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Performance</Link>
+                        <Link href="/about" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">About</Link>
                     </nav>
 
                     <div className="flex items-center gap-4">
-                        <Link href="/platform/owner-dashboard" className="hidden sm:inline-block text-sm font-semibold text-black px-4 py-2 hover:bg-black/5 rounded-lg transition-all active:scale-95">Owner Login</Link>
+                        {isLoggedIn ? (
+                            <button
+                                onClick={handleLogout}
+                                className="hidden sm:inline-block text-sm font-semibold text-red-600 px-4 py-2 hover:bg-red-50 rounded-lg transition-all active:scale-95"
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => setIsLoginModalOpen(true)}
+                                className="hidden sm:inline-block text-sm font-semibold text-black px-4 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95"
+                            >
+                                Owner Login
+                            </button>
+                        )}
                         <Link href="/wizard">
                             <Button variant="intelligence" size="sm" className="hidden sm:inline-flex shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-95">
                                 Initial Audit
                             </Button>
                         </Link>
-                        <button 
+                        <button
                             className="md:hidden p-2 text-black"
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                         >
@@ -54,13 +93,33 @@ export default function RootLayout({
                 {isMenuOpen && (
                     <div className="md:hidden bg-white border-t border-black/5 absolute top-20 left-0 w-full animate-in slide-in-from-top duration-300">
                         <nav className="flex flex-col p-6 gap-2 text-lg font-semibold">
-                            <Link href="/platform" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">Platform</Link>
-                            <Link href="/markets" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">Markets</Link>
-                            <Link href="/solutions" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">Solutions</Link>
-                            <Link href="/case-studies" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">Performance</Link>
-                            <Link href="/about" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-black/5 active:bg-black/10 transition-all text-black">About</Link>
+                            <Link href="/platform" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Platform</Link>
+                            <Link href="/markets" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Markets</Link>
+                            <Link href="/solutions" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Solutions</Link>
+                            <Link href="/case-studies" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Performance</Link>
+                            <Link href="/about" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">About</Link>
                             <div className="pt-4 mt-2 border-t border-black/5 flex flex-col gap-4">
-                                <Link href="/platform/owner-dashboard" onClick={() => setIsMenuOpen(false)} className="px-4 py-2 font-semibold text-black transition-colors">Owner Login</Link>
+                                {isLoggedIn ? (
+                                    <button
+                                        onClick={() => {
+                                            setIsMenuOpen(false);
+                                            handleLogout();
+                                        }}
+                                        className="px-4 py-2 font-semibold text-red-600 text-left transition-colors"
+                                    >
+                                        Logout
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={() => {
+                                            setIsMenuOpen(false);
+                                            setIsLoginModalOpen(true);
+                                        }}
+                                        className="px-4 py-2 font-semibold text-black text-left transition-colors"
+                                    >
+                                        Owner Login
+                                    </button>
+                                )}
                                 <Link href="/wizard" onClick={() => setIsMenuOpen(false)}>
                                     <Button variant="intelligence" className="w-full">Initial Audit</Button>
                                 </Link>
@@ -69,6 +128,11 @@ export default function RootLayout({
                     </div>
                 )}
             </header>
+
+            <LoginModal
+                isOpen={isLoginModalOpen}
+                onClose={() => setIsLoginModalOpen(false)}
+            />
 
             <main className="flex-grow pt-20">
                 <AnimatePresence mode="wait">
@@ -88,9 +152,9 @@ export default function RootLayout({
                 <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
                     <div className="space-y-4">
                         <div className="flex items-center">
-                            <img 
-                                src="/logo.png" 
-                                alt="Suite Capacity Logo" 
+                            <img
+                                src="/logo.png"
+                                alt="Suite Capacity Logo"
                                 className="h-16 w-auto"
                             />
                         </div>
@@ -104,8 +168,7 @@ export default function RootLayout({
                         <ul className="space-y-2 text-sm text-secondary-foreground">
                             <li><Link href="/platform/central-brain" className="hover:text-primary transition-colors">The Central Brain</Link></li>
                             <li><Link href="/platform/revenue-intelligence" className="hover:text-primary transition-colors">Revenue Intelligence</Link></li>
-                            <li><Link href="/platform/guest-ecosystem" className="hover:text-primary transition-colors">Guest Ecosystem</Link></li>
-                            <li><Link href="/platform/local-layer" className="hover:text-primary transition-colors">Local Market Layer</Link></li>
+                            <li><Link href="/platform/guest-dashboard" className="hover:text-primary transition-colors">Guest Dashboard</Link></li>
                             <li><Link href="/platform/deployment" className="hover:text-primary transition-colors">Deployment Process</Link></li>
                         </ul>
                     </div>
