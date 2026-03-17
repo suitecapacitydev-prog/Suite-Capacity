@@ -42,9 +42,9 @@ export default function CentralBrainPage() {
       <section className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-black/5 text-black text-sm font-medium mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-primary/5 text-black text-sm font-medium mb-8">
             <Brain className="w-4 h-4 text-black" />
             <span>Revenue Intelligence System</span>
           </div>
@@ -59,12 +59,12 @@ export default function CentralBrainPage() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-24 bg-black/40 border-y border-white/5 relative">
+      <section className="py-24 bg-primary/40 border-y border-white/5 relative">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <div key={index} className="glass-panel p-8 group hover:border-black/30 transition-colors">
-                <div className="w-12 h-12 rounded-lg bg-black/5 flex items-center justify-center mb-6">
+                <div className="w-12 h-12 rounded-lg bg-primary/5 flex items-center justify-center mb-6">
                   <feature.icon className="w-6 h-6 text-black" />
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-foreground">{feature.title}</h3>
@@ -105,8 +105,8 @@ export default function CentralBrainPage() {
             Deploy our revenue intelligence layer for your property in under 14 days.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/wizard" 
+            <Link
+              href="/wizard"
               className="px-8 py-4 bg-primary hover:bg-primary/90 text-black rounded-lg font-semibold transition-all hover:shadow-[0_0_20px_rgba(171,209,199,0.4)] flex items-center justify-center gap-2"
             >
               Start My Revenue Report

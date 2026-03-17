@@ -33,7 +33,7 @@ export default function MarketsPage() {
       <section className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl mb-16 mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
@@ -48,36 +48,36 @@ export default function MarketsPage() {
             {markets.map((market, index) => (
               <div key={index} className="glass-panel overflow-hidden group hover:border-primary/30 transition-all hover:scale-[1.02] flex flex-col">
                 <div className="h-48 overflow-hidden relative">
-                    <img 
-                        src={
-                            market.name === 'Jersey Shore' ? '/images/properties/waterfront.jpg' :
-                            market.name === 'Florida Coastal' ? '/images/properties/beachside.jpg' :
-                            '/images/properties/hot-tub.jpg'
-                        } 
-                        alt={market.name} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                        <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                            <market.icon className="w-5 h-5 text-black" />
-                        </div>
+                  <img
+                    src={
+                      market.name === 'Jersey Shore' ? '/images/properties/waterfront.jpg' :
+                        market.name === 'Florida Coastal' ? '/images/properties/beachside.jpg' :
+                          '/images/properties/hot-tub.jpg'
+                    }
+                    alt={market.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                    <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                      <market.icon className="w-5 h-5 text-black" />
                     </div>
+                  </div>
                 </div>
                 <div className="p-8 flex flex-col flex-grow">
-                    <h3 className="text-2xl font-bold mb-3">{market.name}</h3>
-                    <p className="text-black opacity-70 text-sm leading-relaxed mb-6 flex-grow">
+                  <h3 className="text-2xl font-bold mb-3">{market.name}</h3>
+                  <p className="text-black opacity-70 text-sm leading-relaxed mb-6 flex-grow">
                     {market.desc}
-                    </p>
-                    <div className="pt-6 border-t border-border flex justify-between items-center text-sm">
+                  </p>
+                  <div className="pt-6 border-t border-border flex justify-between items-center text-sm">
                     <div className="space-y-1">
-                        <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Rev Lift</p>
-                        <p className="text-lg font-bold text-black">{market.performance}</p>
+                      <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Rev Lift</p>
+                      <p className="text-lg font-bold text-black">{market.performance}</p>
                     </div>
                     <div className="space-y-1 text-right">
-                        <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Managed</p>
-                        <p className="text-lg font-bold text-black">{market.stats}</p>
+                      <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Managed</p>
+                      <p className="text-lg font-bold text-black">{market.stats}</p>
                     </div>
-                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -86,7 +86,7 @@ export default function MarketsPage() {
       </section>
 
       {/* Local Layer Promo */}
-      <section className="py-24 bg-black/40 border-y border-white/5 relative">
+      <section className="py-24 bg-primary/40 border-y border-white/5 relative">
         <div className="container mx-auto px-6 text-center max-w-3xl">
           <MapPin className="w-12 h-12 text-primary mx-auto mb-6" />
           <h2 className="text-3xl md:text-5xl font-bold mb-6">Don't see your market?</h2>
@@ -94,12 +94,12 @@ export default function MarketsPage() {
             We are expanding our distributed network every quarter. Our 14-day deployment protocol allows us to scout and activate new market teams rapidly.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/wizard" 
+            <Link
+              href="/wizard"
               className="px-8 py-4 bg-primary hover:bg-primary/90 text-black rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
             >
-                Submit New Market Request
-                <ArrowRight className="w-5 h-5" />
+              Submit New Market Request
+              <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
         </div>

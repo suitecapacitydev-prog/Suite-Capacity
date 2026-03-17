@@ -33,7 +33,7 @@ export default function CaseStudiesPage() {
       <section className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
             Performance <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Benchmarks</span>
@@ -45,7 +45,7 @@ export default function CaseStudiesPage() {
       </section>
 
       {/* Cases Grid */}
-      <section className="py-24 bg-black/40 border-y border-white/5 relative">
+      <section className="py-24 bg-primary/40 border-y border-white/5 relative">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {cases.map((cs, index) => (
@@ -63,8 +63,8 @@ export default function CaseStudiesPage() {
                 <p className="text-black opacity-70 text-sm leading-relaxed mb-8 flex-grow">
                   {cs.desc}
                 </p>
-                <Link 
-                  href="/wizard" 
+                <Link
+                  href="/wizard"
                   className="flex items-center gap-2 text-black font-bold text-sm"
                 >
                   View Case Study
@@ -85,8 +85,8 @@ export default function CaseStudiesPage() {
             Find out how your property compares to our platform averages.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/wizard" 
+            <Link
+              href="/wizard"
               className="px-8 py-4 bg-primary hover:bg-primary/90 text-black rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
             >
               Start Intelligence Audit
