@@ -1,110 +1,181 @@
 import SiteShell from '@/components/layout/site-shell';
-import { LayoutGrid, TrendingUp, Users, ShieldCheck, ArrowRight, Zap, Target, Cpu, Home } from 'lucide-react';
+import { TrendingUp, Users, Zap, Home, CheckCircle, ArrowRight, FileText } from 'lucide-react';
 import Link from 'next/link';
 
 export default function SolutionsPage() {
-  const solutions = [
+  const tiers = [
     {
-      title: 'Platform Managed™',
-      desc: 'Our full-stack management solution. We deploy the Central Brain, the Local Layer, and the Guest Ecosystem to maximize your property performance.',
-      items: ['Revenue Intelligence', 'Local Market Teams', 'Guest Ecosystem Access'],
+      title: 'Full-Service (Commission)',
+      badge: 'Most Popular',
+      desc: 'Completely hands-off. We handle every aspect of your STR — from guest communication and dynamic pricing to cleaning, maintenance, and compliance. You collect a check.',
+      items: [
+        'Full property setup & listing creation',
+        'Dynamic pricing & revenue optimization',
+        'Guest communication & concierge',
+        'Cleaning, inspections & maintenance',
+        'Compliance & licensing management',
+      ],
       icon: Home,
+      cta: 'Get Your Blueprint',
+      href: '/wizard',
+      featured: true,
     },
     {
-      title: 'Revenue Engine™',
-      desc: 'A data-first solution focused on yield optimization. For owners who want to handle their own ops but need institutional-grade pricing strategy.',
-      items: ['Dynamic Pricing Engine', 'Market Demand Modeling', 'Channel Management'],
-      icon: TrendingUp,
-    },
-    {
-      title: 'Ops Layer™',
-      desc: 'The infrastructure for local excellence. We provide the field teams, vendor coordination, and maintenance protocols for your portfolio.',
-      items: ['Clean/Inspect Protocols', 'Vendor Ecosystem', 'Compliance Management'],
-      icon: Cpu,
-    },
-    {
-      title: 'Asset Optimization Studio™',
-      desc: 'Designed for property transformation. We handle the design, furnishing, and photography to prepare your asset for the Platform.',
-      items: ['Interior Design Audit', 'High-Impact Furnishing', 'Content Production'],
+      title: 'Flat Fee (Operations Only)',
+      badge: 'Keep More Revenue',
+      desc: 'You keep a larger share of your revenue. We run the full on-the-ground operating system — so you stay hands-off without paying a percentage of every booking.',
+      items: [
+        'Guest management & support',
+        'Cleaning & inspection protocols',
+        'Vendor coordination',
+        'Operational reporting',
+      ],
       icon: Zap,
+      cta: 'Book a Call',
+      href: 'https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03',
+      featured: false,
+    },
+    {
+      title: 'Design & Optimization',
+      badge: 'Improve Existing STR',
+      desc: 'Already have a rental? We audit your setup, redesign for maximum booking appeal, and inject our pricing and automation system to increase your property\'s revenue.',
+      items: [
+        'Interior design & staging audit',
+        'High-impact furnishing plan',
+        'Photography & listing optimization',
+        'Pricing strategy injection',
+      ],
+      icon: TrendingUp,
+      cta: 'Request a Review',
+      href: 'https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03',
+      featured: false,
     },
   ];
 
   return (
     <SiteShell>
       {/* Hero Section */}
-      <section className="pt-32 pb-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-            Vertical <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Solutions</span>
+      <section className="pt-32 pb-16 relative overflow-hidden bg-primary/5">
+        <div className="container mx-auto px-6 text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-black uppercase tracking-widest mb-6 border border-primary/20">
+            Ways to Work With Us
+          </div>
+          <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
+            Passive Income, Your Way.
           </h1>
-          <p className="text-xl text-black mb-10 leading-relaxed">
-            The STR market is fragmented. Our platform provides a unified solution for every scale of property ownership.
+          <p className="text-xl text-black/60 mb-10 leading-relaxed max-w-2xl mx-auto">
+            Whether you want completely hands-off income or just need us to run the operations — we have a model that fits.
           </p>
+          <Link href="/wizard">
+            <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-2xl font-black hover:bg-primary/90 hover:-translate-y-1 transition-all shadow-xl shadow-primary/20">
+              <FileText className="w-5 h-5" /> Get Your Free STR Blueprint
+            </button>
+          </Link>
         </div>
       </section>
 
-      {/* Solutions Grid */}
-      <section className="py-24 bg-primary/40 border-y border-white/5 relative">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {solutions.map((solution, index) => (
-              <div key={index} className="glass-panel p-8 group hover:border-primary/30 transition-all flex flex-col">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-                  <solution.icon className="w-6 h-6 text-primary" />
+      {/* Service Tiers */}
+      <section className="py-24 container mx-auto px-6">
+        <div className="grid md:grid-cols-3 gap-8">
+          {tiers.map((tier, index) => (
+            <div
+              key={index}
+              className={`glass-panel p-8 flex flex-col border-black/5 ${tier.featured ? 'ring-2 ring-primary shadow-xl shadow-primary/10' : 'hover:border-primary/20'} transition-all`}
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <tier.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">{solution.title}</h3>
-                <p className="text-black opacity-70 text-sm leading-relaxed mb-8 flex-grow">
-                  {solution.desc}
-                </p>
-                {solution.items && (
-                  <ul className="space-y-3 mb-8">
-                    {solution.items.map((item, i) => (
-                      <li key={i} className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black">
-                        <ArrowRight className="w-3 h-3 text-primary" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <Link
-                  href="/wizard"
-                  className="w-full py-4 bg-primary/10 hover:bg-primary/20 border border-primary/20 rounded-lg text-black text-sm font-bold transition-all text-center"
-                >
-                  Request Solution Brief
-                </Link>
+                <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full ${tier.featured ? 'bg-primary text-white' : 'bg-primary/10 text-primary'}`}>
+                  {tier.badge}
+                </span>
+              </div>
+              <h3 className="text-2xl font-black mb-4">{tier.title}</h3>
+              <p className="text-black/60 text-sm leading-relaxed mb-8 flex-grow">{tier.desc}</p>
+              <ul className="space-y-3 mb-8">
+                {tier.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm font-medium text-black/70">
+                    <CheckCircle className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={tier.href}
+                target={tier.href.startsWith('http') ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                className={`w-full py-4 rounded-2xl text-sm font-black text-center transition-all flex items-center justify-center gap-2 ${tier.featured ? 'bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20' : 'bg-primary/10 hover:bg-primary/20 text-black border border-primary/20'}`}
+              >
+                {tier.cta} <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Not Just Management — A System */}
+      <section className="py-24 bg-primary/5 border-y border-black/5">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">
+              Not Just Management —{' '}
+              <span className="text-primary">A System</span>
+            </h2>
+            <p className="text-lg text-black/60 max-w-2xl mx-auto">
+              Most property managers just collect rent and handle complaints. We install a complete revenue-focused operating system into your property.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                old: 'We manage your property',
+                new: 'We turn your property into passive income',
+                icon: Home,
+              },
+              {
+                old: 'Full-service management',
+                new: 'Done-for-you STR operating system',
+                icon: Zap,
+              },
+              {
+                old: 'We optimize listings',
+                new: "We increase your property's revenue",
+                icon: TrendingUp,
+              },
+            ].map((item, i) => (
+              <div key={i} className="glass-panel p-8 border-black/5 bg-white">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 text-primary">
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <div className="space-y-3">
+                  <div className="text-sm text-black/30 line-through">{item.old}</div>
+                  <div className="text-lg font-black text-black">{item.new}</div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Partnering section */}
-      <section className="py-24 container mx-auto px-6">
-        <div className="glass-panel p-12 intelligence-border relative overflow-hidden bg-accent/5 max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Institutional Grade. Local Soul.</h2>
-              <p className="text-lg text-black mb-0">
-                We bridge the gap between "Corporate Management" and "Local Expertise". Our platform handles the institution-level data strategy, while our teams handle the localized guest touchpoints.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 bg-white/5 border border-white/5 rounded-lg text-center">
-                <TrendingUp className="w-6 h-6 text-primary mx-auto mb-2" />
-                <p className="text-lg font-bold text-black">+24%</p>
-                <p className="text-[10px] uppercase font-bold text-black opacity-60">Portfolio ADR Lift</p>
-              </div>
-              <div className="p-4 bg-white/5 border border-white/5 rounded-lg text-center">
-                <Users className="w-6 h-6 text-accent mx-auto mb-2" />
-                <p className="text-lg font-bold text-black">1M+</p>
-                <p className="text-[10px] uppercase font-bold text-black opacity-60">Ecosystem Guests</p>
-              </div>
-            </div>
-          </div>
+      {/* Final CTA */}
+      <section className="py-24 container mx-auto px-6 text-center max-w-2xl">
+        <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-6">
+          Ready to Activate Your Property?
+        </h2>
+        <p className="text-black/60 mb-10">
+          Start with a free STR Blueprint — we'll show you exactly how much your property can make and what it would take to get there.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/wizard">
+            <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-2xl font-black hover:bg-primary/90 hover:-translate-y-1 transition-all shadow-xl shadow-primary/20">
+              <FileText className="w-5 h-5" /> Get Your STR Blueprint
+            </button>
+          </Link>
+          <a href="https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03" target="_blank" rel="noopener noreferrer">
+            <button className="inline-flex items-center gap-2 px-8 py-4 border border-black/10 rounded-2xl font-black hover:bg-primary/5 transition-all">
+              Book a Call
+            </button>
+          </a>
         </div>
       </section>
     </SiteShell>

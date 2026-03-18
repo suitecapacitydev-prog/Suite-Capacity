@@ -16,29 +16,53 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { logClientActivity } from '@/app/actions/logging';
+import { captureGuestLead } from '@/app/actions/leads';
+import { GuestReservationData } from '@/services/hostaway';
 
 export default function GuestDashboardPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [reservationCode, setReservationCode] = useState('');
   const [email, setEmail] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const guestData = {
-    guestName: 'Alex Johnson',
-    propertyTitle: 'Shoreline Sanctuary Unit 4B',
-    checkIn: 'March 24, 2024 (4:00 PM)',
-    checkOut: 'March 29, 2024 (11:00 AM)',
-    address: '123 Ocean Avenue, Belmar, NJ 07719',
-    wifiName: 'Shoreline_Guest_5G',
-    wifiPass: 'beachday2024',
-    hostPhone: '+1 (732) 555-0123',
-    directBookingUrl: 'https://suitecapacity.holidayfuture.com/'
+  const [activeGuestData, setActiveGuestData] = useState<GuestReservationData | null>(null);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
+    const result = await captureGuestLead({
+      fullName,
+      email,
+      phoneNumber,
+      reservationCode
+    });
+
+    if (result.success && result.data) {
+      setActiveGuestData(result.data);
+      setIsLoggedIn(true);
+    } else {
+      setError(result.error || 'Invalid reservation details. Please check and try again.');
+    }
+    
+    setIsSubmitting(false);
   };
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    logClientActivity('guest_access', { email, reservationCode });
-    setIsLoggedIn(true);
+  const displayData = activeGuestData || {
+    guestName: 'Guest',
+    propertyTitle: 'Your Luxury Rental',
+    checkIn: 'TBD',
+    checkOut: 'TBD',
+    address: 'Fetching address...',
+    wifiName: 'Fetching...',
+    wifiPass: 'Fetching...',
+    hostPhone: 'Searching...',
+    directBookingUrl: 'https://suitecapacity.holidayfuture.com/',
+    status: 'Confirmed'
   };
 
   if (!isLoggedIn) {
@@ -56,10 +80,56 @@ export default function GuestDashboardPage() {
                   <Home className="w-8 h-8" />
                 </div>
                 <h1 className="text-3xl font-black tracking-tight mb-2">Guest Access</h1>
-                <p className="text-black/50">Enter your booking details to access your guest dashboard.</p>
+                <p className="text-black/50">Enter your booking details to access your luxury guest experience.</p>
               </div>
 
-              <form onSubmit={handleLogin} className="space-y-6">
+              <form onSubmit={handleLogin} className="space-y-5">
+                {error && (
+                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-600 text-xs font-bold text-center">
+                    {error}
+                  </div>
+                )}
+                
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-1">Full Name</label>
+                  <input
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                    className="w-full bg-primary/5 border-none rounded-2xl py-4 px-6 text-black focus:ring-2 focus:ring-primary/20 transition-all"
+                    placeholder="John Doe"
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-1">Email</label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="w-full bg-primary/5 border-none rounded-2xl py-4 px-6 text-black focus:ring-2 focus:ring-primary/20 transition-all text-sm"
+                      placeholder="guest@email.com"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-1">Phone</label>
+                    <input
+                      type="tel"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      required
+                      className="w-full bg-primary/5 border-none rounded-2xl py-4 px-6 text-black focus:ring-2 focus:ring-primary/20 transition-all text-sm"
+                      placeholder="(555) 000-0000"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-1">Reservation Code</label>
                   <input
@@ -69,21 +139,17 @@ export default function GuestDashboardPage() {
                     required
                     className="w-full bg-primary/5 border-none rounded-2xl py-4 px-6 text-black focus:ring-2 focus:ring-primary/20 transition-all font-mono uppercase tracking-widest"
                     placeholder="SC-XXXXXX"
+                    disabled={isSubmitting}
                   />
+                  <p className="text-[10px] text-black/30 px-1">Found in your confirmation email.</p>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-1">Email Address</label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-full bg-primary/5 border-none rounded-2xl py-4 px-6 text-black focus:ring-2 focus:ring-primary/20 transition-all"
-                    placeholder="guest@example.com"
-                  />
-                </div>
-                <Button type="submit" className="w-full py-7 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-lg shadow-xl shadow-black/10 active:scale-95 transition-all">
-                  Access Dashboard
+
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full py-7 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-lg shadow-xl shadow-black/10 active:scale-95 transition-all mt-4 disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Authenticating...' : 'Access Dashboard'}
                 </Button>
               </form>
             </motion.div>
@@ -101,17 +167,17 @@ export default function GuestDashboardPage() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-4 border border-primary/20">
-                <Sparkles className="w-3 h-3" /> Stay Status: Confirmed
+                <Sparkles className="w-3 h-3" /> Stay Status: {displayData.status || 'Confirmed'}
               </div>
               <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-black">
-                Welcome, <span className="text-primary">{guestData.guestName.split(' ')[0]}</span>.
+                Welcome, <span className="text-primary">{displayData.guestName.split(' ')[0]}</span>.
               </h1>
               <p className="text-xl text-black/60 font-medium">
-                Your luxury experience at <span className="text-black">{guestData.propertyTitle}</span> is ready for you.
+                Your luxury experience at <span className="text-black">{displayData.propertyTitle}</span> is ready for you.
               </p>
             </div>
             <div className="flex gap-4">
-              <a href={guestData.directBookingUrl} target="_blank" rel="noopener noreferrer" className="contents">
+              <a href={displayData.directBookingUrl} target="_blank" rel="noopener noreferrer" className="contents">
                 <Button variant="intelligence" className="h-14 px-8 rounded-2xl font-black uppercase tracking-widest gap-2 shadow-xl shadow-primary/20 hover:-translate-y-1 transition-all active:scale-95 border-none">
                   <Zap className="w-5 h-5" /> Book Direct & Save 15%
                 </Button>
@@ -145,7 +211,7 @@ export default function GuestDashboardPage() {
                     </div>
                     <div>
                       <div className="text-xs font-bold text-black/40 uppercase tracking-widest">Check-In</div>
-                      <div className="font-bold text-lg">{guestData.checkIn}</div>
+                      <div className="font-bold text-lg">{displayData.checkIn}</div>
                     </div>
                   </div>
                 </div>
@@ -156,7 +222,7 @@ export default function GuestDashboardPage() {
                     </div>
                     <div>
                       <div className="text-xs font-bold text-black/40 uppercase tracking-widest">Check-Out</div>
-                      <div className="font-bold text-lg">{guestData.checkOut}</div>
+                      <div className="font-bold text-lg">{displayData.checkOut}</div>
                     </div>
                   </div>
                 </div>
@@ -172,10 +238,10 @@ export default function GuestDashboardPage() {
                 <div className="grid md:grid-cols-2 gap-10 relative z-10">
                   <div className="space-y-8">
                     <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-black/40">
+                       <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-black/40">
                         <MapPin className="w-3.5 h-3.5" /> Address
                       </div>
-                      <p className="text-lg font-bold leading-tight">{guestData.address}</p>
+                      <p className="text-lg font-bold leading-tight">{displayData.address}</p>
                       <button className="text-primary text-xs font-black uppercase tracking-widest flex items-center gap-1.5 hover:translate-x-1 transition-transform">
                         Open Maps <ChevronRight className="w-3 h-3" />
                       </button>
@@ -184,7 +250,7 @@ export default function GuestDashboardPage() {
                       <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-black/40">
                         <Phone className="w-3.5 h-3.5" /> 24/7 Concierge Support
                       </div>
-                      <p className="text-lg font-bold">{guestData.hostPhone}</p>
+                      <p className="text-lg font-bold">{displayData.hostPhone}</p>
                     </div>
                   </div>
 
@@ -195,11 +261,11 @@ export default function GuestDashboardPage() {
                       </div>
                       <div className="space-y-1">
                         <div className="text-sm text-black/40">Network</div>
-                        <div className="font-black text-lg">{guestData.wifiName}</div>
+                        <div className="font-black text-lg">{displayData.wifiName}</div>
                       </div>
                       <div className="space-y-1">
                         <div className="text-sm text-black/40">Password</div>
-                        <div className="font-black text-lg tracking-widest">{guestData.wifiPass}</div>
+                        <div className="font-black text-lg tracking-widest">{displayData.wifiPass}</div>
                       </div>
                     </div>
                   </div>
@@ -236,7 +302,7 @@ export default function GuestDashboardPage() {
                 <p className="text-black/60 text-sm mb-6 font-medium">
                   Love your stay? Become a direct member today and unlock exclusive rates for all properties in our jersey shore collection.
                 </p>
-                <a href={guestData.directBookingUrl} target="_blank" rel="noopener noreferrer">
+                <a href={displayData.directBookingUrl} target="_blank" rel="noopener noreferrer">
                   <Button className="w-full h-14 rounded-2xl bg-primary text-white font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-primary/90 transition-all border-none">
                     Join Ecosystem <ExternalLink className="w-4 h-4" />
                   </Button>

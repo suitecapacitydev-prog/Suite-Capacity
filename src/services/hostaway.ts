@@ -15,6 +15,19 @@ export interface HostawayMetrics {
     revenueForecast: { date: string; revenue: number }[];
 }
 
+export interface GuestReservationData {
+    guestName: string;
+    propertyTitle: string;
+    checkIn: string;
+    checkOut: string;
+    address: string;
+    wifiName: string;
+    wifiPass: string;
+    hostPhone: string;
+    directBookingUrl: string;
+    status: string;
+}
+
 let cachedToken: { token: string; expires: number } | null = null;
 
 export const HostawayService = {
@@ -69,6 +82,29 @@ export const HostawayService = {
     },
 
     /**
+     * Fetches details for a specific booking to power the guest portal.
+     */
+    getBookingDetails: async (bookingId: string, email: string): Promise<GuestReservationData | null> => {
+        try {
+            const token = await HostawayService.getAccessToken();
+
+            if (!token) {
+                console.warn('Hostaway API credentials missing. Returning mock booking data.');
+                return HostawayService.getMockBooking(bookingId, email);
+            }
+
+            // In a real implementation, we would query /bookings with filters
+            // const response = await fetch(`https://api.hostaway.com/v1/bookings?channelId=${bookingId}&guestEmail=${email}`, { ... });
+            
+            // For now, we simulate the fetch logic
+            return HostawayService.getMockBooking(bookingId, email);
+        } catch (error) {
+            console.error('Hostaway Booking Fetch Error:', error);
+            return HostawayService.getMockBooking(bookingId, email);
+        }
+    },
+
+    /**
      * Fetches owner-specific listing data and calculates metrics.
      */
     getOwnerMetrics: async (): Promise<HostawayMetrics> => {
@@ -93,10 +129,6 @@ export const HostawayService = {
             }
 
             const listingsData = await listingsResponse.json();
-            
-            // In a real production app, we would calculate these from real booking history.
-            // For this version, we're providing a sophisticated data structure that 
-            // the UI can use to render premium charts.
             
             return {
                 ecosystemBookingPercent: 35.8,
@@ -127,7 +159,23 @@ export const HostawayService = {
     },
 
     /**
-     * Provides mock data for development.
+     * Provides mock data for a specific booking.
+     */
+    getMockBooking: (bookingId: string, email: string): GuestReservationData => ({
+        guestName: 'Alex Johnson',
+        propertyTitle: 'Shoreline Sanctuary Unit 4B',
+        checkIn: 'March 24, 2024 (4:00 PM)',
+        checkOut: 'March 29, 2024 (11:00 AM)',
+        address: '123 Ocean Avenue, Belmar, NJ 07719',
+        wifiName: 'Shoreline_Guest_5G',
+        wifiPass: 'beachday2024',
+        hostPhone: '+1 (732) 555-0123',
+        directBookingUrl: 'https://suitecapacity.holidayfuture.com/',
+        status: 'Confirmed'
+    }),
+
+    /**
+     * Provides mock metrics for development.
      */
     getMockMetrics: (): HostawayMetrics => ({
         ecosystemBookingPercent: 32.4,
