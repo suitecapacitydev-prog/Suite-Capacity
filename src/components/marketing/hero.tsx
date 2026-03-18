@@ -53,7 +53,7 @@ export function Hero() {
 
                     <motion.h1
                         variants={fadeInUp}
-                        className="text-5xl md:text-7xl font-black tracking-tight leading-[1.1]"
+                        className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]"
                     >
                         Turn Your Property Into{' '}
                         <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -64,7 +64,7 @@ export function Hero() {
 
                     <motion.p
                         variants={fadeInUp}
-                        className="text-xl md:text-2xl text-black/60 max-w-2xl mx-auto leading-relaxed"
+                        className="text-lg md:text-xl text-black/55 max-w-2xl mx-auto leading-relaxed"
                     >
                         We install a full-service short-term rental operating system into your property — handling everything from setup to guests, with optional data-driven optimization to increase revenue.
                     </motion.p>
@@ -74,17 +74,17 @@ export function Hero() {
                         className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
                     >
                         <Link href="/wizard" className="w-full sm:w-auto">
-                            <Button size="lg" variant="intelligence" className="w-full gap-2 group h-14 px-8 rounded-2xl font-black text-base">
-                                <FileText className="w-5 h-5" />
+                            <Button size="lg" variant="intelligence" className="w-full gap-2 group h-13 px-8 rounded-2xl font-semibold text-base">
+                                <FileText className="w-4 h-4" />
                                 Get Your STR Blueprint
-                                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                             </Button>
                         </Link>
                         <a href="https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                             <Button
                                 size="lg"
                                 variant="outline"
-                                className="w-full h-14 px-8 rounded-2xl font-black text-base"
+                                className="w-full h-13 px-8 rounded-2xl font-semibold text-base"
                             >
                                 Activate Your Property
                             </Button>
@@ -94,19 +94,19 @@ export function Hero() {
                     {/* Social Proof Stats */}
                     <motion.div
                         variants={fadeInUp}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 border-t border-black/5"
+                        className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-14 border-t border-black/5"
                     >
-                        <div className="space-y-1">
-                            <p className="text-3xl font-black text-black">$42M+</p>
-                            <p className="text-xs text-black uppercase tracking-widest opacity-60">Revenue Generated</p>
+                        <div className="space-y-1.5">
+                            <p className="text-4xl font-bold text-black">$42M+</p>
+                            <p className="text-xs text-black/45 uppercase tracking-widest">Revenue Generated</p>
                         </div>
-                        <div className="space-y-1">
-                            <p className="text-3xl font-black text-black">24.2%</p>
-                            <p className="text-xs text-black uppercase tracking-widest opacity-60">Avg Revenue Increase</p>
+                        <div className="space-y-1.5">
+                            <p className="text-4xl font-bold text-black">24.2%</p>
+                            <p className="text-xs text-black/45 uppercase tracking-widest">Avg Revenue Increase</p>
                         </div>
-                        <div className="space-y-1">
-                            <p className="text-3xl font-black text-black">1,200+</p>
-                            <p className="text-xs text-black uppercase tracking-widest opacity-60">Active Units Managed</p>
+                        <div className="space-y-1.5">
+                            <p className="text-4xl font-bold text-black">1,200+</p>
+                            <p className="text-xs text-black/45 uppercase tracking-widest">Active Units Managed</p>
                         </div>
                     </motion.div>
                 </motion.div>

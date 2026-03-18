@@ -72,8 +72,8 @@ export function GuestEcosystemSection() {
               variants={scaleIn}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 rounded-full glass-panel border border-black/20 flex flex-col items-center justify-center z-20 shadow-[0_0_50px_rgba(0,0,0,0.15)] group-hover:scale-110 transition-transform duration-700"
             >
-              <Network className="w-12 h-12 text-black mb-2" />
-              <span className="text-[10px] font-black tracking-widest text-black">CENTRAL CRM</span>
+              <Network className="w-12 h-12 text-primary mb-2" />
+              <span className="text-[9px] font-bold tracking-widest text-primary uppercase" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>CENTRAL CRM</span>
             </motion.div>
 
             {/* Orbital Nodes */}
@@ -81,29 +81,29 @@ export function GuestEcosystemSection() {
               variants={fadeInUp}
               className="absolute top-[10%] left-1/2 -translate-x-1/2 w-24 h-24 rounded-full glass-panel flex flex-col items-center justify-center z-10 animate-vertical-float"
             >
-              <Users className="w-6 h-6 text-black mb-1" />
-              <span className="text-[10px] text-black font-bold uppercase tracking-tighter text-center">Travelers</span>
+              <Users className="w-6 h-6 text-blue-500 mb-1" />
+              <span className="text-[9px] text-blue-500 font-bold uppercase tracking-tight text-center" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>Travelers</span>
             </motion.div>
             <motion.div
               variants={fadeInUp}
               className="absolute top-[25%] right-[5%] w-28 h-28 rounded-full glass-panel flex flex-col items-center justify-center z-10 hover:translate-x-2 transition-transform duration-500"
             >
-              <Repeat className="w-8 h-8 text-black mb-1" />
-              <span className="text-[10px] text-black font-bold uppercase tracking-tighter text-center leading-tight">Repeat<br />Renters</span>
+              <Repeat className="w-8 h-8 text-accent mb-1" />
+              <span className="text-[9px] text-accent font-bold uppercase tracking-tight text-center leading-tight" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>Repeat<br />Renters</span>
             </motion.div>
             <motion.div
               variants={fadeInUp}
               className="absolute bottom-[15%] right-[10%] w-24 h-24 rounded-full glass-panel flex flex-col items-center justify-center z-10 hover:translate-y-2 transition-transform duration-500"
             >
-              <TrendingUp className="w-8 h-8 text-black mb-1" />
-              <span className="text-[10px] text-black font-bold uppercase tracking-tighter text-center">Direct<br />Bookings</span>
+              <TrendingUp className="w-8 h-8 text-green-500 mb-1" />
+              <span className="text-[9px] text-green-600 font-bold uppercase tracking-tight text-center" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>Direct<br />Bookings</span>
             </motion.div>
             <motion.div
               variants={fadeInUp}
               className="absolute bottom-[15%] left-[10%] w-28 h-28 rounded-full glass-panel flex flex-col items-center justify-center z-10 hover:-translate-y-2 transition-transform duration-500"
             >
-              <MapPin className="w-8 h-8 text-black mb-1" />
-              <span className="text-[10px] text-black font-bold uppercase tracking-tighter text-center">Cross<br />Exposure</span>
+              <MapPin className="w-8 h-8 text-primary mb-1" />
+              <span className="text-[9px] text-primary font-bold uppercase tracking-tight text-center" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>Cross<br />Exposure</span>
             </motion.div>
 
             {/* Connecting Lines (SVG overlay) */}
@@ -163,8 +163,18 @@ export function GuestEcosystemSection() {
                 className="glass-panel p-6 flex gap-4 items-start group hover:border-primary/50 transition-colors cursor-pointer"
                 whileHover={{ x: 10, backgroundColor: "rgba(0,0,0,0.05)" }}
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/5 flex items-center justify-center shrink-0">
-                  <point.icon className="w-6 h-6 text-black" />
+                <div className={`w-12 h-12 rounded-lg flex items-center justify-center shrink-0 ${
+                    i === 0 ? 'bg-blue-500/10' :
+                    i === 1 ? 'bg-accent/10' :
+                    i === 2 ? 'bg-primary/10' :
+                    'bg-green-500/10'
+                  }`}>
+                  <point.icon className={`w-6 h-6 ${
+                    i === 0 ? 'text-blue-500' :
+                    i === 1 ? 'text-accent' :
+                    i === 2 ? 'text-primary' :
+                    'text-green-500'
+                  }`} />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold mb-2 text-black transition-colors">{point.title}</h3>

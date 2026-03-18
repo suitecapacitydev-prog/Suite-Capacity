@@ -58,7 +58,6 @@ export function DeploymentProcess() {
               className="px-12 py-5 bg-primary hover:bg-primary/90 text-black rounded-xl font-bold text-lg transition-all hover:shadow-[0_0_30px_rgba(171,209,199,0.3)] hover:-translate-y-1 inline-flex items-center gap-3 group"
             >
               Activate My Property
-              <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Link>
           </motion.div>
         </motion.div>
