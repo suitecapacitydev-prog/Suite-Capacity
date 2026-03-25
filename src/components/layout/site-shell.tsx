@@ -52,12 +52,11 @@ export default function RootLayout({
 
                     <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-black">
                         <Link href="/platform" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Platform</Link>
-                        <Link href="/platform/guest-dashboard" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Guest Access</Link>
+                        <Link href="/invest" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Invest</Link>
+                        <Link href="/guest-list" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Guest List</Link>
                         <Link href="/markets" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Markets</Link>
                         <Link href="/solutions" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Solutions</Link>
                         <Link href="/case-studies" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Performance</Link>
-                        <Link href="/blog" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Blog</Link>
-                        <Link href="/showcase" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Showcase</Link>
                         <Link href="/about" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">About</Link>
                     </nav>
 
@@ -96,11 +95,11 @@ export default function RootLayout({
                     <div className="md:hidden bg-white border-t border-black/5 absolute top-20 left-0 w-full animate-in slide-in-from-top duration-300">
                         <nav className="flex flex-col p-6 gap-2 text-lg font-semibold">
                             <Link href="/platform" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Platform</Link>
+                            <Link href="/invest" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-primary font-bold">Invest</Link>
+                            <Link href="/guest-list" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Guest List</Link>
                             <Link href="/markets" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Markets</Link>
                             <Link href="/solutions" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Solutions</Link>
                             <Link href="/case-studies" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Performance</Link>
-                            <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Blog</Link>
-                            <Link href="/showcase" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Showcase</Link>
                             <Link href="/about" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">About</Link>
                             <div className="pt-4 mt-2 border-t border-black/5 flex flex-col gap-4">
                                 {isLoggedIn ? (
@@ -170,10 +169,10 @@ export default function RootLayout({
                     <div>
                         <h4 className="font-semibold mb-4">Platform</h4>
                         <ul className="space-y-2 text-sm text-secondary-foreground">
-                            <li><Link href="/platform/central-brain" className="hover:text-primary transition-colors">The Central Brain</Link></li>
+                            <li><Link href="/invest" className="hover:text-primary transition-colors font-bold text-primary">STR Investment</Link></li>
                             <li><Link href="/platform/revenue-intelligence" className="hover:text-primary transition-colors">Revenue Intelligence</Link></li>
-                            <li><Link href="/platform/guest-dashboard" className="hover:text-primary transition-colors">Guest Dashboard</Link></li>
-                            <li><Link href="/platform/deployment" className="hover:text-primary transition-colors">Deployment Process</Link></li>
+                            <li><Link href="/guest-list" className="hover:text-primary transition-colors">Guest List (Book Direct)</Link></li>
+                            <li><Link href="/platform/deployment" className="hover:text-primary transition-colors">7-Day Deployment</Link></li>
                         </ul>
                     </div>
 

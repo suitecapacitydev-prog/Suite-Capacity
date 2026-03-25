@@ -122,8 +122,8 @@ export default function LocalLayerPage() {
             <div className="flex items-center gap-4 p-4 rounded-lg bg-primary/10 border border-primary/20 mb-8">
               <Microscope className="w-8 h-8 text-black" />
               <div>
-                <p className="text-sm font-bold text-black">14-Day Deployment Protocol</p>
-                <p className="text-xs text-black">We scout and activate your local team in under 14 days.</p>
+                <p className="text-sm font-bold text-black">7 Days or Less to Launch</p>
+                <p className="text-xs text-black">No long term commitments. We scout and activate your local team rapidly.</p>
               </div>
             </div>
 

@@ -152,10 +152,10 @@ export function GuestEcosystemSection() {
             className="space-y-6"
           >
             {[
-              { title: 'Shared guest network', desc: 'Every property added to our platform pools its past guests into our central centralized CRM, creating a massive, shared traveler database.', icon: Users },
-              { title: 'Repeat renter automation', desc: 'Automated retargeting campaigns ensure past guests return to our ecosystem, reducing dependency on costly OTA platforms like Airbnb and Vrbo.', icon: Repeat },
-              { title: 'Cross-property exposure', desc: 'When a property is fully booked, excess demand is routed instantly to other available homes in the market, maximizing network occupancy.', icon: MapPin },
-              { title: 'Direct booking engine', desc: 'A high-converting, brand-owned funnel turns OTA travelers into direct bookers, capturing higher margins and increasing your revenue.', icon: TrendingUp },
+              { title: 'Shared Guest Network', desc: 'Every property added to our platform pools its past guests into our central centralized CRM, creating a massive, shared traveler database.', icon: Users },
+              { title: 'Repeat Renter Automation', desc: 'Automated retargeting campaigns ensure past guests return to our ecosystem, reducing dependency on costly OTA platforms like Airbnb and Vrbo.', icon: Repeat },
+              { title: 'Cross-Property Exposure', desc: 'When a property is fully booked, excess demand is routed instantly to other available homes in the market, maximizing network occupancy.', icon: MapPin },
+              { title: 'Direct Booking Engine', desc: 'A high-converting, brand-owned funnel turns OTA travelers into direct bookers, capturing higher margins and increasing your revenue.', icon: TrendingUp },
             ].map((point, i) => (
               <motion.div
                 key={i}

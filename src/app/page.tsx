@@ -2,6 +2,9 @@ import SiteShell from '@/components/layout/site-shell';
 import { Hero } from '@/components/marketing/hero';
 import { GuestEcosystemSection } from '@/components/marketing/guest-ecosystem-section';
 import { DeploymentProcess } from '@/components/marketing/deployment-process';
+import { MarketsSection } from '@/components/marketing/markets-section';
+import { InvestmentTeaser } from '@/components/marketing/investment-teaser';
+import { GuestListTeaser } from '@/components/marketing/guest-list-teaser';
 import Link from 'next/link';
 import { FileText, Settings, TrendingUp, ArrowRight, CheckCircle } from 'lucide-react';
 
@@ -26,9 +29,9 @@ export default function Home() {
               </p>
               <ul className="space-y-3 mb-10">
                 {[
-                  'Revenue projections & market comparison',
-                  'Design + setup plan for maximum bookings',
-                  'Pricing & optimization strategy',
+                  'Revenue Projections & Market Comparison',
+                  'Design + Setup Plan for Maximum Bookings',
+                  'Pricing & Optimization Strategy',
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-black/65 text-sm">
                     <CheckCircle className="w-4 h-4 text-primary shrink-0" />
@@ -96,7 +99,7 @@ export default function Home() {
               subtitle: 'Your STR Blueprint',
               icon: FileText,
               color: 'text-blue-600 bg-blue-500/10',
-              items: ['Revenue projections', 'Market demand analysis', 'Personalized STR strategy'],
+              items: ['Revenue Projections', 'Market Demand Analysis', 'Personalized STR Strategy'],
             },
             {
               step: '02',
@@ -104,7 +107,7 @@ export default function Home() {
               subtitle: 'Full Property Activation',
               icon: Settings,
               color: 'text-primary bg-primary/10',
-              items: ['Furnishing & interior design', 'Professional photography', 'Listing creation & optimization'],
+              items: ['Furnishing & Interior Design', 'Professional Photography', 'Listing Creation & Optimization'],
             },
             {
               step: '03',
@@ -112,7 +115,7 @@ export default function Home() {
               subtitle: 'Ongoing Management',
               icon: TrendingUp,
               color: 'text-green-600 bg-green-500/10',
-              items: ['Dynamic pricing & automation', 'Guest management & concierge', 'Cleaning, inspections & compliance'],
+              items: ['Dynamic Pricing & Automation', 'Guest Management & Concierge', 'Cleaning, Inspections & Compliance'],
             },
           ].map((phase, i) => (
             <div key={i} className="glass-panel p-8 border-black/5 bg-white relative overflow-hidden group hover:-translate-y-1 transition-all">
@@ -155,6 +158,9 @@ export default function Home() {
         </div>
       </section>
 
+      <InvestmentTeaser />
+      <GuestListTeaser />
+      <MarketsSection />
       <GuestEcosystemSection />
       <DeploymentProcess />
     </SiteShell>

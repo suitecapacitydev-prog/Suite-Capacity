@@ -22,7 +22,7 @@ export function DeploymentProcess() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 bg-primary/5 text-black text-sm font-bold mb-4"
           >
             <Clock className="w-4 h-4 text-primary" />
-            <span className="tracking-tight">14-Day Activation Process</span>
+            <span className="tracking-tight">7 days or less to launch, no long term commitments</span>
           </motion.div>
 
           <motion.h2
@@ -43,7 +43,7 @@ export function DeploymentProcess() {
             className="text-xl text-black/70 leading-relaxed max-w-2xl mx-auto"
           >
             We don't just "onboard" properties. We deploy a vertically integrated operating system.
-            Our 14-day protocol transforms your asset into a high-performance hospitality business.
+            Our 7-day or less protocol transforms your asset into a high-performance hospitality business.
           </motion.p>
 
           <motion.div

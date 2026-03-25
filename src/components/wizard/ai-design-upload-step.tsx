@@ -115,7 +115,7 @@ export function AIDesignUploadStep({ data, updateData }: AIDesignUploadStepProps
                                 ) : image ? (
                                     <>
                                         <img src={image.url} alt={cat.label} className="w-full h-full object-cover" />
-                                        <div className="absolute inset-0 bg-primary/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                                        <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
                                             <button
                                                 onClick={() => removeImage(image.id)}
                                                 className="p-2 bg-destructive text-destructive-foreground rounded-full hover:scale-110 transition-transform"

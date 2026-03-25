@@ -146,7 +146,7 @@ export default function GuestEcosystemPage() {
         <div className="container mx-auto px-6 relative z-10 max-w-3xl">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">Plug Your Property Into The System</h2>
           <p className="text-lg text-black mb-10">
-            Our platform can deploy the entire ecosystem for your property, from pricing engines to guest marketing automation, in under 14 days.
+            Our platform can deploy the entire ecosystem for your property, from pricing engines to guest marketing automation, in 7 days or less to launch, with no long term commitments.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

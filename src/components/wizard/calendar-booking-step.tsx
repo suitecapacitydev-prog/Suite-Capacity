@@ -34,7 +34,7 @@ export function CalendarBookingStep({ onBack, onContinue, strategyUrl }: Calenda
                 </div>
                 <h3 className="text-4xl font-black tracking-tighter">You Could Execute This Plan Yourself...</h3>
                 <p className="text-xl text-muted-foreground">
-                    Or our platform can deploy everything in under 14 days.
+                    Or our platform can deploy everything in 7 days or less to launch, with no long term commitments.
                     Book your 1:1 Revenue Strategy session to unlock the full platform deployment.
                 </p>
             </div>

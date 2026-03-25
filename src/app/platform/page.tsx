@@ -34,7 +34,7 @@ export default function PlatformPage() {
     },
     {
       title: 'Deployment Process',
-      desc: 'Our 14-day protocol that transforms your property into a high-performance hospitality asset.',
+      desc: '7 days or less to launch, no long term commitments. We transform your property into a high-performance hospitality asset.',
       icon: Rocket,
       href: '/platform/deployment',
       color: 'primary',

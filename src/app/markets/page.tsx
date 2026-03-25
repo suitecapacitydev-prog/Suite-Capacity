@@ -1,29 +1,50 @@
 import SiteShell from '@/components/layout/site-shell';
-import { MapPin, ArrowRight, TrendingUp, Users, ShieldCheck, Waves, Sun, Mountain } from 'lucide-react';
+import { MapPin, ArrowRight, TrendingUp, Users, ShieldCheck, Waves, Sun, Mountain, Trees } from 'lucide-react';
 import Link from 'next/link';
 
 export default function MarketsPage() {
   const markets = [
     {
       name: 'Jersey Shore',
-      desc: 'The Northeast’s premier beach destination. Specialized beachfront maintenance and high-intensity summer seasonal strategies.',
+      desc: 'Asbury park to cape may. The Northeast’s premier beach destination. Specialized beachfront maintenance and high-intensity summer seasonal strategies.',
       performance: '+28%',
-      stats: '142 Units',
+      stats: 'Active',
       icon: Waves,
     },
     {
-      name: 'Florida Coastal',
-      desc: 'Year-round demand with localized expertise in hurricane compliance and vacation rental saturation management.',
-      performance: '+22%',
-      stats: '84 Units',
+      name: 'Kissimmee-Orlando',
+      desc: 'Coming Soon. High-demand vacation rental market near major attractions. Deployment of our vertically integrated operating system underway.',
+      performance: 'TBD',
+      stats: 'Coming Soon',
       icon: Sun,
     },
     {
-      name: 'Arizona Deserts',
-      desc: 'High-yield golf and event-driven markets. Proactive HVAC maintenance and heat-sensitive asset preservation.',
-      performance: '+31%',
-      stats: '68 Units',
+      name: 'Florida Coastal',
+      desc: 'Coming Soon. Year-round demand with localized expertise in hurricane compliance and vacation rental saturation management.',
+      performance: 'TBD',
+      stats: 'Coming Soon',
+      icon: Waves,
+    },
+    {
+      name: 'Phoenix',
+      desc: 'Coming Soon. High-yield golf and event-driven markets. Proactive HVAC maintenance and heat-sensitive asset preservation.',
+      performance: 'TBD',
+      stats: 'Coming Soon',
+      icon: Sun,
+    },
+    {
+      name: 'Smoky Mountains',
+      desc: 'Coming Soon. Year-round mountain destination specializing in luxury cabin management and winter weather operations.',
+      performance: 'TBD',
+      stats: 'Coming Soon',
       icon: Mountain,
+    },
+    {
+      name: 'Poconos',
+      desc: 'Coming Soon. Premier Northeast mountain retreat. Expertise in multi-seasonal demand and large-group hospitality.',
+      performance: 'TBD',
+      stats: 'Coming Soon',
+      icon: Trees,
     },
   ];
 
@@ -51,10 +72,13 @@ export default function MarketsPage() {
                   <img
                     src={
                       market.name === 'Jersey Shore' ? '/images/properties/waterfront.jpg' :
-                        market.name === 'Florida Coastal' ? '/images/properties/beachside.jpg' :
-                          '/images/properties/hot-tub.jpg'
+                        market.name === 'Kissimmee-Orlando' ? 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=800' :
+                          market.name === 'Florida Coastal' ? '/images/properties/beachside.jpg' :
+                            market.name === 'Phoenix' ? 'https://images.unsplash.com/photo-1558036117-15d82a90b9b1?auto=format&fit=crop&q=80&w=800' :
+                              market.name === 'Smoky Mountains' ? 'https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&q=80&w=800' :
+                                'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800'
                     }
-                    alt={market.name}
+                    alt={`${market.name} vacation rental property`}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
@@ -91,7 +115,7 @@ export default function MarketsPage() {
           <MapPin className="w-12 h-12 text-primary mx-auto mb-6" />
           <h2 className="text-3xl md:text-5xl font-bold mb-6">Don't see your market?</h2>
           <p className="text-lg text-black mb-10">
-            We are expanding our distributed network every quarter. Our 14-day deployment protocol allows us to scout and activate new market teams rapidly.
+            We are expanding our distributed network every quarter. Our 7 days or less to launch, no long term commitments policy allows us to scout and activate new market teams rapidly.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

@@ -102,7 +102,7 @@ export default function CentralBrainPage() {
         <div className="container mx-auto px-6 relative z-10 max-w-3xl">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">Activate the Brain</h2>
           <p className="text-lg text-black mb-10">
-            Deploy our revenue intelligence layer for your property in under 14 days.
+            Deploy our revenue intelligence layer for your property in 7 days or less to launch, with no long term commitments.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

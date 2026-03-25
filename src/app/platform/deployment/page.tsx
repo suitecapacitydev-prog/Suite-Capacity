@@ -5,28 +5,28 @@ import Link from 'next/link';
 export default function DeploymentPage() {
   const steps = [
     {
-      day: 'Days 1-3',
+      day: 'Days 1-2',
       title: 'Digital Core Activation',
       desc: 'Pricing engine setup, listing optimization, and digital asset integration.',
       items: ['Dynamic Pricing Setup', 'Neural Network Indexing', 'OTA Channel Sync'],
       icon: Zap,
     },
     {
-      day: 'Days 4-7',
+      day: 'Days 3-4',
       title: 'Local Operational Layer',
       desc: 'Field team activation, maintenance protocols, and recursive inspection setup.',
       items: ['Localized Team Scouted', 'Vendor Onboarding', 'Inventory Audit'],
       icon: MapPin,
     },
     {
-      day: 'Days 8-10',
+      day: 'Days 5-6',
       title: 'Guest Ecosystem Plugin',
       desc: 'Importing guest data, CRM automation setup, and direct booking funnel launch.',
       items: ['CRM Guest Migration', 'Automation Trigger Setup', 'Direct Funnel Test'],
       icon: Users,
     },
     {
-      day: 'Days 11-14',
+      day: 'Day 7',
       title: 'Full Platform Go-Live',
       desc: 'Owner dashboard access, compliance verification, and 24/7 support activation.',
       items: ['Owner Dashboard Launch', 'Compliance Final Signoff', 'Market Support Live'],
@@ -44,14 +44,14 @@ export default function DeploymentPage() {
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-primary/5 text-black text-sm font-medium mb-8">
             <Clock className="w-4 h-4 text-black" />
-            <span>14-Day Activation Protocol</span>
+            <span>7 Days or Less to Launch</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight whitespace-pre-line">
             Rapid Platform{'\n'}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Deployment</span>
           </h1>
           <p className="text-xl text-black mb-10 max-w-2xl mx-auto">
-            Traditional property management onboarding takes months. Our platform deployment protocol activates your property’s intelligence layer in under 14 days.
+            Traditional property management onboarding takes months. Our platform deployment protocol activates your property’s intelligence layer in 7 days or less, with no long term commitments.
           </p>
         </div>
       </section>
