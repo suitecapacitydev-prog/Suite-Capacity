@@ -53,10 +53,10 @@ export function MarketsSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-primary/5 text-black text-[11px] font-bold uppercase tracking-widest mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-[11px] font-black uppercase tracking-widest mb-6"
           >
             <MapPin className="w-3 h-3 text-primary" />
-            For Our Core Markets
+            Core Portfolio Markets
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ export function MarketsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-black/55"
+            className="text-lg text-black/80 font-medium"
           >
             We combine centralized revenue intelligence with hyper-local market operations.
           </motion.p>
@@ -93,8 +93,8 @@ export function MarketsSection() {
                   <market.icon className="w-6 h-6" />
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${
-                    market.status === 'Active' ? 'bg-primary/10 text-primary' : 'bg-black/5 text-black/40'
+                  <span className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full ${
+                    market.status === 'Active' ? 'bg-primary/10 text-primary' : 'bg-black/10 text-black/60'
                   }`}>
                     {market.status}
                   </span>
@@ -103,11 +103,11 @@ export function MarketsSection() {
               
               <h3 className="text-xl font-bold text-black mb-2">{market.name}</h3>
               {market.detail ? (
-                <p className="text-sm text-black/55 leading-relaxed">
+                <p className="text-sm text-black/80 leading-relaxed">
                   {market.detail}
                 </p>
               ) : (
-                <p className="text-sm text-black/30 italic">
+                <p className="text-sm text-black/50 italic font-medium">
                   Hyper-local operations launching soon...
                 </p>
               )}

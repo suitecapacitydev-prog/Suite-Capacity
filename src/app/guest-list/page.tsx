@@ -184,7 +184,7 @@ export default function GuestListPage() {
                   Get Member Access
                   <Lock className="w-4 h-4 ml-2" />
                 </Button>
-                <p className="text-[10px] text-center text-black/40 mt-6 leading-relaxed">
+                <p className="text-[10px] text-center text-black/60 mt-6 leading-relaxed">
                   By joining, you agree to receive direct booking updates and member-exclusive offers. Unsubscribe anytime.
                 </p>
               </form>
@@ -206,7 +206,7 @@ export default function GuestListPage() {
           ].map((item, i) => (
             <div key={i} className="glass-panel overflow-hidden group border-black/5">
               <div className="h-64 bg-black/5 relative">
-                <div className="absolute top-4 left-4 bg-primary text-black font-bold text-xs px-3 py-1.5 rounded-full z-10 shadow-lg">Save 10%</div>
+                <div className="absolute top-4 left-4 bg-primary text-white font-bold text-xs px-3 py-1.5 rounded-full z-10 shadow-lg">Save 10%</div>
                 <img 
                   src={i === 0 ? "/images/properties/waterfront.jpg" : "/images/properties/beachside.jpg"} 
                   alt={item.name} 
@@ -219,8 +219,8 @@ export default function GuestListPage() {
                   <h3 className="text-xl font-bold">{item.name}</h3>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-black/30 line-through">Standard {item.price}/nt</p>
-                  <p className="text-xl font-bold text-black">Member {item.memberPrice}<span className="text-xs text-black/40 font-normal">/nt</span></p>
+                  <p className="text-xs text-black/50 line-through">Standard {item.price}/nt</p>
+                  <p className="text-xl font-bold text-black">Member {item.memberPrice}<span className="text-xs text-black/60 font-normal">/nt</span></p>
                 </div>
               </div>
             </div>

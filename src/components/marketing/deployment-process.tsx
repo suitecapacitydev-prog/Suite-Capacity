@@ -30,9 +30,9 @@ export function DeploymentProcess() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-4xl md:text-6xl font-bold tracking-tight"
+            className="text-4xl md:text-6xl font-bold tracking-tight text-primary"
           >
-            Rapid Platform <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Deployment</span>
+            Rapid Platform <span className="italic">Deployment</span>
           </motion.h2>
 
           <motion.p
@@ -40,7 +40,7 @@ export function DeploymentProcess() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-xl text-black/70 leading-relaxed max-w-2xl mx-auto"
+            className="text-xl text-black/70 leading-relaxed max-w-2xl mx-auto font-medium"
           >
             We don't just "onboard" properties. We deploy a vertically integrated operating system.
             Our 7-day or less protocol transforms your asset into a high-performance hospitality business.
@@ -55,7 +55,7 @@ export function DeploymentProcess() {
           >
             <Link
               href="/wizard"
-              className="px-12 py-5 bg-primary hover:bg-primary/90 text-black rounded-xl font-bold text-lg transition-all hover:shadow-[0_0_30px_rgba(171,209,199,0.3)] hover:-translate-y-1 inline-flex items-center gap-3 group"
+              className="px-12 py-5 bg-primary hover:bg-primary/90 text-white rounded-xl font-bold text-lg transition-all shadow-xl shadow-primary/20 hover:-translate-y-1 inline-flex items-center gap-3 group"
             >
               Activate My Property
             </Link>

@@ -118,19 +118,37 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                         <p className="text-sm text-muted-foreground">Based on your provided baseline</p>
                     </div>
                 </div>
-                <div className="p-8 rounded-3xl border-2 border-primary bg-primary/5 space-y-4 relative overflow-hidden group shadow-glow">
+                <div className="p-8 rounded-3xl border-2 border-primary bg-primary space-y-4 relative overflow-hidden group shadow-[0_0_40px_rgba(30,63,57,0.2)]">
                     <div className="absolute top-0 right-0 p-4">
-                        <TrendingUp className="text-primary w-8 h-8 animate-bounce" />
+                        <TrendingUp className="text-white w-8 h-8 animate-bounce" />
                     </div>
-                    <p className="text-xs font-bold text-black uppercase tracking-widest opacity-70">Optimized Revenue Potential</p>
+                    <p className="text-xs font-bold text-white uppercase tracking-widest opacity-70">Optimized Revenue Potential</p>
                     <div className="space-y-1">
-                        <h4 className="text-5xl font-black text-black">{formatCurrency(animatedRevenue)}</h4>
-                        <p className="text-sm text-black opacity-80">Projected with Suite Capacity System</p>
+                        <h4 className="text-5xl font-black text-white">{formatCurrency(animatedRevenue)}</h4>
+                        <p className="text-sm text-white opacity-80">Projected with Suite Capacity System</p>
                     </div>
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-black text-sm font-black italic">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-primary text-sm font-black italic">
                         +{Math.round((projection.optimizedRevenue / projection.currentRevenue - 1) * 100)}% LIFT
                     </div>
                 </div>
+            </div>
+
+            {/* Strategic CTAs */}
+            <div className="grid md:grid-cols-2 gap-6 pt-4">
+                <Button variant="intelligence" size="lg" className="h-20 rounded-2xl flex flex-col items-center justify-center gap-1 group">
+                    <div className="flex items-center gap-2">
+                        Apply for 90-Day Accelerator
+                        <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    </div>
+                    <span className="text-[10px] opacity-70 font-bold uppercase tracking-widest">Entry Cost: $0 Upfront</span>
+                </Button>
+                <Button variant="outline" size="lg" className="h-20 rounded-2xl flex flex-col items-center justify-center gap-1 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all">
+                    <div className="flex items-center gap-2 text-primary font-black">
+                        Book a Strategy Call
+                        <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] text-primary/60 font-bold uppercase tracking-widest">Speak With a Portfolio Manager</span>
+                </Button>
             </div>
 
             {/* Section 2: Market Positioning */}
@@ -156,8 +174,8 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
                                     <p className="text-[10px] text-muted-foreground">Your Input</p>
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-xl font-bold text-black">{stat.target}</p>
-                                    <p className="text-[10px] text-black opacity-70">Market Leader</p>
+                                    <p className="text-xl font-black text-primary">{stat.target}</p>
+                                    <p className="text-[10px] text-primary font-bold uppercase tracking-wider">Market Leader</p>
                                 </div>
                             </div>
                         </div>
@@ -167,23 +185,25 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
 
             {/* Section 3: Revenue Lift Breakdown */}
             <div className="space-y-6">
-                <h4 className="text-xl font-bold flex items-center gap-2">
-                    <Zap className="text-primary w-5 h-5" />
-                    Strategic Opportunity Breakdown
-                </h4>
+                <div className="flex items-center justify-between">
+                    <h4 className="text-xl font-black flex items-center gap-2 text-primary">
+                        <Zap className="w-5 h-5" />
+                        Strategic Opportunity Breakdown
+                    </h4>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                     {[
-                        { label: 'Pricing Intelligence', value: projection.pricingLift, icon: DollarSign, color: 'text-blue-500', desc: 'Dynamic adjustments' },
-                        { label: 'Conversion Optimization', value: projection.conversionLift, icon: Star, color: 'text-amber-500', desc: 'Listing SEO & Copy' },
-                        { label: 'Guest Ecosystem', value: projection.ecosystemLift, icon: Users, color: 'text-emerald-500', desc: 'Direct booking network' },
-                        { label: 'Design Enhancement', value: projection.designLift, icon: Sparkles, color: 'text-purple-500', desc: 'Visual conversion' },
-                        { label: 'Operational Efficiency', value: projection.efficiencyLift, icon: ShieldCheck, color: 'text-rose-500', desc: 'Cost & response time' },
+                        { label: 'Pricing Intelligence', value: projection.pricingLift, icon: DollarSign, color: 'text-indigo-600', desc: 'Dynamic adjustments' },
+                        { label: 'Conversion SEO', value: projection.conversionLift, icon: Star, color: 'text-amber-600', desc: 'Listing Optimization' },
+                        { label: 'Guest Ecosystem', value: projection.ecosystemLift, icon: Users, color: 'text-emerald-600', desc: 'Direct booking network' },
+                        { label: 'Premium Design', value: projection.designLift, icon: Sparkles, color: 'text-rose-600', desc: 'Visual conversion' },
+                        { label: 'Ops Efficiency', value: projection.efficiencyLift, icon: ShieldCheck, color: 'text-teal-600', desc: 'Institutional protocols' },
                     ].map((item) => (
-                        <div key={item.label} className="p-5 rounded-2xl border border-border bg-card/50 hover:border-primary/50 transition-all group">
+                        <div key={item.label} className="p-5 rounded-2xl border border-black/5 bg-white hover:border-primary/50 transition-all group shadow-sm">
                             <item.icon className={cn(item.color, "w-6 h-6 mb-3 transition-transform group-hover:scale-110")} />
-                            <p className="text-[10px] font-black text-muted-foreground uppercase tracking-tighter mb-1">{item.label}</p>
-                            <p className="text-xl font-black text-black mb-1">+{formatCurrency(item.value)}</p>
-                            <p className="text-[9px] text-muted-foreground leading-tight">{item.desc}</p>
+                            <p className="text-[10px] font-black text-primary/60 uppercase tracking-widest mb-1">{item.label}</p>
+                            <p className="text-xl font-black text-primary mb-1">+{formatCurrency(item.value)}</p>
+                            <p className="text-[9px] text-black/80 font-medium leading-tight">{item.desc}</p>
                         </div>
                     ))}
                 </div>

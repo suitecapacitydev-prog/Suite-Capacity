@@ -3,37 +3,39 @@
 :root {
   /* Brand Palette (suitecapacity.com styles) */
   --background: #F4F3F2;
-  --foreground: #000000;
+  --foreground: #1A1C1B;
 
   --card: #ffffff;
-  --card-foreground: #000000;
+  --card-foreground: #1A1C1B;
 
   --popover: #ffffff;
   --popover-foreground: #000000;
 
-  --primary: #ABD1C7;
-  --primary-foreground: #000000;
+  --primary: #1E3F39;
+  --primary-foreground: #ffffff;
 
   --secondary: #5A6D68;
-  --secondary-foreground: #000000;
+  --secondary-foreground: #4B5552;
 
-  --muted: #C0CBC8;
-  --muted-foreground: #000000;
+  --muted: #E5E7EB;
+  --muted-foreground: #4B5563;
 
-  --accent: #D9907D;
-  --accent-foreground: #000000;
+  --accent: #B05B47; 
+  --accent-foreground: #ffffff;
 
-  --destructive: #D9907D;
-  --destructive-foreground: #000000;
+  --destructive: #EF4444;
+  --destructive-foreground: #ffffff;
 
-  --border: #C0CBC8;
+  --border: #9CA3AF;
   --input: #ffffff;
-  --ring: #D9907D;
+  --ring: #1E3F39;
+  --primary-hover: #2A564F;
+  --primary-light: #3A7068;
 
   /* Data Accents */
-  --intelligence-glow: 0 0 20px rgba(217, 144, 125, 0.25);
-  --success-teal: #ABD1C7;
-  --warning-amber: #D9907D;
+  --intelligence-glow: 0 0 20px rgba(30, 63, 57, 0.15);
+  --success-teal: #1E3F39;
+  --warning-amber: #B05B47;
 }
 
 @theme inline {
@@ -54,6 +56,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
 
   --shadow-glow: var(--intelligence-glow);
 }
@@ -66,9 +70,6 @@ body {
   font-weight: 400;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  background-image:
-    radial-gradient(circle at 50% 0%, rgba(217, 144, 125, 0.12) 0%, transparent 55%),
-    radial-gradient(circle at 0% 100%, rgba(171, 209, 199, 0.10) 0%, transparent 55%);
   background-attachment: fixed;
 }
 
@@ -145,15 +146,12 @@ p  { font-weight: 400; line-height: 1.7; }
   }
 }
 
-/* Force black text for foreground utility classes (maintaining brand look) */
-.text-foreground,
-.text-primary-foreground,
-.text-secondary-foreground,
-.text-accent-foreground,
-.text-muted-foreground,
-.text-success,
-.text-destructive {
-  color: #000000 !important;
+/* Standard text utilities for brand look */
+.text-label {
+  color: rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
 }
 
 .scan-line {

@@ -50,7 +50,7 @@ export default function RootLayout({
                         />
                     </Link>
 
-                    <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-black">
+                    <nav className="hidden md:flex items-center gap-6 text-sm font-black text-primary uppercase tracking-widest">
                         <Link href="/platform" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Platform</Link>
                         <Link href="/invest" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Invest</Link>
                         <Link href="/guest-list" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Guest List</Link>
@@ -161,7 +161,7 @@ export default function RootLayout({
                                 className="h-16 w-auto"
                             />
                         </div>
-                        <p className="text-sm text-black leading-relaxed">
+                        <p className="text-sm text-primary font-bold leading-relaxed">
                             The centralized STR operating platform combining revenue intelligence and local market expertise.
                         </p>
                     </div>
@@ -201,7 +201,7 @@ export default function RootLayout({
                         </p>
                     </div>
                 </div>
-                <div className="container mx-auto px-6 mt-12 pt-8 border-t border-border flex justify-between items-center text-xs text-black">
+                <div className="container mx-auto px-6 mt-12 pt-8 border-t border-border flex justify-between items-center text-xs text-primary font-bold">
                     <p>© 2024 Suite Capacity. All rights reserved.</p>
                     <div className="flex gap-6">
                         <Link href="#">Privacy Policy</Link>

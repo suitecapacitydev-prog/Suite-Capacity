@@ -38,7 +38,7 @@ export function GuestListTeaser() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-xl text-black/60 leading-relaxed"
+                className="text-xl text-black/85 font-medium leading-relaxed"
               >
                 Join our private guest network for better rates, priority booking, and exclusive perks you won't find on Airbnb.
               </motion.p>
@@ -50,7 +50,7 @@ export function GuestListTeaser() {
                   'Early Check-in / Late Checkout',
                   'Exclusive Member Perks',
                 ].map((perk, i) => (
-                  <div key={i} className="flex items-center gap-3 text-black/70 font-semibold">
+                  <div key={i} className="flex items-center gap-3 text-black/85 font-black">
                     <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
                     {perk}
                   </div>
@@ -91,11 +91,11 @@ export function GuestListTeaser() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-12 flex flex-col justify-end">
                   <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-sm">
-                      <Lock className="w-4 h-4" /> Member Exclusive
+                    <div className="flex items-center gap-2 text-white font-bold uppercase tracking-widest text-sm">
+                      <Lock className="w-4 h-4 text-primary" /> Member Exclusive
                     </div>
                     <h3 className="text-3xl font-bold text-white">Private Guest Network</h3>
-                    <p className="text-white/60">Access curated properties at rates designed for direct travelers.</p>
+                    <p className="text-white/85 font-medium">Access curated properties at rates designed for direct travelers.</p>
                   </div>
                 </div>
               </div>

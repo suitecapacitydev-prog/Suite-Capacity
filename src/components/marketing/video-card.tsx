@@ -26,7 +26,7 @@ export default function VideoCard({ video }: { video: VideoCardProps }) {
         
         {/* Play Button Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 rounded-full bg-primary/90 text-black flex items-center justify-center shadow-xl transform group-hover:scale-110 transition-transform duration-300">
+          <div className="w-16 h-16 rounded-full bg-primary/90 text-white flex items-center justify-center shadow-xl transform group-hover:scale-110 transition-transform duration-300">
             <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
             </svg>
@@ -46,7 +46,7 @@ export default function VideoCard({ video }: { video: VideoCardProps }) {
         <h3 className="text-xl font-bold text-black group-hover:text-primary transition-colors duration-300">
           {video.title}
         </h3>
-        <p className="text-sm text-black/60 leading-relaxed line-clamp-2">
+        <p className="text-sm text-black/85 font-medium leading-relaxed line-clamp-2">
           {video.description}
         </p>
       </div>

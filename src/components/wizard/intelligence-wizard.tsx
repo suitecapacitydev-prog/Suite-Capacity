@@ -81,27 +81,21 @@ export function RevenueIntelligenceWizard() {
         emailStatus?: any;
     } | null>(null);
 
-    const totalSteps = 10;
-
+    const totalSteps = 5;
     const steps = [
-        { id: 1, title: 'Qualification', description: 'Lead Gate' },
-        { id: 2, title: 'Profile', description: 'Asset Profile' },
-        { id: 3, title: 'Baseline', description: 'Performance' },
-        { id: 4, title: 'Audit', description: 'Revenue Leaks' },
-        { id: 5, title: 'Visuals', description: 'AI Design' },
-        { id: 6, title: 'Intelligence', description: 'Analysis' },
-        { id: 7, title: 'Capture', description: 'Secure Results' },
-        { id: 8, title: 'Dashboard', description: 'Market Analysis' },
-        { id: 9, title: 'Action Plan', description: 'Growth steps' },
-        { id: 10, title: 'Booking', description: 'Strategy Call' },
+        { id: 1, title: 'Property', description: 'Asset Profile' },
+        { id: 2, title: 'Performance', description: 'Baseline' },
+        { id: 3, title: 'Audit', description: 'Operations' },
+        { id: 4, title: 'Capture', description: 'Secure Results' },
+        { id: 5, title: 'Results', description: 'Intelligence' },
     ];
 
     const validateStep = (): string | null => {
-        if (currentStep === 2) {
+        if (currentStep === 1) {
             if (!wizardData.property.address?.trim()) return 'Please enter a property address.';
         }
 
-        if (currentStep === 3) {
+        if (currentStep === 2) {
             if (wizardData.baseline.type === 'str') {
                 if (!wizardData.baseline.adr) return 'Please enter an average nightly rate (ADR).';
                 if (!wizardData.baseline.occupancy) return 'Please enter your average occupancy.';
@@ -111,7 +105,7 @@ export function RevenueIntelligenceWizard() {
             }
         }
 
-        if (currentStep === 7) {
+        if (currentStep === 4) {
             if (!wizardData.lead.name?.trim()) return 'Please enter your full name.';
             if (!wizardData.lead.email?.trim()) return 'Please enter your email address.';
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -128,10 +122,10 @@ export function RevenueIntelligenceWizard() {
             return;
         }
 
-        // Clear any previous error state when progressing
         setSubmissionError(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        if (currentStep === 5) {
+        if (currentStep === 3) {
             setIsSubmitting(true);
             try {
                 const proj = await calculateRevenueIntelligence(wizardData);
@@ -139,7 +133,6 @@ export function RevenueIntelligenceWizard() {
                 setCurrentStep((prev) => prev + 1);
             } catch (error) {
                 console.error('Intelligence failed:', error);
-                // Fallback will be handled by server action
                 setCurrentStep((prev) => prev + 1);
             } finally {
                 setIsSubmitting(false);
@@ -147,7 +140,7 @@ export function RevenueIntelligenceWizard() {
             return;
         }
 
-        if (currentStep === 7) {
+        if (currentStep === 4) {
             setSubmissionStatus(null);
             setIsSubmitting(true);
             try {
@@ -163,13 +156,10 @@ export function RevenueIntelligenceWizard() {
                     });
                     setCurrentStep((prev) => prev + 1);
                 } else {
-                    console.error('Submission failed:', res.error);
                     setSubmissionError(res.error || 'Submission failed. Please try again.');
                 }
             } catch (error: any) {
-                const message = error?.message || String(error);
-                console.error('Submission exception:', message);
-                setSubmissionError(message);
+                setSubmissionError(error?.message || String(error));
             } finally {
                 setIsSubmitting(false);
             }
@@ -177,7 +167,6 @@ export function RevenueIntelligenceWizard() {
         }
 
         if (currentStep === totalSteps) {
-            // At the end of the flow, allow users to restart and try another property.
             setSubmissionStatus(null);
             setSubmissionError(null);
             setProjection(null);
@@ -188,7 +177,10 @@ export function RevenueIntelligenceWizard() {
         setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
     };
 
-    const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
+    const prevStep = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setCurrentStep((prev) => Math.max(prev - 1, 1));
+    };
 
     return (
         <div className="max-w-6xl mx-auto py-12 px-6">
@@ -235,68 +227,53 @@ export function RevenueIntelligenceWizard() {
 
                         <div className="min-h-[400px]">
                             {currentStep === 1 && (
-                                <QualificationGateStep
-                                    data={wizardData.qualification}
-                                    updateData={(d) => setWizardData(prev => ({ ...prev, qualification: { ...prev.qualification, ...d } }))}
+                                <PropertyProfileStep
+                                    data={wizardData.property}
+                                    qualification={wizardData.qualification}
+                                    updateData={(d) => setWizardData(prev => ({ ...prev, property: { ...prev.property, ...d } }))}
+                                    updateQualification={(d) => setWizardData(prev => ({ ...prev, qualification: { ...prev.qualification, ...d } }))}
                                 />
                             )}
                             {currentStep === 2 && (
-                                <PropertyProfileStep
-                                    data={wizardData.property}
-                                    updateData={(d) => setWizardData(prev => ({ ...prev, property: { ...prev.property, ...d } }))}
-                                />
-                            )}
-                            {currentStep === 3 && (
                                 <RevenueBaselineStep
                                     data={wizardData.baseline}
                                     updateData={(d) => setWizardData(prev => ({ ...prev, baseline: { ...prev.baseline, ...d } }))}
                                     operatingMode={wizardData.qualification.isOperating}
                                 />
                             )}
-                            {currentStep === 4 && (
+                            {currentStep === 3 && (
                                 <ConversionOperationsAuditStep
                                     data={wizardData.audit}
                                     updateData={(d) => setWizardData(prev => ({ ...prev, audit: { ...prev.audit, ...d } }))}
                                 />
                             )}
-                            {currentStep === 5 && (
-                                <AIDesignUploadStep
-                                    data={wizardData.aiDesign}
-                                    updateData={(d) => setWizardData(prev => ({ ...prev, aiDesign: { ...prev.aiDesign, ...d } }))}
-                                />
-                            )}
-                            {currentStep === 6 && (
-                                <ProcessingScreenStep
-                                    onComplete={nextStep}
-                                    onCancel={() => setCurrentStep(5)}
-                                />
-                            )}
-                            {currentStep === 7 && (
+                            {currentStep === 4 && (
                                 <LeadCaptureGateStep
                                     data={wizardData.lead}
                                     updateData={(d) => setWizardData(prev => ({ ...prev, lead: { ...prev.lead, ...d } }))}
                                 />
                             )}
-                            {currentStep === 8 && projection && (
-                                <ResultsDashboardStep
-                                    projection={projection}
-                                    wizardData={wizardData}
-                                    submissionStatus={submissionStatus}
-                                />
-                            )}
-                            {currentStep === 9 && (
-                                <CustomActionPlanStep data={wizardData} />
-                            )}
-                            {currentStep === 10 && (
-                                <CalendarBookingStep
-                                    onBack={prevStep}
-                                    onContinue={() => setCurrentStep(1)}
-                                />
+                            {currentStep === 5 && (
+                                <div className="space-y-12">
+                                    {!projection ? (
+                                        <div className="flex flex-col items-center justify-center py-24 animate-pulse">
+                                            <Loader2 className="w-16 h-16 text-primary animate-spin mb-6" />
+                                            <h3 className="text-2xl font-black text-primary tracking-tight">Your intelligence report is being generated...</h3>
+                                            <p className="text-black/60 font-medium">Analyzing market data and property potential for {wizardData.property.address}.</p>
+                                        </div>
+                                    ) : (
+                                        <ResultsDashboardStep
+                                            projection={projection}
+                                            wizardData={wizardData}
+                                            submissionStatus={submissionStatus}
+                                        />
+                                    )}
+                                </div>
                             )}
                         </div>
                     </div>
 
-                    {currentStep !== 6 && (
+                    {currentStep !== 5 && (
                         <div className="space-y-3">
                             {submissionError && (
                                 <div className="rounded-lg bg-destructive/10 border border-destructive text-destructive-foreground p-3 text-sm">

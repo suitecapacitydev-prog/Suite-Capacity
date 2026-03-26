@@ -64,20 +64,20 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
                         <div className="p-8">
                             <div className="flex justify-between items-center mb-8">
                                 <div>
-                                    <h2 className="text-2xl font-bold text-black">Owner Login</h2>
-                                    <p className="text-black/50 text-sm mt-1">Access your property performance dashboard.</p>
+                                    <h2 className="text-2xl font-black text-primary">Owner Login</h2>
+                                    <p className="text-black/80 text-sm font-medium mt-1">Access your property performance dashboard.</p>
                                 </div>
                                 <button
                                     onClick={onClose}
                                     className="p-2 hover:bg-primary/5 rounded-full transition-colors"
                                 >
-                                    <X className="w-6 h-6 text-black/40" />
+                                    <X className="w-6 h-6 text-black/60" />
                                 </button>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-1">Email Address</label>
+                                    <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">Email Address</label>
                                     <div className="relative">
                                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20" />
                                         <input
@@ -92,7 +92,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-1">Password</label>
+                                    <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">Password</label>
                                     <div className="relative">
                                         <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20" />
                                         <input

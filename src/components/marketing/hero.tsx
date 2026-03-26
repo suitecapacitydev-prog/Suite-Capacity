@@ -24,11 +24,11 @@ export function Hero() {
             {/* Background */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <img
-                    src="/images/hero-bg.jpg"
-                    alt="Jersey Shore Property"
-                    className="absolute inset-0 w-full h-full object-cover opacity-20"
+                    src="/images/hero-luxury.png"
+                    alt="Luxury Property Interior"
+                    className="absolute inset-0 w-full h-full object-cover opacity-40"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white" />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/50 to-white" />
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -56,7 +56,7 @@ export function Hero() {
                         className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]"
                     >
                         Turn Your Property Into{' '}
-                        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                        <span className="text-secondary">
                             Passive Income
                         </span>{' '}
                         — Without Lifting a Finger
@@ -64,11 +64,9 @@ export function Hero() {
 
                     <motion.p
                         variants={fadeInUp}
-                        className="text-lg md:text-xl text-black/55 max-w-4xl mx-auto leading-relaxed"
+                        className="text-lg md:text-xl text-black/85 max-w-5xl mx-auto leading-relaxed font-bold italic"
                     >
-                        Suite Capacity is a vacation rental property management and optimization platform.
-                        We specialize in providing a hotel-level experience to guests while allowing property owners to receive passive income.
-                        Our system combines local market operations and central intelligence to create a seamless experience for any property owner.
+                        Suite Capacity is a vacation rental property management and optimization platform. We specialize in providing a hotel-level experience to guests while allowing property owners to receive passive income. Our system combines local market operations and central intelligence to create a seamless experience for any property owner.
                     </motion.p>
 
                     <motion.div
@@ -82,21 +80,21 @@ export function Hero() {
                                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                             </Button>
                         </Link>
-                        <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-semibold pt-2">
+                        <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 text-sm font-black pt-2">
                             <Link
                                 href="/invest"
-                                className="text-black/60 hover:text-primary transition-colors flex items-center gap-2 group/link"
+                                className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group/link"
                             >
                                 <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                New to STRs? <span className="underline decoration-primary/30 underline-offset-4 group-hover/link:decoration-primary"><b>Invest With Us</b></span>
+                                New to STRs? <span className="underline decoration-primary/30 underline-offset-4 group-hover/link:decoration-primary">Invest With Us</span>
                             </Link>
-
+ 
                             <Link
                                 href="/guest-list"
-                                className="text-black/60 hover:text-primary transition-colors flex items-center gap-2 group/link"
+                                className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group/link"
                             >
                                 <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                                Looking to book? <span className="underline decoration-accent/30 underline-offset-4 group-hover/link:decoration-accent"><b>Join the Exclusive Guest List</b></span>
+                                Looking to book? <span className="underline decoration-accent/30 underline-offset-4 group-hover/link:decoration-accent">Join the Exclusive Guest List</span>
                             </Link>
                         </div>
 
