@@ -10,6 +10,7 @@ export default function MarketsPage() {
       performance: '+28%',
       stats: 'Active',
       icon: Waves,
+      href: '/new-jersey-airbnb-management',
     },
     {
       name: 'Kissimmee-Orlando',
@@ -17,6 +18,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Sun,
+      href: '/orlando-airbnb-management',
     },
     {
       name: 'Florida Coastal',
@@ -24,6 +26,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Waves,
+      href: '/miami-airbnb-management',
     },
     {
       name: 'Phoenix',
@@ -31,6 +34,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Sun,
+      href: '/phoenix-airbnb-management',
     },
     {
       name: 'Smoky Mountains',
@@ -38,6 +42,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Mountain,
+      href: '/smoky-mountains-airbnb-management',
     },
     {
       name: 'Poconos',
@@ -45,6 +50,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Trees,
+      href: '/poconos-airbnb-management',
     },
   ];
 
@@ -67,7 +73,7 @@ export default function MarketsPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {markets.map((market, index) => (
-              <div key={index} className="glass-panel overflow-hidden group hover:border-primary/30 transition-all hover:scale-[1.02] flex flex-col">
+              <Link key={index} href={market.href} className="glass-panel overflow-hidden group hover:border-primary/30 transition-all hover:scale-[1.02] flex flex-col">
                 <div className="h-48 overflow-hidden relative">
                   <img
                     src={
@@ -83,7 +89,7 @@ export default function MarketsPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
                     <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                      <market.icon className="w-5 h-5 text-black" />
+                      <market.icon className="w-5 h-5 text-white" />
                     </div>
                   </div>
                 </div>
@@ -103,7 +109,7 @@ export default function MarketsPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -120,7 +126,7 @@ export default function MarketsPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/wizard"
-              className="px-8 py-4 bg-primary hover:bg-primary/90 text-black rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
             >
               Submit New Market Request
               <ArrowRight className="w-5 h-5" />

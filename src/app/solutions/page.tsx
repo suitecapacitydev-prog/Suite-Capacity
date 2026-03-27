@@ -67,7 +67,7 @@ export default function SolutionsPage() {
             Whether you want completely hands-off income or just need us to run the operations — we have a model that fits.
           </p>
           <Link href="/wizard">
-            <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-black rounded-2xl font-semibold hover:bg-primary/90 hover:-translate-y-0.5 transition-all shadow-lg shadow-primary/20">
+            <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-2xl font-semibold hover:bg-primary/90 hover:-translate-y-0.5 transition-all shadow-lg shadow-primary/20">
               <FileText className="w-4 h-4" /> Get Your Free STR Blueprint
             </button>
           </Link>
@@ -86,7 +86,7 @@ export default function SolutionsPage() {
                 <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center">
                   <tier.icon className="w-5 h-5 text-primary" />
                 </div>
-                <span className={`text-[10px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full ${tier.featured ? 'bg-primary text-black' : 'bg-primary/10 text-primary'}`}>
+                <span className={`text-[10px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full ${tier.featured ? 'bg-primary text-white' : 'bg-primary/10 text-primary'}`}>
                   {tier.badge}
                 </span>
               </div>
@@ -104,7 +104,7 @@ export default function SolutionsPage() {
                 href={tier.href}
                 target={tier.href.startsWith('http') ? '_blank' : undefined}
                 rel="noopener noreferrer"
-                className={`w-full py-3.5 rounded-xl text-sm font-semibold text-center transition-all flex items-center justify-center gap-2 ${tier.featured ? 'bg-primary text-black hover:bg-primary/90' : 'bg-primary/10 hover:bg-primary/20 text-black border border-primary/20'}`}
+                className={`w-full py-3.5 rounded-xl text-sm font-semibold text-center transition-all flex items-center justify-center gap-2 ${tier.featured ? 'bg-primary text-white hover:bg-primary/90' : 'bg-primary/10 hover:bg-primary/20 text-black border border-primary/20'}`}
               >
                 {tier.cta} <ArrowRight className="w-4 h-4" />
               </a>
@@ -155,7 +155,7 @@ export default function SolutionsPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/wizard">
-            <button className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-black rounded-xl font-semibold hover:bg-primary/90 hover:-translate-y-0.5 transition-all shadow-lg shadow-primary/20">
+            <button className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 hover:-translate-y-0.5 transition-all shadow-lg shadow-primary/20">
               <FileText className="w-4 h-4" /> Get Your STR Blueprint
             </button>
           </Link>

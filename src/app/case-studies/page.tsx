@@ -87,7 +87,7 @@ export default function CaseStudiesPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/wizard"
-              className="px-8 py-4 bg-primary hover:bg-primary/90 text-black rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
             >
               Start Intelligence Audit
               <ArrowRight className="w-5 h-5" />

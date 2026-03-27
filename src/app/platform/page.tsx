@@ -95,7 +95,7 @@ export default function PlatformPage() {
           </p>
           <Link
             href="/wizard"
-            className="px-10 py-5 bg-primary hover:bg-primary/90 text-black rounded-lg font-bold text-lg transition-all hover:shadow-[0_0_30px_rgba(171,209,199,0.4)]"
+            className="px-10 py-5 bg-primary hover:bg-primary/90 text-white rounded-lg font-bold text-lg transition-all hover:shadow-[0_0_30px_rgba(171,209,199,0.4)]"
           >
             Run Revenue Audit
           </Link>
