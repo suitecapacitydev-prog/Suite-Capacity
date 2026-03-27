@@ -197,6 +197,7 @@ export default function RootLayout({
                         <h4 className="font-semibold mb-4">Contact</h4>
                         <p className="text-sm text-secondary-foreground">
                             info@suitecapacity.com<br />
+                            855-303-4545<br />
                             Central Command Center
                         </p>
                     </div>
