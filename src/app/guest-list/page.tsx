@@ -58,16 +58,22 @@ export default function GuestListPage() {
             Join our private guest network for better rates, priority booking, and exclusive perks you won't find on Airbnb.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#signup">
-              <Button size="lg" variant="intelligence" className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20">
-                Join Free
-              </Button>
-            </a>
-            <a href="#signup">
-              <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold">
-                Unlock Member Rates
-              </Button>
-            </a>
+            <Button
+              size="lg"
+              variant="intelligence"
+              className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20"
+              onClick={() => document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Join Free
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="h-14 px-10 text-lg font-bold"
+              onClick={() => document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Unlock Member Rates
+            </Button>
           </div>
         </div>
       </section>
