@@ -155,7 +155,7 @@ export default function InvestPage() {
             <p className="text-black/60 mb-8 leading-relaxed">
               We market your property based on its income potential, attracting STR-focused buyers and maximizing value.
             </p>
-            <Link href="/contact">
+            <Link href="#">
               <Button variant="outline" className="w-full border-accent text-accent hover:bg-accent/5 gap-2 group-hover:scale-105 transition-transform">
                 List Your Property
                 <ArrowRight className="w-4 h-4" />

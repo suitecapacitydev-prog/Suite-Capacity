@@ -102,7 +102,7 @@ export default function DeploymentPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/wizard"
-              className="px-8 py-4 bg-primary hover:bg-primary/90 text-black rounded-lg font-semibold transition-all hover:shadow-[0_0_20px_rgba(171,209,199,0.4)] flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold transition-all hover:shadow-[0_0_20px_rgba(171,209,199,0.4)] flex items-center justify-center gap-2"
             >
               Initialize My Deployment
               <ArrowRight className="w-5 h-5" />

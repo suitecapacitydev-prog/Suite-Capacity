@@ -44,7 +44,7 @@ export default function GuestListPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-24 relative overflow-hidden bg-white">
         <div className="absolute inset-x-0 top-0 h-[600px] bg-gradient-to-b from-primary/10 to-transparent pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-primary/5 text-black text-xs font-bold uppercase tracking-widest mb-8">
             <Star className="w-4 h-4 text-primary fill-primary" />
@@ -99,13 +99,13 @@ export default function GuestListPage() {
                 ))}
               </ul>
             </div>
-            <div className="bg-primary/10 p-10 space-y-8 relative">
-              <div className="absolute top-6 right-8 text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/20 px-2 py-1 rounded-full">Recommended</div>
-              <h3 className="text-2xl font-bold mb-6 text-primary">Booking Direct</h3>
+            <div className="bg-primary p-10 space-y-8 relative">
+              <div className="absolute top-6 right-8 text-[10px] font-bold uppercase tracking-widest text-primary bg-white px-2 py-1 border border-white rounded-full">Recommended</div>
+              <h3 className="text-2xl font-bold mb-6 text-white">Booking Direct</h3>
               <ul className="space-y-6">
                 {['Lower rates (5-10% savings)', 'Exclusive member-only perks', 'Priority access to new properties'].map((item, i) => (
                   <li key={i} className="flex items-center gap-4 text-white">
-                    <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
+                    <CheckCircle2 className="w-6 h-6 text-white shrink-0" />
                     {item}
                   </li>
                 ))}

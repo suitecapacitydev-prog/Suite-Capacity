@@ -88,7 +88,7 @@ export default function RevenueIntelligencePage() {
               </p>
               <Link
                 href="/wizard"
-                className="px-8 py-4 bg-primary hover:bg-primary/90 text-black rounded-lg font-semibold transition-all hover:shadow-[0_0_20px_rgba(171,209,199,0.4)] inline-flex items-center gap-2"
+                className="px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold transition-all hover:shadow-[0_0_20px_rgba(171,209,199,0.4)] inline-flex items-center gap-2"
               >
                 Run My Revenue Audit
                 <ArrowRight className="w-5 h-5" />
