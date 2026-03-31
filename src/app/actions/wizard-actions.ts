@@ -7,15 +7,20 @@ import { AirDNAService } from '@/services/airdna';
 import { PriceLabsService } from '@/services/pricelabs';
 import { AIREnderingService } from '@/services/ai-rendering';
 import { PDFDocument, StandardFonts } from 'pdf-lib';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
-// Initialize Resend with your API key
-// NOTE: Make sure RESEND_API_KEY is set in your environment.
-const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key');
+// Initialize Nodemailer transporter
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.SMTP_PORT || '587'),
+    secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+    },
+});
 
-// Use an explicit verified sender email via env to avoid delivery issues.
-// If you are using the Resend test sender, use "onboarding@resend.dev".
-const resendFromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+const emailFrom = process.env.EMAIL_FROM || '"Suite Capacity" <onboarding@resend.dev>';
 
 /**
  * Utility to upsert a record while gracefully handling schema mismatches.
@@ -25,150 +30,150 @@ const resendFromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
  * the operation after removing the missing column(s) from the payload.
  */
 async function upsertWithSchemaFallback<T = any>(
-  table: string,
-  payload: Record<string, unknown>,
-  opts?: any
+    table: string,
+    payload: Record<string, unknown>,
+    opts?: any
 ) {
-  const maxRetries = 5;
-  const payloadCopy = { ...payload };
+    const maxRetries = 5;
+    const payloadCopy = { ...payload };
 
-  for (let attempt = 0; attempt < maxRetries; attempt += 1) {
-    const { data, error } = await supabase
-      .from(table)
-      .upsert(payloadCopy, opts)
-      .select()
-      .single();
+    for (let attempt = 0; attempt < maxRetries; attempt += 1) {
+        const { data, error } = await supabase
+            .from(table)
+            .upsert(payloadCopy, opts)
+            .select()
+            .single();
 
-    if (!error) {
-      return { data, error: null };
+        if (!error) {
+            return { data, error: null };
+        }
+
+        const message = error?.message || '';
+        const match = /Could not find the '(.+?)' column of '(.+?)' in the schema cache/i.exec(message);
+
+        if (match && match[2] === table && match[1] in payloadCopy) {
+            // Remove the unsupported column and retry
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+            delete payloadCopy[match[1]];
+            console.warn(`Supabase schema mismatch: removed column ${match[1]} from payload and retrying`);
+            continue;
+        }
+
+        return { data: null, error };
     }
 
-    const message = error?.message || '';
-    const match = /Could not find the '(.+?)' column of '(.+?)' in the schema cache/i.exec(message);
-
-    if (match && match[2] === table && match[1] in payloadCopy) {
-      // Remove the unsupported column and retry
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete payloadCopy[match[1]];
-      console.warn(`Supabase schema mismatch: removed column ${match[1]} from payload and retrying`);
-      continue;
-    }
-
-    return { data: null, error };
-  }
-
-  return {
-    data: null,
-    error: new Error(`Failed to upsert into ${table} after ${maxRetries} attempts due to schema mismatch.`),
-  };
+    return {
+        data: null,
+        error: new Error(`Failed to upsert into ${table} after ${maxRetries} attempts due to schema mismatch.`),
+    };
 }
 
 function calculateEstimateRevenue(data: WizardData) {
-  if (data.baseline.annualRevenue) return data.baseline.annualRevenue;
+    if (data.baseline.annualRevenue) return data.baseline.annualRevenue;
 
-  if (data.baseline.type === 'ltr' && data.baseline.monthlyRent) {
-    return data.baseline.monthlyRent * 12;
-  }
+    if (data.baseline.type === 'ltr' && data.baseline.monthlyRent) {
+        return data.baseline.monthlyRent * 12;
+    }
 
-  // Default to STR calculation
-  const adr = data.baseline.adr || 0;
-  const occupancy = data.baseline.occupancy || 0;
-  return Math.round(adr * (occupancy / 100) * 365);
+    // Default to STR calculation
+    const adr = data.baseline.adr || 0;
+    const occupancy = data.baseline.occupancy || 0;
+    return Math.round(adr * (occupancy / 100) * 365);
 }
 
 function computeLeadScore(data: WizardData, estimatedRevenue: number) {
-  let score = 0;
+    let score = 0;
 
-  // Ownership (high priority)
-  if (data.qualification.ownershipStatus === 'own' || data.qualification.ownershipStatus === 'contract') {
-    score += 3;
-  }
+    // Ownership (high priority)
+    if (data.qualification.ownershipStatus === 'own' || data.qualification.ownershipStatus === 'contract') {
+        score += 3;
+    }
 
-  // Active STR
-  if (data.qualification.isOperating === 'yes') {
-    score += 3;
-  }
+    // Active STR
+    if (data.qualification.isOperating === 'yes') {
+        score += 3;
+    }
 
-  // Timeline urgency
-  if (data.qualification.timeline === 'immediately') {
-    score += 3;
-  }
+    // Timeline urgency
+    if (data.qualification.timeline === 'immediately') {
+        score += 3;
+    }
 
-  // Revenue threshold
-  if (estimatedRevenue > 75000) {
-    score += 2;
-  }
+    // Revenue threshold
+    if (estimatedRevenue > 75000) {
+        score += 2;
+    }
 
-  // Pricing software (prefer no software = higher priority)
-  if (data.baseline.hasPricingSoftware === false) {
-    score += 2;
-  }
+    // Pricing software (prefer no software = higher priority)
+    if (data.baseline.hasPricingSoftware === false) {
+        score += 2;
+    }
 
-  // Direct booking (lower % = higher priority)
-  if ((data.baseline.directPercentage ?? 0) < 30) {
-    score += 2;
-  }
+    // Direct booking (lower % = higher priority)
+    if ((data.baseline.directPercentage ?? 0) < 30) {
+        score += 2;
+    }
 
-  return score;
+    return score;
 }
 
 function buildCrmTags(data: WizardData, leadScore: number, estimatedRevenue: number) {
-  const tags = [] as string[];
+    const tags = [] as string[];
 
-  tags.push(data.qualification.isOperating === 'yes' ? 'active-str' : 'active-ltr');
-  tags.push(estimatedRevenue > 75000 ? 'revenue->75k' : 'revenue-<75k');
-  tags.push(`timeline-${data.qualification.timeline}`);
-  tags.push(`lead-score-${leadScore}`);
+    tags.push(data.qualification.isOperating === 'yes' ? 'active-str' : 'active-ltr');
+    tags.push(estimatedRevenue > 75000 ? 'revenue->75k' : 'revenue-<75k');
+    tags.push(`timeline-${data.qualification.timeline}`);
+    tags.push(`lead-score-${leadScore}`);
 
-  return tags;
+    return tags;
 }
 
 async function generateReportPdf(data: WizardData, projection: RevenueProjection) {
-  const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([612, 792]); // US Letter
-  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-  const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const pdfDoc = await PDFDocument.create();
+    const page = pdfDoc.addPage([612, 792]); // US Letter
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
-  const lineHeight = 18;
-  let y = 760;
+    const lineHeight = 18;
+    let y = 760;
 
-  const drawText = (text: string, options: { size?: number; bold?: boolean } = {}) => {
-    const usedFont = options.bold ? fontBold : font;
-    const size = options.size ?? 12;
-    page.drawText(text, { x: 50, y, size, font: usedFont });
-    y -= lineHeight;
-  };
+    const drawText = (text: string, options: { size?: number; bold?: boolean } = {}) => {
+        const usedFont = options.bold ? fontBold : font;
+        const size = options.size ?? 12;
+        page.drawText(text, { x: 50, y, size, font: usedFont });
+        y -= lineHeight;
+    };
 
-  drawText('Revenue Intelligence Report', { size: 18, bold: true });
-  y -= 10;
-  drawText(`Property: ${data.property.address}`, { bold: true });
-  y -= 10;
-  drawText(`Prepared for: ${data.lead.name}`);
-  y -= 20;
+    drawText('Revenue Intelligence Report', { size: 18, bold: true });
+    y -= 10;
+    drawText(`Property: ${data.property.address}`, { bold: true });
+    y -= 10;
+    drawText(`Prepared for: ${data.lead.name}`);
+    y -= 20;
 
-  drawText('Revenue Breakdown', { size: 14, bold: true });
-  const estimatedRevenue = calculateEstimateRevenue(data);
-  drawText(`• Estimated Current Revenue: $${estimatedRevenue.toLocaleString()}`);
-  drawText(`• Projected Revenue: $${projection.optimizedRevenue.toLocaleString()}`);
-  drawText(`• Projected Lift: $${(projection.optimizedRevenue - estimatedRevenue).toLocaleString()}`);
-  y -= 10;
+    drawText('Revenue Breakdown', { size: 14, bold: true });
+    const estimatedRevenue = calculateEstimateRevenue(data);
+    drawText(`• Estimated Current Revenue: $${estimatedRevenue.toLocaleString()}`);
+    drawText(`• Projected Revenue: $${projection.optimizedRevenue.toLocaleString()}`);
+    drawText(`• Projected Lift: $${(projection.optimizedRevenue - estimatedRevenue).toLocaleString()}`);
+    y -= 10;
 
-  drawText('Action Plan', { size: 14, bold: true });
-  drawText('• Improve listing conversion with updated photography and copy.');
-  drawText('• Implement dynamic pricing and automated messaging.');
-  drawText('• Increase direct bookings via direct checkout integration.');
-  y -= 10;
+    drawText('Action Plan', { size: 14, bold: true });
+    drawText('• Improve listing conversion with updated photography and copy.');
+    drawText('• Implement dynamic pricing and automated messaging.');
+    drawText('• Increase direct bookings via direct checkout integration.');
+    y -= 10;
 
-  drawText('Case Study', { size: 14, bold: true });
-  drawText('Property X increased revenue by 22% in 90 days using the same playbook.');
-  y -= 10;
+    drawText('Case Study', { size: 14, bold: true });
+    drawText('Property X increased revenue by 22% in 90 days using the same playbook.');
+    y -= 10;
 
-  const strategyUrl = process.env.STRATEGY_CALL_URL || 'https://yourdomain.com/schedule';
-  drawText('Strategy Call', { size: 14, bold: true });
-  drawText(`Book your strategy session: ${strategyUrl}`);
+    const strategyUrl = process.env.STRATEGY_CALL_URL || 'https://yourdomain.com/schedule';
+    drawText('Strategy Call', { size: 14, bold: true });
+    drawText(`Book your strategy session: ${strategyUrl}`);
 
-  const pdfBytes = await pdfDoc.save();
-  return pdfBytes;
+    const pdfBytes = await pdfDoc.save();
+    return pdfBytes;
 }
 
 /**
@@ -262,18 +267,12 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
         let emailResponseId: string | null = null;
         let emailStatus: any = null;
 
-        if (process.env.RESEND_API_KEY) {
+        if (process.env.SMTP_USER && process.env.SMTP_PASS) {
             try {
                 const pdfBytes = await generateReportPdf(data, projection);
-                const pdfBase64 = Buffer.from(pdfBytes).toString('base64');
                 const strategyUrl = process.env.STRATEGY_CALL_URL || 'https://yourdomain.com/schedule';
 
-                const emailResult = await resend.emails.send({
-                    from: resendFromEmail,
-                    to: data.lead.email,
-                    bcc: ['suitecapacity.dev@gmail.com'],
-                    subject: 'Your Revenue Intelligence Report is Ready',
-                    html: `
+                const htmlContent = `
                         <h1>Hi ${data.lead.name},</h1>
                         <p>Thank you for submitting your property details for ${data.property.address}.</p>
 
@@ -298,25 +297,34 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                         <br/>
                         <p>Best Regards,</p>
                         <p>The Suite Capacity Team</p>
-                    `,
+                    `;
+
+                const emailResult = await transporter.sendMail({
+                    from: emailFrom,
+                    to: data.lead.email,
+                    bcc: ['suitecapacity.dev@gmail.com'],
+                    subject: 'Your Revenue Intelligence Report is Ready',
+                    html: htmlContent,
                     attachments: [
                         {
-                            contentType: 'application/pdf',
                             filename: 'Revenue Intelligence Report.pdf',
-                            content: pdfBase64,
+                            content: Buffer.from(pdfBytes),
+                            contentType: 'application/pdf',
                         },
                     ],
                 });
+
                 emailSent = true;
-                emailResponseId = emailResult?.data?.id || null;
+                emailResponseId = emailResult?.messageId || null;
 
                 if (emailResponseId) {
                     try {
-                        // Resend can return delivery status (delivered/bounced/etc.)
-                        const statusResult: any = await (resend as any).emails.retrieve(emailResponseId);
-                        emailStatus = statusResult?.data ?? statusResult;
+                        // For Nodemailer, we can't easily retrieve status via ID like Resend
+                        // But we can check if it was accepted
+                        emailStatus = emailResult.accepted.includes(data.lead.email) ? 'accepted' : 'pending';
+                        console.log('Nodemailer email status:', emailStatus);
                     } catch (statusErr) {
-                        console.warn('Failed to retrieve Resend email status:', statusErr);
+                        console.warn('Failed to determine Nodemailer email status:', statusErr);
                     }
                 }
 
@@ -331,13 +339,13 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                     emailStatus
                 );
             } catch (emailErr: any) {
-                emailError = String(emailErr?.message ?? emailErr);
-                emailHint = 'Email failed to send; check Resend API key/permissions.';
+                emailError = String(emailErr?.message || emailErr);
+                emailHint = 'Email failed to send; check SMTP configuration and network.';
                 console.error('Failed to send email:', emailErr);
             }
         } else {
-            emailHint = 'RESEND_API_KEY is not set; email was not sent.';
-            console.warn('RESEND_API_KEY is not set. Skipping email send.');
+            emailHint = 'SMTP credentials are not set; email was not sent.';
+            console.warn('SMTP credentials are not set. Skipping email send.');
         }
 
         try {
