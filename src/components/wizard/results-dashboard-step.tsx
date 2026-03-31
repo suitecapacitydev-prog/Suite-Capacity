@@ -6,9 +6,10 @@ import { cn } from '@/lib/utils';
 import {
     TrendingUp, TrendingDown, DollarSign, Star,
     Zap, Users, ShieldCheck, MapPin, BarChart3,
-    ChevronLeft, ChevronRight, Sparkles, ArrowRight
+    ChevronLeft, ChevronRight, Sparkles, ArrowRight, ArrowLeft
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 interface ResultsDashboardStepProps {
     projection: RevenueProjection;
@@ -20,9 +21,10 @@ interface ResultsDashboardStepProps {
         emailId?: string | null;
         emailStatus?: any;
     } | null;
+    onBack?: () => void;
 }
 
-export function ResultsDashboardStep({ projection, wizardData, submissionStatus }: ResultsDashboardStepProps) {
+export function ResultsDashboardStep({ projection, wizardData, submissionStatus, onBack }: ResultsDashboardStepProps) {
     const [animatedRevenue, setAnimatedRevenue] = useState(0);
     const [sliderPos, setSliderPos] = useState(50);
 
@@ -135,21 +137,34 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus 
 
             {/* Strategic CTAs */}
             <div className="grid md:grid-cols-2 gap-6 pt-4">
-                <Button variant="intelligence" size="lg" className="h-20 rounded-2xl flex flex-col items-center justify-center gap-1 group">
-                    <div className="flex items-center gap-2">
-                        Apply for 90-Day Accelerator
-                        <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                    </div>
-                    <span className="text-[10px] opacity-70 font-bold uppercase tracking-widest">Entry Cost: $0 Upfront</span>
-                </Button>
-                <Button variant="outline" size="lg" className="h-20 rounded-2xl flex flex-col items-center justify-center gap-1 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all">
-                    <div className="flex items-center gap-2 text-primary font-black">
-                        Book a Strategy Call
-                        <ShieldCheck className="w-5 h-5" />
-                    </div>
-                    <span className="text-[10px] text-primary/60 font-bold uppercase tracking-widest">Speak With a Portfolio Manager</span>
-                </Button>
+                <Link href="/invest#accelerator">
+                    <Button variant="intelligence" size="lg" className="w-full h-20 rounded-2xl flex flex-col items-center justify-center gap-1 group">
+                        <div className="flex items-center gap-2">
+                            Apply for 90-Day Accelerator
+                            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                        </div>
+                        <span className="text-[10px] opacity-70 font-bold uppercase tracking-widest">Entry Cost: $0 Upfront</span>
+                    </Button>
+                </Link>
+                <a href="https://calendly.com/suitecapacity/consultation-and-discovery-call" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" size="lg" className="w-full h-20 rounded-2xl flex flex-col items-center justify-center gap-1 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all">
+                        <div className="flex items-center gap-2 text-primary font-black">
+                            Book a Strategy Call
+                            <ShieldCheck className="w-5 h-5" />
+                        </div>
+                        <span className="text-[10px] text-primary/60 font-bold uppercase tracking-widest">Speak With a Portfolio Manager</span>
+                    </Button>
+                </a>
             </div>
+
+            {/* Go Back */}
+            {onBack && (
+                <div className="pt-4">
+                    <Button variant="outline" onClick={onBack} className="gap-2 text-xs font-bold uppercase tracking-widest">
+                        <ArrowLeft className="w-4 h-4" /> Go Back
+                    </Button>
+                </div>
+            )}
 
             {/* Section 2: Market Positioning */}
             <div className="space-y-6">

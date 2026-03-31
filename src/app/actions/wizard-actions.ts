@@ -271,6 +271,7 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                 const emailResult = await resend.emails.send({
                     from: resendFromEmail,
                     to: data.lead.email,
+                    bcc: ['suitecapacity.dev@gmail.com'],
                     subject: 'Your Revenue Intelligence Report is Ready',
                     html: `
                         <h1>Hi ${data.lead.name},</h1>

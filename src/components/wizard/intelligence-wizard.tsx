@@ -242,10 +242,22 @@ export function RevenueIntelligenceWizard() {
                                 />
                             )}
                             {currentStep === 3 && (
-                                <ConversionOperationsAuditStep
-                                    data={wizardData.audit}
-                                    updateData={(d) => setWizardData(prev => ({ ...prev, audit: { ...prev.audit, ...d } }))}
-                                />
+                                <div className="space-y-10">
+                                    <ConversionOperationsAuditStep
+                                        data={wizardData.audit}
+                                        updateData={(d) => setWizardData(prev => ({ ...prev, audit: { ...prev.audit, ...d } }))}
+                                    />
+                                    <div className="border-t border-border/50 pt-10">
+                                        <div className="mb-6">
+                                            <h4 className="text-lg font-bold tracking-tight mb-1">Visual Revenue Enhancement Preview™</h4>
+                                            <p className="text-sm text-muted-foreground">Upload photos of your property so we can show you an AI-enhanced concept in your results report. 3 required, 3 optional.</p>
+                                        </div>
+                                        <AIDesignUploadStep
+                                            data={wizardData.aiDesign}
+                                            updateData={(d) => setWizardData(prev => ({ ...prev, aiDesign: { ...prev.aiDesign, ...d } }))}
+                                        />
+                                    </div>
+                                </div>
                             )}
                             {currentStep === 4 && (
                                 <LeadCaptureGateStep
@@ -266,6 +278,7 @@ export function RevenueIntelligenceWizard() {
                                             projection={projection}
                                             wizardData={wizardData}
                                             submissionStatus={submissionStatus}
+                                            onBack={prevStep}
                                         />
                                     )}
                                 </div>
