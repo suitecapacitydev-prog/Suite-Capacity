@@ -289,44 +289,44 @@ export function RevenueIntelligenceWizard() {
                     {currentStep !== 5 && (
                         <div className="space-y-3">
                             {submissionError && (
-                                <div className="rounded-lg bg-destructive/10 border border-destructive text-destructive-foreground p-3 text-sm">
-                                    <strong className="font-semibold">Submission error:</strong> {submissionError}
+                                <div className="rounded-lg bg-white border border-destructive text-destructive p-3 text-sm">
+                                    <strong className="font-semibold ">Submission error:</strong> {submissionError}
                                 </div>
                             )}
                             <div className="flex justify-between items-center pt-10 mt-8 border-t border-border/50 bg-background/50 backdrop-blur-md sticky bottom-0 z-20">
-                            <Button
-                                variant="outline"
-                                onClick={prevStep}
-                                disabled={currentStep === 1}
-                                className="px-8 font-bold uppercase tracking-widest text-xs"
-                            >
-                                Back
-                            </Button>
-                            <Button
-                                variant="intelligence"
-                                onClick={nextStep}
-                                className="px-10 gap-2 shadow-glow font-black uppercase tracking-widest text-xs"
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting ? (
-                                    <>
-                                        <Loader2 className="w-4 h-4 animate-spin" />
-                                        Processing...
-                                    </>
-                                ) : (
-                                    <>
-                                        {currentStep === 5
-                                            ? 'Process Intelligence'
-                                            : currentStep === 7
-                                            ? 'Generate Dashboard'
-                                            : currentStep === 10
-                                            ? 'Restart' 
-                                            : 'Continue'}
-                                        <ArrowRight className="w-4 h-4" />
-                                    </>
-                                )}
-                            </Button>
-                        </div>
+                                <Button
+                                    variant="outline"
+                                    onClick={prevStep}
+                                    disabled={currentStep === 1}
+                                    className="px-8 font-bold uppercase tracking-widest text-xs"
+                                >
+                                    Back
+                                </Button>
+                                <Button
+                                    variant="intelligence"
+                                    onClick={nextStep}
+                                    className="px-10 gap-2 shadow-glow font-black uppercase tracking-widest text-xs"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                            Processing...
+                                        </>
+                                    ) : (
+                                        <>
+                                            {currentStep === 5
+                                                ? 'Process Intelligence'
+                                                : currentStep === 7
+                                                    ? 'Generate Dashboard'
+                                                    : currentStep === 10
+                                                        ? 'Restart'
+                                                        : 'Continue'}
+                                            <ArrowRight className="w-4 h-4" />
+                                        </>
+                                    )}
+                                </Button>
+                            </div>
                         </div>
                     )}
                 </div>
