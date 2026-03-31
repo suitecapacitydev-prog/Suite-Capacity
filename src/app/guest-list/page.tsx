@@ -1,11 +1,44 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import SiteShell from '@/components/layout/site-shell';
-import { Mail, ShieldCheck, Zap, ArrowRight, CheckCircle2, Star, Users, Lock, Calendar, MessageSquare } from 'lucide-react';
+import { ShieldCheck, Zap, ArrowRight, CheckCircle2, Star, Lock, Calendar, Clock, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { signUpGuestMember } from '@/app/actions/guest-signup';
 
 export default function GuestListPage() {
+  const router = useRouter();
+  const [form, setForm] = useState({ firstName: '', email: '', phone: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.firstName.trim() || !form.email.trim()) {
+      setError('Please enter your first name and email address.');
+      return;
+    }
+    setIsSubmitting(true);
+    setError(null);
+    try {
+      const result = await signUpGuestMember({
+        firstName: form.firstName.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim() || undefined,
+      });
+      if (result.success) {
+        router.push('/guest-list/welcome');
+      } else {
+        setError(result.error || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <SiteShell>
       {/* Hero Section */}
@@ -22,15 +55,19 @@ export default function GuestListPage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Get More From Your Stay.</span>
           </h1>
           <p className="text-xl text-black/60 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Join our private guest network for better rates, priority booking, and exclusive perks you won’t find on Airbnb.
+            Join our private guest network for better rates, priority booking, and exclusive perks you won't find on Airbnb.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="intelligence" className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20">
-              Join Free
-            </Button>
-            <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold">
-              Unlock Member Rates
-            </Button>
+            <a href="#signup">
+              <Button size="lg" variant="intelligence" className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20">
+                Join Free
+              </Button>
+            </a>
+            <a href="#signup">
+              <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold">
+                Unlock Member Rates
+              </Button>
+            </a>
           </div>
         </div>
       </section>
@@ -42,48 +79,30 @@ export default function GuestListPage() {
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">Airbnb vs. Booking Direct</h2>
             <p className="text-white/50 text-lg">Why thousands of travelers are joining our private network.</p>
           </div>
-
           <div className="grid md:grid-cols-2 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10">
             <div className="bg-white/5 p-10 space-y-8 opacity-50">
               <h3 className="text-2xl font-bold mb-6 text-white/80">Other Platforms</h3>
               <ul className="space-y-6">
-                <li className="flex items-center gap-4 text-white/60">
-                  <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
-                    <span className="text-red-500 text-xs font-bold">✕</span>
-                  </div>
-                  Higher platform service fees
-                </li>
-                <li className="flex items-center gap-4 text-white/60">
-                  <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
-                    <span className="text-red-500 text-xs font-bold">✕</span>
-                  </div>
-                  No member-only perks
-                </li>
-                <li className="flex items-center gap-4 text-white/60">
-                  <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
-                    <span className="text-red-500 text-xs font-bold">✕</span>
-                  </div>
-                  No relationship or priority access
-                </li>
+                {['Higher platform service fees', 'No member-only perks', 'No relationship or priority access'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-4 text-white/60">
+                    <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
+                      <span className="text-red-500 text-xs font-bold">✕</span>
+                    </div>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
-
             <div className="bg-primary/10 p-10 space-y-8 relative">
               <div className="absolute top-6 right-8 text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/20 px-2 py-1 rounded-full">Recommended</div>
               <h3 className="text-2xl font-bold mb-6 text-primary">Booking Direct</h3>
               <ul className="space-y-6">
-                <li className="flex items-center gap-4 text-white">
-                  <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
-                  Lower rates (5-10% savings)
-                </li>
-                <li className="flex items-center gap-4 text-white">
-                  <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
-                  Exclusive member-only perks
-                </li>
-                <li className="flex items-center gap-4 text-white">
-                  <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
-                  Priority access to new properties
-                </li>
+                {['Lower rates (5-10% savings)', 'Exclusive member-only perks', 'Priority access to new properties'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-4 text-white">
+                    <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -95,26 +114,10 @@ export default function GuestListPage() {
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { 
-                title: 'Better Rates', 
-                desc: 'Consistently save 5-10% compared to major booking platforms.',
-                icon: Zap 
-              },
-              { 
-                title: 'Priority Access', 
-                desc: 'Get first dibs on our newest property launches and seasonal dates.',
-                icon: Calendar 
-              },
-              { 
-                title: 'Flexible Stays', 
-                desc: 'Complimentary early check-in or late checkout when available.',
-                icon: Clock 
-              },
-              { 
-                title: 'Member Perks', 
-                desc: 'Unlock exclusive rewards and local experiences during your stay.',
-                icon: ShieldCheck 
-              },
+              { title: 'Better Rates', desc: 'Consistently save 5-10% compared to major booking platforms.', icon: Zap },
+              { title: 'Priority Access', desc: 'Get first dibs on our newest property launches and seasonal dates.', icon: Calendar },
+              { title: 'Flexible Stays', desc: 'Complimentary early check-in or late checkout when available.', icon: Clock },
+              { title: 'Member Perks', desc: 'Unlock exclusive rewards and local experiences during your stay.', icon: ShieldCheck },
             ].map((benefit, i) => (
               <div key={i} className="flex flex-col items-center text-center p-8 rounded-2xl glass-panel border-black/5">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 text-primary">
@@ -137,7 +140,7 @@ export default function GuestListPage() {
           </div>
           <div className="grid md:grid-cols-3 gap-12">
             {[
-              { step: '01', title: 'Join', desc: 'Securely enter your contact info to join the guest list.' },
+              { step: '01', title: 'Join', desc: "Enter your first name and email — that's it." },
               { step: '02', title: 'Explore', desc: 'Get access to our full portfolio of high-end rentals.' },
               { step: '03', title: 'Save', desc: 'Book direct and enjoy member-exclusive rates.' },
             ].map((step, i) => (
@@ -161,28 +164,60 @@ export default function GuestListPage() {
                 <h2 className="text-3xl font-black mb-2 text-black tracking-tight leading-tight">Join The Guest List</h2>
                 <p className="text-black/50">Start saving on your next STR stay.</p>
               </div>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">First Name</label>
-                    <input type="text" className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Enter first name" required />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">Last Name</label>
-                    <input type="text" className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Enter last name" />
-                  </div>
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                {/* First Name */}
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">First Name</label>
+                  <input
+                    type="text"
+                    className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"
+                    placeholder="Enter your first name"
+                    required
+                    value={form.firstName}
+                    onChange={(e) => setForm(f => ({ ...f, firstName: e.target.value }))}
+                  />
                 </div>
+                {/* Email */}
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">Email Address</label>
-                  <input type="email" className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Enter your email" required />
+                  <input
+                    type="email"
+                    className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"
+                    placeholder="Enter your email"
+                    required
+                    value={form.email}
+                    onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                  />
                 </div>
+                {/* Phone (optional) */}
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">Phone Number (Optional)</label>
-                  <input type="tel" className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="+1 (555) 000-0000" />
+                  <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">
+                    Phone Number <span className="font-normal normal-case text-black/40">(Optional — recommended)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"
+                    placeholder="+1 (855) 303-4545"
+                    value={form.phone}
+                    onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
+                  />
                 </div>
-                <Button variant="intelligence" className="w-full h-14 text-lg font-bold mt-4 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
-                  Get Member Access
-                  <Lock className="w-4 h-4 ml-2" />
+                {error && (
+                  <div className="rounded-xl bg-red-50 border border-red-200 text-red-700 p-3 text-sm font-medium">
+                    {error}
+                  </div>
+                )}
+                <Button
+                  variant="intelligence"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full h-14 text-lg font-bold mt-4 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
+                >
+                  {isSubmitting ? (
+                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Unlocking Access...</>
+                  ) : (
+                    <>Get Member Access <Lock className="w-4 h-4 ml-2" /></>
+                  )}
                 </Button>
                 <p className="text-[10px] text-center text-black/60 mt-6 leading-relaxed">
                   By joining, you agree to receive direct booking updates and member-exclusive offers. Unsubscribe anytime.
@@ -207,10 +242,10 @@ export default function GuestListPage() {
             <div key={i} className="glass-panel overflow-hidden group border-black/5">
               <div className="h-64 bg-black/5 relative">
                 <div className="absolute top-4 left-4 bg-primary text-white font-bold text-xs px-3 py-1.5 rounded-full z-10 shadow-lg">Save 10%</div>
-                <img 
-                  src={i === 0 ? "/images/properties/waterfront.jpg" : "/images/properties/beachside.jpg"} 
-                  alt={item.name} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                <img
+                  src={i === 0 ? "/images/properties/waterfront.jpg" : "/images/properties/beachside.jpg"}
+                  alt={item.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
               <div className="p-8 flex justify-between items-end">
@@ -233,5 +268,3 @@ export default function GuestListPage() {
     </SiteShell>
   );
 }
-
-import { Clock } from 'lucide-react';
