@@ -7,8 +7,8 @@ export default function MarketsPage() {
     {
       name: 'Jersey Shore',
       desc: 'Asbury park to cape may. The Northeast’s premier beach destination. Specialized beachfront maintenance and high-intensity summer seasonal strategies.',
-      performance: '+28%',
-      stats: 'Active',
+      performance: '15.9%',
+      stats: '50+',
       icon: Waves,
       href: '/new-jersey-airbnb-management',
     },

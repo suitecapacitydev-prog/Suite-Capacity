@@ -4,13 +4,13 @@ import React from 'react'
 
 export const HowItWorks = () => {
     return (
-        <section id="how-it-works" className="py-24 container mx-auto px-6">
+        <section id="how-it-works" className="py-24 relative overflow-hidden bg-primary border-y border-white/10">
             <div className="text-center mb-16 max-w-xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-black text-primary tracking-tight mb-3">How It Works</h2>
-                <p className="text-base text-black/85 font-medium">Three phases. Fully done for you. You collect the income.</p>
+                <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">How It Works</h2>
+                <p className="text-base text-white/85 font-medium">Three phases. Fully done for you. You collect the income.</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <div className="grid md:grid-cols-3 gap-8 mx-20">
                 {[
                     {
                         step: '01',
@@ -60,7 +60,7 @@ export const HowItWorks = () => {
             {/* Result Row */}
             <div className="pt-16 border-t border-black/5">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold text-black tracking-tight">The Result</h2>
+                    <h2 className="text-3xl font-bold text-white tracking-tight">The Result</h2>
                 </div>
                 <div className="grid md:grid-cols-3 gap-10">
                     {[

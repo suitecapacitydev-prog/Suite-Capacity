@@ -127,44 +127,6 @@ export default function InvestPage() {
         </div>
       </section>
 
-      {/* Buy/Sell Pathways */}
-      <section className="py-24 container mx-auto px-6">
-        <div className="text-center mb-16 max-w-2xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-black">Work With Us</h2>
-          <p className="text-lg text-black/55">Whether you're looking to acquire your first property or liquidate an existing portfolio.</p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <div className="glass-panel p-10 bg-white group hover:border-primary/40 transition-all">
-            <Building2 className="w-12 h-12 text-primary mb-6" />
-            <h3 className="text-2xl font-bold mb-4 text-black">Buy an STR</h3>
-            <p className="text-black/60 mb-8 leading-relaxed">
-              We help you identify and acquire high-performing STR properties, then fully set them up and manage them for passive income.
-            </p>
-            <Link href="/wizard">
-              <Button variant="intelligence" className="w-full gap-2 group-hover:scale-105 transition-transform">
-                Start Your STR Investment
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-
-          <div className="glass-panel p-10 bg-white group hover:border-accent/40 transition-all">
-            <TrendingUp className="w-12 h-12 text-accent mb-6" />
-            <h3 className="text-2xl font-bold mb-4 text-black">Sell Your Property</h3>
-            <p className="text-black/60 mb-8 leading-relaxed">
-              We market your property based on its income potential, attracting STR-focused buyers and maximizing value.
-            </p>
-            <Link href="#">
-              <Button variant="outline" className="w-full border-accent text-accent hover:bg-accent/5 gap-2 group-hover:scale-105 transition-transform">
-                List Your Property
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Investment Platform - Coming Soon */}
       <section className="py-24 bg-black text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:40px_40px]" />
@@ -212,6 +174,44 @@ export default function InvestPage() {
             <a href="https://calendly.com/suitecapacity/consultation-and-discovery-call" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" className="h-12 px-10 font-bold border-white/20 text-white hover:bg-white/10">Get Early Access</Button>
             </a>
+          </div>
+        </div>
+      </section>
+      
+      {/* Buy/Sell Pathways */}
+      <section className="py-24 container mx-auto px-6">
+        <div className="text-center mb-16 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-black">Work With Us</h2>
+          <p className="text-lg text-black/55">Whether you're looking to acquire your first property or liquidate an existing portfolio.</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="glass-panel p-10 bg-white group hover:border-primary/40 transition-all">
+            <Building2 className="w-12 h-12 text-primary mb-6" />
+            <h3 className="text-2xl font-bold mb-4 text-black">Buy an STR</h3>
+            <p className="text-black/60 mb-8 leading-relaxed">
+              We help you identify and acquire high-performing STR properties, then fully set them up and manage them for passive income.
+            </p>
+            <Link href="/wizard">
+              <Button variant="intelligence" className="w-full gap-2 group-hover:scale-105 transition-transform">
+                Start Your STR Investment
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+
+          <div className="glass-panel p-10 bg-white group hover:border-accent/40 transition-all">
+            <TrendingUp className="w-12 h-12 text-accent mb-6" />
+            <h3 className="text-2xl font-bold mb-4 text-black">Sell Your Property</h3>
+            <p className="text-black/60 mb-8 leading-relaxed">
+              We market your property based on its income potential, attracting STR-focused buyers and maximizing value.
+            </p>
+            <Link href="#">
+              <Button variant="outline" className="w-full border-accent text-accent hover:bg-accent/5 gap-2 group-hover:scale-105 transition-transform">
+                List Your Property
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

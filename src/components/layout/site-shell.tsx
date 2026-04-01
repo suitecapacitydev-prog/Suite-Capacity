@@ -51,12 +51,11 @@ export default function RootLayout({
                     </Link>
 
                     <nav className="hidden md:flex items-center gap-6 text-sm font-black text-primary uppercase tracking-widest">
-                        <Link href="/platform" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Platform</Link>
                         <Link href="/invest" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Invest</Link>
                         <Link href="/guest-list" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Guest List</Link>
                         <Link href="/markets" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Markets</Link>
-                        <Link href="/solutions" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Solutions</Link>
-                        <Link href="/case-studies" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Performance</Link>
+                        <Link href="/solutions" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Services</Link>
+                        <Link href="/case-studies" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Properties</Link>
                         <Link href="/about" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">About</Link>
                     </nav>
 
@@ -78,7 +77,7 @@ export default function RootLayout({
                         )}
                         <Link href="/wizard">
                             <Button variant="intelligence" size="sm" className="hidden sm:inline-flex shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-95">
-                                Initial Audit
+                                Property Audit
                             </Button>
                         </Link>
                         <button
@@ -94,7 +93,6 @@ export default function RootLayout({
                 {isMenuOpen && (
                     <div className="md:hidden bg-white border-t border-black/5 absolute top-20 left-0 w-full animate-in slide-in-from-top duration-300">
                         <nav className="flex flex-col p-6 gap-2 text-lg font-semibold">
-                            <Link href="/platform" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Platform</Link>
                             <Link href="/invest" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-primary font-bold">Invest</Link>
                             <Link href="/guest-list" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Guest List</Link>
                             <Link href="/markets" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Markets</Link>
