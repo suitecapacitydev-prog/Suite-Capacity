@@ -3,15 +3,23 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import SiteShell from '@/components/layout/site-shell';
-import { ShieldCheck, Zap, ArrowRight, CheckCircle2, Star, Lock, Calendar, Clock, Loader2 } from 'lucide-react';
+import { ShieldCheck, Zap, ArrowRight, CheckCircle2, Star, Lock, Calendar, Clock, Loader2, Copy } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { signUpGuestMember } from '@/app/actions/guest-signup';
+import { signUpGuestMember, validatePromoCode } from '@/app/actions/guest-signup';
 
 export default function GuestListPage() {
   const router = useRouter();
   const [form, setForm] = useState({ firstName: '', email: '', phone: '' });
+  const [promoInput, setPromoInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [promoError, setPromoError] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
+  const [isExisting, setIsExisting] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +36,11 @@ export default function GuestListPage() {
         phone: form.phone.trim() || undefined,
       });
       if (result.success) {
-        router.push('/guest-list/welcome');
+        setPromoCode(result.promoCode || '');
+        setIsExisting(result.isExisting || false);
+        setIsSuccess(true);
+        // Automatically set unlocked for this session
+        localStorage.setItem('guest_list_unlocked', 'true');
       } else {
         setError(result.error || 'Something went wrong. Please try again.');
       }
@@ -37,6 +49,33 @@ export default function GuestListPage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleValidateCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!promoInput.trim()) return;
+
+    setIsValidating(true);
+    setPromoError(null);
+    try {
+      const result = await validatePromoCode(promoInput.trim());
+      if (result.success) {
+        localStorage.setItem('guest_list_unlocked', 'true');
+        router.push('/guest-list/exclusive');
+      } else {
+        setPromoError(result.error || 'Invalid promo code.');
+      }
+    } catch {
+      setPromoError('Something went wrong. Please try again.');
+    } finally {
+      setIsValidating(false);
+    }
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(promoCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -165,72 +204,176 @@ export default function GuestListPage() {
         <div className="max-w-xl mx-auto">
           <div className="glass-panel p-10 bg-white shadow-2xl rounded-3xl border-primary/20 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16" />
-            <div className="relative z-10 space-y-8">
-              <div className="text-center">
-                <h2 className="text-3xl font-black mb-2 text-black tracking-tight leading-tight">Join The Guest List</h2>
-                <p className="text-black/50">Start saving on your next STR stay.</p>
-              </div>
-              <form className="space-y-4" onSubmit={handleSubmit}>
-                {/* First Name */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">First Name</label>
-                  <input
-                    type="text"
-                    className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"
-                    placeholder="Enter your first name"
-                    required
-                    value={form.firstName}
-                    onChange={(e) => setForm(f => ({ ...f, firstName: e.target.value }))}
-                  />
-                </div>
-                {/* Email */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">Email Address</label>
-                  <input
-                    type="email"
-                    className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"
-                    placeholder="Enter your email"
-                    required
-                    value={form.email}
-                    onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
-                  />
-                </div>
-                {/* Phone (optional) */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">
-                    Phone Number <span className="font-normal normal-case text-black/40">(Optional — recommended)</span>
-                  </label>
-                  <input
-                    type="tel"
-                    className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"
-                    placeholder="+1 (855) 303-4545"
-                    value={form.phone}
-                    onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
-                  />
-                </div>
-                {error && (
-                  <div className="rounded-xl bg-red-50 border border-red-200 text-red-700 p-3 text-sm font-medium">
-                    {error}
-                  </div>
+            <div className="relative z-10">
+              <AnimatePresence mode="wait">
+                {!isSuccess ? (
+                  <motion.div
+                    key="form"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="space-y-8"
+                  >
+                    <div className="text-center">
+                      <h2 className="text-3xl font-black mb-2 text-black tracking-tight leading-tight">Join The Guest List</h2>
+                      <p className="text-black/50">Start saving on your next STR stay.</p>
+                    </div>
+                    <form className="space-y-4" onSubmit={handleSubmit}>
+                      {/* First Name */}
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">First Name</label>
+                        <input
+                          type="text"
+                          className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"
+                          placeholder="Enter your first name"
+                          required
+                          value={form.firstName}
+                          onChange={(e) => setForm(f => ({ ...f, firstName: e.target.value }))}
+                        />
+                      </div>
+                      {/* Email */}
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">Email Address</label>
+                        <input
+                          type="email"
+                          className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"
+                          placeholder="Enter your email"
+                          required
+                          value={form.email}
+                          onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                        />
+                      </div>
+                      {/* Phone (optional) */}
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">
+                          Phone Number <span className="font-normal normal-case text-black/40">(Optional — recommended)</span>
+                        </label>
+                        <input
+                          type="tel"
+                          className="w-full bg-black/5 border-0 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary outline-none transition-all"
+                          placeholder="+1 (855) 303-4545"
+                          value={form.phone}
+                          onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
+                        />
+                      </div>
+                      {error && (
+                        <div className="rounded-xl bg-red-50 border border-red-200 text-red-700 p-3 text-sm font-medium">
+                          {error}
+                        </div>
+                      )}
+                      <Button
+                        variant="intelligence"
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full h-14 text-lg font-bold mt-4 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
+                      >
+                        {isSubmitting ? (
+                          <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Unlocking Access...</>
+                        ) : (
+                          <>Get Member Access <Lock className="w-4 h-4 ml-2" /></>
+                        )}
+                      </Button>
+                      <p className="text-[10px] text-center text-black/60 mt-6 leading-relaxed">
+                        By joining, you agree to receive direct booking updates and member-exclusive offers. Unsubscribe anytime.
+                      </p>
+                    </form>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center space-y-8"
+                  >
+                    <div className="relative inline-block">
+                      <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <CheckCircle2 className="w-10 h-10 text-green-600" />
+                      </div>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        className="absolute -top-2 -right-2 text-primary"
+                      >
+                      </motion.div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <h2 className="text-4xl font-black text-black tracking-tight leading-tight">
+                        Congratulations!
+                      </h2>
+                      <p className="text-black/60 text-lg">
+                        {isExisting
+                          ? "Welcome back! Your member access is active."
+                          : "You've successfully joined the private guest list."}
+                      </p>
+                    </div>
+
+                    <div className="bg-black/5 rounded-2xl p-6 border border-black/5 space-y-4 relative overflow-hidden group">
+                      <p className="text-xs font-bold uppercase tracking-widest text-black/40">Your One-Time Promo Code</p>
+                      <div className="flex items-center justify-between gap-4 bg-white border border-primary/20 rounded-xl p-4 shadow-inner">
+                        <span className="text-2xl font-black text-primary tracking-widest font-mono">{promoCode}</span>
+                        <button
+                          onClick={copyToClipboard}
+                          className="p-2 hover:bg-primary/10 rounded-lg transition-colors flex items-center gap-2 group/btn"
+                        >
+                          {copied ? <CheckCircle2 className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4 text-primary" />}
+                          <span className="text-xs font-bold text-primary group-hover/btn:underline">{copied ? 'Copied!' : 'Copy'}</span>
+                        </button>
+                      </div>
+                      <p className="text-[10px] text-black/40">Use this code at checkout to unlock member-only rates.</p>
+                    </div>
+
+                    <div className="flex flex-col gap-3">
+                      <Button
+                        variant="intelligence"
+                        size="lg"
+                        className="h-14 text-lg font-bold shadow-xl shadow-primary/20"
+                        onClick={() => router.push('/guest-list/exclusive')}
+                      >
+                        Unlock Member Properties <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </div>
+                  </motion.div>
                 )}
-                <Button
-                  variant="intelligence"
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full h-14 text-lg font-bold mt-4 shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
-                >
-                  {isSubmitting ? (
-                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Unlocking Access...</>
-                  ) : (
-                    <>Get Member Access <Lock className="w-4 h-4 ml-2" /></>
-                  )}
-                </Button>
-                <p className="text-[10px] text-center text-black/60 mt-6 leading-relaxed">
-                  By joining, you agree to receive direct booking updates and member-exclusive offers. Unsubscribe anytime.
-                </p>
-              </form>
+              </AnimatePresence>
             </div>
           </div>
+
+          {/* Already have a code? */}
+          {!isSuccess && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="mt-12 max-w-sm mx-auto text-center space-y-6"
+            >
+              <div className="flex items-center gap-4 text-black/20">
+                <div className="h-px flex-1 bg-current" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] whitespace-nowrap">Already a member?</span>
+                <div className="h-px flex-1 bg-current" />
+              </div>
+
+              <form onSubmit={handleValidateCode} className="relative group">
+                <input
+                  type="text"
+                  placeholder="Enter Promo Code"
+                  value={promoInput}
+                  onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                  className="w-full bg-white border border-black/5 rounded-2xl px-6 py-4 text-center font-mono font-bold tracking-widest focus:ring-2 focus:ring-primary outline-none transition-all shadow-sm group-hover:shadow-md h-16"
+                />
+                <button
+                  disabled={isValidating || !promoInput.trim()}
+                  type="submit"
+                  className="absolute right-2 top-2 bottom-2 px-6 bg-black text-white rounded-xl font-bold text-sm hover:bg-primary transition-all disabled:opacity-50 disabled:hover:bg-black"
+                >
+                  {isValidating ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Unlock'}
+                </button>
+              </form>
+              {promoError && (
+                <p className="text-xs font-bold text-red-500 animate-shake">{promoError}</p>
+              )}
+            </motion.div>
+          )}
         </div>
       </section>
 

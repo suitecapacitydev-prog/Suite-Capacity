@@ -9,6 +9,8 @@ import { useState, useEffect } from 'react';
 import LoginModal from '@/components/auth/login-modal';
 import { signOut } from '@/app/actions/auth';
 import { useRouter } from 'next/navigation';
+import GuestListModal
+    from '../auth/guestlist-modal';
 
 export default function RootLayout({
     children,
@@ -18,6 +20,7 @@ export default function RootLayout({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isGuestListModalOpen, setisGuestListModalOpen] = useState(false)
     const router = useRouter();
 
     // Check for login state on mount and when modal closes
@@ -52,7 +55,12 @@ export default function RootLayout({
 
                     <nav className="hidden md:flex items-center gap-6 text-sm font-black text-primary uppercase tracking-widest">
                         <Link href="/invest" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Invest</Link>
-                        <Link href="/guest-list" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Guest List</Link>
+                        <button
+                            onClick={() => setisGuestListModalOpen(true)}
+                            className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95"
+                        >
+                            Guest List
+                        </button>
                         <Link href="/markets" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Markets</Link>
                         <Link href="/solutions" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Services</Link>
                         <Link href="/case-studies" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Properties</Link>
@@ -94,7 +102,7 @@ export default function RootLayout({
                     <div className="md:hidden bg-white border-t border-black/5 absolute top-20 left-0 w-full animate-in slide-in-from-top duration-300">
                         <nav className="flex flex-col p-6 gap-2 text-lg font-semibold">
                             <Link href="/invest" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-primary font-bold">Invest</Link>
-                            <Link href="/guest-list" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Guest List</Link>
+                            <Link href="/guest-list" className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Guest List</Link>
                             <Link href="/markets" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Markets</Link>
                             <Link href="/solutions" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Solutions</Link>
                             <Link href="/case-studies" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Performance</Link>
@@ -133,6 +141,11 @@ export default function RootLayout({
             <LoginModal
                 isOpen={isLoginModalOpen}
                 onClose={() => setIsLoginModalOpen(false)}
+            />
+
+            <GuestListModal
+                isOpen={isGuestListModalOpen}
+                onClose={() => setisGuestListModalOpen(false)}
             />
 
             <main className="flex-grow pt-20">
