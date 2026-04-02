@@ -6,6 +6,7 @@ import { BarChart3, Users, TrendingUp, RefreshCcw, Database, FolderOpen, Externa
 import { Button } from '@/components/ui/button';
 import { HostawayService } from '@/services/hostaway';
 import RevenueChart from '@/components/charts/revenue-chart';
+import LeadControlButton from '@/components/dashboard/lead-control-button';
 
 export default async function OwnerDashboardPage() {
   const cookieStore = await cookies();
@@ -75,14 +76,18 @@ export default async function OwnerDashboardPage() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="max-w-4xl">
-              <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">Owner Command Center</h1>
+              <p className="lg:text-5xl font-black mb-4 tracking-tight">Owner Command Center</p>
               <p className="text-xl text-black/60 font-medium">
                 Real-time performance intelligence synced from the <span className="text-black">Central Brain</span>.
               </p>
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-500/10 border border-green-500/20 text-green-600 text-xs font-black uppercase tracking-widest">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              Live Hostaway Sync Active
+
+            <div className="flex flex-col items-start md:items-end gap-3">
+              <LeadControlButton />
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-500/10 border border-green-500/20 text-green-600 text-[10px] font-black uppercase tracking-widest">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                Live Hostaway Sync Active
+              </div>
             </div>
           </div>
 
