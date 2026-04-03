@@ -14,8 +14,10 @@ import GuestListModal
 
 export default function RootLayout({
     children,
+    dark = false,
 }: {
     children: React.ReactNode;
+    dark?: boolean;
 }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -42,8 +44,8 @@ export default function RootLayout({
     };
 
     return (
-        <div className="min-h-screen flex flex-col">
-            <header className="fixed top-0 w-full z-50 border-b border-black/5 bg-white">
+        <div className={`min-h-screen flex flex-col ${dark ? 'bg-black text-white' : 'bg-background text-foreground'}`}>
+            <header className={`fixed top-0 w-full z-50 border-b ${dark ? 'bg-black border-white/10' : 'bg-white border-black/5'}`}>
                 <div className="container mx-auto px-6 h-20 flex items-center justify-between">
                     <Link href="/" className="flex items-center group">
                         <img
@@ -53,32 +55,32 @@ export default function RootLayout({
                         />
                     </Link>
 
-                    <nav className="hidden md:flex items-center gap-6 text-sm font-black text-primary uppercase tracking-widest">
-                        <Link href="/invest" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Invest</Link>
+                    <nav className={`hidden md:flex items-center gap-6 text-sm font-black uppercase tracking-widest ${dark ? 'text-white' : 'text-primary'}`}>
+                        <Link href="/invest" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Invest</Link>
                         <button
                             onClick={() => setisGuestListModalOpen(true)}
-                            className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95"
+                            className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}
                         >
                             Guest List
                         </button>
-                        <Link href="/markets" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Markets</Link>
-                        <Link href="/solutions" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Services</Link>
-                        <Link href="/case-studies" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">Properties</Link>
-                        <Link href="/about" className="px-3 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95">About</Link>
+                        <Link href="/markets" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Markets</Link>
+                        <Link href="/solutions" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Services</Link>
+                        <Link href="/case-studies" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Properties</Link>
+                        <Link href="/about" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>About</Link>
                     </nav>
 
                     <div className="flex items-center gap-4">
                         {isLoggedIn ? (
                             <button
                                 onClick={handleLogout}
-                                className="hidden sm:inline-block text-sm font-semibold text-red-600 px-4 py-2 hover:bg-red-50 rounded-lg transition-all active:scale-95"
+                                className={`hidden sm:inline-block text-sm font-semibold px-4 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'text-white hover:bg-white/10' : 'text-red-600 hover:bg-red-50'}`}
                             >
                                 Logout
                             </button>
                         ) : (
                             <button
                                 onClick={() => setIsLoginModalOpen(true)}
-                                className="hidden sm:inline-block text-sm font-semibold text-black px-4 py-2 hover:bg-primary/5 rounded-lg transition-all active:scale-95"
+                                className={`hidden sm:inline-block text-sm font-semibold px-4 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'text-white hover:bg-white/10' : 'text-black hover:bg-primary/5'}`}
                             >
                                 Owner Login
                             </button>
@@ -89,7 +91,7 @@ export default function RootLayout({
                             </Button>
                         </Link>
                         <button
-                            className="md:hidden p-2 text-black"
+                            className={`md:hidden p-2 ${dark ? 'text-white' : 'text-black'}`}
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                         >
                             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -162,7 +164,7 @@ export default function RootLayout({
                 </AnimatePresence>
             </main>
 
-            <footer className="bg-card border-t border-border py-12">
+            <footer className={`${dark ? 'bg-black border-white/10 text-white' : 'bg-card border-border text-foreground'} border-t py-12`}>
                 <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
                     <div className="space-y-4">
                         <div className="flex items-center">
@@ -172,7 +174,7 @@ export default function RootLayout({
                                 className="h-16 w-auto"
                             />
                         </div>
-                        <p className="text-sm text-primary font-bold leading-relaxed">
+                        <p className={`text-sm leading-relaxed ${dark ? 'text-white/60 font-medium' : 'text-primary font-bold'}`}>
                             The centralized STR operating platform combining revenue intelligence and local market expertise.
                         </p>
                     </div>
@@ -213,7 +215,7 @@ export default function RootLayout({
                         </p>
                     </div>
                 </div>
-                <div className="container mx-auto px-6 mt-12 pt-8 border-t border-border flex justify-between items-center text-xs text-primary font-bold">
+                <div className={`container mx-auto px-6 mt-12 pt-8 border-t flex justify-between items-center text-xs font-bold ${dark ? 'border-white/10 text-white/40' : 'border-border text-primary'}`}>
                     <p>© 2024 Suite Capacity. All rights reserved.</p>
                     <div className="flex gap-6">
                         <Link href="#">Privacy Policy</Link>

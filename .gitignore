@@ -48,3 +48,6 @@ docs/
 .idea/
 .vscode/
 supabase/.temp/
+
+# one-off scraping/automation scripts
+scripts/
