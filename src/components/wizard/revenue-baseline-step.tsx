@@ -80,44 +80,8 @@ export function RevenueBaselineStep({ data, updateData, operatingMode }: Revenue
 
     const renderStrSection = () => (
         <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-8">
                 <div className="space-y-2">
-                    <label className="text-sm font-semibold text-secondary-foreground uppercase tracking-wider">
-                        Average Nightly Rate (ADR)
-                    </label>
-                    <div className="relative">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-                        <input
-                            type="number"
-                            className="w-full bg-background border border-border rounded-lg p-3 pl-8 focus:ring-2 focus:ring-primary focus:outline-none"
-                            value={data.adr || ''}
-                            onChange={(e) => updateData({ adr: parseInt(e.target.value), type: 'str' })}
-                        />
-                    </div>
-                </div>
-
-                <div className="space-y-2">
-                    <label className="text-sm font-semibold text-secondary-foreground uppercase tracking-wider">
-                        Average Occupancy (%)
-                    </label>
-                    <div className="space-y-4 pt-2">
-                        <input
-                            type="range"
-                            min="0"
-                            max="100"
-                            className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
-                            value={data.occupancy || 0}
-                            onChange={(e) => updateData({ occupancy: parseInt(e.target.value), type: 'str' })}
-                        />
-                        <div className="flex justify-between text-xs font-bold text-muted-foreground">
-                            <span>0%</span>
-                            <span className="text-primary text-lg">{data.occupancy || 0}%</span>
-                            <span>100%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="space-y-2 md:col-span-2">
                     <label className="text-sm font-semibold text-secondary-foreground uppercase tracking-wider">
                         Estimated Annual Revenue (optional)
                     </label>

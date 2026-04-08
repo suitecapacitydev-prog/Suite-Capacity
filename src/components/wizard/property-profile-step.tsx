@@ -9,6 +9,10 @@ import {
     Gamepad2, Umbrella, Star, Car, Zap, Smartphone, CheckCircle2
 } from 'lucide-react';
 
+import { useJsApiLoader, GoogleMap, Marker, Autocomplete } from '@react-google-maps/api';
+
+const LIBRARIES: ("places")[] = ["places"];
+
 interface PropertyProfileStepProps {
     data: Partial<PropertyProfile>;
     qualification: any;
@@ -17,14 +21,44 @@ interface PropertyProfileStepProps {
 }
 
 export function PropertyProfileStep({ data, qualification, updateData, updateQualification }: PropertyProfileStepProps) {
-    const [suggestions, setSuggestions] = React.useState<string[]>([]);
-    const mockLocations = [
-        '123 Ocean Ave, Asbury Park, NJ',
-        '456 Boardwalk, Cape May, NJ',
-        '789 Pine St, Kissimmee, FL',
-        '101 Coastal Hwy, Wildwood, NJ',
-        '202 Mountain Rd, Smoky Mountains, TN'
-    ];
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
+        libraries: LIBRARIES
+    });
+
+    const [autocomplete, setAutocomplete] = React.useState<google.maps.places.Autocomplete | null>(null);
+    // Ocean Ave, Seaside Heights approx
+    const [mapCenter, setMapCenter] = React.useState({ lat: 39.9431, lng: -74.0759 }); 
+
+    const onPlaceChanged = () => {
+        if (autocomplete) {
+            const place = autocomplete.getPlace();
+            if (place.formatted_address) {
+                updateData({ address: place.formatted_address });
+                if (place.geometry?.location) {
+                    setMapCenter({
+                        lat: place.geometry.location.lat(),
+                        lng: place.geometry.location.lng()
+                    });
+                }
+            }
+        }
+    };
+
+    const handleMapClick = (e: google.maps.MapMouseEvent) => {
+        if (!e.latLng) return;
+        const lat = e.latLng.lat();
+        const lng = e.latLng.lng();
+        setMapCenter({ lat, lng });
+
+        const geocoder = new window.google.maps.Geocoder();
+        geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+            if (status === "OK" && results && results[0]) {
+                updateData({ address: results[0].formatted_address });
+            }
+        });
+    };
 
     const propertyTypes: { value: PropertyType; label: string; icon: React.ReactNode }[] = [
         { value: 'single-family', label: 'Single Family', icon: <Home className="w-4 h-4" /> },
@@ -34,15 +68,6 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
         { value: 'luxury-estate', label: 'Luxury Estate', icon: <Landmark className="w-4 h-4" /> },
         { value: 'boutique-hotel', label: 'Boutique Hotel', icon: <Hotel className="w-4 h-4" /> },
     ];
-
-    const handleAddressChange = (val: string) => {
-        updateData({ address: val });
-        if (val.length > 2) {
-            setSuggestions(mockLocations.filter(loc => loc.toLowerCase().includes(val.toLowerCase())));
-        } else {
-            setSuggestions([]);
-        }
-    };
 
     return (
         <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-12">
@@ -95,39 +120,50 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                 </div>
             </div>
 
-            {/* Phase 2: Property Info */}
-            <div className="space-y-2 relative">
-                <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest">Property Address</label>
-                <div className="relative">
-                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
-                    <input
-                        type="text"
-                        className="w-full h-16 bg-white border-2 border-black/5 rounded-2xl p-4 pl-12 focus:border-primary focus:outline-none transition-all text-lg font-medium shadow-sm"
-                        placeholder="Enter your property address..."
-                        value={data.address || ''}
-                        onChange={(e) => handleAddressChange(e.target.value)}
-                    />
-                </div>
-                {suggestions.length > 0 && (
-                    <div className="absolute z-50 w-full mt-2 bg-white border-2 border-black/5 rounded-2xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2">
-                        {suggestions.map((s, i) => (
-                            <button
-                                key={i}
-                                onClick={() => {
-                                    updateData({ address: s });
-                                    setSuggestions([]);
-                                }}
-                                className="w-full text-left px-6 py-4 hover:bg-primary/5 text-sm font-medium border-b border-black/5 last:border-0 transition-colors"
+            {/* Phase 2: Property Info & Maps */}
+            <div className="space-y-4 relative">
+                <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest">Property Location</label>
+                
+                {isLoaded ? (
+                    <div className="space-y-4">
+                        <div className="relative">
+                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary z-10" />
+                            <Autocomplete
+                                onLoad={setAutocomplete}
+                                onPlaceChanged={onPlaceChanged}
                             >
-                                <div className="flex items-center gap-3">
-                                    <MapPin className="w-4 h-4 text-primary" />
-                                    <span>{s}</span>
-                                </div>
-                            </button>
-                        ))}
+                                <input
+                                    type="text"
+                                    className="w-full h-16 bg-white border-2 border-black/5 rounded-2xl p-4 pl-12 focus:border-primary focus:outline-none transition-all text-lg font-medium shadow-sm relative z-0"
+                                    placeholder="Start typing your property address..."
+                                    value={data.address || ''}
+                                    onChange={(e) => updateData({ address: e.target.value })}
+                                />
+                            </Autocomplete>
+                        </div>
+                        
+                        <div className="h-[300px] w-full rounded-2xl overflow-hidden border-2 border-black/5 shadow-sm relative">
+                            <GoogleMap
+                                mapContainerStyle={{ width: '100%', height: '100%' }}
+                                center={mapCenter}
+                                zoom={15}
+                                onClick={handleMapClick}
+                                options={{
+                                    disableDefaultUI: true,
+                                    zoomControl: true,
+                                    streetViewControl: false,
+                                }}
+                            >
+                                <Marker position={mapCenter} />
+                            </GoogleMap>
+                            <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-xl border border-black/5 shadow-md text-xs font-bold text-center pointer-events-none">
+                                Click or drag on the map to fine-tune your location
+                            </div>
+                        </div>
                     </div>
+                ) : (
+                    <div className="w-full h-16 bg-black/5 animate-pulse rounded-2xl" />
                 )}
-                <p className="text-[10px] text-black/50 font-bold uppercase tracking-widest mt-2 pl-1">Autofill: Address, City, State (Google Places API Integrated)</p>
             </div>
 
             <div className="space-y-4">

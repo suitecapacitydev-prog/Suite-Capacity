@@ -1,8 +1,26 @@
-import { ArrowRight, CheckCircle, FileText, TrendingUp } from 'lucide-react'
+'use client';
+
+import { ArrowRight, CheckCircle, FileText, TrendingUp, MapPin, Clock } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useState, useEffect } from 'react'
+import Autocomplete from 'react-google-autocomplete'
 
 export const STRBlueprint = () => {
+    const router = useRouter();
+    const [lastAddress, setLastAddress] = useState<string | null>(null);
+
+    useEffect(() => {
+        const saved = localStorage.getItem('lastSearchedAddress');
+        if (saved) setLastAddress(saved);
+    }, []);
+
+    const handleAddressSubmit = (address: string) => {
+        if (!address) return;
+        localStorage.setItem('lastSearchedAddress', address);
+        router.push(`/wizard?address=${encodeURIComponent(address)}`);
+    };
+
     return (
         <section className="py-24 bg-white border-y border-black/5">
             <div className="container mx-auto px-6">
@@ -29,12 +47,47 @@ export const STRBlueprint = () => {
                                 </li>
                             ))}
                         </ul>
-                        <Link href="/wizard">
-                            <button className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-2xl font-bold text-base hover:bg-primary/90 hover:-translate-y-0.5 transition-all shadow-xl shadow-primary/20">
-                                <FileText className="w-5 h-5" /> Get My STR Blueprint
-                                <ArrowRight className="w-5 h-5" />
-                            </button>
-                        </Link>
+
+                        <div className="space-y-3">
+                            <div className="relative max-w-md">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <MapPin className="h-5 w-5 text-black/40" />
+                                </div>
+                                <Autocomplete
+                                    apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                                    onPlaceSelected={(place) => {
+                                        if (place && place.formatted_address) {
+                                            handleAddressSubmit(place.formatted_address);
+                                        }
+                                    }}
+                                    options={{
+                                        types: ['address'],
+                                    }}
+                                    placeholder="Enter your property address"
+                                    className="w-full pl-11 pr-4 py-4 rounded-xl border border-black/10 shadow-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-base"
+                                />
+                                <button className="absolute right-2 top-2 bottom-2 px-4 bg-primary text-white rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors flex items-center gap-2">
+                                    Analyze <ArrowRight className="w-4 h-4" />
+                                </button>
+                            </div>
+                            
+                            {lastAddress && (
+                                <div className="flex items-center gap-2 text-sm text-black/60 pl-2">
+                                    <Clock className="w-4 h-4 text-black/40" />
+                                    <span>Recent:</span>
+                                    <button 
+                                        onClick={() => handleAddressSubmit(lastAddress)}
+                                        className="text-primary hover:underline font-medium truncate max-w-[250px]"
+                                    >
+                                        {lastAddress}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="mt-6 flex items-center gap-2 text-xs text-black/40">
+                            <CheckCircle className="w-3.5 h-3.5" /> Start your free consultation
+                        </div>
                     </div>
                     <div className="relative group">
                         <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl transition-transform group-hover:scale-[1.02] duration-500">
