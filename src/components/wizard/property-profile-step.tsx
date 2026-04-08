@@ -60,6 +60,36 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
         });
     };
 
+    const detectLocation = React.useCallback(() => {
+        if (navigator.geolocation && isLoaded) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    setMapCenter(pos);
+                    
+                    const geocoder = new window.google.maps.Geocoder();
+                    geocoder.geocode({ location: pos }, (results, status) => {
+                        if (status === "OK" && results && results[0]) {
+                            updateData({ address: results[0].formatted_address });
+                        }
+                    });
+                },
+                () => {
+                    console.log("Geolocation permission denied");
+                }
+            );
+        }
+    }, [isLoaded, updateData]);
+
+    React.useEffect(() => {
+        if (isLoaded && !data.address) {
+            detectLocation();
+        }
+    }, [isLoaded, detectLocation, data.address]);
+
     const propertyTypes: { value: PropertyType; label: string; icon: React.ReactNode }[] = [
         { value: 'single-family', label: 'Single Family', icon: <Home className="w-4 h-4" /> },
         { value: 'condo', label: 'Condo', icon: <Building2 className="w-4 h-4" /> },
@@ -134,12 +164,24 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                             >
                                 <input
                                     type="text"
-                                    className="w-full h-16 bg-white border-2 border-black/5 rounded-2xl p-4 pl-12 focus:border-primary focus:outline-none transition-all text-lg font-medium shadow-sm relative z-0"
+                                    name="address"
+                                    autoComplete="street-address"
+                                    className="w-full h-12 bg-white border-2 border-black/5 rounded-2xl p-4 pl-12 pr-12 focus:border-primary focus:outline-none transition-all text-lg font-medium shadow-sm relative z-0"
                                     placeholder="Start typing your property address..."
                                     value={data.address || ''}
                                     onChange={(e) => updateData({ address: e.target.value })}
                                 />
                             </Autocomplete>
+                            <button 
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    detectLocation();
+                                }}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl hover:bg-primary/10 text-primary transition-all z-10"
+                                title="Use current location"
+                            >
+                                <Zap className="w-5 h-5 fill-primary/20" />
+                            </button>
                         </div>
                         
                         <div className="h-[300px] w-full rounded-2xl overflow-hidden border-2 border-black/5 shadow-sm relative">
@@ -162,7 +204,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                         </div>
                     </div>
                 ) : (
-                    <div className="w-full h-16 bg-black/5 animate-pulse rounded-2xl" />
+                    <div className="w-full h-12 bg-black/5 animate-pulse rounded-2xl" />
                 )}
             </div>
 
@@ -191,7 +233,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                 <div className="space-y-2">
                     <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest">Bedrooms</label>
                     <select
-                        className="w-full h-14 bg-white border-2 border-black/5 rounded-xl px-4 font-bold focus:border-primary focus:outline-none appearance-none"
+                        className="w-full h-11 bg-white border-2 border-black/5 rounded-xl px-4 font-bold focus:border-primary focus:outline-none appearance-none"
                         value={data.bedrooms || 1}
                         onChange={(e) => updateData({ bedrooms: parseInt(e.target.value) })}
                     >
@@ -203,7 +245,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                 <div className="space-y-2">
                     <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest">Bathrooms</label>
                     <select
-                        className="w-full h-14 bg-white border-2 border-black/5 rounded-xl px-4 font-bold focus:border-primary focus:outline-none appearance-none"
+                        className="w-full h-11 bg-white border-2 border-black/5 rounded-xl px-4 font-bold focus:border-primary focus:outline-none appearance-none"
                         value={data.bathrooms || 1}
                         onChange={(e) => updateData({ bathrooms: parseFloat(e.target.value) })}
                     >
@@ -216,7 +258,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                     <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest">Occupancy</label>
                     <input
                         type="number"
-                        className="w-full h-14 bg-white border-2 border-black/5 rounded-xl px-4 font-bold focus:border-primary focus:outline-none"
+                        className="w-full h-11 bg-white border-2 border-black/5 rounded-xl px-4 font-bold focus:border-primary focus:outline-none"
                         value={data.maxOccupancy || 2}
                         onChange={(e) => updateData({ maxOccupancy: parseInt(e.target.value) })}
                     />

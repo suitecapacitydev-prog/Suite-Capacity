@@ -147,7 +147,7 @@ export default function GuestDashboardPage() {
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full py-7 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-lg shadow-xl shadow-black/10 active:scale-95 transition-all mt-4 disabled:opacity-50"
+                  className="w-full h-12 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-lg shadow-xl shadow-black/10 active:scale-95 transition-all mt-4 disabled:opacity-50"
                 >
                   {isSubmitting ? 'Authenticating...' : 'Access Dashboard'}
                 </Button>
@@ -178,7 +178,7 @@ export default function GuestDashboardPage() {
             </div>
             <div className="flex gap-4">
               <a href={displayData.directBookingUrl} target="_blank" rel="noopener noreferrer" className="contents">
-                <Button variant="intelligence" className="h-14 px-8 rounded-2xl font-black uppercase tracking-widest gap-2 shadow-xl shadow-primary/20 hover:-translate-y-1 transition-all active:scale-95 border-none">
+                <Button variant="intelligence" className="h-12 px-8 rounded-2xl font-black uppercase tracking-widest gap-2 shadow-xl shadow-primary/20 hover:-translate-y-1 transition-all active:scale-95 border-none">
                   <Zap className="w-5 h-5" /> Book Direct & Save 15%
                 </Button>
               </a>
@@ -303,7 +303,7 @@ export default function GuestDashboardPage() {
                   Love your stay? Become a direct member today and unlock exclusive rates for all properties in our jersey shore collection.
                 </p>
                 <a href={displayData.directBookingUrl} target="_blank" rel="noopener noreferrer">
-                  <Button className="w-full h-14 rounded-2xl bg-primary text-white font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-primary/90 transition-all border-none">
+                  <Button className="w-full h-12 rounded-2xl bg-primary text-white font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-primary/90 transition-all border-none">
                     Join Ecosystem <ExternalLink className="w-4 h-4" />
                   </Button>
                 </a>

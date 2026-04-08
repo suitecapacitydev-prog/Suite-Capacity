@@ -64,13 +64,13 @@ export function GuestListTeaser() {
                 className="flex flex-col sm:flex-row gap-4 pt-4"
               >
                 <Link href="/guest-list">
-                  <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20">
+                  <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-12 px-10 text-lg font-bold shadow-xl shadow-primary/20">
                     Join The Guest List
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>
                 <Link href="/guest-list#signup">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-10 text-lg font-bold">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 px-10 text-lg font-bold">
                     Unlock Member Rates
                   </Button>
                 </Link>

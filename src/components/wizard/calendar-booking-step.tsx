@@ -73,7 +73,7 @@ export function CalendarBookingStep({ onBack, onContinue, strategyUrl }: Calenda
                             <Button
                                 size="lg"
                                 variant="intelligence"
-                                className="flex-1 h-16 text-lg font-black gap-2 shadow-glow uppercase tracking-widest"
+                                className="flex-1 h-12 text-lg font-black gap-2 shadow-glow uppercase tracking-widest"
                                 onClick={handleActivate}
                             >
                                 Activate My Property
@@ -82,7 +82,7 @@ export function CalendarBookingStep({ onBack, onContinue, strategyUrl }: Calenda
                             <Button
                                 size="lg"
                                 variant="outline"
-                                className="flex-1 h-16 text-lg font-bold gap-2"
+                                className="flex-1 h-12 text-lg font-bold gap-2"
                                 onClick={openBooking}
                             >
                                 <MessageSquare className="w-5 h-5" />
@@ -92,12 +92,12 @@ export function CalendarBookingStep({ onBack, onContinue, strategyUrl }: Calenda
 
                         <div className="flex justify-between items-center gap-4 pt-4">
                             {onBack && (
-                                <Button variant="outline" onClick={onBack} className="flex-1 h-14">
+                                <Button variant="outline" onClick={onBack} className="flex-1 h-12">
                                     Back
                                 </Button>
                             )}
                             {onContinue && (
-                                <Button variant="intelligence" onClick={onContinue} className="flex-1 h-14">
+                                <Button variant="intelligence" onClick={onContinue} className="flex-1 h-12">
                                     Continue
                                 </Button>
                             )}

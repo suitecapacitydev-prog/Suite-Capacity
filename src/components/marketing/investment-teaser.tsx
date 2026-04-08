@@ -70,7 +70,7 @@ export function InvestmentTeaser() {
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Link href="/invest">
-                <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-16 px-10 text-lg font-black uppercase tracking-widest shadow-xl shadow-primary/20">
+                <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-12 px-10 text-lg font-black uppercase tracking-widest shadow-xl shadow-primary/20">
                   Explore Investment Options
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
@@ -112,7 +112,7 @@ export function InvestmentTeaser() {
               </div>
 
               <Link href="/invest#accelerator" className="block">
-                <Button variant="outline" className="w-full border-white/40 text-white hover:bg-white/10 font-black uppercase tracking-widest group h-14 rounded-2xl">
+                <Button variant="outline" className="w-full border-white/40 text-white hover:bg-white/10 font-black uppercase tracking-widest group h-12 rounded-2xl">
                   Apply Now
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>

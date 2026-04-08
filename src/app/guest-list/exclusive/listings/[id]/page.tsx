@@ -184,7 +184,7 @@ export default function ListingDetailPage() {
                     <p className="text-sm text-secondary/60 leading-relaxed font-light mb-6">
                       Every stay booked through our exclusive member network includes priority guest support, early check-in (when available), and member-only credits for local experiences.
                     </p>
-                    <Button variant="outline" className="w-full h-14 rounded-xl border-primary/20 text-primary font-bold hover:bg-primary/5 transition-all">
+                    <Button variant="outline" className="w-full h-12 rounded-xl border-primary/20 text-primary font-bold hover:bg-primary/5 transition-all">
                       Inquire About This Property
                     </Button>
                   </div>
@@ -200,7 +200,7 @@ export default function ListingDetailPage() {
               <p className="text-black/60 max-w-2xl mx-auto mb-10 leading-relaxed text-lg">
                 Every stay booked through our exclusive member network includes priority guest support, early check-in (when available), and member-only credits for local experiences.
               </p>
-              <Button size="lg" className="bg-primary hover:bg-primary-hover text-white h-16 px-12 rounded-xl font-bold text-xl transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20">
+              <Button size="lg" className="bg-primary hover:bg-primary-hover text-white h-12 px-12 rounded-xl font-bold text-xl transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20">
                 Inquire About This Property
               </Button>
             </div>

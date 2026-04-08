@@ -95,13 +95,13 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
         {/* Action Buttons */}
         <div className="flex gap-4">
           <Button
-            className="flex-1 h-14 text-lg font-bold shadow-xl shadow-primary/10 hover:scale-[1.02] transition-all bg-primary hover:bg-primary-hover text-white rounded-2xl"
+            className="flex-1 h-12 text-lg font-bold shadow-xl shadow-primary/10 hover:scale-[1.02] transition-all bg-primary hover:bg-primary-hover text-white rounded-2xl"
           >
             Direct Booking <Zap className="w-4 h-4 ml-2" />
           </Button>
           <Button
             variant="outline"
-            className="h-14 w-14 p-0 rounded-2xl border-black/10 hover:bg-black hover:text-white transition-all shrink-0"
+            className="h-12 w-12 p-0 rounded-2xl border-black/10 hover:bg-black hover:text-white transition-all shrink-0"
           >
             <ArrowRight className="w-5 h-5" />
           </Button>

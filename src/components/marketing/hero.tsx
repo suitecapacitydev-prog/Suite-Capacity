@@ -74,7 +74,7 @@ export function Hero() {
                         className="flex flex-col items-center gap-6 pt-4"
                     >
                         <Link href="/wizard" className="w-full sm:w-auto">
-                            <Button size="lg" variant="intelligence" className="w-full gap-2 group h-14 px-10 rounded-2xl font-bold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+                            <Button size="lg" variant="intelligence" className="w-full gap-2 group h-12 px-10 rounded-2xl font-bold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                                 <FileText className="w-5 h-5" />
                                 Exploring? Get Your STR Blueprint
                                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
