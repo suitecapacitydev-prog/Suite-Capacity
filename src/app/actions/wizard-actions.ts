@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { AirDNAService } from '@/services/airdna';
 import { PriceLabsService } from '@/services/pricelabs';
 import { AIREnderingService } from '@/services/ai-rendering';
+import { OpenAIService } from '@/services/openai';
 import { PDFDocument, StandardFonts } from 'pdf-lib';
 import nodemailer from 'nodemailer';
 
@@ -430,10 +431,26 @@ export async function uploadPropertyPhoto(file: File, category: string) {
 }
 
 /**
+ * Checks if an address is within the Jersey Shore target markets.
+ */
+function isJerseyShore(address: string): boolean {
+    const shoreTowns = [
+        'seaside heights', 'seaside park', 'lavallette', 'ortley beach',
+        'point pleasant', 'mantoloking', 'bay head', 'manasquan',
+        'belmar', 'spring lake', 'sea girt', 'bradley beach',
+        'ocean grove', 'asbury park', 'long branch'
+    ];
+    const addr = address.toLowerCase();
+    return shoreTowns.some(town => addr.includes(town));
+}
+
+/**
  * Calculates a real intelligence-based revenue projection.
- * Coordinates between AirDNA and PriceLabs.
+ * Coordinates between AirDNA, PriceLabs, and OpenAI.
  */
 export async function calculateRevenueIntelligence(data: WizardData): Promise<RevenueProjection> {
+    const isShore = isJerseyShore(data.property.address);
+
     try {
         // 1. Fetch Market Data from AirDNA
         const marketData = await AirDNAService.fetchMarketData(data.property.address);
@@ -441,47 +458,105 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
         // 2. Fetch Pricing Intelligence from PriceLabs
         const pricingData = await PriceLabsService.getPricingStrategy(data.property.address);
 
-        // 3. Current Revenue (from user input or market average)
+        // 3. Generate AI Intelligence in parallel if possible
+        const aiIntelligencePromise = OpenAIService.generateIntelligence(data, {
+            ...marketData,
+            isShore
+        });
+
+        // 4. Current Revenue (from user input or market average)
         const currentAdr = data.baseline.adr || marketData.adr;
         const currentOcc = data.baseline.occupancy || marketData.occupancyRate;
         const currentRevenue = (currentAdr * (currentOcc / 100)) * 365;
 
-        // 4. Calculate Lift Factors based on Intelligence
-        const marketUpside = Math.max(0, (marketData.adr * 1.3) - currentAdr);
-        const pricingUpside = currentRevenue * (pricingData.volatilityIndex * 1.5);
+        let optimizedRevenue = currentRevenue;
+        let pricingLift = 0;
+        let conversionLift = 0;
+        let ecosystemLift = 0;
+        let designLift = 0;
+        let efficiencyLift = 0;
 
-        const optimizedRevenue = currentRevenue + marketUpside + pricingUpside;
-        const totalLift = optimizedRevenue - currentRevenue;
+        if (isShore) {
+            // Jersey Shore Logic: Peak Baseline ~$1,000/week per bedroom
+            const brCount = data.property.bedrooms || 1;
+            const peakWeeklyRate = brCount * 1050; // Slightly higher than 1000 for "premium"
+            const peakRevenue = peakWeeklyRate * 12; // 12 weeks of summer (June-Aug)
+            
+            // Summer accounts for 75% of revenue in this model
+            const projectedAnnual = peakRevenue / 0.75;
+            
+            // Multipliers (Jersey Shore Specific)
+            const designMult = data.audit.designLevel === 'pro' || data.audit.designLevel === 'luxury' ? 0.30 : 0.15;
+            const amenitiesCount = data.property.amenities?.length || 0;
+            const amenitiesMult = amenitiesCount > 10 ? 0.25 : 0.10;
+            const listingMult = data.audit.listingOptimization === 'pro' || data.audit.listingOptimization === 'ai' ? 0.20 : 0.10;
+            const revMgmtMult = data.audit.dynamicPricing === 'yes' ? 0.15 : 0.10;
+
+            const totalOptimized = projectedAnnual * (1 + designMult + amenitiesMult + listingMult + revMgmtMult) * 0.7; // Blend factor
+            
+            optimizedRevenue = Math.max(totalOptimized, currentRevenue * 1.25);
+            const totalLift = optimizedRevenue - currentRevenue;
+            
+            pricingLift = totalLift * 0.35;
+            conversionLift = totalLift * 0.25;
+            designLift = totalLift * 0.25;
+            ecosystemLift = totalLift * 0.10;
+            efficiencyLift = totalLift * 0.05;
+        } else {
+            // Standard Global Logic
+            const marketUpside = Math.max(0, (marketData.adr * 1.3) - currentAdr);
+            const pricingUpside = currentRevenue * (pricingData.volatilityIndex * 1.5);
+            optimizedRevenue = currentRevenue + marketUpside + pricingUpside;
+            const totalLift = optimizedRevenue - currentRevenue;
+ 
+            pricingLift = totalLift * 0.4;
+            conversionLift = totalLift * 0.25;
+            ecosystemLift = totalLift * 0.15;
+            designLift = totalLift * 0.15;
+            efficiencyLift = totalLift * 0.05;
+        }
+
+        const intelligence = await aiIntelligencePromise;
 
         return {
             currentRevenue,
             optimizedRevenue,
-            pricingLift: totalLift * 0.4,
-            conversionLift: totalLift * 0.25,
-            ecosystemLift: totalLift * 0.15,
-            designLift: totalLift * 0.15,
-            efficiencyLift: totalLift * 0.05,
+            pricingLift,
+            conversionLift,
+            ecosystemLift,
+            designLift,
+            efficiencyLift,
             usingMockData: false,
             marketComparison: {
                 marketMedianAdr: marketData.adr,
                 topQuartileAdr: marketData.adr * 1.4,
                 marketOccupancy: marketData.occupancyRate,
                 demandIndex: marketData.demandIndex * 100
-            }
+            },
+            intelligence: intelligence || undefined
         };
     } catch (error) {
         console.error('Intelligence Calculation Error:', error);
 
-        // Fallback for demo mode: derive projections from user input instead of hard-coded constants.
+        // Fallback for demo mode
         const currentRevenue = calculateEstimateRevenue(data);
+        
+        // Use Jersey Shore rules for fallback if detected
+        let baseLiftPct = 0.22; 
+        if (isShore) baseLiftPct = 0.35; // Higher potential in Shore market
 
-        // Simple lift assumptions when external APIs are not available
-        const baseLiftPct = 0.18; // 18% lift assumed for baseline improvement
         const optimizedRevenue = Math.round(currentRevenue * (1 + baseLiftPct));
         const totalLift = optimizedRevenue - currentRevenue;
 
-        const estimatedAdr = data.baseline.adr || 250;
-        const estimatedOccupancy = data.baseline.occupancy || 60;
+        const estimatedAdr = data.baseline.adr || (isShore ? 450 : 250);
+        const estimatedOccupancy = data.baseline.occupancy || (isShore ? 55 : 60);
+
+        // Try AI even in fallback path
+        const intelligence = await OpenAIService.generateIntelligence(data, {
+            adr: estimatedAdr,
+            occupancyRate: estimatedOccupancy,
+            isShore
+        }).catch(() => null);
 
         return {
             currentRevenue,
@@ -494,10 +569,11 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
             usingMockData: true,
             marketComparison: {
                 marketMedianAdr: estimatedAdr,
-                topQuartileAdr: Math.round(estimatedAdr * 1.2),
+                topQuartileAdr: Math.round(estimatedAdr * 1.25),
                 marketOccupancy: Math.min(100, Math.max(0, estimatedOccupancy)),
-                demandIndex: 80,
-            }
+                demandIndex: isShore ? 92 : 80,
+            },
+            intelligence: intelligence || undefined
         };
     }
 }

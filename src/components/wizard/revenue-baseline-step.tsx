@@ -80,10 +80,11 @@ export function RevenueBaselineStep({ data, updateData, operatingMode }: Revenue
 
     const renderStrSection = () => (
         <div className="space-y-8">
-            <div className="space-y-8">
-                <div className="space-y-2">
+            <div className="grid grid-cols-1 gap-6">
+
+                <div className="space-y-4">
                     <label className="text-sm font-semibold text-secondary-foreground uppercase tracking-wider">
-                        Estimated Annual Revenue (optional)
+                        Estimated Annual Revenue
                     </label>
                     <div className="relative">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
@@ -96,7 +97,7 @@ export function RevenueBaselineStep({ data, updateData, operatingMode }: Revenue
                         />
                     </div>
                     <p className="text-xs text-muted-foreground">
-                        Optional — helps us estimate revenue potential more accurately.
+                        Provide your current annual revenue (if available) to help us pinpoint your specific growth opportunities.
                     </p>
                 </div>
             </div>

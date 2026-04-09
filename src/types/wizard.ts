@@ -91,8 +91,6 @@ export interface RevenueProjection {
     ecosystemLift: number;
     designLift: number;
     efficiencyLift: number;
-    // Indicates whether the projection was generated using fallback/demo values
-    // (e.g., missing AirDNA API key or failed marketplace lookup).
     usingMockData?: boolean;
     marketComparison: {
         marketMedianAdr: number;
@@ -100,6 +98,29 @@ export interface RevenueProjection {
         marketOccupancy: number;
         demandIndex: number;
     };
+    intelligence?: {
+        positioning: {
+            description: string;
+            marketPositioning: string;
+            strengths: string;
+            limitations: string;
+        };
+        missedOpportunities: string[];
+        optimizedProjection: {
+            revenueRange: string;
+            newPeakWeeklyRate: string;
+        };
+        designStrategy: {
+            recommendation: string;
+            impact: string;
+            tags: string[];
+        };
+        listingStrategy: {
+            titleStrategy: { bad: string; good: string };
+            descriptionStrategy: string[];
+        };
+        whySuiteCapacity: string;
+    }
 }
 
 // Backwards-compatible alias used by API routes

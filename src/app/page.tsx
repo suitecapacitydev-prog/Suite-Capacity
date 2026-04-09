@@ -1,5 +1,6 @@
 import SiteShell from '@/components/layout/site-shell';
 import { Hero } from '@/components/marketing/hero';
+import { AsSeenIn } from '@/components/marketing/as-seen-in';
 import { GuestEcosystemSection } from '@/components/marketing/guest-ecosystem-section';
 import { DeploymentProcess } from '@/components/marketing/deployment-process';
 import { MarketsSection } from '@/components/marketing/markets-section';
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <SiteShell>
       <Hero />
+      <AsSeenIn />
       <STRBlueprint />
       <PlatformPage />
       <HowItWorks />
