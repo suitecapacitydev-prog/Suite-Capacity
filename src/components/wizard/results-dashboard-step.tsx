@@ -70,8 +70,8 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
         return {
             description: `A ${br}-bedroom ${type} property located in ${city}, positioned to capture ${occupancyContext} within ${location}.`,
             marketPositioning: wizardData.audit.designLevel === 'basic' ? "Budget to Mid-tier Asset (High Upside)" : "Premium-Tier Potential",
-            strengths: `Strategic ${isShore ? "coastal" : "local"} location, ${br} guest rooms, and ${wizardData.property.parking} parking—a critical value driver in ${city}.`,
-            limitations: wizardData.audit.designLevel === 'basic' || wizardData.audit.designLevel === 'updated' 
+            strengths: `Strategic ${isShore ? "coastal" : "local"} location, ${br} guest rooms, and ${wizardData.property.parking} parking a critical value driver in ${city}.`,
+            limitations: wizardData.audit.designLevel === 'basic' || wizardData.audit.designLevel === 'updated'
                 ? "Outdated interior staging and lack of 'Tulum-inspired' lifestyle amenities currently capping nightly rate potential."
                 : "Under-optimized listing SEO and lack of dynamic pricing, leading to occupancy leakage during shoulder periods."
         };
@@ -94,7 +94,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                         <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Market Context & Asset Assessment</p>
                     </div>
                 </div>
-                
+
                 <div className="glass-panel p-8 grid md:grid-cols-2 gap-10 intelligence-border">
                     <div className="space-y-6">
                         <div>
@@ -130,7 +130,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                         <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Historical Asset Performance</p>
                     </div>
                 </div>
-                
+
                 <div className="grid md:grid-cols-4 gap-4">
                     <div className="glass-panel p-6 intelligence-border">
                         <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-3">Est. Annual Revenue</p>
@@ -168,7 +168,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                         <p className="text-xs font-bold uppercase tracking-widest opacity-70">Identified Leakage Areas</p>
                     </div>
                 </div>
-                
+
                 <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-4">
                         {(intelligence?.missedOpportunities || [
@@ -213,7 +213,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                     <div className="absolute top-0 right-0 p-10 opacity-10 pointer-events-none">
                         <Zap className="w-64 h-64 text-white" />
                     </div>
-                    
+
                     <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                         <div className="space-y-2">
                             <p className="text-[10px] font-black text-white uppercase tracking-widest">Optimized Annual Target</p>
@@ -309,7 +309,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                                 {intelligence?.designStrategy?.recommendation.split(':')[0] || (wizardData.aiDesign.images[0]?.category === 'outdoor' || wizardData.aiDesign.images[0]?.category === 'exterior' ? 'Experiential Lounge Strategy' : 'Tulum Tropical Modern direction')}
                             </h4>
                             <p className="text-sm text-black/70 leading-relaxed font-medium">
-                                {intelligence?.designStrategy?.recommendation || (wizardData.aiDesign.images[0]?.category === 'outdoor' || wizardData.aiDesign.images[0]?.category === 'exterior' 
+                                {intelligence?.designStrategy?.recommendation || (wizardData.aiDesign.images[0]?.category === 'outdoor' || wizardData.aiDesign.images[0]?.category === 'exterior'
                                     ? "We recommend implementing a fire pit lounge with string lighting and outdoor dining zones to drive higher off-season conversion. A signature differentiator like professional mini-golf or hammocks directly supports premium nightly rates."
                                     : "Focus on a neutral palette (sand, beige, warm whites) combined with natural woods and textures like linen and jute. Statement lighting and greenery will create the 'experience-first' aesthetic that commands top-tier pricing.")}
                             </p>
@@ -366,7 +366,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                                 const [title, desc] = typeof item === 'string' && item.includes(':') ? item.split(':') : [item, ""];
                                 return (
                                     <li key={i} className="flex gap-4">
-                                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-black text-primary shrink-0">{i+1}</div>
+                                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-black text-primary shrink-0">{i + 1}</div>
                                         <div className="space-y-0.5">
                                             <p className="text-xs font-black uppercase text-foreground">{title}</p>
                                             {desc && <p className="text-[11px] text-muted-foreground font-medium">{desc}</p>}
@@ -405,7 +405,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                     </div>
                     <div className="space-y-6">
                         <div className="p-8 rounded-3xl bg-white/5 border border-white/10 space-y-4">
-                            <h4 className="text-xl font-bold italic">“Professional management isn't a cost—it's the only way to capture the remaining 30%+ of your property's value.”</h4>
+                            <h4 className="text-xl font-bold italic">“Professional management isn't a cost it's the only way to capture the remaining 30%+ of your property's value.”</h4>
                         </div>
                         <div className="flex flex-col gap-4">
                             <Link href="/invest#accelerator">

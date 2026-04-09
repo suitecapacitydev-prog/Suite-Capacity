@@ -23,7 +23,7 @@ export default function InvestPage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Short-Term Rentals</span>
           </h1>
           <p className="text-xl text-black/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-            From buying your first property to investing in curated portfolios — Suite Capacity helps you launch, manage, and scale STR investments.
+            From buying your first property to investing in curated portfolios   Suite Capacity helps you launch, manage, and scale STR investments.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="#accelerator">
@@ -44,7 +44,7 @@ export default function InvestPage() {
       <section className="py-12 bg-black text-white overflow-hidden">
         <div className="container mx-auto px-6 text-center">
           <p className="text-xl md:text-2xl font-medium tracking-tight opacity-90">
-            Suite Capacity helps you <span className="text-primary font-bold">buy, build, and scale</span> short-term rental investments — all designed for passive income.
+            Suite Capacity helps you <span className="text-primary font-bold">buy, build, and scale</span> short-term rental investments   all designed for passive income.
           </p>
         </div>
       </section>
@@ -56,13 +56,13 @@ export default function InvestPage() {
             <div className="space-y-8">
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-black text-xs font-bold uppercase tracking-widest mb-6">
-                  <TrendingUp className="w-4 h-4" /> 90-Day Accelerator — Free Program
+                  <TrendingUp className="w-4 h-4" /> 90-Day Accelerator   Free Program
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
                   Go From Purchase to Passive Income in 90 Days
                 </h2>
                 <p className="text-lg text-black/60 leading-relaxed mb-8">
-                  Our 90-Day Accelerator is a fully done-for-you program where we help you acquire, design, launch, and manage your short-term rental — turning it into a cash-flowing asset.
+                  Our 90-Day Accelerator is a fully done-for-you program where we help you acquire, design, launch, and manage your short-term rental   turning it into a cash-flowing asset.
                 </p>
                 <div className="p-4 rounded-xl bg-white/50 border border-primary/20 backdrop-blur-sm mb-8">
                   <p className="text-sm font-bold text-black">Now available at no upfront cost across the U.S.</p>
@@ -177,7 +177,7 @@ export default function InvestPage() {
           </div>
         </div>
       </section>
-      
+
       {/* Buy/Sell Pathways */}
       <section className="py-24 container mx-auto px-6">
         <div className="text-center mb-16 max-w-2xl mx-auto">

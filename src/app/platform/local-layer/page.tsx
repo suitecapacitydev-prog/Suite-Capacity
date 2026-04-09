@@ -91,7 +91,7 @@ export default function LocalLayerPage() {
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-4">Precision Inspections</h3>
                 <p className="text-black mb-6">
-                  Our "120-Point Scan" is performed before every peak season and after major guest stays. We don't just look for "broken" things—we look for optimization opportunities.
+                  Our "120-Point Scan" is performed before every peak season and after major guest stays. We don't just look for "broken" things we look for optimization opportunities.
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 text-sm">
@@ -117,7 +117,7 @@ export default function LocalLayerPage() {
           <div>
             <h2 className="text-3xl font-bold mb-6">Market-specific expertise that scales.</h2>
             <p className="text-lg text-black mb-8">
-              We understand the nuances of every market we enter. From beachfront maintenance requirements in the Jersey Shore to heat-sensitive seasonal protocols in Arizona—our teams are trained for local excellence.
+              We understand the nuances of every market we enter. From beachfront maintenance requirements in the Jersey Shore to heat-sensitive seasonal protocols in Arizona our teams are trained for local excellence.
             </p>
             <div className="flex items-center gap-4 p-4 rounded-lg bg-primary/10 border border-primary/20 mb-8">
               <Microscope className="w-8 h-8 text-black" />

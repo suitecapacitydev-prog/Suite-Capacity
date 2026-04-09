@@ -74,7 +74,7 @@ export default function GuestWelcomePage() {
           </div>
 
           <p className="text-xs text-black/40">
-            Check your email inbox — a welcome confirmation is on its way.
+            Check your email inbox   a welcome confirmation is on its way.
           </p>
         </div>
       </section>

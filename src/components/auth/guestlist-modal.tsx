@@ -160,7 +160,7 @@ export default function GuestListModal({ isOpen, onClose }: GuestListModalProps)
                                                         {/* Phone (optional) */}
                                                         <div className="space-y-2">
                                                             <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">
-                                                                Phone Number <span className="font-normal normal-case text-black/40">(Optional — recommended)</span>
+                                                                Phone Number <span className="font-normal normal-case text-black/40">(Optional   recommended)</span>
                                                             </label>
                                                             <input
                                                                 type="tel"

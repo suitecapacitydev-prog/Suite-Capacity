@@ -5,28 +5,56 @@ export default function AboutPage() {
     <SiteShell>
       <section className="pt-32 pb-24 relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Vision</span>
+          <div className="max-w-4xl mb-24">
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4">The Infrastructure of Passivity</p>
+            <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-[0.9]">
+              About Suite <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Capacity</span>
             </h1>
-            <p className="text-xl text-black mb-10 leading-relaxed">
-              Suite Capacity is a centralized operating system that deploys revenue strategy, marketing automation, and operational workflows — executed locally by boots-on-the-ground teams.
+            <p className="text-xl md:text-2xl text-black font-medium leading-relaxed">
+              Suite Capacity is a full-service short-term rental operating platform built to maximize revenue and eliminate the day-to-day burden for property owners.
+            </p>
+            <p className="text-lg text-black/60 mt-6 max-w-2xl font-medium">
+              We manage everything   pricing, guest experience, cleaning, maintenance, and design   turning properties into high-performing, fully passive income assets.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="glass-panel p-8 space-y-6">
-              <h2 className="text-2xl font-bold">Mission</h2>
-              <p className="text-black/70 italic">
-                "Transforming STR management from traditional hospitality into a data-driven operating platform."
+          <div className="grid md:grid-cols-2 gap-16 mb-24">
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl font-black tracking-tight mb-4 uppercase italic">Built to Scale. <br />Designed to Be Local.</h2>
+                <p className="text-lg text-black/70 leading-relaxed font-medium">
+                  What makes Suite Capacity different is how we operate. We combine a centralized system   covering pricing, strategy, and performance optimization   with local teams on the ground in every market we serve.
+                </p>
+              </div>
+              <p className="text-lg text-black/80 font-bold border-l-4 border-primary pl-6 py-2 bg-primary/5">
+                That means your property is backed by a larger platform, while still being managed with the care and responsiveness of a local operator   always within 30 minutes of the asset.
               </p>
             </div>
-            <div className="glass-panel p-8 space-y-6">
-              <h2 className="text-2xl font-bold">Platform Vision</h2>
-              <p className="text-black/70">
-                A vertically integrated network where centralized data intelligence meets hyper-localized execution, creating superior yield for owners and seamless experiences for guests.
-              </p>
+
+            <div className="glass-panel p-10 bg-white text-black space-y-8 shadow-2xl border-none">
+              <h3 className="text-2xl font-black uppercase tracking-widest text-primary">The Result</h3>
+              <ul className="space-y-6">
+                {[
+                  "Higher revenue through optimized pricing and positioning",
+                  "Consistent 5-star guest experiences",
+                  "Reliable, hands-on local execution",
+                  "True passivity for owners"
+                ].map((item, i) => (
+                  <li key={i} className="flex gap-4 items-start group">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-black text-primary shrink-0 transition-all group-hover:bg-primary group-hover:text-white">{i + 1}</div>
+                    <span className="text-black font-bold tracking-tight text-lg">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
+          </div>
+
+          <div className="mb-24 p-12 rounded-[2rem] bg-primary/10 border border-primary/20 text-center space-y-6">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Our Mission</p>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter max-w-4xl mx-auto leading-tight text-primary">
+              We’re building the infrastructure that makes short-term rental ownership scalable, reliable, and truly hands-off.
+            </h2>
+            <p className="text-xl text-primary/80 font-bold italic">  National Reach meet Hyper-Local Execution.</p>
           </div>
 
           <div className="mt-24">
@@ -49,7 +77,7 @@ export default function AboutPage() {
                   name: 'Marialaura Natera',
                   role: 'Executive Assistant',
                   img: '/images/team/marialaura.jpg',
-                  bio: "Hi, I'm Marialaura. I studied Hotel Management and Administration because I've always been passionate about hospitality and making people feel welcome during their trips. As someone who also loves traveling, I truly understand the importance of feeling comfortable away from home. At Suite Capacity, I focus on making sure your stay runs effortlessly—from answering questions to coordinating every detail—so you can enjoy a stress-free and memorable experience with us!"
+                  bio: "Hi, I'm Marialaura. I studied Hotel Management and Administration because I've always been passionate about hospitality and making people feel welcome during their trips. As someone who also loves traveling, I truly understand the importance of feeling comfortable away from home. At Suite Capacity, I focus on making sure your stay runs effortlessly from answering questions to coordinating every detail so you can enjoy a stress-free and memorable experience with us!"
                 },
                 {
                   name: 'Liam Hoffman',

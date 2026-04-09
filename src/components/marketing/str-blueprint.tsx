@@ -33,7 +33,7 @@ export const STRBlueprint = () => {
                             See Exactly What Your Property Can Make.
                         </h2>
                         <p className="text-lg text-black/60 mb-8 leading-relaxed">
-                            Before you commit, we provide a personalized STR Blueprint—real revenue projections, a design plan, and an optimization strategy tailored to your specific market.
+                            Before you commit, we provide a personalized STR Blueprint real revenue projections, a design plan, and an optimization strategy tailored to your specific market.
                         </p>
                         <ul className="space-y-4 mb-10">
                             {[
@@ -70,12 +70,12 @@ export const STRBlueprint = () => {
                                     Analyze <ArrowRight className="w-4 h-4" />
                                 </button>
                             </div>
-                            
+
                             {lastAddress && (
                                 <div className="flex items-center gap-2 text-sm text-black/60 pl-2">
                                     <Clock className="w-4 h-4 text-black/40" />
                                     <span>Recent:</span>
-                                    <button 
+                                    <button
                                         onClick={() => handleAddressSubmit(lastAddress)}
                                         className="text-primary hover:underline font-medium truncate max-w-[250px]"
                                     >
@@ -91,9 +91,9 @@ export const STRBlueprint = () => {
                     </div>
                     <div className="relative group">
                         <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl transition-transform group-hover:scale-[1.02] duration-500">
-                            <img 
-                                src="/images/beach-house.png" 
-                                alt="Luxury Beach House" 
+                            <img
+                                src="/images/beach-house.png"
+                                alt="Luxury Beach House"
                                 className="w-full aspect-[4/3] object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

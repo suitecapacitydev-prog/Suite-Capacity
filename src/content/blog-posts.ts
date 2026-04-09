@@ -16,7 +16,7 @@ export const blogPosts: BlogPost[] = [
     date: "May 12, 2024",
     author: "William \"Billy\" Butler",
     image: "https://images.unsplash.com/photo-1634733988138-bf2c3a2a13fa?auto=format&fit=crop&q=80&w=800",
-    content: `Sonder Holdings Inc. filed for Chapter 7 liquidation in late 2025, marking the end of one of the hospitality industry's most ambitious experiments. For property owners and investors, this collapse isn't just news—it's a critical indicator of shifting market dynamics as we head into the 2026 rental season.
+    content: `Sonder Holdings Inc. filed for Chapter 7 liquidation in late 2025, marking the end of one of the hospitality industry's most ambitious experiments. For property owners and investors, this collapse isn't just news it's a critical indicator of shifting market dynamics as we head into the 2026 rental season.
 
 Sonder's business model relied heavily on master leases, a strategy that promised fixed income to owners but placed unsustainable financial risk on the company when demand softened and interest rates rose. The termination of their licensing agreement with Marriott International was the final blow, leaving thousands of units in a state of operational limbo.
 
@@ -33,7 +33,7 @@ If you were affected by the Sonder liquidation, or if you're concerned about you
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800",
     content: `Real estate investing has long been considered a safe haven for capital preservation and long-term wealth building. However, as of mid-2023, the landscape is shifting in ways that demand a more nuanced approach. The primary concern among institutional and private investors alike is the persistence of high interest rates, which has cooled the feverish demand seen during the previous two years.
 
-While many investors focus purely on the residential market, the untold risks often lie in the intersection of financing and shifting demographic trends. Mortgage rates reaching multi-decade highs have created a 'lock-in' effect, where homeowners are reluctant to sell, leading to record-low inventory level. This lack of supply props up prices, but the underlying transaction volume—the lifeblood of the market—has slowed significantly.
+While many investors focus purely on the residential market, the untold risks often lie in the intersection of financing and shifting demographic trends. Mortgage rates reaching multi-decade highs have created a 'lock-in' effect, where homeowners are reluctant to sell, leading to record-low inventory level. This lack of supply props up prices, but the underlying transaction volume the lifeblood of the market has slowed significantly.
 
 At Suite Capacity, we've identified that the real risk isn't just a price correction, but a period of stagnation. For investors, this means the 'buy and hold' strategy needs to be augmented with operational intelligence. Maximizing yield through short-term rental strategies and dynamic pricing is no longer an optional boost; it's a necessary component of surviving the current market reset.`
   },
@@ -46,7 +46,7 @@ At Suite Capacity, we've identified that the real risk isn't just a price correc
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
     content: `The term 'AI' is often thrown around as a buzzword, but in the realm of property management and real estate investment, its impact is tangible and transformative. Artificial Intelligence is not just about chatbots; it's about the democratization of data and the automation of complex decision-making processes.
 
-One of the most significant applications of AI in our industry is dynamic pricing. By analyzing thousands of market variables—from local events and weather patterns to competitor occupancy and historical demand—AI algorithms can adjust rental rates in real-time. This ensures that property owners are never leaving money on the table during peak seasons and remaining competitive during slower periods.
+One of the most significant applications of AI in our industry is dynamic pricing. By analyzing thousands of market variables from local events and weather patterns to competitor occupancy and historical demand AI algorithms can adjust rental rates in real-time. This ensures that property owners are never leaving money on the table during peak seasons and remaining competitive during slower periods.
 
 Beyond pricing, AI is revolutionizing property marketing and guest communication. Generative AI helps us create more compelling property descriptions and respond to guest inquiries within seconds, significantly improving the booking conversion rate. For the savvy investor, staying ahead of the curve means integrating these technologies today to ensure a more resilient portfolio tomorrow.`
   },
@@ -61,7 +61,7 @@ Beyond pricing, AI is revolutionizing property marketing and guest communication
 
 Critics are drawing parallels between the current state of Airbnb and the decline of platforms like Craigslist. When a marketplace becomes too saturated and quality control becomes secondary to growth, the premium experience is often the first thing to go. Guests are reporting frustrations with cleaning fees that rival the nightly rate and check-out instructions that feel more like a part-time job.
 
-However, where there is disruption, there is opportunity. The 'Airbnbust' isn't necessarily about a lack of demand, but a flight to quality. Professional property management companies—those that treat vacation rentals like the hospitality businesses they are—are seeing continued success. The future of short-term rentals belongs to those who can provide consistency, transparency, and a truly high-end guest experience.`
+However, where there is disruption, there is opportunity. The 'Airbnbust' isn't necessarily about a lack of demand, but a flight to quality. Professional property management companies those that treat vacation rentals like the hospitality businesses they are are seeing continued success. The future of short-term rentals belongs to those who can provide consistency, transparency, and a truly high-end guest experience.`
   },
   {
     title: "How the Commercial Real Estate Market Could Spell Disaster",
@@ -74,7 +74,7 @@ However, where there is disruption, there is opportunity. The 'Airbnbust' isn't 
 
 The shift to remote and hybrid work has fundamentally changed the value proposition of traditional office spaces. Many companies are significantly reducing their footprints, leading to rising vacancy rates and downward pressure on rents. This, combined with the higher cost of refinancing, puts landlords in a precarious position.
 
-While 'disaster' is a strong word, the potential for a significant market correction is real. However, for adaptive investors, there is a silver lining. We are seeing a trend towards 'adaptive reuse'—converting underutilized office spaces into residential units or high-end short-term rental suites. Success in the upcoming cycle will depend on the ability to pivot and find new value in existing assets.`
+While 'disaster' is a strong word, the potential for a significant market correction is real. However, for adaptive investors, there is a silver lining. We are seeing a trend towards 'adaptive reuse' converting underutilized office spaces into residential units or high-end short-term rental suites. Success in the upcoming cycle will depend on the ability to pivot and find new value in existing assets.`
   },
   {
     title: "The Shocking Truth About Gen Z and Homeownership",
@@ -83,11 +83,11 @@ While 'disaster' is a strong word, the potential for a significant market correc
     date: "October 10, 2023",
     author: "William \"Billy\" Butler",
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800",
-    content: `There is a common narrative that Gen Z—the generation born between the mid-to-late 1990s and early 2010s—is disinterested in homeownership, preferring the flexibility of the 'sharing economy'. However, fresh data is beginning to paint a very different, and quite shocking, picture.
+    content: `There is a common narrative that Gen Z the generation born between the mid-to-late 1990s and early 2010s is disinterested in homeownership, preferring the flexibility of the 'sharing economy'. However, fresh data is beginning to paint a very different, and quite shocking, picture.
 
 Studies show that Gen Z is actually highly motivated to own property, often viewing it as their primary path to financial security in an uncertain world. They are more informed about market trends and mortgage options than previous generations at their age, and they are leveraging technology to find opportunities in ways their parents never could.
 
-What makes Gen Z unique is their focus on property as both a home and an investment. Many are looking for 'house-hacking' opportunities—buying properties where they can rent out a portion on platforms like Airbnb to cover their mortgage. At Suite Capacity, we're seeing an increase in young owners who are incredibly savvy about maximizing their property's revenue from day one.`
+What makes Gen Z unique is their focus on property as both a home and an investment. Many are looking for 'house-hacking' opportunities buying properties where they can rent out a portion on platforms like Airbnb to cover their mortgage. At Suite Capacity, we're seeing an increase in young owners who are incredibly savvy about maximizing their property's revenue from day one.`
   },
   {
     title: "Is the Airbnbust Over? Market Trends Offer Promising Signs",
@@ -96,11 +96,11 @@ What makes Gen Z unique is their focus on property as both a home and an investm
     date: "November 5, 2023",
     author: "William \"Billy\" Butler",
     image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800",
-    content: `Late 2022 and early 2023 were filled with headlines about the 'Airbnbust'—a supposed crash in short-term rental revenue due to oversupply and economic cooling. While some markets did see a correction, the data as we head into the end of 2023 suggests that the reports of the industry's death were greatly exaggerated.
+    content: `Late 2022 and early 2023 were filled with headlines about the 'Airbnbust' a supposed crash in short-term rental revenue due to oversupply and economic cooling. While some markets did see a correction, the data as we head into the end of 2023 suggests that the reports of the industry's death were greatly exaggerated.
 
 Actually, demand for vacation rentals remains robust. The 'bust' was largely felt by amateur hosts who entered the market during the post-pandemic surge and weren't prepared for the return of normal seasonal patterns or the need for professional-grade management.
 
-The promising signs we see today are rooted in market stabilization. Supply growth is slowing down, while demand continues to diversify into new markets outside of the traditional 'tourist traps'. For investors, the takeaway is clear: the industry is maturing, not dying. Success now requires a more sophisticated approach to property selection, marketing, and revenue management—exactly the areas where Suite Capacity excels.`
+The promising signs we see today are rooted in market stabilization. Supply growth is slowing down, while demand continues to diversify into new markets outside of the traditional 'tourist traps'. For investors, the takeaway is clear: the industry is maturing, not dying. Success now requires a more sophisticated approach to property selection, marketing, and revenue management exactly the areas where Suite Capacity excels.`
   },
   {
     title: "Top 10 Incredible Vacation Rentals That Will Blow Your Mind",

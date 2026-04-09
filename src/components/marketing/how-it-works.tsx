@@ -64,7 +64,7 @@ export const HowItWorks = () => {
                 </div>
                 <div className="grid md:grid-cols-3 gap-10">
                     {[
-                        { title: 'Passive income', desc: 'Your property works for you. We handle the complexity — you collect the revenue.' },
+                        { title: 'Passive income', desc: 'Your property works for you. We handle the complexity   you collect the revenue.' },
                         { title: 'More revenue', desc: 'Our pricing tools and automation consistently outperform the market average by 24%+.' },
                         { title: 'Zero headaches', desc: 'Standardized protocols ensure institutional-grade hospitality across every unit, every time.' },
                     ].map((result) => (

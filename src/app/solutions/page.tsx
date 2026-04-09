@@ -7,7 +7,7 @@ export default function SolutionsPage() {
     {
       title: 'Full-Service (Commission)',
       badge: 'Most Popular',
-      desc: 'Completely hands-off. We handle every aspect of your STR — from guest communication and dynamic pricing to cleaning, maintenance, and compliance. You collect a check.',
+      desc: 'Completely hands-off. We handle every aspect of your STR   from guest communication and dynamic pricing to cleaning, maintenance, and compliance. You collect a check.',
       items: [
         'Full property setup & listing creation',
         'Dynamic pricing & revenue optimization',
@@ -23,7 +23,7 @@ export default function SolutionsPage() {
     {
       title: 'Flat Fee (Operations Only)',
       badge: 'Keep More Revenue',
-      desc: 'You keep a larger share of your revenue. We run the full on-the-ground operating system — so you stay hands-off without paying a percentage of every booking.',
+      desc: 'You keep a larger share of your revenue. We run the full on-the-ground operating system   so you stay hands-off without paying a percentage of every booking.',
       items: [
         'Guest management & support',
         'Cleaning & inspection protocols',
@@ -64,7 +64,7 @@ export default function SolutionsPage() {
             Passive Income, Your Way.
           </h1>
           <p className="text-lg text-black/55 mb-10 leading-relaxed">
-            Whether you want completely hands-off income or just need us to run the operations — we have a model that fits.
+            Whether you want completely hands-off income or just need us to run the operations   we have a model that fits.
           </p>
           <Link href="/wizard">
             <button className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-2xl font-semibold hover:bg-primary/90 hover:-translate-y-0.5 transition-all shadow-lg shadow-primary/20">
@@ -113,12 +113,12 @@ export default function SolutionsPage() {
         </div>
       </section>
 
-      {/* Not Just Management — A System */}
+      {/* Not Just Management   A System */}
       <section className="py-24 bg-primary/5 border-y border-black/5">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              Not Just Management —{' '}
+              Not Just Management  {' '}
               <span className="text-primary">A System</span>
             </h2>
             <p className="text-base text-black/55 max-w-xl mx-auto">
@@ -151,7 +151,7 @@ export default function SolutionsPage() {
           Ready to Activate Your Property?
         </h2>
         <p className="text-black/55 mb-10 leading-relaxed">
-          Start with a free STR Blueprint — we'll show you exactly how much your property can make and what it would take to get there.
+          Start with a free STR Blueprint   we'll show you exactly how much your property can make and what it would take to get there.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/wizard">

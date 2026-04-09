@@ -40,7 +40,7 @@ export function InvestmentTeaser() {
               transition={{ delay: 0.1 }}
               className="text-xl text-white/70 leading-relaxed font-medium"
             >
-              From buying your first property to investing in curated portfolios — Suite Capacity helps you launch, manage, and scale STR investments.
+              From buying your first property to investing in curated portfolios   Suite Capacity helps you launch, manage, and scale STR investments.
             </motion.p>
 
             <motion.div
@@ -88,7 +88,7 @@ export function InvestmentTeaser() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-black text-white/85 uppercase tracking-[0.2em] mb-1">Featured Opportunity</p>
-                  <h3 className="text-2xl font-bold text-white">Launch an STR in 90 Days — Free Program</h3>
+                  <h3 className="text-2xl font-bold text-white">Launch an STR in 90 Days   Free Program</h3>
                 </div>
                 <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-white">
                   <Rocket className="w-6 h-6" />

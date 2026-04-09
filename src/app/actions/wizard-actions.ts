@@ -131,47 +131,151 @@ function buildCrmTags(data: WizardData, leadScore: number, estimatedRevenue: num
 
 async function generateReportPdf(data: WizardData, projection: RevenueProjection) {
     const pdfDoc = await PDFDocument.create();
-    const page = pdfDoc.addPage([612, 792]); // US Letter
+    let page = pdfDoc.addPage([612, 792]);
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const primaryColor = { r: 0 / 255, g: 0 / 255, b: 0 / 255 }; // Using Black for text, but can use primary brand color
+    const accentColor = { r: 59 / 255, g: 130 / 255, b: 246 / 255 }; // Blue accent
 
-    const lineHeight = 18;
-    let y = 760;
+    const margin = 50;
+    const width = 612 - (margin * 2);
+    let y = 740;
 
-    const drawText = (text: string, options: { size?: number; bold?: boolean } = {}) => {
-        const usedFont = options.bold ? fontBold : font;
-        const size = options.size ?? 12;
-        page.drawText(text, { x: 50, y, size, font: usedFont });
-        y -= lineHeight;
+    const checkPageBreak = (needed: number) => {
+        if (y - needed < margin) {
+            page = pdfDoc.addPage([612, 792]);
+            y = 740;
+            return true;
+        }
+        return false;
     };
 
-    drawText('Revenue Intelligence Report', { size: 18, bold: true });
-    y -= 10;
-    drawText(`Property: ${data.property.address}`, { bold: true });
-    y -= 10;
-    drawText(`Prepared for: ${data.lead.name}`);
-    y -= 20;
+    const drawWrappedText = (text: string, options: { size?: number; bold?: boolean; indent?: number; color?: any } = {}) => {
+        const usedFont = options.bold ? fontBold : font;
+        const size = options.size ?? 10;
+        const indent = options.indent ?? 0;
+        const maxWidth = width - indent;
 
-    drawText('Revenue Breakdown', { size: 14, bold: true });
-    const estimatedRevenue = calculateEstimateRevenue(data);
-    drawText(`• Estimated Current Revenue: $${estimatedRevenue.toLocaleString()}`);
-    drawText(`• Projected Revenue: $${projection.optimizedRevenue.toLocaleString()}`);
-    drawText(`• Projected Lift: $${(projection.optimizedRevenue - estimatedRevenue).toLocaleString()}`);
-    y -= 10;
+        const words = text.split(' ');
+        let line = '';
 
-    drawText('Action Plan', { size: 14, bold: true });
-    drawText('• Improve listing conversion with updated photography and copy.');
-    drawText('• Implement dynamic pricing and automated messaging.');
-    drawText('• Increase direct bookings via direct checkout integration.');
-    y -= 10;
+        for (const word of words) {
+            const testLine = line + word + ' ';
+            const lineWidth = usedFont.widthOfTextAtSize(testLine, size);
 
-    drawText('Case Study', { size: 14, bold: true });
-    drawText('Property X increased revenue by 22% in 90 days using the same playbook.');
-    y -= 10;
+            if (lineWidth > maxWidth && line !== '') {
+                checkPageBreak(size + 5);
+                page.drawText(line, { x: margin + indent, y, size, font: usedFont, color: options.color });
+                y -= (size + 5);
+                line = word + ' ';
+            } else {
+                line = testLine;
+            }
+        }
 
-    const strategyUrl = process.env.STRATEGY_CALL_URL || 'https://yourdomain.com/schedule';
-    drawText('Strategy Call', { size: 14, bold: true });
-    drawText(`Book your strategy session: ${strategyUrl}`);
+        if (line !== '') {
+            checkPageBreak(size + 5);
+            page.drawText(line, { x: margin + indent, y, size, font: usedFont, color: options.color });
+            y -= (size + 5);
+        }
+    };
+
+    const drawSectionHeader = (title: string) => {
+        y -= 25;
+        checkPageBreak(30);
+        page.drawRectangle({
+            x: margin,
+            y: y - 5,
+            width: width,
+            height: 20,
+            color: { r: 240 / 255, g: 240 / 255, b: 240 / 255 }
+        });
+        page.drawText(title.toUpperCase(), {
+            x: margin + 5,
+            y: y,
+            size: 10,
+            font: fontBold,
+            color: primaryColor
+        });
+        y -= 25;
+    };
+
+    // Header
+    page.drawText('SUITE CAPACITY INTEL®', { x: margin, y: 760, size: 8, font: fontBold, color: accentColor });
+    drawWrappedText('Revenue Intelligence Report', { size: 24, bold: true });
+    y -= 10;
+    drawWrappedText(`Property: ${data.property.address}`, { size: 12, bold: true });
+    drawWrappedText(`Owner: ${data.lead.name} | Date: ${new Date().toLocaleDateString()}`, { size: 10 });
+    y -= 15;
+
+    const intel = projection.intelligence;
+
+    // 1. Positioning
+    drawSectionHeader('1. Property Positioning Snapshot');
+    if (intel?.positioning) {
+        drawWrappedText('Asset Description:', { bold: true });
+        drawWrappedText(intel.positioning.description, { indent: 10 });
+        y -= 5;
+        drawWrappedText('Market Positioning:', { bold: true });
+        drawWrappedText(intel.positioning.marketPositioning, { indent: 10 });
+        y -= 5;
+        drawWrappedText('Key Strengths:', { bold: true });
+        drawWrappedText(intel.positioning.strengths, { indent: 10 });
+    }
+
+    // 2. Performance
+    drawSectionHeader('2. Current Market Performance (Baseline)');
+    drawWrappedText(`Estimated Annual Revenue: $${projection.currentRevenue.toLocaleString()}`, { bold: true });
+    if (intel?.marketPerformance) {
+        drawWrappedText(intel.marketPerformance.baselineContext, { indent: 10 });
+    }
+
+    // 3. Missed Opportunities
+    drawSectionHeader('3. Missed Revenue Opportunities');
+    if (intel?.missedOpportunities) {
+        intel.missedOpportunities.forEach((opp: any) => {
+            const title = typeof opp === 'string' ? opp : opp.title;
+            const desc = typeof opp === 'string' ? '' : opp.desc;
+            drawWrappedText(`• ${title}`, { bold: true });
+            if (desc) drawWrappedText(desc, { indent: 15 });
+        });
+    }
+
+    // 4. Optimized Projection
+    drawSectionHeader('4. Suite Capacity Optimized Projection');
+    drawWrappedText(`Optimized Revenue Target: $${projection.optimizedRevenue.toLocaleString()}`, { size: 14, bold: true, color: accentColor });
+    if (intel?.optimizedProjection) {
+        drawWrappedText(`• New Peak Weekly Rate: ${intel.optimizedProjection.newPeakWeeklyRate}`);
+        drawWrappedText(`• Occupancy Target: ${intel.optimizedProjection.occupancyTarget}`);
+        drawWrappedText(`• Projected Range: ${intel.optimizedProjection.revenueRange}`);
+    }
+
+    // 5. Design Strategy
+    drawSectionHeader('5. Design & Amenity Strategy');
+    if (intel?.designStrategy) {
+        drawWrappedText('Recommendation:', { bold: true });
+        drawWrappedText(intel.designStrategy.recommendation, { indent: 10 });
+        y -= 5;
+        drawWrappedText('Impact Logic:', { bold: true });
+        drawWrappedText(intel.designStrategy.impact, { indent: 10 });
+    }
+
+    // 6. Listing Optimization
+    drawSectionHeader('6. Listing Optimization Strategy');
+    if (intel?.listingStrategy) {
+        drawWrappedText('Target Title:', { bold: true });
+        drawWrappedText(intel.listingStrategy.titleStrategy.good, { indent: 10, color: accentColor });
+        y -= 5;
+        drawWrappedText('Copy Logic Details:', { bold: true });
+        intel.listingStrategy.descriptionStrategy.forEach((step: string) => {
+            drawWrappedText(`- ${step}`, { indent: 10 });
+        });
+    }
+
+    y -= 40;
+    checkPageBreak(60);
+    drawWrappedText('Why Suite Capacity?', { size: 16, bold: true });
+    drawWrappedText(intel?.whySuiteCapacity || 'Professional management isn’t a cost it’s the only way to capture the remaining 30%+ of your property’s value.', { size: 11 });
 
     const pdfBytes = await pdfDoc.save();
     return pdfBytes;
@@ -270,35 +374,63 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
 
         if (process.env.SMTP_USER && process.env.SMTP_PASS) {
             try {
-                const pdfBytes = await generateReportPdf(data, projection);
+                const intel = projection.intelligence;
                 const strategyUrl = process.env.STRATEGY_CALL_URL || 'https://yourdomain.com/schedule';
 
                 const htmlContent = `
-                        <h1>Hi ${data.lead.name},</h1>
-                        <p>Thank you for submitting your property details for ${data.property.address}.</p>
+                    <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #000; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.6;">
+                        <div style="text-align: center; margin-bottom: 40px;">
+                            <p style="text-transform: uppercase; letter-spacing: 0.3em; font-size: 10px; font-weight: 900; color: #3b82f6; margin-bottom: 5px;">Suite Capacity Intel®</p>
+                            <h1 style="font-size: 32px; font-weight: 900; margin: 0; letter-spacing: -0.05em;">Revenue Intelligence Report</h1>
+                        </div>
 
-                        <h2>Revenue Breakdown</h2>
-                        <p><strong>Current Estimate:</strong> $${estimatedRevenue.toLocaleString()}</p>
-                        <p><strong>Optimized Potential:</strong> $${projection.optimizedRevenue.toLocaleString()}</p>
-                        <p><strong>Projected Lift:</strong> $${(projection.optimizedRevenue - estimatedRevenue).toLocaleString()}</p>
+                        <div style="background-color: #f8fafc; padding: 30px; border-radius: 20px; margin-bottom: 40px; border: 1px solid #e2e8f0;">
+                            <p style="margin: 0; font-size: 14px; font-weight: 700; color: #64748b; text-transform: uppercase;">Property Analysis Prepared For:</p>
+                            <p style="margin: 5px 0 0; font-size: 20px; font-weight: 900;">${data.lead.name}</p>
+                            <p style="margin: 5px 0 0; font-size: 16px; font-weight: 500; color: #334155;">${data.property.address}</p>
+                        </div>
 
-                        <h2>Action Plan</h2>
-                        <ul>
-                            <li>Refresh listing visuals + copy.</li>
-                            <li>Enable dynamic pricing + automated guest messaging.</li>
-                            <li>Boost direct bookings with a direct checkout flow.</li>
+                        <h2 style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #3b82f6; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 20px;">1. Property Positioning Snapshot</h2>
+                        <p style="font-weight: 700; margin-bottom: 5px;">Asset Assessment:</p>
+                        <p style="margin-top: 0; margin-bottom: 20px;">${intel?.positioning?.description || 'Strategic STR asset with significant upside.'}</p>
+                        <p style="font-weight: 700; margin-bottom: 5px;">Market Positioning:</p>
+                        <p style="margin-top: 0; margin-bottom: 20px; font-weight: 900;">${intel?.positioning?.marketPositioning || 'Premium-Tier Potential'}</p>
+
+                        <h2 style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #3b82f6; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 20px;">2. Missed Revenue Opportunities</h2>
+                        <div style="margin-bottom: 30px;">
+                            ${(intel?.missedOpportunities || []).map((opp: any) => `
+                                <div style="margin-bottom: 15px;">
+                                    <p style="margin: 0; font-weight: 900; font-size: 14px; color: #991b1b;">• ${typeof opp === 'string' ? opp : opp.title}</p>
+                                    ${typeof opp === 'object' && opp.desc ? `<p style="margin: 5px 0 0 15px; font-size: 13px; color: #7f1d1d;">${opp.desc}</p>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div style="background-color: #000; color: #fff; padding: 40px; border-radius: 30px; text-align: center; margin-bottom: 40px;">
+                            <p style="text-transform: uppercase; letter-spacing: 0.1em; font-size: 10px; font-weight: 700; color: #3b82f6; margin-bottom: 10px;">Institutional management Projection</p>
+                            <h3 style="font-size: 48px; font-weight: 900; margin: 0; letter-spacing: -0.05em;">$${projection.optimizedRevenue.toLocaleString()}</h3>
+                            <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 5px;">Projected Annual Revenue Target</p>
+                        </div>
+
+                        <h2 style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #3b82f6; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 20px;">3. Optimized Growth Roadmap</h2>
+                        <ul style="padding-left: 20px; margin-bottom: 30px;">
+                            <li style="margin-bottom: 10px;"><strong>Design Strategy:</strong> ${intel?.designStrategy?.recommendation || 'Premium interior refresh.'}</li>
+                            <li style="margin-bottom: 10px;"><strong>Listing Optimization:</strong> ${intel?.listingStrategy?.titleStrategy?.good || 'Experience-first SEO titles.'}</li>
+                            <li style="margin-bottom: 10px;"><strong>Revenue Management:</strong> Dynamic occupancy targeting @ 75%+.</li>
                         </ul>
 
-                        <h2>Case Study</h2>
-                        <p>Property X scaled revenue +22% in 90 days using the same playbook.</p>
+                        <div style="text-align: center; margin-top: 50px; padding-top: 40px; border-top: 1px solid #f1f5f9;">
+                            <h3 style="font-size: 20px; font-weight: 900; margin-bottom: 20px;">Ready to activate your professional management plan?</h3>
+                            <a href="${strategyUrl}" style="background-color: #3b82f6; color: #fff; text-decoration: none; padding: 15px 35px; border-radius: 50px; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block;">Book Strategy Session</a>
+                            <p style="font-size: 12px; color: #64748b; margin-top: 20px;">Or reply to this email to speak with a property strategist directly.</p>
+                        </div>
 
-                        <h2>Next Step</h2>
-                        <p><a href="${strategyUrl}">Book a 1:1 Strategy Session</a> to activate the full revenue optimization plan.</p>
-
-                        <br/>
-                        <p>Best Regards,</p>
-                        <p>The Suite Capacity Team</p>
-                    `;
+                        <div style="margin-top: 60px; text-align: center; font-size: 12px; color: #94a3b8;">
+                            <p style="font-weight: 700;">Suite Capacity®</p>
+                            <p>The centralized STR operating platform combining revenue intelligence and local expertise.</p>
+                        </div>
+                    </div>
+                `;
 
                 const emailResult = await transporter.sendMail({
                     from: emailFrom,
@@ -481,10 +613,10 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
             const brCount = data.property.bedrooms || 1;
             const peakWeeklyRate = brCount * 1050; // Slightly higher than 1000 for "premium"
             const peakRevenue = peakWeeklyRate * 12; // 12 weeks of summer (June-Aug)
-            
+
             // Summer accounts for 75% of revenue in this model
             const projectedAnnual = peakRevenue / 0.75;
-            
+
             // Multipliers (Jersey Shore Specific)
             const designMult = data.audit.designLevel === 'pro' || data.audit.designLevel === 'luxury' ? 0.30 : 0.15;
             const amenitiesCount = data.property.amenities?.length || 0;
@@ -493,10 +625,10 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
             const revMgmtMult = data.audit.dynamicPricing === 'yes' ? 0.15 : 0.10;
 
             const totalOptimized = projectedAnnual * (1 + designMult + amenitiesMult + listingMult + revMgmtMult) * 0.7; // Blend factor
-            
+
             optimizedRevenue = Math.max(totalOptimized, currentRevenue * 1.25);
             const totalLift = optimizedRevenue - currentRevenue;
-            
+
             pricingLift = totalLift * 0.35;
             conversionLift = totalLift * 0.25;
             designLift = totalLift * 0.25;
@@ -508,7 +640,7 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
             const pricingUpside = currentRevenue * (pricingData.volatilityIndex * 1.5);
             optimizedRevenue = currentRevenue + marketUpside + pricingUpside;
             const totalLift = optimizedRevenue - currentRevenue;
- 
+
             pricingLift = totalLift * 0.4;
             conversionLift = totalLift * 0.25;
             ecosystemLift = totalLift * 0.15;
@@ -540,9 +672,9 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
 
         // Fallback for demo mode
         const currentRevenue = calculateEstimateRevenue(data);
-        
+
         // Use Jersey Shore rules for fallback if detected
-        let baseLiftPct = 0.22; 
+        let baseLiftPct = 0.22;
         if (isShore) baseLiftPct = 0.35; // Higher potential in Shore market
 
         const optimizedRevenue = Math.round(currentRevenue * (1 + baseLiftPct));

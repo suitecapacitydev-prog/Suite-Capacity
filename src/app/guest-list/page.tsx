@@ -185,7 +185,7 @@ export default function GuestListPage() {
           </div>
           <div className="grid md:grid-cols-3 gap-12">
             {[
-              { step: '01', title: 'Join', desc: "Enter your first name and email — that's it." },
+              { step: '01', title: 'Join', desc: "Enter your first name and email   that's it." },
               { step: '02', title: 'Explore', desc: 'Get access to our full portfolio of high-end rentals.' },
               { step: '03', title: 'Save', desc: 'Book direct and enjoy member-exclusive rates.' },
             ].map((step, i) => (
@@ -246,7 +246,7 @@ export default function GuestListPage() {
                       {/* Phone (optional) */}
                       <div className="space-y-2">
                         <label className="text-xs font-bold uppercase tracking-widest text-black/60 px-1">
-                          Phone Number <span className="font-normal normal-case text-black/40">(Optional — recommended)</span>
+                          Phone Number <span className="font-normal normal-case text-black/40">(Optional   recommended)</span>
                         </label>
                         <input
                           type="tel"

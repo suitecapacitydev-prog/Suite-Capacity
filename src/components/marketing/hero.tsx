@@ -59,7 +59,7 @@ export function Hero() {
                         <span className="text-secondary">
                             Passive Income
                         </span>{' '}
-                        — Without Lifting a Finger
+                        Without Lifting a Finger
                     </motion.h1>
 
                     <motion.p
@@ -88,7 +88,7 @@ export function Hero() {
                                 <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                                 New to STRs? <span className="underline decoration-primary/30 underline-offset-4 group-hover/link:decoration-primary">Invest With Us</span>
                             </Link>
- 
+
                             <Link
                                 href="/guest-list"
                                 className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group/link"
