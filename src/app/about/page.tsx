@@ -14,7 +14,7 @@ export default function AboutPage() {
               Suite Capacity is a full-service short-term rental operating platform built to maximize revenue and eliminate the day-to-day burden for property owners.
             </p>
             <p className="text-lg text-black/60 mt-6 max-w-2xl font-medium">
-              We manage everything   pricing, guest experience, cleaning, maintenance, and design   turning properties into high-performing, fully passive income assets.
+              We manage everything — pricing, guest experience, cleaning, maintenance, and design — turning properties into high-performing, fully passive income assets.
             </p>
           </div>
 
@@ -23,11 +23,11 @@ export default function AboutPage() {
               <div>
                 <h2 className="text-3xl font-black tracking-tight mb-4 uppercase italic">Built to Scale. <br />Designed to Be Local.</h2>
                 <p className="text-lg text-black/70 leading-relaxed font-medium">
-                  What makes Suite Capacity different is how we operate. We combine a centralized system   covering pricing, strategy, and performance optimization   with local teams on the ground in every market we serve.
+                  What makes Suite Capacity different is how we operate. We combine a centralized system — covering pricing, strategy, and performance optimization — with local teams on the ground in every market we serve.
                 </p>
               </div>
               <p className="text-lg text-black/80 font-bold border-l-4 border-primary pl-6 py-2 bg-primary/5">
-                That means your property is backed by a larger platform, while still being managed with the care and responsiveness of a local operator   always within 30 minutes of the asset.
+                That means your property is backed by a larger platform, while still being managed with the care and responsiveness of a local operator — always within 30 minutes of the asset.
               </p>
             </div>
 
@@ -54,7 +54,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-5xl font-black tracking-tighter max-w-4xl mx-auto leading-tight text-primary">
               We’re building the infrastructure that makes short-term rental ownership scalable, reliable, and truly hands-off.
             </h2>
-            <p className="text-xl text-primary/80 font-bold italic">  National Reach meet Hyper-Local Execution.</p>
+            <p className="text-xl text-primary/80 font-bold italic">National Reach meet Hyper-Local Execution.</p>
           </div>
 
           <div className="mt-24">

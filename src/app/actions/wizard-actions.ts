@@ -7,7 +7,7 @@ import { AirDNAService } from '@/services/airdna';
 import { PriceLabsService } from '@/services/pricelabs';
 import { AIREnderingService } from '@/services/ai-rendering';
 import { OpenAIService } from '@/services/openai';
-import { PDFDocument, StandardFonts } from 'pdf-lib';
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import nodemailer from 'nodemailer';
 
 // Initialize Nodemailer transporter
@@ -134,8 +134,8 @@ async function generateReportPdf(data: WizardData, projection: RevenueProjection
     let page = pdfDoc.addPage([612, 792]);
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
-    const primaryColor = { r: 0 / 255, g: 0 / 255, b: 0 / 255 }; // Using Black for text, but can use primary brand color
-    const accentColor = { r: 59 / 255, g: 130 / 255, b: 246 / 255 }; // Blue accent
+    const primaryColor = rgb(0 / 255, 0 / 255, 0 / 255); // Using Black for text, but can use primary brand color
+    const accentColor = rgb(59 / 255, 130 / 255, 246 / 255); // Blue accent
 
     const margin = 50;
     const width = 612 - (margin * 2);
@@ -188,7 +188,7 @@ async function generateReportPdf(data: WizardData, projection: RevenueProjection
             y: y - 5,
             width: width,
             height: 20,
-            color: { r: 240 / 255, g: 240 / 255, b: 240 / 255 }
+            color: rgb(240 / 255, 240 / 255, 240 / 255)
         });
         page.drawText(title.toUpperCase(), {
             x: margin + 5,
@@ -287,6 +287,9 @@ async function generateReportPdf(data: WizardData, projection: RevenueProjection
  */
 export async function submitWizardData(data: WizardData, projection: RevenueProjection) {
     try {
+        // 0. Generate PDF Report
+        const pdfBytes = await generateReportPdf(data, projection);
+
         // 1. Create or Find Lead
         const estimatedRevenue = calculateEstimateRevenue(data);
         const leadScore = computeLeadScore(data, estimatedRevenue);

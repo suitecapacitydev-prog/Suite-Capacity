@@ -59,10 +59,14 @@ Return a JSON object with the following structure:
     "strengths": "Key strengths (location, size, etc.)",
     "limitations": "Key limitations (design, lack of amenities, etc.)"
   },
+  "marketPerformance": {
+    "baselineContext": "Context on current market trends vs property performance"
+  },
   "missedOpportunities": ["List of 3-4 specific missed opportunities"],
   "optimizedProjection": {
     "revenueRange": "$X - $Y",
-    "newPeakWeeklyRate": "$X"
+    "newPeakWeeklyRate": "$X",
+    "occupancyTarget": "X%"
   },
   "designStrategy": {
     "recommendation": "Detailed recommendation based on if it's an interior or exterior image",

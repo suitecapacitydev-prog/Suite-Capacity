@@ -105,10 +105,14 @@ export interface RevenueProjection {
             strengths: string;
             limitations: string;
         };
+        marketPerformance?: {
+            baselineContext: string;
+        };
         missedOpportunities: string[];
         optimizedProjection: {
             revenueRange: string;
             newPeakWeeklyRate: string;
+            occupancyTarget: string;
         };
         designStrategy: {
             recommendation: string;
