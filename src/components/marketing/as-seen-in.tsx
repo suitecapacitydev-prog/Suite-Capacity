@@ -1,42 +1,85 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const logos = [
-    { name: 'Bloomberg', logo: '/images/logos/bloomberg.svg' },
+    { name: 'CEO Weekly', logo: '/images/logos/ceo-weekly.png' },
+    { name: 'USA Today', logo: '/images/logos/usa-today.svg' },
+    { name: 'Business Insider', logo: '/images/logos/business-insider.svg' },
+    { name: 'Fortune', logo: '/images/logos/fortune.svg' },
     { name: 'Yahoo Finance', logo: '/images/logos/yahoo-finance.svg' },
-    { name: 'Forbes', logo: '/images/logos/forbes.svg' },
-    { name: 'WSJ', logo: '/images/logos/wsj.svg' },
-    { name: 'Skift', logo: '/images/logos/skift.svg' },
-    { name: 'Entrepreneur', logo: '/images/logos/entrepreneur.svg' },
 ];
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.6,
+            ease: "easeOut",
+        },
+    },
+};
 
 export function AsSeenIn() {
     return (
-        <section className="py-12 border-y border-black/5 bg-white/30 backdrop-blur-sm relative z-20">
+        <section className="py-16 border-y border-black/5 bg-white/30 backdrop-blur-sm relative z-20 overflow-hidden">
             <div className="container mx-auto px-6">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-                    <div className="shrink-0">
-                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60 mb-1">Media Coverage</p>
-                        <h3 className="text-xl font-bold tracking-tight">As Seen In</h3>
-                    </div>
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-24">
+                    <motion.div 
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="shrink-0 text-center lg:text-left"
+                    >
+                        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 mb-2">Global Media Presence</p>
+                        <h3 className="text-2xl font-bold tracking-tight text-slate-900">As Seen In</h3>
+                    </motion.div>
                     
-                    <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 grayscale opacity-40 hover:opacity-100 transition-all duration-700">
+                    <motion.div 
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        className="flex flex-wrap items-center justify-center lg:justify-end gap-x-12 gap-y-10"
+                    >
                         {logos.map((logo) => (
-                            <div key={logo.name} className="h-6 md:h-8 flex items-center group">
-                                {/* Using text as placeholder since SVGs aren't available yet */}
-                                <span className="text-lg md:text-xl font-black tracking-tighter hover:text-primary transition-colors cursor-default">
-                                    {logo.name}
-                                </span>
-                            </div>
+                            <motion.div 
+                                key={logo.name}
+                                variants={itemVariants}
+                                whileHover={{ scale: 1.05, y: -5 }}
+                                className="h-8 md:h-9 flex items-center justify-center group relative cursor-default"
+                            >
+                                <div className="relative h-full transition-all duration-500 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100">
+                                    <Image
+                                        src={logo.logo}
+                                        alt={logo.name}
+                                        width={180}
+                                        height={40}
+                                        className="h-full w-auto object-contain"
+                                        priority
+                                    />
+                                </div>
+                            </motion.div>
                         ))}
-                    </div>
-                    
-                    <div className="hidden lg:block shrink-0">
-                        <div className="w-12 h-px bg-black/10" />
-                    </div>
+                    </motion.div>
                 </div>
             </div>
+            
+            {/* Subtle background flair */}
+            <div className="absolute top-0 right-0 w-1/4 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none" />
         </section>
     );
 }
