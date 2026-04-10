@@ -4,7 +4,7 @@ import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 
 const logos = [
-    { name: 'CEO Weekly', logo: '/images/logos/ceo-weekly.png' },
+    { name: 'CEO Weekly', logo: '/images/logos/ceo-weekly.svg' },
     { name: 'USA Today', logo: '/images/logos/usa-today.svg' },
     { name: 'Business Insider', logo: '/images/logos/business-insider.svg' },
     { name: 'Fortune', logo: '/images/logos/fortune.svg' },

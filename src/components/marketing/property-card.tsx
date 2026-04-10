@@ -9,16 +9,21 @@ import { Button } from '../ui/button';
 interface PropertyCardProps {
   property: Property;
   index: number;
+  publicView?: boolean;
 }
 
-export default function PropertyCard({ property, index }: PropertyCardProps) {
+export default function PropertyCard({ property, index, publicView = false }: PropertyCardProps) {
   const router = useRouter();
   
   // Flatten amenities for the tags
   const allAmenities = Object.values(property.amenities).flat();
 
   const handleNavigate = () => {
-    router.push(`/guest-list/exclusive/listings/${property.id}`);
+    if (publicView && property.link) {
+      window.open(property.link, '_blank', 'noopener,noreferrer');
+    } else {
+      router.push(`/guest-list/exclusive/listings/${property.id}`);
+    }
   };
 
   return (
@@ -31,12 +36,14 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
     >
       {/* Visual Header / Carousel */}
       <div className="h-80 relative overflow-hidden">
-        <div className="absolute top-6 left-6 z-20">
-          <span className="bg-primary/90 text-white font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-full shadow-lg backdrop-blur-md flex items-center gap-1.5 border border-white/10">
-            <Sparkles className="w-3.5 h-3.5 fill-white" />
-            Member Rate Unlocked
-          </span>
-        </div>
+        {!publicView && (
+          <div className="absolute top-6 left-6 z-20">
+            <span className="bg-primary/90 text-white font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-full shadow-lg backdrop-blur-md flex items-center gap-1.5 border border-white/10">
+              <Sparkles className="w-3.5 h-3.5 fill-white" />
+              Member Rate Unlocked
+            </span>
+          </div>
+        )}
 
         {property.rating && (
           <div className="absolute top-6 right-6 z-20">
@@ -72,9 +79,9 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
             />
           </div>
           <div className="text-right">
-            <p className="text-xs text-secondary/30 line-through mb-1">Standard ${Math.round(property.price * 1.15)}</p>
+            {!publicView && <p className="text-xs text-secondary/30 line-through mb-1">Standard ${Math.round(property.price * 1.15)}</p>}
             <p className="text-2xl font-bold text-primary">${property.price}</p>
-            <p className="text-[10px] font-bold text-secondary/40 uppercase tracking-tighter">Per Night (Member)</p>
+            <p className="text-[10px] font-bold text-secondary/40 uppercase tracking-tighter">Per Night {publicView ? '' : '(Member)'}</p>
           </div>
         </div>
 
@@ -97,7 +104,7 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
           <Button
             className="flex-1 h-12 text-lg font-bold shadow-xl shadow-primary/10 hover:scale-[1.02] transition-all bg-primary hover:bg-primary-hover text-white rounded-2xl"
           >
-            Direct Booking <Zap className="w-4 h-4 ml-2" />
+            {publicView ? 'View Property' : 'Direct Booking'} <Zap className="w-4 h-4 ml-2" />
           </Button>
           <Button
             variant="outline"

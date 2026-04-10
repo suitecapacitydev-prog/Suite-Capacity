@@ -65,7 +65,7 @@ export default function RootLayout({
                         </button>
                         <Link href="/markets" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Markets</Link>
                         <Link href="/solutions" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Services</Link>
-                        <Link href="/case-studies" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Properties</Link>
+                        <Link href="/showcase" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Properties</Link>
                         <Link href="/about" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>About</Link>
                     </nav>
 
@@ -107,7 +107,7 @@ export default function RootLayout({
                             <Link href="/guest-list" className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Guest List</Link>
                             <Link href="/markets" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Markets</Link>
                             <Link href="/solutions" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Solutions</Link>
-                            <Link href="/case-studies" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Performance</Link>
+                            <Link href="/showcase" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Properties</Link>
                             <Link href="/about" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">About</Link>
                             <div className="pt-4 mt-2 border-t border-black/5 flex flex-col gap-4">
                                 {isLoggedIn ? (
@@ -200,7 +200,7 @@ export default function RootLayout({
                         <h4 className="font-semibold mb-4">Resources</h4>
                         <ul className="space-y-2 text-sm text-secondary-foreground">
                             <li><Link href="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
-                            <li><Link href="/showcase" className="hover:text-primary transition-colors">Video Showcase</Link></li>
+                            <li><Link href="/showcase" className="hover:text-primary transition-colors">Property Portfolio</Link></li>
                             <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
                             <li><Link href="/case-studies" className="hover:text-primary transition-colors">Case Studies</Link></li>
                         </ul>
