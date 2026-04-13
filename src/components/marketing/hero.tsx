@@ -102,7 +102,7 @@ export function Hero() {
                             <div className="p-2 rounded-full bg-primary/10">
                                 <Phone className="w-4 h-4 text-primary" />
                             </div>
-                            Call us today: <span className="text-primary">+1 (855) 303-4545</span>
+                            Call us today: <a href="tel:+18553034545" className="text-primary hover:underline">+1 (855) 303-4545</a>
                         </div>
                     </motion.div>
 
