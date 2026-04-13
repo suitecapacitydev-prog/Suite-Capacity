@@ -41,8 +41,6 @@ export function RevenueIntelligenceWizard() {
         },
         baseline: {
             type: 'str',
-            adr: 250,
-            occupancy: 60,
             platforms: ['airbnb'],
             directPercentage: 5,
             reviewRating: 4.8
@@ -96,10 +94,7 @@ export function RevenueIntelligenceWizard() {
         }
 
         if (currentStep === 2) {
-            if (wizardData.baseline.type === 'str') {
-                if (!wizardData.baseline.adr) return 'Please enter an average nightly rate (ADR).';
-                if (!wizardData.baseline.occupancy) return 'Please enter your average occupancy.';
-            } else {
+            if (wizardData.baseline.type === 'ltr') {
                 if (!wizardData.baseline.monthlyRent) return 'Please enter your current monthly rent.';
                 if (!wizardData.baseline.leaseStructure) return 'Please select your lease structure.';
             }
@@ -128,7 +123,10 @@ export function RevenueIntelligenceWizard() {
         if (currentStep === 3) {
             setIsSubmitting(true);
             try {
+                console.log("aaaa");
+                console.log("wizardData", wizardData);
                 const proj = await calculateRevenueIntelligence(wizardData);
+                console.log("proj", proj);
                 setProjection(proj);
                 setCurrentStep((prev) => prev + 1);
             } catch (error) {

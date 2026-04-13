@@ -584,12 +584,15 @@ function isJerseyShore(address: string): boolean {
  * Coordinates between AirDNA, PriceLabs, and OpenAI.
  */
 export async function calculateRevenueIntelligence(data: WizardData): Promise<RevenueProjection> {
+    console.log('asasas');
     const isShore = isJerseyShore(data.property.address);
+    console.log('isShore', isShore);
 
     try {
         // 1. Fetch Market Data from AirDNA
+        console.log('abc');
         const marketData = await AirDNAService.fetchMarketData(data.property.address);
-
+        console.log('ddddd');
         // 2. Fetch Pricing Intelligence from PriceLabs
         const pricingData = await PriceLabsService.getPricingStrategy(data.property.address);
 
@@ -601,8 +604,11 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
 
         // 4. Current Revenue (from user input or market average)
         const currentAdr = data.baseline.adr || marketData.adr;
+        console.log('currentAdr', currentAdr);
         const currentOcc = data.baseline.occupancy || marketData.occupancyRate;
-        const currentRevenue = (currentAdr * (currentOcc / 100)) * 365;
+        console.log('currentOcc', currentOcc);
+        const currentRevenue = data.baseline.annualRevenue || ((currentAdr * (currentOcc / 100)) * 365);
+        console.log('currentRevenue', currentRevenue);
 
         let optimizedRevenue = currentRevenue;
         let pricingLift = 0;
@@ -611,43 +617,55 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
         let designLift = 0;
         let efficiencyLift = 0;
 
+        // Dynamic Multipliers derived directly from the user's audit form
+        const designMult = data.audit.designLevel === 'pro' || data.audit.designLevel === 'luxury' ? 0.20 : (data.audit.designLevel === 'updated' ? 0.10 : 0.05);
+        const amenitiesCount = data.property.amenities?.length || 0;
+        const amenitiesMult = amenitiesCount > 8 ? 0.15 : (amenitiesCount > 4 ? 0.08 : 0.03);
+        const listingMult = data.audit.listingOptimization === 'pro' || data.audit.listingOptimization === 'ai' ? 0.15 : 0.05;
+        const revMgmtMult = data.audit.dynamicPricing === 'yes' ? 0.12 : (data.audit.dynamicPricing === 'manual' ? 0.05 : 0.18); // Higher upside if they use NO pricing tools
+
         if (isShore) {
-            // Jersey Shore Logic: Peak Baseline ~$1,000/week per bedroom
+            // Jersey Shore Logic: Blend heuristic with real AirDNA data
             const brCount = data.property.bedrooms || 1;
-            const peakWeeklyRate = brCount * 1050; // Slightly higher than 1000 for "premium"
-            const peakRevenue = peakWeeklyRate * 12; // 12 weeks of summer (June-Aug)
+            const marketDrivenPeak = (marketData.adr * 7) * 1.35; // Peak season commands 35% premium rate
+            const heuristicPeak = brCount * 1050; 
+            const peakWeeklyRate = Math.max(heuristicPeak, marketDrivenPeak);
+            
+            const peakRevenue = peakWeeklyRate * 12; // 12 weeks of summer
+            const targetSeasonality = marketData.seasonalityIndex || 0.70; // High seasonality market
+            const projectedAnnual = peakRevenue / targetSeasonality;
 
-            // Summer accounts for 75% of revenue in this model
-            const projectedAnnual = peakRevenue / 0.75;
+            const totalOptimized = projectedAnnual * (1 + designMult + amenitiesMult + listingMult + revMgmtMult) * 0.85; // Blend smoothing factor
 
-            // Multipliers (Jersey Shore Specific)
-            const designMult = data.audit.designLevel === 'pro' || data.audit.designLevel === 'luxury' ? 0.30 : 0.15;
-            const amenitiesCount = data.property.amenities?.length || 0;
-            const amenitiesMult = amenitiesCount > 10 ? 0.25 : 0.10;
-            const listingMult = data.audit.listingOptimization === 'pro' || data.audit.listingOptimization === 'ai' ? 0.20 : 0.10;
-            const revMgmtMult = data.audit.dynamicPricing === 'yes' ? 0.15 : 0.10;
-
-            const totalOptimized = projectedAnnual * (1 + designMult + amenitiesMult + listingMult + revMgmtMult) * 0.7; // Blend factor
-
-            optimizedRevenue = Math.max(totalOptimized, currentRevenue * 1.25);
-            const totalLift = optimizedRevenue - currentRevenue;
+            optimizedRevenue = Math.max(totalOptimized, currentRevenue * (1 + designMult + listingMult));
+            const totalLift = Math.max(0, optimizedRevenue - currentRevenue);
 
             pricingLift = totalLift * 0.35;
             conversionLift = totalLift * 0.25;
-            designLift = totalLift * 0.25;
-            ecosystemLift = totalLift * 0.10;
+            designLift = totalLift * 0.20;
+            ecosystemLift = totalLift * 0.15;
             efficiencyLift = totalLift * 0.05;
         } else {
-            // Standard Global Logic
-            const marketUpside = Math.max(0, (marketData.adr * 1.3) - currentAdr);
-            const pricingUpside = currentRevenue * (pricingData.volatilityIndex * 1.5);
-            optimizedRevenue = currentRevenue + marketUpside + pricingUpside;
-            const totalLift = optimizedRevenue - currentRevenue;
+            // Standard Global Logic: Heavily anchor on AirDNA + Form Inputs
+            const dynamicVolatility = pricingData.volatilityIndex || (marketData.seasonalityIndex * 0.3) || 0.15;
+            
+            // Market Upside: Catch up to top quartile ADR if they are operating below
+            const topQuartileAdr = marketData.adr * 1.35;
+            const adrGap = Math.max(0, topQuartileAdr - currentAdr);
+            const marketUpside = adrGap * (currentOcc / 100) * 365;
+            
+            // Apply their specific audit gaps
+            const totalMultipliers = 1 + designMult + amenitiesMult + listingMult + revMgmtMult;
+            const baselineOptimized = currentRevenue * totalMultipliers;
+            const pricingGain = baselineOptimized * dynamicVolatility; // Upside from implementing pro revenue management algorithm
+            
+            optimizedRevenue = baselineOptimized + marketUpside + pricingGain;
+            const totalLift = Math.max(0, optimizedRevenue - currentRevenue);
 
-            pricingLift = totalLift * 0.4;
+            pricingLift = totalLift * 0.40;
             conversionLift = totalLift * 0.25;
-            ecosystemLift = totalLift * 0.15;
             designLift = totalLift * 0.15;
+            ecosystemLift = totalLift * 0.15;
             efficiencyLift = totalLift * 0.05;
         }
 

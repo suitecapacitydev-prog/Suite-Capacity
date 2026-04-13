@@ -32,10 +32,9 @@ export const AirDNAService = {
         }
 
         try {
-            // Updated to use the Rentalizer Summary endpoint which is better for address-based lookups
-            const response = await fetch(`https://api.airdna.co/v1/rentalizer/summary?address=${encodeURIComponent(address)}`, {
+            // Updated to use the correct API endpoint and pass the access_token in the query string
+            const response = await fetch(`https://api.airdna.co/client/v1/rentalizer/estimate?address=${encodeURIComponent(address)}&access_token=${apiKey}`, {
                 headers: {
-                    'Authorization': `Bearer ${apiKey}`,
                     'Accept': 'application/json'
                 }
             });
@@ -59,13 +58,17 @@ export const AirDNAService = {
 
             const data = await response.json();
 
-            // Mapping AirDNA response fields (Rentalizer Summary format)
+            // Mapping AirDNA response fields (Rentalizer Estimate format)
+            const stats = data.property_stats || {};
+            const adr = stats.adr?.ltm || 320;
+            const occ = stats.occupancy?.ltm || 0.68;
+            
             return {
-                adr: data.adr || 320,
-                occupancyRate: (data.occupancy || 0.68) * 100, // Convert to percentage if stored as decimal
-                revpar: data.revpar || 217.6,
-                seasonalityIndex: data.seasonality_index || 0.75,
-                demandIndex: data.demand_index || 0.88
+                adr: adr,
+                occupancyRate: occ * 100, // Convert to percentage
+                revpar: stats.revpar?.ltm || (adr * occ),
+                seasonalityIndex: 0.75, // Provide standard fallbacks as API might not include these out-of-the-box
+                demandIndex: 0.88
             };
         } catch (error) {
             console.error('AirDNA Service Error:', error);

@@ -114,7 +114,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                                 key={opt}
                                 onClick={() => updateQualification({ isOperating: opt })}
                                 className={cn(
-                                    "flex-1 p-4 rounded-xl border-2 font-bold transition-all capitalize",
+                                    "flex-1 py-3 px-4 rounded-xl border-2 font-bold transition-all uppercase tracking-widest text-xs",
                                     qualification.isOperating === opt
                                         ? "bg-primary border-primary text-primary-foreground shadow-lg"
                                         : "bg-white border-black/5 text-black/40 hover:border-primary/30"
@@ -137,7 +137,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                                 key={opt}
                                 onClick={() => updateQualification({ ownershipStatus: opt })}
                                 className={cn(
-                                    "flex-1 p-4 rounded-xl border-2 font-bold transition-all capitalize",
+                                    "flex-1 py-3 px-4 rounded-xl border-2 font-bold transition-all uppercase tracking-widest text-xs",
                                     qualification.ownershipStatus === opt
                                         ? "bg-primary border-primary text-primary-foreground shadow-lg"
                                         : "bg-white border-black/5 text-black/40 hover:border-primary/30"
@@ -216,7 +216,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                                 key={type.value}
                                 onClick={() => updateData({ propertyType: type.value })}
                                 className={cn(
-                                    "flex items-center gap-3 p-4 rounded-xl border-2 text-sm font-bold transition-all",
+                                    "flex items-center gap-2 py-3 px-4 rounded-xl border-2 text-xs font-bold transition-all uppercase tracking-tight",
                                     data.propertyType === type.value
                                         ? "bg-primary border-primary text-white shadow-lg"
                                         : "bg-white border-black/5 text-black/50 hover:border-primary/30"
