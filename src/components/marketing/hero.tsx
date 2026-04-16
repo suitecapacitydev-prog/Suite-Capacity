@@ -66,7 +66,7 @@ export function Hero() {
                         variants={fadeInUp}
                         className="text-lg md:text-xl text-black/85 max-w-5xl mx-auto leading-relaxed font-bold italic"
                     >
-                        Suite Capacity is a vacation rental property management and optimization platform. We specialize in providing a hotel-level experience to guests while allowing property owners to receive passive income. Our system combines local market operations and central intelligence to create a seamless experience for any property owner.
+                        Suite Capacity is a vacation rental property management and optimization platform. We specialize in providing a hotel-level experience to guests while allowing property owners to receive passive income.
                     </motion.p>
 
                     <motion.div
@@ -80,23 +80,6 @@ export function Hero() {
                                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                             </Button>
                         </Link>
-                        <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 text-sm font-black pt-2">
-                            <Link
-                                href="/invest"
-                                className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group/link"
-                            >
-                                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                New to STRs? <span className="underline decoration-primary/30 underline-offset-4 group-hover/link:decoration-primary">Invest With Us</span>
-                            </Link>
-
-                            <Link
-                                href="/guest-list"
-                                className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group/link"
-                            >
-                                <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                                Looking to book? <span className="underline decoration-accent/30 underline-offset-4 group-hover/link:decoration-accent">Join the Exclusive Guest List</span>
-                            </Link>
-                        </div>
 
                         <div className="mt-4 flex items-center gap-3 text-black font-bold bg-white/50 backdrop-blur-sm px-6 py-3 rounded-2xl border border-black/5">
                             <div className="p-2 rounded-full bg-primary/10">
@@ -120,10 +103,27 @@ export function Hero() {
                             <div className="text-xs uppercase tracking-widest font-bold text-black opacity-40">Average Revenue Increase</div>
                         </div>
                         <div className="text-center group">
-                            <div className="text-3xl md:text-5xl font-black mb-1 group-hover:scale-110 transition-transform">50+</div>
+                            <div className="text-3xl md:text-5xl font-black mb-1 group-hover:scale-110 transition-transform">70+</div>
                             <div className="text-xs uppercase tracking-widest font-bold text-black opacity-40">Active Units Managed</div>
                         </div>
                     </motion.div>
+                    <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 text-sm font-black pt-2">
+                        <Link
+                            href="/invest"
+                            className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group/link"
+                        >
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                            New to STRs? <span className="underline decoration-primary/30 underline-offset-4 group-hover/link:decoration-primary">Invest With Us</span>
+                        </Link>
+
+                        <Link
+                            href="/guest-list"
+                            className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group/link"
+                        >
+                            <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                            Looking to book? <span className="underline decoration-accent/30 underline-offset-4 group-hover/link:decoration-accent">Join the Exclusive Guest List</span>
+                        </Link>
+                    </div>
                 </motion.div>
             </div>
         </section>

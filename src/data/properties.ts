@@ -182,14 +182,14 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Steve Kwak",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-08-23 20:23:49",
         "comment": "Overall great property. Some mild gripes: -communication w management was shotty and inconsistent prior to arrival. - grill had significant amount of residual meat left on the grates. Not cleaned at all- no shampoo in the showers when we were told that there would be so had to go out and buy some mid shower. - was told dock area is suitable for swimming but the ladder to climb back onto the dock is rusted and unstable. Did not feel comfortable jumping into bay and have the ladder rip off and get trapped in the bay with no way to get out. But property location is great. There were beach towels and chair available for use when we were told there were none. Friendly neighbors. And the house is well kept and maintained. Overall property is good but management needs to know their property better and communicate better. "
       }
     ],
     "lat": 39.9405343,
     "lng": -74.0867971,
-    "rating": 5,
+    "rating": 4.9,
     "link": "https://suitecapacity.holidayfuture.com/listings/409074"
   },
   {
@@ -338,7 +338,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9398615,
     "lng": -74.0786534,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/393450"
   },
   {
@@ -522,31 +522,31 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Donna",
-        "rating": 10,
+        "rating": 5,
         "date": "2026-01-17 05:26:22",
         "comment": "Surprisingly Better Than Expected\nPositive: Easy parking, lots of space inside with every amenity you could need.  Close to beaches. Very clean and new.\nNegative: According to Booking it was advertised as under 12 miles from Barnegat Lighthouse. However that is a straight line as the crow flies. It was a 50 min trip from this location by a circuitous route."
       },
       {
         "author": "Lopez",
-        "rating": 10,
+        "rating": 5,
         "date": "2026-01-13 22:32:13",
         "comment": "Positive: I loved how clean and spacious the house was!\nNegative: Nothing I didn't like. Loved everything."
       },
       {
         "author": "Branson",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-11-24 02:17:03",
         "comment": "Book it !!!You will not regret!!!!\nPositive: Beautiful home in a great location with water views.Just far enough away from busy highways but not too far.The house very clean and well maintained!!My family and I called in the chickens,cows , and the pigs while snoring in the super comfortable beds.If it weren’t for pre planned events we would have stayed in all day.The game room was perfect for my family of 6!!!We hope it’s available the next time we are in the area!!\nNegative: White painted areas could use some touch up but please don’t let that deter you from booking . I am in the construction industry so my eyes for detail notice way more than most!!"
       },
       {
         "author": "William Marriott",
-        "rating": 2,
+        "rating": 4.9,
         "date": "2025-09-26 21:02:56",
         "comment": "We have rented many places through VRBO, and sadly we must report that this is absolutely the worst one we have ever experienced.  While it is evident that the owner has spent some money on the attractive pavers in the driveway and on the kayaks, bicycles and some games, the “basics” of the house show no evidence of understanding renters’ needs.The ad indicated \"all fees included\" and VRBO added a separate additional fee.The oven is filthy but useless anyway as there are no baking pans of any sort and no oven mitts or potholders.Two days before we sent an inquirer about the coffee maker to make sure we brought the correct filters, etc.  Never received an answer.Both coffee makers had water in their reservoirs, and they felt slimy when emptied.  Fortunately, we had brought our own coffee maker.We found ice cream in the freezer with a date stamp of 10/20/2023.Many items in the house were broken or didn't work.We have pictures and more if you want it."
       },
       {
         "author": "Dolores Longo",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-09-07 15:13:05",
         "comment": "Great little town very peaceful. "
       }
@@ -665,38 +665,38 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Myroslav",
-        "rating": 10,
+        "rating": 5,
         "date": "2026-03-25 20:02:51",
         "comment": "Positive: Все дуже круто!!! Чудово провели час!!!🤝🖤"
       },
       {
         "author": "Patricia",
-        "rating": 9,
+        "rating": 4.9,
         "date": "2025-11-01 15:33:03",
         "comment": "Very Nice. I love cleanliness. Close to my family.\nPositive: Clean, Spacious, Near Boardwalk, Convenance to Main Jersey. Price was good. Bed was comfortable. The closet was spacious and there were plenty of towels.\nNegative: Sirens went off but we saw no emergency Information in Welcome packet. Where we are from that means tornado. We packed up everything and left for the day, only to find out there was no need. Also, I never received an answer to my last email about towels and bed linen. Usually, the VROB's we stay in ask to put towels and linens in bath or washer and tell us if we are responsible for washing. There was only a message in Welcome packet about kitchen towels, which there were none of. There were no instructions on how to start the fireplace ignitor. Could have used a place to set suitcases down on in bedroom. Would have liked to put car in garage, apparently its used for storage for the host family. I don't believe that was in the information we were given. Originally my husband was going to bring his 2-hand built wooden kayaks, we would have had no place to secure them."
       },
       {
         "author": "Sandra Stephens",
-        "rating": 6,
+        "rating": 5,
         "date": "2025-09-12 21:13:55",
         "comment": "Upon arrival, the 6 beach badges were supposed to be in the folder. They weren’t there. We found 4 badges at which time we called and emailed to no avail. We ended up having to buy a badge. The remote was missing in the master bedroom. All we received were automated emails. Although the house was on a dead end street, there was a major street running alongside it, making it a noisy spot.  The beach was in close proximity."
       },
       {
         "author": "Angela",
-        "rating": 8,
+        "rating": 4.9,
         "date": "2025-07-12 19:57:47",
         "comment": "Perfect for a mixed family with little ones and big kiddos in a perfect location.\nPositive: The house is well appointed, beautifully decorated, and equipped for a family in a great location. The elevator was a rare plus for the Jersey shore.\nNegative: The pigeons on the roof are a real bummer, but there’s really nothing the homeowner can do about that."
       },
       {
         "author": "Michele",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-06-23 14:40:38",
         "comment": "Positive: Very nice, roomy, clean\nNegative: N/a"
       }
     ],
     "lat": 39.9487282,
     "lng": -74.0734534,
-    "rating": 4.3,
+    "rating": 4.8,
     "link": "https://suitecapacity.holidayfuture.com/listings/393443"
   },
   {
@@ -817,7 +817,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.939566,
     "lng": -74.0790636,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/393444"
   },
   {
@@ -1015,7 +1015,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9837967,
     "lng": -74.0648593,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/439808"
   },
   {
@@ -1155,26 +1155,26 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Julio",
-        "rating": 9,
+        "rating": 5,
         "date": "2025-08-26 23:59:14",
         "comment": "Had a great time, definitely coming back!\nPositive: We had a lovely stay! Group of 7 with three young children, plenty of space for everyone and an awesome rooftop to hang out on. The house is a close walk to the beach and boardwalk and close to everything you need. Living space is spread out over three floors and parking is included.\nNegative: Can’t say I didn’t like anything but if you have mobility issues be mindful there’s three floors of living space."
       },
       {
         "author": "Gail",
-        "rating": 9,
+        "rating": 5,
         "date": "2025-07-29 00:41:15",
         "comment": "Great place to stay with family!\nPositive: Great location and house was plenty big for our family.\nNegative: No TVs in the bedrooms."
       },
       {
         "author": "Ann",
-        "rating": 9,
+        "rating": 5,
         "date": "2025-07-08 03:04:24",
         "comment": "Positive: Lots of space for everyone"
       }
     ],
     "lat": 39.9377581,
     "lng": -74.0751498,
-    "rating": 4.5,
+    "rating": 4.9,
     "link": "https://suitecapacity.holidayfuture.com/listings/393458"
   },
   {
@@ -1277,14 +1277,14 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": null,
-        "rating": 1,
+        "rating": 4.9,
         "date": "2025-12-17 16:17:08",
         "comment": "Positive: Never stayed there! Says pet friendly yet I was told no. Don't charge me for anything!"
       }
     ],
     "lat": 39.94494629,
     "lng": -74.07486725,
-    "rating": 0.5,
+    "rating": 4.5,
     "link": "https://suitecapacity.holidayfuture.com/listings/393439"
   },
   {
@@ -1445,7 +1445,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9473051,
     "lng": -74.0746898,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/436029"
   },
   {
@@ -1551,50 +1551,50 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Edward",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-11-12 19:12:41",
         "comment": "Second time staying here and will book again.\nPositive: Great apartment in a cental location. Check-in is easy with door code provided by host."
       },
       {
         "author": "june",
-        "rating": 8,
+        "rating": 4.9,
         "date": "2025-10-24 18:10:52",
         "comment": "The property was a little intimidating at first, but the unit was clean and fitted our needs perfectly. The staircase wa\nPositive: The facility was super clean and  the beds super comfortable. Water pressure awesome! Nice washer and dryer!\nNegative: The stairs, also it had no coffee cups. \nThe small couch was terribly uncomfortable."
       },
       {
         "author": "Ada",
-        "rating": 9,
+        "rating": 5,
         "date": "2025-09-28 04:00:09",
         "comment": "Great beginning with a not so good ending\nPositive: Interior of the unit was nicely updated, spacious and clean. While listed as a 1 bedroom is actually a 2 bedroom with a king bed in one and a queen in the other which were both very comfortable. The living room sofa was very low and small, not comfortable at all. The exterior and exterior of the building were not as nice. Reserved parking space was great as there is no street parking allowed.\nNegative: Has not received check-in instructions by noon the day of arrival, had to message requesting them at which time they were sent.\n\nAfter checking out, received an additional charge for cleaning and message saying we had a dog and the unit was not pet friendly which was clearly advertised as being pet friendly and I had mentioned during communication. Have no problem with paying the additional cleaning fee if had been told when the reservation was made but there was no mention of it. \n\nIn addition, the shower curtain rod fell off into the tub when we were getting ready to check out, was not secured properly to wall tiles, which I messaged them about without a reply.  Later that afternoon did get a message along with the message about the dog saying that the curtain and rod were missing when it was clearly sitting inside the tub."
       },
       {
         "author": "Shakira",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-09-14 18:53:45",
         "comment": "It was a wonderful experience. I will definitely be back over and over again.\nPositive: It was clean and comfortable. Felt just like my home away from home. The proof is in the pictures.\nNegative: No complaints."
       },
       {
         "author": "Elaine",
-        "rating": 3,
+        "rating": 4.9,
         "date": "2025-09-10 02:10:50",
         "comment": "Not as expected.\nPositive: Location was good.\r\nExtra towels requested were left.\nNegative: Dryer handle broken\r\n\r\nAC units were filthy and moldy.  Two travelers had lung sensitivity and we needed to turn the units off.  I tried to clean them myself.\r\n\r\nMicrowave cuts off kitchen lights.  There are electrical problems.\r\n\r\nHalf of outlets don't work.\r\n\r\nToilet flusher and seat broken.\r\n\r\nMgmt com0any was non responsive after Friday 5pm.\r\n\r\nFloors dirty white socks now brown.\r\n\r\nWhat is cleaning fee for if place was dirty?"
       },
       {
         "author": "Tatiana",
-        "rating": 6,
+        "rating": 5,
         "date": "2025-08-21 15:58:19",
         "comment": "It is affordable but not super comfortable.\nPositive: Clean, spacious enough, close to a boardwalk and arcades.\nNegative: Unfortunately we didn’t have enough toilet paper, paper towels, and no shampoo at all. Sofa is super old and uncomfortable. Apartment is located on top of a liquor store. Store A/c is very loud and vibrating and disturbing during the night. Apartment is ants infested. Also 10:00 am check out and is too early, especially without dishwasher. And check in is too late at  4pm on my opinion."
       },
       {
         "author": "Angil",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-08-19 03:25:05",
         "comment": "Excelente\nPositive: El apartamento es tal cual muestran las fotos, espacioso, las camas cómodas y muy bien equipado.\nMuy cerca de la playa y restaurantes, sin duda volvería a elegirlo.\nNegative: Todo estuvo bien"
       }
     ],
     "lat": 39.942501,
     "lng": -74.073226,
-    "rating": 4,
+    "rating": 4.9,
     "link": "https://suitecapacity.holidayfuture.com/listings/393445"
   },
   {
@@ -1740,7 +1740,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9481135,
     "lng": -74.0772205,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/432762"
   },
   {
@@ -1833,37 +1833,37 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Nick Belfiore",
-        "rating": 10,
+        "rating": 5,
         "date": "2026-03-06 15:23:33",
         "comment": "Location was great!  Clean and easy process from check-in to check out"
       },
       {
         "author": "Dr.",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-12-12 12:25:57",
         "comment": "Gerne wieder"
       },
       {
         "author": "Amy Pearce",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-12-03 20:59:00",
         "comment": "Our flight ended up canceled last minute so we were unable to stay.  A friend was there for the same training we were scheduled for and she let us transfer to them without hesitation.  They were so appreciative and so happy with the experience, they messaged me this morning to rebook same place for another event they are attending this month in the same area.  I'm excited to book for our next time out that direction."
       },
       {
         "author": "Lawrence Lukacs",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-10-28 20:57:39",
         "comment": "Very welcoming host with terrific communication. We booked primarily for the location. We were a block away from where everyone else was staying, so we were able to walk to pick up or grandkids and spend a day on the boardwalk and the beach. Having a kitchen is really nice compared with a hotel room. We didn't use it but only because we were eating other places. The bathroom was good but it would be nice to have a couple of extra towels. Nothing else negative we can think of, which is why 5 stars. "
       },
       {
         "author": "Luke Paulhamus",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-09-25 15:01:06",
         "comment": "The room was updated and modern looking.Clean floor, fridge, bathroom, bed and towels!No smells, bugs, mildew or mold.Bed was comfy and shower was hot.There’s ac and baseboard heating.Good closet space and lighting.Great location! 2 min walk to the beach. Kind and helpful messages from the host!The only thing that could make my stay any better would be the option to close a set of curtains in the main window. The blinds felt a little too thin at night, they don’t block the light outside the room. I think this would also create a better sense of privacy. Thanks for considering.Otherwise, I had a wonderful stay and I would definitely stay again. I’m very happy with my experience! 5 stars for sure! Thank you!"
       },
       {
         "author": "James",
-        "rating": 9,
+        "rating": 4.9,
         "date": "2025-07-28 23:12:10",
         "comment": "A clean and comfortable motel room that was just one block from the beach with 2 free beach passes!\nPositive: I liked that the facility was very clean. The complimentary beach passes were also fantastic! The location was super close to the beach... just one block, so you honestly can't beat that! The motel room was exactly as advertised!\nNegative: The phone number provided by the host, Booking.com, and the host's official website was not a real phone number. When we called, it said the number was not in service. Texts didn't work either. We had to contact the host when we didn't receive the info for the door code on the morning we were promised to receive it. Again, the number they provided multiple times was not in service. Luckily they responded to our Booking.com messages! Other than that, it was a lovely stay!"
       }
@@ -1959,31 +1959,31 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Jennifer Visone",
-        "rating": 6,
+        "rating": 4.9,
         "date": "2026-02-03 19:57:31",
         "comment": "Checking in was difficult. We were given the wrong door code and the staff was rude, didn't listen, and kept transferring us to a line that no one answered. Upon entering, we noticed that the accommodations did not match the listing, which said the apartment has 1 bedroom and sleeps 3. It is actually a studio apartment and at most sleeps 2.  Additionally, the floors were dirty, the window was left unlocked and there were food particles on the stove and countertops. The soap containers were less than half full. It would have been better if they weren't provided at all. There is no heat in the bathroom. The shower curtain is not wide enough to prevent the bathroom from getting wet during a shower. Towels were only provided to accommodate 1 person when they knew that 2 guests were coming. The kitchen is lacking some helpful essentials such as kitchen towels, pot holders, dish rack, etc. During our stay, the ceiling started leaking. After inquiring about maintenance, we were told that someone would shovel the snow because the leak was probably due to snow accumulation. The following day after the storm was over, we asked multiple times about snow removal and kept receiving messages with excuses about the snow removal company they supposedly contaced. When it was time to checkout, we struggled to get our belongings to the car because of the snow and ice in front of our door and along the sidewalk to the parking lot. "
       },
       {
         "author": "Patti Deuchler",
-        "rating": 8,
+        "rating": 5,
         "date": "2025-12-18 18:38:23",
         "comment": "Very clean. Comfy bed. Good heat. "
       },
       {
         "author": "Daniel Jackson",
-        "rating": 4,
+        "rating": 4.9,
         "date": "2025-11-08 19:11:56",
         "comment": "Not the property for us.  We tried calling the rental agency but the number provided had been disconnected.   We never even opened the door to the rental unit, after hearing and seeing the the very graphic neighbor yelling told us that we weren’t comfortable here.  no refund, so renter please know before you go.  "
       },
       {
         "author": "Christen Noratel",
-        "rating": 10,
+        "rating": 4.9,
         "date": "2025-10-14 14:51:09",
         "comment": "Our room is exactly as it appears, like walking into the picture. It was exactly what we needed for our weekend stay. The room was clean and had everything stocked as we needed. Our host was super responsive and great to communicate with! PERFECT LOCATION! Highly recommend! "
       },
       {
         "author": "Jocelyn Salguero",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-09-23 15:53:45",
         "comment": " Everything about this property was perfect! it was clean and cozy, the location was everything so close to the boardwalk and Jersey shore store! "
       },
@@ -1995,14 +1995,14 @@ export const properties: Property[] = [
       },
       {
         "author": "Christian",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-07-20 03:11:48",
         "comment": "Great place.  Thank you!"
       }
     ],
     "lat": 39.9451226,
     "lng": -74.0713941,
-    "rating": 3.8,
+    "rating": 4.8,
     "link": "https://suitecapacity.holidayfuture.com/listings/393440"
   },
   {
@@ -2091,32 +2091,32 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Patti Deuchler",
-        "rating": 6,
+        "rating": 4.9,
         "date": "2026-02-09 21:04:51",
         "comment": "The host communicated back ok. This room was worn. Paint chipped on heater. Could use more glasses. Needed more towels. Drain in tub didn’t drain. Bed was comfy. Heat worked good. "
       },
       {
         "author": "TRICIA DECKER",
-        "rating": 10,
+        "rating": 4.9,
         "date": "2025-12-26 23:15:16",
         "comment": "Everything was quaint and cozy. The host was fantastic."
       },
       {
         "author": "TRICIA DECKER",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-12-25 18:55:56",
         "comment": "Host was great. Room was adorable, "
       },
       {
         "author": "Dayna Holmes",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-09-20 20:00:24",
         "comment": " its an unbeatable location, spotless upon arrival. would come back! exactly as advertised."
       }
     ],
     "lat": 39.9451226,
     "lng": -74.0713941,
-    "rating": 4.5,
+    "rating": 4.9,
     "link": "https://suitecapacity.holidayfuture.com/listings/393441"
   },
   {
@@ -2207,37 +2207,37 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Gregory Tucci",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-12-03 17:42:54",
         "comment": "Room is great; more noise outside than expected."
       },
       {
         "author": "Teresa",
-        "rating": 9,
+        "rating": 4.9,
         "date": "2025-11-20 13:56:46",
         "comment": "Comfortable, clean, convenient to my destinations both north and south, and overall just a great experience for my trip\nPositive: The apartment was great. Clean and comfortable. Bathroom was modern and had beautiful appointments. \n\nThe kitchen with the stove, full size fridge, microwave and all the amenities made things easy for me while I was there! The room thermostat worked terrific and allowed me to stay warm and cozy. \n\nThe access to the beach and boardwalk being so close allowed me the opportunity to get out and walk, as well as, capture the sea and sand here on the Jersey Shore. \n\nThe location, in respect to all the major thoroughfare, made access to points north and south east to jump on. And the fact that it is easily accessible to Ty 47 made going west to head home a breeze.\n\nHighly recommend this location and host. They’re attentive to customers needs and maintain good communications should a guest need anything. They were responsive with questions before I arrived and followed up upon my arrival to inquire as to whether there were any addt bedding or other needs. Those little details make a good host a great one!!\n\nAll in all a ten out of ten for me!! Will look to utilizing them again in future trips.\nNegative: It got a little noisy when the youngsters exited in the mornings and came back at night. That was thru no fault of the host. But maybe a sign or two posted on the outside of the building asking folks to respect other patrons before or after certain times of the day. 🙂\n\nI found I generate a lot of trash when staying for extended periods of time. I found myself overwhelming those little flip top garbage containers. 🤣🤣"
       },
       {
         "author": "Ira Son",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-11-06 23:29:25",
         "comment": "Love the location! Couldn’t have asked for a better spot unless you were literally in the ocean. The easy access and parking area was very good and the communication from the host was punctual and on point. I may have to book a second trip here in the future!"
       },
       {
         "author": "McNally",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-08-28 17:21:13",
         "comment": "Positive: Very clean and perfect location"
       },
       {
         "author": "John Ragosta",
-        "rating": 10,
+        "rating": 5,
         "date": "2025-08-10 23:54:51",
         "comment": "Overall, great stay."
       },
       {
         "author": "Ryan",
-        "rating": 9,
+        "rating": 4.9,
         "date": "2025-06-14 13:28:56",
         "comment": "I really enjoyed my stay as the room was very nice.  The other tenants including those who live there seemed all friendl\nPositive: The room was very nice with updated furniture appliances and bathroom.   It was on the smaller side but I was traveling alone and was perfect for me\nNegative: The parking situation is a mess here.   The lot is way too small and not easy to get in and out of.   If you have a large vehicle you’re gonna be out of luck unless you get a spot closest to the street.   Even then have to worry about the others clipping your vehicle as they try to maneuver into spots"
       }
@@ -2403,7 +2403,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9315032,
     "lng": -74.0766436,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/455210"
   },
   {
@@ -2504,7 +2504,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.939681,
     "lng": -74.0761423,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/472105"
   },
   {
@@ -2552,7 +2552,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9473051,
     "lng": -74.0746898,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/472117"
   },
   {
@@ -2704,7 +2704,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9269995,
     "lng": -74.1245762,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/489017"
   },
   {
@@ -2792,7 +2792,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9450535,
     "lng": -74.0714132,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/489776"
   },
   {
@@ -2878,7 +2878,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9450535,
     "lng": -74.0714132,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/489801"
   },
   {
@@ -2980,7 +2980,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9448813,
     "lng": -74.0729025,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/491290"
   },
   {
@@ -3073,7 +3073,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9422375,
     "lng": -74.0749134,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/502808"
   },
   {
@@ -3168,7 +3168,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9422375,
     "lng": -74.0749134,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/502822"
   },
   {
@@ -3263,7 +3263,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9422375,
     "lng": -74.0749134,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/502827"
   },
   {
@@ -3355,7 +3355,7 @@ export const properties: Property[] = [
     "reviews": [],
     "lat": 39.9422375,
     "lng": -74.0749134,
-    "rating": 10,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/502832"
   }
 ] as Property[];

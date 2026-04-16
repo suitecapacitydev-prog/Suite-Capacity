@@ -3,35 +3,26 @@ import SiteShell from '@/components/layout/site-shell';
 export default function AboutPage() {
   return (
     <SiteShell>
-      <section className="pt-32 pb-24 relative overflow-hidden">
+      <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mb-24">
+          <div className="max-w-4xl mb-8">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4">The Infrastructure of Passivity</p>
             <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-[0.9]">
               About Suite <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Capacity</span>
             </h1>
-            <p className="text-xl md:text-2xl text-black font-medium leading-relaxed">
-              Suite Capacity is a full-service short-term rental operating platform built to maximize revenue and eliminate the day-to-day burden for property owners.
-            </p>
-            <p className="text-lg text-black/60 mt-6 max-w-2xl font-medium">
-              We manage everything — pricing, guest experience, cleaning, maintenance, and design — turning properties into high-performing, fully passive income assets.
-            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-16 mb-24">
             <div className="space-y-8">
               <div>
-                <h2 className="text-3xl font-black tracking-tight mb-4 uppercase italic">Built to Scale. <br />Designed to Be Local.</h2>
+                <h2 className="text-3xl font-black tracking-tight mb-4 uppercase italic">Designed to Be Local<br />Built to Scale.</h2>
                 <p className="text-lg text-black/70 leading-relaxed font-medium">
                   What makes Suite Capacity different is how we operate. We combine a centralized system — covering pricing, strategy, and performance optimization — with local teams on the ground in every market we serve.
                 </p>
               </div>
-              <p className="text-lg text-black/80 font-bold border-l-4 border-primary pl-6 py-2 bg-primary/5">
-                That means your property is backed by a larger platform, while still being managed with the care and responsiveness of a local operator — always within 30 minutes of the asset.
-              </p>
             </div>
 
-            <div className="glass-panel p-10 bg-white text-black space-y-8 shadow-2xl border-none">
+            <div className="glass-panel  p-10 bg-white text-black space-y-8 shadow-2xl border-none">
               <h3 className="text-2xl font-black uppercase tracking-widest text-primary">The Result</h3>
               <ul className="space-y-6">
                 {[

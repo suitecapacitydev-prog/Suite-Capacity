@@ -123,14 +123,10 @@ export function RevenueIntelligenceWizard() {
         if (currentStep === 3) {
             setIsSubmitting(true);
             try {
-                console.log("aaaa");
-                console.log("wizardData", wizardData);
                 const proj = await calculateRevenueIntelligence(wizardData);
-                console.log("proj", proj);
                 setProjection(proj);
                 setCurrentStep((prev) => prev + 1);
             } catch (error) {
-                console.error('Intelligence failed:', error);
                 setCurrentStep((prev) => prev + 1);
             } finally {
                 setIsSubmitting(false);

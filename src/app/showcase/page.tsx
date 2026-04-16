@@ -40,7 +40,7 @@ export default function ShowcasePage() {
               Our Portfolio
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight leading-tight text-foreground font-playfair">
-              Managing <span className="text-primary italic">50+ Premium</span> Units
+              Managing <span className="text-primary italic">70+ Premium</span> Units
             </h1>
             <p className="text-secondary/60 text-xl leading-relaxed max-w-2xl mx-auto font-light">
               Explore a selection of our top-performing coastal properties and boutique hotel units, meticulously managed to deliver 5-star experiences and maximized revenue.
@@ -51,10 +51,10 @@ export default function ShowcasePage() {
           <BoutiqueHotelSpotlight />
 
           {/* Title for Grid */}
-           <div className="text-center mb-12 mt-24">
-             <h2 className="text-3xl font-bold font-playfair tracking-tight">Explore The Collection</h2>
-             <p className="text-secondary/50 mt-2">A curated look at our diverse management portfolio.</p>
-           </div>
+          <div className="text-center mb-12 mt-24">
+            <h2 className="text-3xl font-bold font-playfair tracking-tight">Explore The Collection</h2>
+            <p className="text-secondary/50 mt-2">A curated look at our diverse management portfolio.</p>
+          </div>
 
           {/* Filter Bar */}
           <motion.div
@@ -128,8 +128,8 @@ export default function ShowcasePage() {
                   </p>
                 </div>
                 <div className="shrink-0">
-                  <a 
-                    href="https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03" 
+                  <a
+                    href="https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

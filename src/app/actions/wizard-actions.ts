@@ -584,15 +584,11 @@ function isJerseyShore(address: string): boolean {
  * Coordinates between AirDNA, PriceLabs, and OpenAI.
  */
 export async function calculateRevenueIntelligence(data: WizardData): Promise<RevenueProjection> {
-    console.log('asasas');
     const isShore = isJerseyShore(data.property.address);
-    console.log('isShore', isShore);
-
+    
     try {
         // 1. Fetch Market Data from AirDNA
-        console.log('abc');
         const marketData = await AirDNAService.fetchMarketData(data.property.address);
-        console.log('ddddd');
         // 2. Fetch Pricing Intelligence from PriceLabs
         const pricingData = await PriceLabsService.getPricingStrategy(data.property.address);
 
@@ -604,11 +600,8 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
 
         // 4. Current Revenue (from user input or market average)
         const currentAdr = data.baseline.adr || marketData.adr;
-        console.log('currentAdr', currentAdr);
         const currentOcc = data.baseline.occupancy || marketData.occupancyRate;
-        console.log('currentOcc', currentOcc);
         const currentRevenue = data.baseline.annualRevenue || ((currentAdr * (currentOcc / 100)) * 365);
-        console.log('currentRevenue', currentRevenue);
 
         let optimizedRevenue = currentRevenue;
         let pricingLift = 0;

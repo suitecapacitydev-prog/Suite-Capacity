@@ -182,7 +182,7 @@ export default function RootLayout({
                     <div>
                         <h4 className="font-semibold mb-4">Platform</h4>
                         <ul className="space-y-2 text-sm text-secondary-foreground">
-                            <li><Link href="/invest" className="hover:text-primary transition-colors font-bold text-primary">STR Investment</Link></li>
+                            <li><Link href="/invest" className="hover:text-primary transition-colors font-bold text-primary">STR Blueprint</Link></li>
                             <li><Link href="/platform/revenue-intelligence" className="hover:text-primary transition-colors">Revenue Intelligence</Link></li>
                             <li><Link href="/guest-list" className="hover:text-primary transition-colors">Guest List (Book Direct)</Link></li>
                             <li><Link href="/platform/deployment" className="hover:text-primary transition-colors">7-Day Deployment</Link></li>
