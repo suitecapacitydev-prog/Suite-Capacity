@@ -85,7 +85,7 @@ export function Hero() {
                                 className="w-full gap-2 group h-12 px-10 rounded-2xl font-bold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all"
                             >
                                 <FileText className="w-5 h-5" />
-                                Schedule a Call
+                                Book Your Free Call
                                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                             </Button>
                         </a>
