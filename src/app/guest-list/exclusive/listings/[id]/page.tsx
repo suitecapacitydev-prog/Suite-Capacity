@@ -24,13 +24,6 @@ export default function ListingDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Member access check
-    const unlocked = localStorage.getItem('guest_list_unlocked') === 'true';
-    if (!unlocked) {
-      router.push('/guest-list?reason=locked');
-      return;
-    }
-
     const found = properties.find(p => p.id === Number(params.id));
     if (found) {
       setProperty(found);

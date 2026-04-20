@@ -87,7 +87,7 @@ export default function RootLayout({
                         )}
                         <Link href="/wizard">
                             <Button variant="intelligence" size="sm" className="hidden sm:inline-flex shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-95">
-                                Property Audit
+                                STR Blueprint
                             </Button>
                         </Link>
                         <button

@@ -19,11 +19,7 @@ export default function PropertyCard({ property, index, publicView = false }: Pr
   const allAmenities = Object.values(property.amenities).flat();
 
   const handleNavigate = () => {
-    if (publicView && property.link) {
-      window.open(property.link, '_blank', 'noopener,noreferrer');
-    } else {
-      router.push(`/guest-list/exclusive/listings/${property.id}`);
-    }
+    router.push(`/guest-list/exclusive/listings/${property.id}`);
   };
 
   return (
