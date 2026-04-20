@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 
 import { useJsApiLoader, GoogleMap, Marker, Autocomplete } from '@react-google-maps/api';
+import { MARKETS } from '@/data/markets';
 
 const LIBRARIES: ("places")[] = ["places"];
 
@@ -36,6 +37,14 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
             const place = autocomplete.getPlace();
             if (place.formatted_address) {
                 updateData({ address: place.formatted_address });
+                
+                // Try to auto-detect market
+                const addr = place.formatted_address.toLowerCase();
+                const matchedMarket = MARKETS.find(m => m.towns?.some(t => addr.includes(t)));
+                if (matchedMarket) {
+                    updateData({ marketId: matchedMarket.id });
+                }
+
                 if (place.geometry?.location) {
                     setMapCenter({
                         lat: place.geometry.location.lat(),
@@ -56,6 +65,13 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
         geocoder.geocode({ location: { lat, lng } }, (results, status) => {
             if (status === "OK" && results && results[0]) {
                 updateData({ address: results[0].formatted_address });
+                
+                // Try to auto-detect market
+                const addr = results[0].formatted_address.toLowerCase();
+                const matchedMarket = MARKETS.find(m => m.towns?.some(t => addr.includes(t)));
+                if (matchedMarket) {
+                    updateData({ marketId: matchedMarket.id });
+                }
             }
         });
     };
@@ -74,6 +90,13 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                     geocoder.geocode({ location: pos }, (results, status) => {
                         if (status === "OK" && results && results[0]) {
                             updateData({ address: results[0].formatted_address });
+                            
+                            // Try to auto-detect market
+                            const addr = results[0].formatted_address.toLowerCase();
+                            const matchedMarket = MARKETS.find(m => m.towns?.some(t => addr.includes(t)));
+                            if (matchedMarket) {
+                                updateData({ marketId: matchedMarket.id });
+                            }
                         }
                     });
                 },
@@ -151,61 +174,105 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
             </div>
 
             {/* Phase 2: Property Info & Maps */}
-            <div className="space-y-4 relative">
-                <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest">Property Location</label>
-                
-                {isLoaded ? (
-                    <div className="space-y-4">
-                        <div className="relative">
-                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary z-10" />
-                            <Autocomplete
-                                onLoad={setAutocomplete}
-                                onPlaceChanged={onPlaceChanged}
-                            >
-                                <input
-                                    type="text"
-                                    name="address"
-                                    autoComplete="street-address"
-                                    className="w-full h-12 bg-white border-2 border-black/5 rounded-2xl p-4 pl-12 pr-12 focus:border-primary focus:outline-none transition-all text-lg font-medium shadow-sm relative z-0"
-                                    placeholder="Start typing your property address..."
-                                    value={data.address || ''}
-                                    onChange={(e) => updateData({ address: e.target.value })}
-                                />
-                            </Autocomplete>
-                            <button 
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    detectLocation();
-                                }}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl hover:bg-primary/10 text-primary transition-all z-10"
-                                title="Use current location"
-                            >
-                                <Zap className="w-5 h-5 fill-primary/20" />
-                            </button>
-                        </div>
-                        
-                        <div className="h-[300px] w-full rounded-2xl overflow-hidden border-2 border-black/5 shadow-sm relative">
-                            <GoogleMap
-                                mapContainerStyle={{ width: '100%', height: '100%' }}
-                                center={mapCenter}
-                                zoom={15}
-                                onClick={handleMapClick}
-                                options={{
-                                    disableDefaultUI: true,
-                                    zoomControl: true,
-                                    streetViewControl: false,
-                                }}
-                            >
-                                <Marker position={mapCenter} />
-                            </GoogleMap>
-                            <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-xl border border-black/5 shadow-md text-xs font-bold text-center pointer-events-none">
-                                Click or drag on the map to fine-tune your location
+            <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                    <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        Property Location
+                    </label>
+                    
+                    {isLoaded ? (
+                        <div className="space-y-4">
+                            <div className="relative">
+                                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary z-10" />
+                                <Autocomplete
+                                    onLoad={setAutocomplete}
+                                    onPlaceChanged={onPlaceChanged}
+                                >
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        autoComplete="street-address"
+                                        className="w-full h-12 bg-white border-2 border-black/5 rounded-2xl p-4 pl-12 pr-12 focus:border-primary focus:outline-none transition-all text-lg font-medium shadow-sm relative z-0"
+                                        placeholder="Start typing your property address..."
+                                        value={data.address || ''}
+                                        onChange={(e) => updateData({ address: e.target.value })}
+                                    />
+                                </Autocomplete>
+                                <button 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        detectLocation();
+                                    }}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl hover:bg-primary/10 text-primary transition-all z-10"
+                                    title="Use current location"
+                                >
+                                    <Zap className="w-5 h-5 fill-primary/20" />
+                                </button>
+                            </div>
+                            
+                            <div className="h-[250px] w-full rounded-2xl overflow-hidden border-2 border-black/5 shadow-sm relative">
+                                <GoogleMap
+                                    mapContainerStyle={{ width: '100%', height: '100%' }}
+                                    center={mapCenter}
+                                    zoom={15}
+                                    onClick={handleMapClick}
+                                    options={{
+                                        disableDefaultUI: true,
+                                        zoomControl: true,
+                                        streetViewControl: false,
+                                    }}
+                                >
+                                    <Marker position={mapCenter} />
+                                </GoogleMap>
+                                <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-xl border border-black/5 shadow-md text-[10px] font-bold text-center pointer-events-none uppercase tracking-tighter">
+                                    Click or drag on the map to fine-tune your location
+                                </div>
                             </div>
                         </div>
+                    ) : (
+                        <div className="w-full h-12 bg-black/5 animate-pulse rounded-2xl" />
+                    )}
+                </div>
+
+                <div className="space-y-4">
+                    <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest flex items-center gap-2">
+                        <Waves className="w-4 h-4 text-primary" />
+                        Target Market
+                    </label>
+                    <div className="space-y-4">
+                        <select
+                            className="w-full h-12 bg-white border-2 border-black/5 rounded-2xl px-4 text-lg font-medium focus:border-primary focus:outline-none appearance-none shadow-sm"
+                            value={data.marketId || ''}
+                            onChange={(e) => updateData({ marketId: e.target.value })}
+                        >
+                            <option value="">Select your market...</option>
+                            {MARKETS.map(market => (
+                                <option key={market.id} value={market.id}>
+                                    {market.name} {market.status === 'Coming Soon' ? '(Coming Soon)' : ''}
+                                </option>
+                            ))}
+                        </select>
+                        
+                        {data.marketId && (
+                            <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 animate-in fade-in zoom-in-95 duration-300">
+                                <div className="flex items-center gap-3">
+                                    <div className={cn("p-2 rounded-xl", MARKETS.find(m => m.id === data.marketId)?.color)}>
+                                        {React.createElement(MARKETS.find(m => m.id === data.marketId)?.icon || MapPin, { className: "w-5 h-5" })}
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-bold text-foreground">
+                                            {MARKETS.find(m => m.id === data.marketId)?.name} Intelligence Active
+                                        </p>
+                                        <p className="text-[11px] text-muted-foreground font-medium">
+                                            {MARKETS.find(m => m.id === data.marketId)?.detail || 'Regional performance multipliers applied to analysis.'}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                ) : (
-                    <div className="w-full h-12 bg-black/5 animate-pulse rounded-2xl" />
-                )}
+                </div>
             </div>
 
             <div className="space-y-4">

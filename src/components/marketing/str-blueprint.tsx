@@ -1,10 +1,11 @@
 'use client';
 
-import { ArrowRight, CheckCircle, FileText, TrendingUp, MapPin, Clock } from 'lucide-react'
+import { ArrowRight, CheckCircle, FileText, TrendingUp, MapPin, Clock, Phone, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 import Autocomplete from 'react-google-autocomplete'
+import { Button } from '@/components/ui/button'
 
 export const STRBlueprint = () => {
     const router = useRouter();
@@ -27,28 +28,40 @@ export const STRBlueprint = () => {
                 <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
                     <div>
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-widest mb-6 border border-primary/20">
-                            Professional Analysis
+                            Immediate Access
                         </div>
                         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
-                            See Exactly What Your Property Can Make.
+                            Ready to Scale? <br />
+                            <span className="text-primary">Book Your Free Call Today.</span>
                         </h2>
-                        <p className="text-lg text-black/60 mb-8 leading-relaxed">
-                            Before you commit, we provide a personalized STR Blueprint real revenue projections, a design plan, and an optimization strategy tailored to your specific market.
+                        <p className="text-lg text-black/60 mb-8 leading-relaxed font-medium">
+                            Don't wait for a report. Speak directly with our property strategists to see how we can maximize your revenue immediately.
                         </p>
-                        <ul className="space-y-4 mb-10">
-                            {[
-                                'Revenue Projections & Market Comparison',
-                                'Design + Setup Plan for Maximum Bookings',
-                                'Full-Service Operational Management',
-                            ].map((item, i) => (
-                                <li key={i} className="flex items-center gap-3 text-black font-medium">
-                                    <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
 
-                        <div className="space-y-3">
+                        <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                            <a
+                                href="https://calendly.com/suitecapacity/consultation-and-discovery-call"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1"
+                            >
+                                <Button size="lg" className="w-full gap-2 group h-14 rounded-2xl font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
+                                    <Calendar className="w-5 h-5" />
+                                    Book Your Call
+                                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                                </Button>
+                            </a>
+                            
+                            <a href="tel:+18553034545" className="flex-1">
+                                <Button size="lg" variant="outline" className="w-full gap-2 h-14 rounded-2xl font-bold text-lg border-2 hover:bg-primary/5 transition-all">
+                                    <Phone className="w-5 h-5" />
+                                    Call Now
+                                </Button>
+                            </a>
+                        </div>
+
+                        <div className="pt-8 border-t border-black/5">
+                            <p className="text-sm font-bold text-black/40 uppercase tracking-widest mb-4">Or get your full AI analysis:</p>
                             <div className="relative max-w-md">
                                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                     <MapPin className="h-5 w-5 text-black/40" />
@@ -63,16 +76,16 @@ export const STRBlueprint = () => {
                                     options={{
                                         types: ['address'],
                                     }}
-                                    placeholder="Enter your property address"
+                                    placeholder="Enter property address for analysis"
                                     className="w-full pl-11 pr-4 py-4 rounded-xl border border-black/10 shadow-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-base"
                                 />
-                                <button className="absolute right-2 top-2 bottom-2 px-4 bg-primary text-white rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors flex items-center gap-2">
+                                <button className="absolute right-2 top-2 bottom-2 px-4 bg-primary/10 text-primary rounded-lg font-bold text-sm hover:bg-primary/20 transition-colors flex items-center gap-2">
                                     Analyze <ArrowRight className="w-4 h-4" />
                                 </button>
                             </div>
 
                             {lastAddress && (
-                                <div className="flex items-center gap-2 text-sm text-black/60 pl-2">
+                                <div className="flex items-center gap-2 text-sm text-black/60 mt-3 pl-2">
                                     <Clock className="w-4 h-4 text-black/40" />
                                     <span>Recent:</span>
                                     <button
@@ -85,9 +98,6 @@ export const STRBlueprint = () => {
                             )}
                         </div>
 
-                        <div className="mt-6 flex items-center gap-2 text-xs text-black/40">
-                            <CheckCircle className="w-3.5 h-3.5" /> Start your free consultation
-                        </div>
                     </div>
                     <div className="relative group">
                         <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl transition-transform group-hover:scale-[1.02] duration-500">
@@ -110,7 +120,7 @@ export const STRBlueprint = () => {
                             </div>
                         </div>
                         <div className="absolute -top-6 -right-6 bg-white rounded-2xl shadow-2xl px-8 py-5 border border-black/5 z-20 hover:-translate-y-1 transition-transform">
-                            <div className="text-sm font-black text-primary uppercase tracking-widest">Free Analysis</div>
+                            <div className="text-sm font-black text-primary uppercase tracking-widest">Free Strategy</div>
                         </div>
                     </div>
                 </div>

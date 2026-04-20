@@ -107,6 +107,12 @@ export function RevenueIntelligenceWizard() {
             if (!emailRegex.test(wizardData.lead.email)) return 'Please enter a valid email address.';
         }
 
+        if (currentStep === 3) {
+            if (!wizardData.aiDesign.images || wizardData.aiDesign.images.length === 0) {
+                return 'Please upload at least one property photo to proceed.';
+            }
+        }
+
         return null;
     };
 
@@ -242,9 +248,9 @@ export function RevenueIntelligenceWizard() {
                                         updateData={(d) => setWizardData(prev => ({ ...prev, audit: { ...prev.audit, ...d } }))}
                                     />
                                     <div className="border-t border-border/50 pt-10">
-                                        <div className="mb-6">
-                                            <h4 className="text-lg font-bold tracking-tight mb-1">Visual Revenue Enhancement Preview™</h4>
-                                            <p className="text-sm text-muted-foreground">Upload photos of your property so we can show you an AI-enhanced concept in your results report. 3 required, 3 optional.</p>
+                                        <div className="mb-6 text-center lg:text-left">
+                                            <h4 className="text-xl font-black tracking-tighter mb-2">Visual Sales Intelligence Preview™</h4>
+                                            <p className="text-sm text-muted-foreground font-medium">Upload one clear photo of your property's primary living space or exterior to unlock AI-enhanced revenue concepts.</p>
                                         </div>
                                         <AIDesignUploadStep
                                             data={wizardData.aiDesign}

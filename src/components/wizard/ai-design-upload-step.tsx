@@ -16,139 +16,149 @@ interface AIDesignUploadStepProps {
 }
 
 export function AIDesignUploadStep({ data, updateData }: AIDesignUploadStepProps) {
-    const [isDragging, setIsDragging] = useState<string | null>(null);
-    const [uploading, setUploading] = useState<Record<string, boolean>>({});
-    const [uploadErrors, setUploadErrors] = useState<Record<string, string>>({});
+    const [isDragging, setIsDragging] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
+    const [uploadError, setUploadError] = useState('');
+    
+    const primaryCategory = 'living-room';
 
-    const categories: { id: AIDesignUpload['images'][0]['category']; label: string; required: boolean }[] = [
-        { id: 'living-room', label: 'Living Room', required: true },
-        { id: 'bedroom', label: 'Primary Bedroom', required: true },
-        { id: 'outdoor', label: 'Outdoor / Backyard', required: true },
-        { id: 'kitchen', label: 'Kitchen', required: false },
-        { id: 'bathroom', label: 'Bathroom', required: false },
-        { id: 'exterior', label: 'Exterior', required: false },
-    ];
-
-    const handleFileUpload = async (category: AIDesignUpload['images'][0]['category'], file: File) => {
-        setUploadErrors(prev => ({ ...prev, [category]: '' }));
-        setUploading(prev => ({ ...prev, [category]: true }));
+    const handleFileUpload = async (file: File) => {
+        setUploadError('');
+        setIsUploading(true);
         try {
-            const result = await uploadPropertyPhoto(file, category);
+            const result = await uploadPropertyPhoto(file, primaryCategory);
 
             if (result.success && result.url) {
                 const newImage = {
                     id: Math.random().toString(36).substr(2, 9),
-                    category,
+                    category: primaryCategory as any,
                     url: result.url,
                     enhancedUrl: result.enhancedUrl,
                     enhancedStatus: result.enhancedStatus,
                 };
 
-                const currentImages = data.images || [];
-                // Remove existing image in same category if any
-                const filteredImages = currentImages.filter(img => img.category !== category);
-                updateData({ images: [...filteredImages, newImage] });
+                // Replace all existing images with this new primary image
+                updateData({ images: [newImage] });
             } else {
-                setUploadErrors(prev => ({ ...prev, [category]: result.error || 'Upload failed' }));
+                setUploadError(result.error || 'Upload failed');
             }
         } catch (error: any) {
-            setUploadErrors(prev => ({ ...prev, [category]: error?.message || String(error) }));
+            setUploadError(error?.message || String(error));
         } finally {
-            setUploading(prev => ({ ...prev, [category]: false }));
+            setIsUploading(false);
         }
     };
 
-    const removeImage = (id: string) => {
-        const currentImages = data.images || [];
-        updateData({ images: currentImages.filter(img => img.id !== id) });
+    const removeImage = () => {
+        updateData({ images: [] });
     };
 
-    const getImageForCategory = (category: string) => {
-        return data.images?.find(img => img.category === category);
-    };
+    const image = data.images && data.images.length > 0 ? data.images[0] : null;
 
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 flex gap-4 items-start">
-                <Info className="w-6 h-6 text-primary shrink-0 mt-1" />
-                <div className="space-y-1">
-                    <h4 className="font-bold text-primary">Design Demand Optimization Preview™</h4>
-                    <p className="text-sm text-muted-foreground">
-                        Our intelligence engine analyzes your photos to generate high-impact design concepts.
-                        Upload clear, horizontal photos for best results. No heavy filters.
+        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8 flex gap-6 items-start">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
+                    <Sparkles className="w-6 h-6 text-primary" />
+                </div>
+                <div className="space-y-2">
+                    <h4 className="text-lg font-black text-primary uppercase tracking-tight">AI Visual Revenue Engine™</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                        Upload a single, high-quality photo of your property's primary living space or exterior. 
+                        Our AI will generate a high-impact design concept to visualize your property's maximum revenue potential.
                     </p>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {categories.map((cat) => {
-                    const image = getImageForCategory(cat.id);
-                    const isUploading = uploading[cat.id];
+            <div className="max-w-2xl mx-auto">
+                <div className="space-y-4">
+                    <div className="flex justify-between items-end px-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                            Primary Property Photo
+                        </label>
+                        <span className="text-[10px] font-bold text-primary uppercase tracking-widest bg-primary/10 px-2 py-0.5 rounded">Required</span>
+                    </div>
 
-                    return (
-                        <div key={cat.id} className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex justify-between">
-                                {cat.label}
-                                {cat.required && <span className="text-[10px] text-primary">Required</span>}
-                            </label>
-
-                            <div
-                                className={cn(
-                                    "relative aspect-video rounded-xl border-2 border-dashed transition-all flex flex-col items-center justify-center overflow-hidden",
-                                    (image || isUploading) ? "border-solid border-primary" : "border-border hover:border-primary/50 bg-muted/30",
-                                    isDragging === cat.id && "border-primary bg-primary/5 scale-[1.02]"
-                                )}
-                                onDragOver={(e) => { e.preventDefault(); setIsDragging(cat.id); }}
-                                onDragLeave={() => setIsDragging(null)}
-                                onDrop={(e) => {
-                                    e.preventDefault();
-                                    setIsDragging(null);
-                                    const file = e.dataTransfer.files[0];
-                                    if (file) handleFileUpload(cat.id, file);
-                                }}
-                            >
-                                {isUploading ? (
-                                    <div className="flex flex-col items-center gap-2">
-                                        <Loader2 className="w-8 h-8 text-primary animate-spin" />
-                                        <span className="text-[10px] font-bold text-primary animate-pulse">UPLOADING...</span>
+                    <div
+                        className={cn(
+                            "relative aspect-[16/9] rounded-[2rem] border-4 border-dashed transition-all flex flex-col items-center justify-center overflow-hidden group shadow-2xl shadow-black/5",
+                            (image || isUploading) ? "border-solid border-primary" : "border-slate-200 hover:border-primary/50 bg-slate-50",
+                            isDragging && "border-primary bg-primary/5 scale-[1.02]"
+                        )}
+                        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                        onDragLeave={() => setIsDragging(false)}
+                        onDrop={(e) => {
+                            e.preventDefault();
+                            setIsDragging(false);
+                            const file = e.dataTransfer.files[0];
+                            if (file) handleFileUpload(file);
+                        }}
+                    >
+                        {isUploading ? (
+                            <div className="flex flex-col items-center gap-4">
+                                <div className="relative">
+                                    <Loader2 className="w-16 h-16 text-primary animate-spin" />
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
                                     </div>
-                                ) : image ? (
-                                    <>
-                                        <img src={image.url} alt={cat.label} className="w-full h-full object-cover" />
-                                        <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                                            <button
-                                                onClick={() => removeImage(image.id)}
-                                                className="p-2 bg-destructive text-destructive-foreground rounded-full hover:scale-110 transition-transform"
-                                            >
-                                                <Trash2 className="w-5 h-5" />
-                                            </button>
-                                        </div>
-                                        <div className="absolute top-2 right-2 p-1 bg-primary rounded-full shadow-glow">
-                                            <CheckCircle2 className="w-4 h-4 text-primary-foreground" />
-                                        </div>
-                                    </>
-                                ) : (
-                                    <label className="cursor-pointer flex flex-col items-center gap-2 w-full h-full justify-center">
-                                        <Upload className="w-8 h-8 text-muted-foreground group-hover:text-primary transition-colors" />
-                                        <span className="text-xs font-medium text-muted-foreground group-hover:text-primary">Select or Drop</span>
-                                        <input
-                                            type="file"
-                                            className="hidden"
-                                            accept="image/*"
-                                            onChange={(e) => {
-                                                const file = e.target.files?.[0];
-                                                if (file) handleFileUpload(cat.id, file);
-                                            }}
-                                        />
-                                    </label>
-                                )}
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <span className="text-xs font-black text-primary tracking-widest animate-pulse">UPLOADING IMAGE</span>
+                                    <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">Analyzing composition...</span>
+                                </div>
                             </div>
-                            {uploadErrors[cat.id] && (
-                                <p className="text-xs text-destructive mt-1">{uploadErrors[cat.id]}</p>
-                            )}
-                        </div>
-                    );
-                })}
+                        ) : image ? (
+                            <>
+                                <img src={image.url} alt="Property" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-sm flex items-center justify-center gap-6">
+                                    <button
+                                        onClick={removeImage}
+                                        className="flex items-center gap-2 px-6 py-3 bg-destructive text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:scale-110 transition-transform shadow-lg shadow-destructive/20"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                        Replace Photo
+                                    </button>
+                                </div>
+                                <div className="absolute top-6 right-6 p-2 bg-primary rounded-2xl shadow-glow animate-in zoom-in duration-500">
+                                    <CheckCircle2 className="w-5 h-5 text-primary-foreground" />
+                                </div>
+                                <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                                    <p className="text-[10px] font-black text-white uppercase tracking-widest opacity-80">Image Securely Locked for Analysis</p>
+                                </div>
+                            </>
+                        ) : (
+                            <label className="cursor-pointer flex flex-col items-center gap-6 w-full h-full justify-center transition-transform hover:scale-105 active:scale-95">
+                                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 group-hover:bg-primary/20">
+                                    <Upload className="w-8 h-8 text-primary" />
+                                </div>
+                                <div className="text-center space-y-1">
+                                    <span className="block text-sm font-black uppercase tracking-widest text-slate-800">Choose Property Photo</span>
+                                    <span className="block text-xs font-bold text-slate-400">Drag & Drop or Click to Browse</span>
+                                </div>
+                                <input
+                                    type="file"
+                                    className="hidden"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) handleFileUpload(file);
+                                    }}
+                                />
+                            </label>
+                        )}
+                    </div>
+                    {uploadError && (
+                        <p className="text-xs text-destructive font-bold text-center mt-2 px-4 py-2 bg-destructive/5 rounded-lg border border-destructive/10">
+                            {uploadError}
+                        </p>
+                    )}
+                </div>
+            </div>
+            
+            <div className="flex justify-center">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                    <ImageIcon className="w-3.5 h-3.5" /> Optimal format: Horizontal 16:9
+                </div>
             </div>
         </div>
     );

@@ -45,6 +45,12 @@ export class RevenueEngine {
                 marketOccupancy: improvedOccupancy,
                 demandIndex: marketData.demandIndex,
             },
+            performanceBreakdown: {
+                peakContribution: 70,
+                shoulderContribution: 20,
+                offSeasonContribution: 10,
+                peakWeeklyRate: marketData.adr * 7 * 1.25,
+            }
         };
     }
 }

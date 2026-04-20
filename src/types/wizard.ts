@@ -19,6 +19,7 @@ export interface QualificationData {
 
 export interface PropertyProfile {
     address: string;
+    marketId?: string;
     propertyType: PropertyType;
     bedrooms: number;
     bathrooms: number;
@@ -97,6 +98,12 @@ export interface RevenueProjection {
         topQuartileAdr: number;
         marketOccupancy: number;
         demandIndex: number;
+    };
+    performanceBreakdown: {
+        peakContribution: number;
+        shoulderContribution: number;
+        offSeasonContribution: number;
+        peakWeeklyRate: number;
     };
     intelligence?: {
         positioning: {

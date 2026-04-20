@@ -7,6 +7,7 @@ import { AirDNAService } from '@/services/airdna';
 import { PriceLabsService } from '@/services/pricelabs';
 import { AIREnderingService } from '@/services/ai-rendering';
 import { OpenAIService } from '@/services/openai';
+import { MARKETS } from '@/data/markets';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import nodemailer from 'nodemailer';
 
@@ -566,17 +567,16 @@ export async function uploadPropertyPhoto(file: File, category: string) {
 }
 
 /**
- * Checks if an address is within the Jersey Shore target markets.
+ * Checks if an address is within a target market.
  */
-function isJerseyShore(address: string): boolean {
-    const shoreTowns = [
-        'seaside heights', 'seaside park', 'lavallette', 'ortley beach',
-        'point pleasant', 'mantoloking', 'bay head', 'manasquan',
-        'belmar', 'spring lake', 'sea girt', 'bradley beach',
-        'ocean grove', 'asbury park', 'long branch'
-    ];
-    const addr = address.toLowerCase();
-    return shoreTowns.some(town => addr.includes(town));
+function getTargetMarket(data: WizardData) {
+    if (data.property.marketId) {
+        return MARKETS.find(m => m.id === data.property.marketId);
+    }
+    const addr = data.property.address.toLowerCase();
+    return MARKETS.find(market => 
+        market.towns?.some(town => addr.includes(town))
+    );
 }
 
 /**
@@ -584,7 +584,9 @@ function isJerseyShore(address: string): boolean {
  * Coordinates between AirDNA, PriceLabs, and OpenAI.
  */
 export async function calculateRevenueIntelligence(data: WizardData): Promise<RevenueProjection> {
-    const isShore = isJerseyShore(data.property.address);
+    const market = getTargetMarket(data);
+    const isShore = market?.id === 'jersey-shore';
+    const marketMultiplier = market?.multiplier || 1.15; // default conservative multiplier
     
     try {
         // 1. Fetch Market Data from AirDNA
@@ -620,7 +622,7 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
         if (isShore) {
             // Jersey Shore Logic: Blend heuristic with real AirDNA data
             const brCount = data.property.bedrooms || 1;
-            const marketDrivenPeak = (marketData.adr * 7) * 1.35; // Peak season commands 35% premium rate
+            const marketDrivenPeak = (marketData.adr * 7) * marketMultiplier; 
             const heuristicPeak = brCount * 1050; 
             const peakWeeklyRate = Math.max(heuristicPeak, marketDrivenPeak);
             
@@ -643,7 +645,7 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
             const dynamicVolatility = pricingData.volatilityIndex || (marketData.seasonalityIndex * 0.3) || 0.15;
             
             // Market Upside: Catch up to top quartile ADR if they are operating below
-            const topQuartileAdr = marketData.adr * 1.35;
+            const topQuartileAdr = marketData.adr * marketMultiplier;
             const adrGap = Math.max(0, topQuartileAdr - currentAdr);
             const marketUpside = adrGap * (currentOcc / 100) * 365;
             
@@ -679,6 +681,12 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
                 marketOccupancy: marketData.occupancyRate,
                 demandIndex: marketData.demandIndex * 100
             },
+            performanceBreakdown: {
+                peakContribution: Math.round((marketData.seasonalityIndex || 0.75) * 100),
+                shoulderContribution: Math.round((1 - (marketData.seasonalityIndex || 0.75)) * 0.65 * 100),
+                offSeasonContribution: Math.round((1 - (marketData.seasonalityIndex || 0.75)) * 0.35 * 100),
+                peakWeeklyRate: Math.round((marketData.adr * 7) * marketMultiplier)
+            },
             intelligence: intelligence || undefined
         };
     } catch (error) {
@@ -696,6 +704,7 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
 
         const estimatedAdr = data.baseline.adr || (isShore ? 450 : 250);
         const estimatedOccupancy = data.baseline.occupancy || (isShore ? 55 : 60);
+        const fallbackSeasonality = isShore ? 0.75 : 0.60;
 
         // Try AI even in fallback path
         const intelligence = await OpenAIService.generateIntelligence(data, {
@@ -718,6 +727,12 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
                 topQuartileAdr: Math.round(estimatedAdr * 1.25),
                 marketOccupancy: Math.min(100, Math.max(0, estimatedOccupancy)),
                 demandIndex: isShore ? 92 : 80,
+            },
+            performanceBreakdown: {
+                peakContribution: Math.round(fallbackSeasonality * 100),
+                shoulderContribution: Math.round((1 - fallbackSeasonality) * 0.65 * 100),
+                offSeasonContribution: Math.round((1 - fallbackSeasonality) * 0.35 * 100),
+                peakWeeklyRate: Math.round(estimatedAdr * 7 * (isShore ? 1.35 : 1.15))
             },
             intelligence: intelligence || undefined
         };

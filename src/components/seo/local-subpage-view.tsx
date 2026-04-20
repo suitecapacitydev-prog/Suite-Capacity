@@ -11,7 +11,7 @@ interface LocalSubpageViewProps {
 }
 
 export function LocalSubpageView({ market, subMarket }: LocalSubpageViewProps) {
-  const nearbyTowns = market.subMarkets.filter(sm => sm.slug !== subMarket.slug);
+  const nearbyTowns = market.subMarkets?.filter(sm => sm.slug !== subMarket.slug) || [];
 
   return (
     <SiteShell>

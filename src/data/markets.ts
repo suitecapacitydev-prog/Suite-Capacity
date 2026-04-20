@@ -1,4 +1,7 @@
-import { TrendingUp, Users, ShieldCheck, Star, Sun, Waves, Calendar, MapPin, Zap } from 'lucide-react';
+import { 
+  TrendingUp, Users, ShieldCheck, Star, Sun, Waves, Calendar, MapPin, Zap,
+  Mountain, Trees, Cloud, LucideIcon 
+} from 'lucide-react';
 
 export type IconName = 'TrendingUp' | 'Users' | 'ShieldCheck' | 'Star' | 'Sun' | 'Waves' | 'Calendar' | 'MapPin' | 'Zap';
 
@@ -34,26 +37,47 @@ export interface SubMarket {
 }
 
 export interface Market {
-  slug: string; // The Market hub page URL slug (e.g. 'new-jersey-airbnb-management')
-  name: string; // E.g. 'New Jersey'
-  heroTitle: string;
-  heroHighlight: string;
-  heroDesc: string;
-  heroImage: string;
-  revenueIncrease: string;
-  revenueContext: string;
-  stats: MarketStat[];
-  featuresTitle: string;
-  featuresHighlight: string;
-  featuresDesc: string;
-  features: MarketFeature[];
-  subMarkets: SubMarket[];
+  id?: string;
+  slug?: string;
+  name: string;
+  detail?: string;
+  status?: 'Active' | 'Coming Soon';
+  icon?: LucideIcon;
+  color?: string;
+  towns?: string[];
+  multiplier?: number;
+  
+  // SEO fields
+  heroTitle?: string;
+  heroHighlight?: string;
+  heroDesc?: string;
+  heroImage?: string;
+  revenueIncrease?: string;
+  revenueContext?: string;
+  stats?: MarketStat[];
+  featuresTitle?: string;
+  featuresHighlight?: string;
+  featuresDesc?: string;
+  features?: MarketFeature[];
+  subMarkets?: SubMarket[];
 }
 
-export const markets: Market[] = [
-  {
+export const MARKETS: Market[] = [
+  { 
+    id: 'jersey-shore',
     slug: 'new-jersey-airbnb-management',
-    name: 'Jersey Shore Central',
+    name: 'Jersey Shore', 
+    detail: 'Asbury Park to Cape May', 
+    status: 'Active',
+    icon: Waves,
+    color: 'text-blue-500 bg-blue-500/10',
+    towns: [
+      'seaside heights', 'seaside park', 'lavallette', 'ortley beach',
+      'point pleasant', 'mantoloking', 'bay head', 'manasquan',
+      'belmar', 'spring lake', 'sea girt', 'bradley beach',
+      'ocean grove', 'asbury park', 'long branch', 'wildwood', 'cape may'
+    ],
+    multiplier: 1.35,
     heroTitle: 'Mastering the',
     heroHighlight: 'Atlantic Seaboard.',
     heroDesc: "From Belmar to Cape May, we've deployed a hyper-local operations layer that handles high-intensity summer seasonal spikes with 28.4% better revenue capture than the market average.",
@@ -106,19 +130,76 @@ export const markets: Market[] = [
         demandExplanation: 'Lavallette is highly sought after for month-long or full-season family rentals, though the market is shifting toward lucrative weekly and weekend micro-stays. We optimize your calendar to capture the highest yielding demographic.'
       }
     ]
-  }
+  },
+  { 
+    id: 'kissimmee-orlando',
+    name: 'Kissimmee-Orlando', 
+    status: 'Coming Soon',
+    icon: Sun,
+    color: 'text-orange-500 bg-orange-500/10',
+    towns: ['kissimmee', 'orlando', 'disney', 'celebration'],
+    multiplier: 1.15
+  },
+  { 
+    id: 'florida-coastal',
+    name: 'Florida Coastal', 
+    status: 'Coming Soon',
+    icon: Waves,
+    color: 'text-cyan-500 bg-cyan-500/10',
+    towns: ['miami', 'fort lauderdale', 'destin', 'clearwater'],
+    multiplier: 1.25
+  },
+  { 
+    id: 'phoenix-scottsdale',
+    name: 'Phoenix', 
+    status: 'Coming Soon',
+    icon: Cloud,
+    color: 'text-yellow-600 bg-yellow-600/10',
+    towns: ['phoenix', 'scottsdale', 'mesa', 'tempe'],
+    multiplier: 1.20
+  },
+  { 
+    id: 'smoky-mountains',
+    name: 'Smoky Mountains', 
+    status: 'Coming Soon',
+    icon: Mountain,
+    color: 'text-green-600 bg-green-600/10',
+    towns: ['gatlinburg', 'pigeon forge', 'sevierville'],
+    multiplier: 1.22
+  },
+  { 
+    id: 'poconos',
+    name: 'Poconos', 
+    status: 'Coming Soon',
+    icon: Trees,
+    color: 'text-emerald-700 bg-emerald-700/10',
+    towns: ['mount pocono', 'stroudsburg', 'lake wallenpaupack', 'lake ariel'],
+    multiplier: 1.18
+  },
 ];
 
+// Backwards compatibility for old code
+export const markets = MARKETS.filter(m => m.slug);
+
 export function getMarketBySlug(slug: string): Market | undefined {
-  return markets.find((m) => m.slug === slug);
+  return MARKETS.find((m) => m.slug === slug);
 }
 
 export function getSubMarketBySlug(slug: string): { market: Market; subMarket: SubMarket } | undefined {
-  for (const market of markets) {
-    const subMarket = market.subMarkets.find((sm) => sm.slug === slug);
-    if (subMarket) {
-      return { market, subMarket };
+  for (const market of MARKETS) {
+    if (market.subMarkets) {
+      const subMarket = market.subMarkets.find((sm) => sm.slug === slug);
+      if (subMarket) {
+        return { market, subMarket };
+      }
     }
   }
   return undefined;
+}
+
+export function getMarketByAddress(address: string): Market | undefined {
+  const addr = address.toLowerCase();
+  return MARKETS.find(market => 
+    market.towns?.some(town => addr.includes(town))
+  );
 }

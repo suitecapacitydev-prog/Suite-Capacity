@@ -62,7 +62,7 @@ export function MarketHubView({ market }: MarketHubViewProps) {
       <section className="py-24 bg-white border-b border-black/5">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {market.stats.map((stat, i) => {
+            {market.stats?.map((stat, i) => {
               const IconComponent = iconMap[stat.iconName] || TrendingUp;
               return (
                 <div key={i} className="text-center space-y-2">
@@ -89,7 +89,7 @@ export function MarketHubView({ market }: MarketHubViewProps) {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {market.features.map((feature, i) => {
+            {market.features?.map((feature, i) => {
               const IconComponent = iconMap[feature.iconName] || Zap;
               return (
                 <div key={i} className="glass-panel p-10 border-black/5 bg-white hover:border-primary/20 transition-all">
