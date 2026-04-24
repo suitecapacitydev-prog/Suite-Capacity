@@ -32,7 +32,7 @@ export const AirDNAService = {
         }
 
         try {
-            // Updated to use the correct API endpoint and pass the access_token in the query string
+            console.log("DEBUG: AirDNA Requesting URL:", `https://api.airdna.co/client/v1/rentalizer/estimate?address=${encodeURIComponent(address)}&access_token=${apiKey.substring(0, 4)}...`);
             const response = await fetch(`https://api.airdna.co/client/v1/rentalizer/estimate?address=${encodeURIComponent(address)}&access_token=${apiKey}`, {
                 headers: {
                     'Accept': 'application/json'
@@ -41,6 +41,7 @@ export const AirDNAService = {
 
             if (!response.ok) {
                 const errorText = await response.text();
+                console.error(`DEBUG: AirDNA API Error (${response.status}):`, errorText);
                 // If 404, it might mean the address wasn't found or the endpoint is slightly different
                 // In dev, we fallback to mock rather than crashing the whole wizard
                 if (response.status === 404) {
@@ -57,6 +58,7 @@ export const AirDNAService = {
             }
 
             const data = await response.json();
+            console.log("DEBUG: AirDNA Raw Response Stats:", data.property_stats);
 
             // Mapping AirDNA response fields (Rentalizer Estimate format)
             const stats = data.property_stats || {};

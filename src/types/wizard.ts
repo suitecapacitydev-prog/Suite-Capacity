@@ -131,7 +131,8 @@ export interface RevenueProjection {
             descriptionStrategy: string[];
         };
         whySuiteCapacity: string;
-    }
+    };
+    volatilityIndex?: number;
 }
 
 // Backwards-compatible alias used by API routes

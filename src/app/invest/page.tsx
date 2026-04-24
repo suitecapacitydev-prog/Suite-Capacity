@@ -87,9 +87,9 @@ export default function InvestPage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="/wizard">
+                <a href="https://calendly.com/suitecapacity/consultation-and-discovery-call" target="_blank" rel="noopener noreferrer">
                   <Button variant="intelligence" className="h-12 px-8 font-bold">Apply for the 90-Day Accelerator</Button>
-                </Link>
+                </a>
                 <a href="https://calendly.com/suitecapacity/consultation-and-discovery-call" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" className="h-12 px-8 font-bold">Schedule a Call</Button>
                 </a>

@@ -69,23 +69,31 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
         const occupancyContext = isShore ? "massive summer demand spikes" : "steady year-round demand";
 
         return {
-            description: `A ${br}-bedroom ${type} property located in ${city}, positioned to capture ${occupancyContext} within ${location}.`,
-            marketPositioning: wizardData.audit.designLevel === 'basic' ? "Budget to Mid-tier Asset (High Upside)" : "Premium-Tier Potential",
-            strengths: `Strategic ${isShore ? "coastal" : "local"} location, ${br} guest rooms, and ${wizardData.property.parking} parking a critical value driver in ${city}.`,
-            limitations: wizardData.audit.designLevel === 'basic' || wizardData.audit.designLevel === 'updated'
-                ? "Outdated interior staging and lack of 'Tulum-inspired' lifestyle amenities currently capping nightly rate potential."
-                : "Under-optimized listing SEO and lack of dynamic pricing, leading to occupancy leakage during shoulder periods."
+            description: "No real-time intelligence data was received for this property. This typically happens if the address is too vague or if there is an issue with the AI connection.",
+            marketPositioning: "Analysis Pending",
+            strengths: "Pending real-world verification",
+            limitations: "Pending professional audit"
         };
     };
 
     const pos = getPositioningContent();
     const intelligence = projection.intelligence;
+    const isMock = !intelligence;
     const liftPct = Math.round((projection.optimizedRevenue / projection.currentRevenue - 1) * 100);
 
     const selectedMarket = MARKETS.find(m => m.id === wizardData.property.marketId) || MARKETS.find(m => wizardData.property.address.toLowerCase().includes(m.name.toLowerCase()));
 
     return (
         <div className="space-y-20 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            {isMock && (
+                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-center gap-4 text-amber-800">
+                    <Sparkles className="w-5 h-5 animate-pulse text-amber-600" />
+                    <div>
+                        <p className="text-sm font-black uppercase tracking-tight">Real-Time Intelligence Pending</p>
+                        <p className="text-[10px] font-bold opacity-80 uppercase tracking-widest">We are currently calculating your property's custom analysis. Below is a high-fidelity preview of your projected optimization strategy.</p>
+                    </div>
+                </div>
+            )}
             {/* Market Index Analysis - NEW SECTION */}
             <div className="p-8 rounded-[2rem] bg-slate-50 border border-slate-200">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-8">
@@ -217,7 +225,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                                 Optimized Target: {formatCurrency(projection.optimizedRevenue)}
                             </div>
                             <div className="absolute bottom-16 right-0 bg-slate-100 text-slate-500 text-[10px] font-black px-2 py-1 rounded-lg">
-                                AirDNA Baseline: {formatCurrency(projection.marketComparison.marketMedianAdr * 0.6 * 365)}
+                                Market Baseline: {formatCurrency(projection.currentRevenue)}
                             </div>
                         </div>
 
@@ -283,7 +291,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-4 gap-4">
+                <div className="grid md:grid-cols-5 gap-4">
                     <div className="glass-panel p-6 intelligence-border">
                         <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-3">Est. Annual Revenue</p>
                         <p className="text-3xl font-black">{formatCurrency(projection.currentRevenue)}</p>
@@ -302,6 +310,22 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                         <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-3">Off-Season contribution</p>
                         <p className="text-2xl font-bold">{projection.performanceBreakdown?.offSeasonContribution || 10}%</p>
                         <p className="text-[9px] font-medium text-muted-foreground mt-1 uppercase">Winter Anchor Strategy</p>
+                    </div>
+                    <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <div className="flex justify-between items-center mb-4">
+                            <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Market Intelligence</p>
+                            <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-[8px] font-black uppercase rounded-full">PriceLabs® Live</span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <p className="text-xs font-bold text-slate-500 uppercase mb-1">Multiplier</p>
+                                <p className="text-xl font-black text-foreground">{selectedMarket?.multiplier || 1.15}x</p>
+                            </div>
+                            <div>
+                                <p className="text-xs font-bold text-slate-500 uppercase mb-1">Volatility</p>
+                                <p className="text-xl font-black text-blue-600">{Math.round((projection as any).volatilityIndex * 100)}%</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <p className="text-sm text-black/60 font-medium italic">
@@ -324,9 +348,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                 <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-4">
                         {(intelligence?.missedOpportunities || [
-                            { title: "Outdated Visual Identity", desc: "Current photography and interior staging fail to capture the premium 'lifestyle' pricing bracket." },
-                            { title: "Sub-Optimal Amenity Mix", desc: "Lack of experiential outdoor or workspace features reduces booking conversion by 18-22%." },
-                            { title: "Static Pricing Model", desc: "Manual rate management results in significant compression during mid-week and shoulder periods." }
+                            { title: "Connection Required", desc: "Real-time opportunity analysis requires a valid API connection and street-level address." }
                         ]).map((item, i) => {
                             const title = typeof item === 'string' ? item : item.title;
                             const desc = typeof item === 'string' ? "" : item.desc;
@@ -458,12 +480,11 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                     <div className="glass-panel p-8 space-y-8 intelligence-border">
                         <div className="space-y-4">
                             <h4 className="text-xl font-black uppercase tracking-tighter">
-                                {intelligence?.designStrategy?.recommendation.split(':')[0] || (wizardData.aiDesign.images[0]?.category === 'outdoor' || wizardData.aiDesign.images[0]?.category === 'exterior' ? 'Experiential Lounge Strategy' : 'Tulum Tropical Modern direction')}
+                                {intelligence?.designStrategy?.recommendation.split(':')[0] || 
+                                 (isShore ? 'Tulum Tropical Modern Direction' : 'Modern Industrial Lifestyle Concept')}
                             </h4>
                             <p className="text-sm text-black/70 leading-relaxed font-medium">
-                                {intelligence?.designStrategy?.recommendation || (wizardData.aiDesign.images[0]?.category === 'outdoor' || wizardData.aiDesign.images[0]?.category === 'exterior'
-                                    ? "We recommend implementing a fire pit lounge with string lighting and outdoor dining zones to drive higher off-season conversion. A signature differentiator like professional mini-golf or hammocks directly supports premium nightly rates."
-                                    : "Focus on a neutral palette (sand, beige, warm whites) combined with natural woods and textures like linen and jute. Statement lighting and greenery will create the 'experience-first' aesthetic that commands top-tier pricing.")}
+                                {intelligence?.designStrategy?.recommendation || "Professional design recommendations are generated specifically for your property after a successful AI audit. Please ensure your property data is complete."}
                             </p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
@@ -503,7 +524,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                             </div>
                             <div className="p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-900">
                                 <p className="text-xs font-bold uppercase mb-1 text-emerald-600">Optimized (Suite Capacity Standard)</p>
-                                <p className="text-lg font-black">{intelligence?.listingStrategy?.titleStrategy?.good || (isShore ? 'Tulum-Inspired Coastal Retreat w/ Fire Pit + Game Room' : 'Designer Urban Sanctuary w/ Chef\'s Kitchen + Workspace')}</p>
+                                <p className="text-lg font-black">{intelligence?.listingStrategy?.titleStrategy?.good || "Analysis Pending"}</p>
                             </div>
                         </div>
                     </div>

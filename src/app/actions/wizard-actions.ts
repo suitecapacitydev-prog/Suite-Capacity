@@ -157,7 +157,8 @@ async function generateReportPdf(data: WizardData, projection: RevenueProjection
         const indent = options.indent ?? 0;
         const maxWidth = width - indent;
 
-        const words = text.split(' ');
+        if (!text) return; // Guard against undefined or null strings
+        const words = text.toString().split(' ');
         let line = '';
 
         for (const word of words) {
@@ -215,18 +216,28 @@ async function generateReportPdf(data: WizardData, projection: RevenueProjection
     drawSectionHeader('1. Property Positioning Snapshot');
     if (intel?.positioning) {
         drawWrappedText('Asset Description:', { bold: true });
-        drawWrappedText(intel.positioning.description, { indent: 10 });
+        drawWrappedText(intel.positioning.description || 'Property assessment pending.', { indent: 10 });
         y -= 5;
         drawWrappedText('Market Positioning:', { bold: true });
-        drawWrappedText(intel.positioning.marketPositioning, { indent: 10 });
+        drawWrappedText(intel.positioning.marketPositioning || 'Premium-Tier Potential', { indent: 10 });
         y -= 5;
         drawWrappedText('Key Strengths:', { bold: true });
-        drawWrappedText(intel.positioning.strengths, { indent: 10 });
+        drawWrappedText(intel.positioning.strengths || 'Strategic location and asset configuration.', { indent: 10 });
     }
 
     // 2. Performance
     drawSectionHeader('2. Current Market Performance (Baseline)');
     drawWrappedText(`Estimated Annual Revenue: $${projection.currentRevenue.toLocaleString()}`, { bold: true });
+    
+    if (projection.performanceBreakdown) {
+        const pb = projection.performanceBreakdown;
+        drawWrappedText(`• Peak Season Weekly Rate: $${pb.peakWeeklyRate.toLocaleString()}`, { indent: 10 });
+        drawWrappedText(`• Peak Impact Window: ${pb.peakContribution}%`, { indent: 10 });
+        drawWrappedText(`• Shoulder Contribution: ${pb.shoulderContribution}%`, { indent: 10 });
+        drawWrappedText(`• Off-Season Contribution: ${pb.offSeasonContribution}%`, { indent: 10 });
+        y -= 10;
+    }
+
     if (intel?.marketPerformance) {
         drawWrappedText(intel.marketPerformance.baselineContext, { indent: 10 });
     }
@@ -245,30 +256,39 @@ async function generateReportPdf(data: WizardData, projection: RevenueProjection
     // 4. Optimized Projection
     drawSectionHeader('4. Suite Capacity Optimized Projection');
     drawWrappedText(`Optimized Revenue Target: $${projection.optimizedRevenue.toLocaleString()}`, { size: 14, bold: true, color: accentColor });
+    
+    if (projection.performanceBreakdown) {
+        const pb = projection.performanceBreakdown;
+        // Adjust for optimized lift
+        const lift = (projection.optimizedRevenue / projection.currentRevenue);
+        const optimizedPeak = Math.round(pb.peakWeeklyRate * lift);
+        drawWrappedText(`• New Peak Weekly Rate: $${optimizedPeak.toLocaleString()}`, { indent: 10, bold: true });
+    }
+
     if (intel?.optimizedProjection) {
-        drawWrappedText(`• New Peak Weekly Rate: ${intel.optimizedProjection.newPeakWeeklyRate}`);
-        drawWrappedText(`• Occupancy Target: ${intel.optimizedProjection.occupancyTarget}`);
-        drawWrappedText(`• Projected Range: ${intel.optimizedProjection.revenueRange}`);
+        drawWrappedText(`• New Peak Weekly Rate (AI): ${intel.optimizedProjection.newPeakWeeklyRate}`, { indent: 10 });
+        drawWrappedText(`• Occupancy Target: ${intel.optimizedProjection.occupancyTarget}`, { indent: 10 });
+        drawWrappedText(`• Projected Range: ${intel.optimizedProjection.revenueRange}`, { indent: 10 });
     }
 
     // 5. Design Strategy
     drawSectionHeader('5. Design & Amenity Strategy');
     if (intel?.designStrategy) {
         drawWrappedText('Recommendation:', { bold: true });
-        drawWrappedText(intel.designStrategy.recommendation, { indent: 10 });
+        drawWrappedText(intel.designStrategy.recommendation || 'Design strategy pending professional audit.', { indent: 10 });
         y -= 5;
         drawWrappedText('Impact Logic:', { bold: true });
-        drawWrappedText(intel.designStrategy.impact, { indent: 10 });
+        drawWrappedText(intel.designStrategy.impact || 'Upgrades drive nightly rate growth and conversion.', { indent: 10 });
     }
 
     // 6. Listing Optimization
     drawSectionHeader('6. Listing Optimization Strategy');
     if (intel?.listingStrategy) {
         drawWrappedText('Target Title:', { bold: true });
-        drawWrappedText(intel.listingStrategy.titleStrategy.good, { indent: 10, color: accentColor });
+        drawWrappedText(intel.listingStrategy.titleStrategy?.good || 'Optimized SEO Title Pending', { indent: 10, color: accentColor });
         y -= 5;
         drawWrappedText('Copy Logic Details:', { bold: true });
-        intel.listingStrategy.descriptionStrategy.forEach((step: string) => {
+        (intel.listingStrategy.descriptionStrategy || []).forEach((step: string) => {
             drawWrappedText(`- ${step}`, { indent: 10 });
         });
     }
@@ -400,7 +420,27 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                         <p style="font-weight: 700; margin-bottom: 5px;">Market Positioning:</p>
                         <p style="margin-top: 0; margin-bottom: 20px; font-weight: 900;">${intel?.positioning?.marketPositioning || 'Premium-Tier Potential'}</p>
 
-                        <h2 style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #3b82f6; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 20px;">2. Missed Revenue Opportunities</h2>
+                        <h2 style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #3b82f6; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 20px;">2. Market Performance & Seasonality</h2>
+                        <div style="background-color: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 30px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase;">Peak Weekly Rate:</span>
+                                <span style="font-size: 14px; font-weight: 900;">$${projection.performanceBreakdown?.peakWeeklyRate.toLocaleString() || 'N/A'}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase;">Peak Impact Window:</span>
+                                <span style="font-size: 14px; font-weight: 900;">${projection.performanceBreakdown?.peakContribution || 0}%</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase;">Shoulder Contribution:</span>
+                                <span style="font-size: 14px; font-weight: 900;">${projection.performanceBreakdown?.shoulderContribution || 0}%</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase;">Off-Season Contribution:</span>
+                                <span style="font-size: 14px; font-weight: 900;">${projection.performanceBreakdown?.offSeasonContribution || 0}%</span>
+                            </div>
+                        </div>
+
+                        <h2 style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #3b82f6; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 20px;">3. Missed Revenue Opportunities</h2>
                         <div style="margin-bottom: 30px;">
                             ${(intel?.missedOpportunities || []).map((opp: any) => `
                                 <div style="margin-bottom: 15px;">
@@ -416,7 +456,7 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                             <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 5px;">Projected Annual Revenue Target</p>
                         </div>
 
-                        <h2 style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #3b82f6; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 20px;">3. Optimized Growth Roadmap</h2>
+                        <h2 style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #3b82f6; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 20px;">4. Optimized Growth Roadmap</h2>
                         <ul style="padding-left: 20px; margin-bottom: 30px;">
                             <li style="margin-bottom: 10px;"><strong>Design Strategy:</strong> ${intel?.designStrategy?.recommendation || 'Premium interior refresh.'}</li>
                             <li style="margin-bottom: 10px;"><strong>Listing Optimization:</strong> ${intel?.listingStrategy?.titleStrategy?.good || 'Experience-first SEO titles.'}</li>
@@ -575,24 +615,52 @@ function getTargetMarket(data: WizardData) {
     }
     const addr = data.property.address.toLowerCase();
     return MARKETS.find(market => 
-        market.towns?.some(town => addr.includes(town))
+                        market.towns?.some(town => addr.includes(town))
     );
 }
 
 /**
- * Calculates a real intelligence-based revenue projection.
- * Coordinates between AirDNA, PriceLabs, and OpenAI.
+ * Cleans up common "noise" from property addresses like "Sleeps X" or "- Entire Complex"
+ * ensuring better matching with real-estate APIs.
+ */
+function sanitizeAddress(address: string): string {
+    if (!address) return "";
+    
+    // Remove "Sleeps X", "Entire Complex", "Combo", etc.
+    return address
+        .split(/ - | Sleeps | sleeps | Sleeps: | sleeps: |, sleeps /)[0]
+        .replace(/Entire Complex/gi, '')
+        .replace(/Combo/gi, '')
+        .replace(/\d+\s*BR/gi, '')
+        .trim();
+}
+
+/**
+ * Calculates revenue intelligence based on property and market data.
  */
 export async function calculateRevenueIntelligence(data: WizardData): Promise<RevenueProjection> {
+    const rawAddress = data.property.address;
+    const cleanAddress = sanitizeAddress(rawAddress);
     const market = getTargetMarket(data);
+    
+    console.log("DEBUG: Original Address:", rawAddress);
+    console.log("DEBUG: Sanitized Address:", cleanAddress);
+
+    // Simple check: Does the address at least look like it has a city/state?
+    // (Contains at least one comma or a Zip Code-like pattern)
+    const isVague = !cleanAddress.includes(',') && !/\b\d{5}\b/.test(cleanAddress);
+    
     const isShore = market?.id === 'jersey-shore';
     const marketMultiplier = market?.multiplier || 1.15; // default conservative multiplier
     
     try {
         // 1. Fetch Market Data from AirDNA
-        const marketData = await AirDNAService.fetchMarketData(data.property.address);
+        // If address is vague, AirDNA Rentalizer will almost certainly fail or return garbage.
+        const marketData = await AirDNAService.fetchMarketData(isVague ? `${cleanAddress}, New Jersey` : cleanAddress);
+        console.log("DEBUG: Final Market Data in Action:", marketData);
+
         // 2. Fetch Pricing Intelligence from PriceLabs
-        const pricingData = await PriceLabsService.getPricingStrategy(data.property.address);
+        const pricingData = await PriceLabsService.getPricingStrategy(cleanAddress);
 
         // 3. Generate AI Intelligence in parallel if possible
         const aiIntelligencePromise = OpenAIService.generateIntelligence(data, {
@@ -604,6 +672,9 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
         const currentAdr = data.baseline.adr || marketData.adr;
         const currentOcc = data.baseline.occupancy || marketData.occupancyRate;
         const currentRevenue = data.baseline.annualRevenue || ((currentAdr * (currentOcc / 100)) * 365);
+        
+        // Use user revenue if available as the baseline comparison
+        const baselineComparison = data.baseline.annualRevenue || (marketData.revpar * 365);
 
         let optimizedRevenue = currentRevenue;
         let pricingLift = 0;
@@ -666,6 +737,26 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
 
         const intelligence = await aiIntelligencePromise;
 
+        // Extract and parse the performance breakdown from AI if available
+        const aiBreakdown = intelligence?.performanceBreakdown;
+        const parseNumeric = (val: any) => {
+            if (typeof val === 'number') return val;
+            if (typeof val !== 'string') return 0;
+            return parseInt(val.replace(/[^0-9]/g, '')) || 0;
+        };
+
+        const performanceBreakdown = aiBreakdown ? {
+            peakContribution: parseNumeric(aiBreakdown.peakContribution),
+            shoulderContribution: parseNumeric(aiBreakdown.shoulderContribution),
+            offSeasonContribution: parseNumeric(aiBreakdown.offSeasonContribution),
+            peakWeeklyRate: parseNumeric(aiBreakdown.peakWeeklyRate)
+        } : {
+            peakContribution: Math.round((marketData.seasonalityIndex || 0.75) * 100),
+            shoulderContribution: Math.round((1 - (marketData.seasonalityIndex || 0.75)) * 0.65 * 100),
+            offSeasonContribution: Math.round((1 - (marketData.seasonalityIndex || 0.75)) * 0.35 * 100),
+            peakWeeklyRate: Math.round((marketData.adr * 7) * marketMultiplier)
+        };
+
         return {
             currentRevenue,
             optimizedRevenue,
@@ -681,13 +772,9 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
                 marketOccupancy: marketData.occupancyRate,
                 demandIndex: marketData.demandIndex * 100
             },
-            performanceBreakdown: {
-                peakContribution: Math.round((marketData.seasonalityIndex || 0.75) * 100),
-                shoulderContribution: Math.round((1 - (marketData.seasonalityIndex || 0.75)) * 0.65 * 100),
-                offSeasonContribution: Math.round((1 - (marketData.seasonalityIndex || 0.75)) * 0.35 * 100),
-                peakWeeklyRate: Math.round((marketData.adr * 7) * marketMultiplier)
-            },
-            intelligence: intelligence || undefined
+            performanceBreakdown,
+            intelligence: intelligence || undefined,
+            volatilityIndex: pricingData.volatilityIndex || 0.15
         };
     } catch (error) {
         console.error('Intelligence Calculation Error:', error);
@@ -713,6 +800,25 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
             isShore
         }).catch(() => null);
 
+        const aiBreakdown = intelligence?.performanceBreakdown;
+        const parseNumeric = (val: any) => {
+            if (typeof val === 'number') return val;
+            if (typeof val !== 'string') return 0;
+            return parseInt(val.replace(/[^0-9]/g, '')) || 0;
+        };
+
+        const performanceBreakdown = aiBreakdown ? {
+            peakContribution: parseNumeric(aiBreakdown.peakContribution),
+            shoulderContribution: parseNumeric(aiBreakdown.shoulderContribution),
+            offSeasonContribution: parseNumeric(aiBreakdown.offSeasonContribution),
+            peakWeeklyRate: parseNumeric(aiBreakdown.peakWeeklyRate)
+        } : {
+            peakContribution: Math.round(fallbackSeasonality * 100),
+            shoulderContribution: Math.round((1 - fallbackSeasonality) * 0.65 * 100),
+            offSeasonContribution: Math.round((1 - fallbackSeasonality) * 0.35 * 100),
+            peakWeeklyRate: Math.round(estimatedAdr * 7 * (isShore ? 1.35 : 1.15))
+        };
+
         return {
             currentRevenue,
             optimizedRevenue,
@@ -728,13 +834,9 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
                 marketOccupancy: Math.min(100, Math.max(0, estimatedOccupancy)),
                 demandIndex: isShore ? 92 : 80,
             },
-            performanceBreakdown: {
-                peakContribution: Math.round(fallbackSeasonality * 100),
-                shoulderContribution: Math.round((1 - fallbackSeasonality) * 0.65 * 100),
-                offSeasonContribution: Math.round((1 - fallbackSeasonality) * 0.35 * 100),
-                peakWeeklyRate: Math.round(estimatedAdr * 7 * (isShore ? 1.35 : 1.15))
-            },
-            intelligence: intelligence || undefined
+            performanceBreakdown,
+            intelligence: intelligence || undefined,
+            volatilityIndex: 0.15
         };
     }
 }
