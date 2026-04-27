@@ -53,7 +53,7 @@ export function AsSeenIn() {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        className="flex flex-wrap items-center justify-center lg:justify-end gap-x-12 gap-y-10"
+                        className="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-12 gap-y-10 items-center justify-items-center w-full"
                     >
                         {logos.map((logo) => (
                             <motion.div 

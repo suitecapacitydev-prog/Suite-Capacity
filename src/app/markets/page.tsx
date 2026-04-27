@@ -8,9 +8,9 @@ export default function MarketsPage() {
       name: 'Jersey Shore',
       desc: 'Asbury park to cape may. The Northeast’s premier beach destination. Specialized beachfront maintenance and high-intensity summer seasonal strategies.',
       performance: '15.9%',
-      stats: '50+',
+      stats: '70+',
       icon: Waves,
-      href: '/new-jersey-airbnb-management',
+      href: '/markets/jersey-shore',
     },
     {
       name: 'Kissimmee-Orlando',
@@ -18,7 +18,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Sun,
-      href: '/orlando-airbnb-management',
+      href: '/markets/orlando-airbnb-management',
     },
     {
       name: 'Florida Coastal',
@@ -26,7 +26,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Waves,
-      href: '/miami-airbnb-management',
+      href: '/markets/florida-coastal',
     },
     {
       name: 'Phoenix',
@@ -34,7 +34,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Sun,
-      href: '/phoenix-airbnb-management',
+      href: '/markets/phoenix',
     },
     {
       name: 'Smoky Mountains',
@@ -42,7 +42,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Mountain,
-      href: '/smoky-mountains-airbnb-management',
+      href: '/markets/smoky-mountains',
     },
     {
       name: 'Poconos',
@@ -50,7 +50,7 @@ export default function MarketsPage() {
       performance: 'TBD',
       stats: 'Coming Soon',
       icon: Trees,
-      href: '/poconos-airbnb-management',
+      href: '/markets/poconos',
     },
   ];
 

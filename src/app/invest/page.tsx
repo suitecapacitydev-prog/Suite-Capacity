@@ -1,7 +1,7 @@
 'use client';
 
 import SiteShell from '@/components/layout/site-shell';
-import { Rocket, ShieldCheck, Zap, BarChart3, Users, Settings, ArrowRight, CheckCircle2, TrendingUp, Building2, Landmark } from 'lucide-react';
+import { Rocket, ShieldCheck, Zap, BarChart3, Users, Settings, ArrowRight, CheckCircle2, TrendingUp, Building2, Landmark, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -26,11 +26,12 @@ export default function InvestPage() {
             From buying your first property to investing in curated portfolios   Suite Capacity helps you launch, manage, and scale STR investments.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="#accelerator">
-              <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-14 px-8 text-lg font-bold shadow-xl shadow-primary/20">
-                Apply for the Accelerator
+            <a href="tel:+18553034545" className="w-full sm:w-auto">
+              <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-14 px-8 text-lg font-bold shadow-xl shadow-primary/20 flex items-center gap-3 hover:scale-105 transition-transform">
+                <Phone className="w-5 h-5" />
+                Call to Apply: +1 (855) 303-4545
               </Button>
-            </Link>
+            </a>
             <Link href="https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03">
               <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-8 text-lg font-bold">
                 Schedule a Call

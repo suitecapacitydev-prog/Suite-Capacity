@@ -65,7 +65,7 @@ export interface Market {
 export const MARKETS: Market[] = [
   { 
     id: 'jersey-shore',
-    slug: 'new-jersey-airbnb-management',
+    slug: 'jersey-shore',
     name: 'Jersey Shore', 
     detail: 'Asbury Park to Cape May', 
     status: 'Active',
@@ -133,6 +133,7 @@ export const MARKETS: Market[] = [
   },
   { 
     id: 'kissimmee-orlando',
+    slug: 'orlando-airbnb-management',
     name: 'Kissimmee-Orlando', 
     status: 'Coming Soon',
     icon: Sun,
@@ -142,6 +143,7 @@ export const MARKETS: Market[] = [
   },
   { 
     id: 'florida-coastal',
+    slug: 'florida-coastal',
     name: 'Florida Coastal', 
     status: 'Coming Soon',
     icon: Waves,
@@ -151,6 +153,7 @@ export const MARKETS: Market[] = [
   },
   { 
     id: 'phoenix-scottsdale',
+    slug: 'phoenix',
     name: 'Phoenix', 
     status: 'Coming Soon',
     icon: Cloud,
@@ -160,6 +163,7 @@ export const MARKETS: Market[] = [
   },
   { 
     id: 'smoky-mountains',
+    slug: 'smoky-mountains',
     name: 'Smoky Mountains', 
     status: 'Coming Soon',
     icon: Mountain,
@@ -169,6 +173,7 @@ export const MARKETS: Market[] = [
   },
   { 
     id: 'poconos',
+    slug: 'poconos',
     name: 'Poconos', 
     status: 'Coming Soon',
     icon: Trees,

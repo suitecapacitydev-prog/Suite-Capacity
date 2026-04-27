@@ -52,8 +52,8 @@ export default function BoutiqueHotelSpotlight() {
              <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-primary/5 border border-white/10 relative group">
                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                <Image 
-                 src="https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393450-W1rt3Uoob--neBu--EiYuBf5i--58fyQSyEHQaE7fiUR--M-682c8d087478d" 
-                 alt="Boutique Hotel" 
+                 src="/images/jersey-shore-hotel.png" 
+                 alt="Jersey Shore BNB Boutique Hotel" 
                  fill 
                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                />

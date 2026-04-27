@@ -106,7 +106,7 @@ export default function RootLayout({
                             <Link href="/invest" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-primary font-bold">Invest</Link>
                             <Link href="/guest-list" className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Guest List</Link>
                             <Link href="/markets" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Markets</Link>
-                            <Link href="/solutions" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Solutions</Link>
+                            <Link href="/solutions" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Services</Link>
                             <Link href="/showcase" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Properties</Link>
                             <Link href="/about" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">About</Link>
                             <div className="pt-4 mt-2 border-t border-black/5 flex flex-col gap-4">
@@ -193,6 +193,11 @@ export default function RootLayout({
                         <h4 className="font-semibold mb-4">Markets</h4>
                         <ul className="space-y-2 text-sm text-secondary-foreground">
                             <li><Link href="/markets/jersey-shore" className="hover:text-primary transition-colors">Jersey Shore</Link></li>
+                            <li><Link href="/markets/orlando-airbnb-management" className="hover:text-primary transition-colors">Kissimmee-Orlando</Link></li>
+                            <li><Link href="/markets/florida-coastal" className="hover:text-primary transition-colors">Florida Coastal</Link></li>
+                            <li><Link href="/markets/phoenix" className="hover:text-primary transition-colors">Phoenix</Link></li>
+                            <li><Link href="/markets/smoky-mountains" className="hover:text-primary transition-colors">Smoky Mountains</Link></li>
+                            <li><Link href="/markets/poconos" className="hover:text-primary transition-colors">Poconos</Link></li>
                         </ul>
                     </div>
 
@@ -216,7 +221,7 @@ export default function RootLayout({
                     </div>
                 </div>
                 <div className={`container mx-auto px-6 mt-12 pt-8 border-t flex justify-between items-center text-xs font-bold ${dark ? 'border-white/10 text-white/40' : 'border-border text-primary'}`}>
-                    <p>© 2024 Suite Capacity. All rights reserved.</p>
+                    <p>© 2026 Suite Capacity. All rights reserved.</p>
                     <div className="flex gap-6">
                         <Link href="#">Privacy Policy</Link>
                         <Link href="#">Terms of Service</Link>
