@@ -29,7 +29,7 @@ export default function InvestPage() {
             <a href="tel:+18553034545" className="w-full sm:w-auto">
               <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-14 px-8 text-lg font-bold shadow-xl shadow-primary/20 flex items-center gap-3 hover:scale-105 transition-transform">
                 <Phone className="w-5 h-5" />
-                Call to Apply: +1 (855) 303-4545
+                Call us today: +1 (855) 303-4545
               </Button>
             </a>
             <Link href="https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03">

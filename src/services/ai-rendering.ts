@@ -32,20 +32,20 @@ export const AIREnderingService = {
         }
 
         try {
-            // Replicate Prediction API call (e.g., using ControlNet or SDXL)
-            // Model: stability-ai/sdxl
+            // Replicate Prediction API call using nightmareai/real-esrgan to enhance image resolution and quality
             const response = await fetch('https://api.replicate.com/v1/predictions', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Token ${apiToken}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Prefer': 'wait' // Tell Replicate to wait for the prediction to finish
                 },
                 body: JSON.stringify({
-                    version: "39ed52f2a78e934b3ba6e2a89f5b1d712de74a53d7492f96931f3a1d3523a131", // SDXL version
+                    version: "42fed1c4974146d4d2414e2be2c5277c7fcf05fcc3a73abf41610695738c1d7b", // nightmareai/real-esrgan
                     input: {
                         image: request.imageUrl,
-                        prompt: `Professional high-end real estate listing photo, luxury interior design, ${request.category}, high resolution, sharp focus`,
-                        negative_prompt: "blurry, low quality, distorted, watermark",
+                        scale: 4, // 4x upscale to target 4K resolution
+                        face_enhance: false
                     }
                 })
             });
@@ -59,7 +59,7 @@ export const AIREnderingService = {
 
             return {
                 id: data.id,
-                enhancedUrl: data.output ? data.output[0] : "",
+                enhancedUrl: data.output ? (Array.isArray(data.output) ? data.output[0] : data.output) : "",
                 status: data.status === 'succeeded' ? 'completed' : 'processing'
             };
         } catch (error) {

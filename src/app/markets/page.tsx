@@ -11,6 +11,7 @@ export default function MarketsPage() {
       stats: '70+',
       icon: Waves,
       href: '/markets/jersey-shore',
+      image: '/images/jersey-shore-hotel.png',
     },
     {
       name: 'Kissimmee-Orlando',
@@ -19,6 +20,7 @@ export default function MarketsPage() {
       stats: 'Coming Soon',
       icon: Sun,
       href: '/markets/orlando-airbnb-management',
+      image: '/images/properties/orlando.png',
     },
     {
       name: 'Florida Coastal',
@@ -27,6 +29,7 @@ export default function MarketsPage() {
       stats: 'Coming Soon',
       icon: Waves,
       href: '/markets/florida-coastal',
+      image: '/images/properties/florida-coastal.png',
     },
     {
       name: 'Phoenix',
@@ -35,6 +38,7 @@ export default function MarketsPage() {
       stats: 'Coming Soon',
       icon: Sun,
       href: '/markets/phoenix',
+      image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=1200',
     },
     {
       name: 'Smoky Mountains',
@@ -43,6 +47,7 @@ export default function MarketsPage() {
       stats: 'Coming Soon',
       icon: Mountain,
       href: '/markets/smoky-mountains',
+      image: 'https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&q=80&w=800',
     },
     {
       name: 'Poconos',
@@ -51,6 +56,7 @@ export default function MarketsPage() {
       stats: 'Coming Soon',
       icon: Trees,
       href: '/markets/poconos',
+      image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800',
     },
   ];
 
@@ -76,14 +82,7 @@ export default function MarketsPage() {
               <Link key={index} href={market.href} className="glass-panel overflow-hidden group hover:border-primary/30 transition-all hover:scale-[1.02] flex flex-col">
                 <div className="h-48 overflow-hidden relative">
                   <img
-                    src={
-                      market.name === 'Jersey Shore' ? '/images/properties/waterfront.jpg' :
-                        market.name === 'Kissimmee-Orlando' ? 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=800' :
-                          market.name === 'Florida Coastal' ? '/images/properties/beachside.jpg' :
-                            market.name === 'Phoenix' ? 'https://images.unsplash.com/photo-1558036117-15d82a90b9b1?auto=format&fit=crop&q=80&w=800' :
-                              market.name === 'Smoky Mountains' ? 'https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&q=80&w=800' :
-                                'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800'
-                    }
+                    src={market.image}
                     alt={`${market.name} vacation rental property`}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />

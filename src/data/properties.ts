@@ -189,7 +189,7 @@ export const properties: Property[] = [
     ],
     "lat": 39.9405343,
     "lng": -74.0867971,
-    "rating": 4.9,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/409074"
   },
   {
@@ -345,7 +345,7 @@ export const properties: Property[] = [
     "id": 406894,
     "hostawayId": 363324,
     "name": "Coastal Beach House w/ Kayaks, Game Room & Bay Views",
-    "description": "Welcome to your ideal Jersey Shore escape! This spacious and family-friendly 3-bedroom, 2-bath beach house is located directly across the street from the beach and offers stunning bay views, tons of outdoor space, and a unique game-filled garage for endless fun.\n\n🛏️ 3 Bedrooms | 2 Full Bathrooms – Comfortable layout perfect for families or groups\n🚘 Parking for 3 Vehicles – Includes driveway and off-street options\n🧺 Washer & Dryer In-Unit – Ideal for extended stays\n🌅 Deck & Backyard with Bay Views – Great for grilling, lounging, or sunset drinks\n🎮 Converted Garage Game Room – Pool table, arcade games, and more\n🚴‍♂️ Outdoor Adventure Included – Kayaks and bikes available for guest use\n🔥 Grill and patio seating for outdoor dining and relaxation\n🌊 Just Steps to the Beach – Walk to the sand in seconds!\n\nPerfectly located between the bay and the beach, this home combines coastal comfort with family fun, offering a one-of-a-kind vacation experience near all the top attractions in the Seaside area.\n\nBook now to experience the best of the Jersey Shore whether you're paddling on the bay, playing in the game room, or enjoying a relaxing beach day just steps from your front door!",
+    "description": "Welcome to your ideal Jersey Shore escape! This spacious and family-friendly 3-bedroom, 2-bath beach house is located directly across the street from the beach and offers stunning bay views, tons of outdoor space, and a unique gamefilled garage for endless fun.\n\n🛏️ 3 Bedrooms | 2 Full Bathrooms – Comfortable layout perfect for families or groups\n🚘 Parking for 3 Vehicles – Includes driveway and off-street options\n🧺 Washer & Dryer In-Unit – Ideal for extended stays\n🌅 Deck & Backyard with Bay Views – Great for grilling, lounging, or sunset drinks\n🎮 Converted Garage Game Room – Pool table, arcade games, and more\n🚴‍♂️ Outdoor Adventure Included – Kayaks and bikes available for guest use\n🔥 Grill and patio seating for outdoor dining and relaxation\n🌊 Just Steps to the Beach – Walk to the sand in seconds!\n\nPerfectly located between the bay and the beach, this home combines coastal comfort with family fun, offering a one-of-a-kind vacation experience near all the top attractions in the Seaside area.\n\nBook now to experience the best of the Jersey Shore whether you're paddling on the bay, playing in the game room, or enjoying a relaxing beach day just steps from your front door!",
     "houseRules": "House Rules:\n\n– Primary renter must be at least 25 years old\n– No parties, events, or group rentals allowed\n– No prom, graduation, or similar group gatherings\n– Quiet hours must be respected\n– Government-issued photo ID is required to confirm the reservation and verify age\n\nWe take pride in maintaining a clean, peaceful, and family-friendly home. Guests who do not meet these requirements will have their reservations canceled. Thank you for your understanding!",
     "location": "Ocean Gate, US",
     "city": "Ocean Gate",
@@ -540,7 +540,7 @@ export const properties: Property[] = [
       },
       {
         "author": "William Marriott",
-        "rating": 4.9,
+        "rating": 2,
         "date": "2025-09-26 21:02:56",
         "comment": "We have rented many places through VRBO, and sadly we must report that this is absolutely the worst one we have ever experienced.  While it is evident that the owner has spent some money on the attractive pavers in the driveway and on the kayaks, bicycles and some games, the “basics” of the house show no evidence of understanding renters’ needs.The ad indicated \"all fees included\" and VRBO added a separate additional fee.The oven is filthy but useless anyway as there are no baking pans of any sort and no oven mitts or potholders.Two days before we sent an inquirer about the coffee maker to make sure we brought the correct filters, etc.  Never received an answer.Both coffee makers had water in their reservoirs, and they felt slimy when emptied.  Fortunately, we had brought our own coffee maker.We found ice cream in the freezer with a date stamp of 10/20/2023.Many items in the house were broken or didn't work.We have pictures and more if you want it."
       },
@@ -553,7 +553,7 @@ export const properties: Property[] = [
     ],
     "lat": 39.9272408,
     "lng": -74.1322793,
-    "rating": 4.2,
+    "rating": 4.9,
     "link": "https://suitecapacity.holidayfuture.com/listings/406894"
   },
   {
@@ -664,6 +664,12 @@ export const properties: Property[] = [
     },
     "reviews": [
       {
+        "author": "Hughes",
+        "rating": 1,
+        "date": "2026-04-22 11:46:19",
+        "comment": "Wouldn’t do it again\nNegative: They advertise luxury but yet there’s no cable doors don’t shut properly fans don’t work lights don’t work. The beds suck the location of the property is terrible. All you hear is trucks all night long."
+      },
+      {
         "author": "Myroslav",
         "rating": 5,
         "date": "2026-03-25 20:02:51",
@@ -671,19 +677,19 @@ export const properties: Property[] = [
       },
       {
         "author": "Patricia",
-        "rating": 4.9,
+        "rating": 9,
         "date": "2025-11-01 15:33:03",
         "comment": "Very Nice. I love cleanliness. Close to my family.\nPositive: Clean, Spacious, Near Boardwalk, Convenance to Main Jersey. Price was good. Bed was comfortable. The closet was spacious and there were plenty of towels.\nNegative: Sirens went off but we saw no emergency Information in Welcome packet. Where we are from that means tornado. We packed up everything and left for the day, only to find out there was no need. Also, I never received an answer to my last email about towels and bed linen. Usually, the VROB's we stay in ask to put towels and linens in bath or washer and tell us if we are responsible for washing. There was only a message in Welcome packet about kitchen towels, which there were none of. There were no instructions on how to start the fireplace ignitor. Could have used a place to set suitcases down on in bedroom. Would have liked to put car in garage, apparently its used for storage for the host family. I don't believe that was in the information we were given. Originally my husband was going to bring his 2-hand built wooden kayaks, we would have had no place to secure them."
       },
       {
         "author": "Sandra Stephens",
-        "rating": 5,
+        "rating": 6,
         "date": "2025-09-12 21:13:55",
         "comment": "Upon arrival, the 6 beach badges were supposed to be in the folder. They weren’t there. We found 4 badges at which time we called and emailed to no avail. We ended up having to buy a badge. The remote was missing in the master bedroom. All we received were automated emails. Although the house was on a dead end street, there was a major street running alongside it, making it a noisy spot.  The beach was in close proximity."
       },
       {
         "author": "Angela",
-        "rating": 4.9,
+        "rating": 8,
         "date": "2025-07-12 19:57:47",
         "comment": "Perfect for a mixed family with little ones and big kiddos in a perfect location.\nPositive: The house is well appointed, beautifully decorated, and equipped for a family in a great location. The elevator was a rare plus for the Jersey shore.\nNegative: The pigeons on the roof are a real bummer, but there’s really nothing the homeowner can do about that."
       },
@@ -696,7 +702,7 @@ export const properties: Property[] = [
     ],
     "lat": 39.9487282,
     "lng": -74.0734534,
-    "rating": 4.8,
+    "rating": 4.9,
     "link": "https://suitecapacity.holidayfuture.com/listings/393443"
   },
   {
@@ -709,7 +715,7 @@ export const properties: Property[] = [
     "city": "Seaside Heights",
     "price": 520,
     "guests": 6,
-    "beds": 7,
+    "beds": 6,
     "bedrooms": 3,
     "bathrooms": 2,
     "images": [
@@ -824,7 +830,7 @@ export const properties: Property[] = [
     "id": 439808,
     "hostawayId": 396156,
     "name": "Chic Lavallette Beach Home | Hot Tub & Beach Passes",
-    "description": "Escape to this beautifully designed 3-bedroom Lavallette beach house, just steps from the sand! Perfect for families, couples, or a summer girls’ getaway, this stunning home blends coastal charm with modern comfort in one of the Jersey Shore’s most desirable beach towns.\n\nFeaturing 2 queen beds, 2 twins, and space to comfortably sleep up to 7 guests, this home has everything you need for a relaxing and fun-filled stay. Enjoy the convenience of driveway parking for 3–4 cars, a full washer and dryer, and 6 Lavallette beach passes included (a $300+ seasonal value).\n\nUnwind after a day in the sun in your private hot tub, refresh in the outdoor shower, or fire up the BBQ grill for a laid-back dinner under the stars. The open, stylish interior offers a cozy yet elegant atmosphere perfect for making lasting memories.\n\nLocated on the beach block, you’re just a short stroll to the sand and surf   and only minutes from Lavallette’s top restaurants, coffee shops, and local favorites.\n\n⭐ Highlights:\n\n3 Bedrooms | 1 Bathroom | Sleeps 6–7\n\n2 Queen Beds + 2 Twins\n\nPrivate Hot Tub, BBQ Grill & Outdoor Shower\n\n6 Beach Passes Included\n\nDriveway Parking for 3–4 Vehicles\n\nBeautifully Decorated & Designed\n\nSteps to the Beach | Short Drive to Downtown Lavallette\n\nWhether you’re here for a family beach week or a weekend escape with friends, this Lavallette beach block vacation rental offers everything you need for a relaxing and memorable Jersey Shore experience.\n\nBook your stay today and make this your go-to Lavallette getaway year after year!",
+    "description": "Escape to this beautifully designed 3-bedroom Lavallette beach house, just steps from the sand! Perfect for families, couples, or a summer girls’ getaway, this stunning home blends coastal charm with modern comfort in one of the Jersey Shore’s most desirable beach towns.\n\nFeaturing 2 queen beds, 2 twins, and space to comfortably sleep up to 7 guests, this home has everything you need for a relaxing and fun-filled stay. Enjoy the convenience of driveway parking for 3–4 cars, a full washer and dryer, and 6 Lavallette beach passes included (a $300+ seasonal value).\n\nUnwind after a day in the sun in your private hot tub, refresh in the outdoor shower, or fire up the BBQ grill for a laid-back dinner under the stars. The open, stylish interior offers a cozy yet elegant atmosphere perfect for making lasting memories.\n\nLocated on the beach block, you’re just a short stroll to the sand and surf and only minutes from Lavallette’s top restaurants, coffee shops, and local favorites.\n\n⭐ Highlights:\n\n3 Bedrooms | 1 Bathroom | Sleeps 6–7\n\n2 Queen Beds + 2 Twins\n\nPrivate Hot Tub, BBQ Grill & Outdoor Shower\n\n6 Beach Passes Included\n\nDriveway Parking for 3–4 Vehicles\n\nBeautifully Decorated & Designed\n\nSteps to the Beach | Short Drive to Downtown Lavallette\n\nWhether you’re here for a family beach week or a weekend escape with friends, this Lavallette beach block vacation rental offers everything you need for a relaxing and memorable Jersey Shore experience.\n\nBook your stay today and make this your go-to Lavallette getaway year after year!",
     "houseRules": "Must be 25 to book. Proof of ID will be required.",
     "location": "Lavallette, US",
     "city": "Lavallette",
@@ -1021,7 +1027,7 @@ export const properties: Property[] = [
   {
     "id": 393458,
     "hostawayId": 349969,
-    "name": "Panoramic Rooftop Retreat Near Beach w/ Elevator & Parking",
+    "name": "4BR Rooftop Retreat Near Beach w/ Elevator & Parking",
     "description": "PRIVATE ROOFTOP DECK!!!! 1.5 blocks to the boardwalk/beach!   Located in desirable South end of Seaside Heights - less than 2 blocks to beginning of Seaside Park!  The whole group will enjoy easy access to everything from this centrally located place. Very popular Irish Pub across the street.  Walking distance to everything you could need - restaurants, coffee shops, stores, arcades, rides, etc.  Unit itself is on a quiet one way street.  Best of both worlds!   SO much space to spread out!\n\n4 bedrooms, 3.5 baths - 2200 square feet.  Multiple hangout spots and a wide open, reverse living floor plan.  2 1st floor bedrooms with a shared bath.  2 en-suite bedrooms, each with their own private bath and half bath on living room/kitchen floor.  The highlight is the rooftop deck for sipping coffee (or wine), watching the sunrise, sunset or fireworks!   360 degree views of the ocean, bay, amusements, etc!\n\nKeypad access to gain entry.  Elevator from parking garage that has 2 reserved, garage parking spots to either first floor entrance, 3rd floor entrance or rooftop deck!  Very cool center courtyard area.  Multiple balconies.\n\nSuite Capacity management company readily available for any needs that arise.\n\nSaturday to Saturday, full week bookings during peak season. Will consider three nights or more in May, early June and September.  25 years or older. No parties/groups.",
     "houseRules": null,
     "location": "Seaside Heights, US",
@@ -1032,12 +1038,12 @@ export const properties: Property[] = [
     "bedrooms": 4,
     "bathrooms": 3,
     "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-pJUAfHO4zYilfZ3Kobw-KVEpzbMh6dBEJQWre0cXYaU-682c8bf861bf1",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-Ofi46SNTy--TYzU8GowOvdwTXQAdEjdLgac5OOqS2Z8Q-682c93753e8b5",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-IJoHVJz2gNyEkIKpYmD466DU0sBW--7zp0ObrRRtFRIg-682c8bfca2117",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-Yq-QMuwbyj37GUwOCHdBG5hJOdJ4-27pUYcag2Hye08-682c8bfb5bf5b",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-aOwyfGmDs4Sboc7EosD-6qDAZO8XGgicH8A65S7pM4Q-682c8bfa35942",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-83152KtQuuvev-ERU3onpeFP-ucI3k5KAPKgUdtX-j8-682c937417455",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-pJUAfHO4zYilfZ3Kobw-KVEpzbMh6dBEJQWre0cXYaU-682c8bf861bf1",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-C-3zWSbRfaDpbvpe2uaw8DfnRWoKPksn6eR8ygWYiTA-682c8bf6d4284",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-2k0C6i--6DdBOmHEBtTPyvXgYfcMkgAFMRiZ3kcYFJJI-682c8bf5632ef",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-393458-Eva1FMeUcjldA6QEXxw9--7pHkfirMrK0VXCivS-0rVg-682c9372dfce1",
@@ -1155,19 +1161,19 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Julio",
-        "rating": 5,
+        "rating": 9,
         "date": "2025-08-26 23:59:14",
         "comment": "Had a great time, definitely coming back!\nPositive: We had a lovely stay! Group of 7 with three young children, plenty of space for everyone and an awesome rooftop to hang out on. The house is a close walk to the beach and boardwalk and close to everything you need. Living space is spread out over three floors and parking is included.\nNegative: Can’t say I didn’t like anything but if you have mobility issues be mindful there’s three floors of living space."
       },
       {
         "author": "Gail",
-        "rating": 5,
+        "rating": 9,
         "date": "2025-07-29 00:41:15",
         "comment": "Great place to stay with family!\nPositive: Great location and house was plenty big for our family.\nNegative: No TVs in the bedrooms."
       },
       {
         "author": "Ann",
-        "rating": 5,
+        "rating": 9,
         "date": "2025-07-08 03:04:24",
         "comment": "Positive: Lots of space for everyone"
       }
@@ -1187,7 +1193,7 @@ export const properties: Property[] = [
     "city": "Seaside Heights",
     "price": 329,
     "guests": 3,
-    "beds": 6,
+    "beds": 3,
     "bedrooms": 2,
     "bathrooms": 1,
     "images": [
@@ -1277,44 +1283,34 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": null,
-        "rating": 4.9,
+        "rating": 1,
         "date": "2025-12-17 16:17:08",
         "comment": "Positive: Never stayed there! Says pet friendly yet I was told no. Don't charge me for anything!"
       }
     ],
     "lat": 39.94494629,
     "lng": -74.07486725,
-    "rating": 4.5,
+    "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/393439"
   },
   {
     "id": 436029,
     "hostawayId": 392381,
     "name": "Pool & Beach Passes, Spacious 3BR Loft Condo | Sleeps 8 | Seaside Heights",
-    "description": "Welcome to your Seaside Heights beach retreat! This rare 3-bedroom, 2-bathroom condo with a loft offers a bright, open layout with plenty of natural light a unique find at the Jersey Shore. Comfortably accommodating up to 8 guests, it’s the perfect choice for families, friends, or groups looking for both relaxation and convenience.\n\nInside, you’ll find a washer-dryer in unit, a fully equipped kitchen, and spacious living areas designed for coastal comfort. The loft space adds extra sleeping and lounging options, making this condo ideal for larger groups.\n\nYour stay includes 1 off-street parking spot plus a Seaside Heights parking pass for additional convenience. We also provide 4 beach passes (a $200+ value in season), so you can hit the sand stress-free.\n\nAt the condo complex, enjoy access to a sparkling pool, a BBQ area for outdoor dining, and a prime location close to the boardwalk, rides, restaurants, and the beach.\n\n⭐ Highlights:\n\n3 Bedrooms + Loft | 2 Bathrooms | Sleeps 8\n\nBright, airy design with rare loft space at the Jersey Shore\n\nWasher-dryer in unit\n\n1 off-street parking spot + Seaside Heights parking pass\n\n4 beach passes included (in season)\n\nAccess to pool & BBQ area\n\nWalk to beach, boardwalk, and local attractions\n\nThis Seaside Heights vacation rental combines comfort, convenience, and fun in a central location. Whether you’re here for a family beach trip or a getaway with friends, this condo has everything you need for an unforgettable Jersey Shore experience.\n\nBook today and start planning your ultimate Seaside Heights vacation!",
+    "description": "Welcome to your Seaside Heights beach retreat! This rare 3-bedroom, 2-bathroom condo with a loft offers a bright, open layout with plenty of natural light a unique find at the Jersey Shore. It’s the perfect choice for families, friends, or groups looking for both relaxation and convenience.\n\nInside, you’ll find a washer-dryer in unit, a fully equipped kitchen, and spacious living areas designed for coastal comfort. The loft space adds extra sleeping and lounging options, making this condo ideal for larger groups.\n\nYour stay includes 1 off-street parking spot plus a Seaside Heights parking pass for additional convenience. We also provide 4 beach passes (a $200+ value in season), so you can hit the sand stress-free.\n\nAt the condo complex, enjoy access to a sparkling pool, a BBQ area for outdoor dining, and a prime location close to the boardwalk, rides, restaurants, and the beach.\n\n⭐ Highlights:\n\n3 Bedrooms + Loft | 2 Bathrooms \n\nBright, airy design with rare loft space at the Jersey Shore\n\nWasher-dryer in unit\n\n1 off-street parking spot + Seaside Heights parking pass\n\n4 beach passes included (in season)\n\nAccess to pool & BBQ area\n\nWalk to beach, boardwalk, and local attractions\n\nThis Seaside Heights vacation rental combines comfort, convenience, and fun in a central location. Whether you’re here for a family beach trip or a getaway with friends, this condo has everything you need for an unforgettable Jersey Shore experience.\n\nBook today and start planning your ultimate Seaside Heights vacation!",
     "houseRules": "MUST BE 25+ to book! Proof of I.D. will be required.",
     "location": "Seaside Heights, US",
     "city": "Seaside Heights",
     "price": 450,
-    "guests": 6,
-    "beds": 6,
+    "guests": 5,
+    "beds": 4,
     "bedrooms": 3,
     "bathrooms": 2,
     "images": [
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-fsdq-NAEoQooRI7vgfoov0mAniy5bYEJyB1fYTDA3tA-68d41c95b05e7",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-h9GajUvps18Pp--POG-SgLy02U-Gg4mJsQmQgc9BTgnY-68d41ca27c22d",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029--6PWbRwoQB-koZ6dsz8bce0KOeDF0rFq6e1fzGdgu7U-68d41cae608a0",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-gUe9rerafR0bF3MQ5--JwzqynVVHMesGVbSIPldB6H4g-68d41cb437f55",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-8ZLhOQHTE4VmYDsleQzZBxBOt4ydDF8S28ucWY6PIzw-68d41cb98ce1d",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-vuuv5tRRFnEu--eWGCeeQFhtDZAipWH7--NnF2ufvpKew-68d41cbf0b819",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-ULwEU951KMQk4T3EFqTd3anwzU4-aPZxZG4IPlmafmk-68d41cc507f8e",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-w4TSkl7nZyroaeZA7RVxwfmRcYWjDGc63B-tp3SmadI-68d41ccbe9a7c",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-T9Vcf5ePojaTtLdWewzYP--EEB0ietnGvgn30lstTuV8-68d41cdc883df",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-TZ3q3qGFZ1nB3RgOh61zqgt0lo3SonC48vl8rRBzgac-68d41ce45beb9",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-T90y0roezN7Q64dVFL2exm5jKdVE8LJN5fIenZQmpqU-68d41ced84306",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-ZQRtjw8AsH8Z7wxx1l2x5y74Nx0SgVesaWDuz1--J-DU-68d41cfbbd8a6",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-9YlBrbJJxF0MGAbZ0jMILp9Hlyz0izr1QoZF4--mnrTA-68d41d10f0a09",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-vy8hzH6zPHHachIVVGlOjKWTQlgOvDMhh27YtJo--Zfk-68d41d1ca136b",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-qUUSEaCA--RDQWj9t97dluJgkDe3OUfpMWh33fYDR8U-68d41d29b1ac2",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-IEsS--1RZLhC-iilZVwMIAiPeImJz8RwKzf8cejer2mk-68d41d3635aca",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-436029-fIypUf1zy8H9--615P08shrYgU7XEM2kqlNLeJKysqG4-68d41d431a609",
@@ -1457,7 +1453,7 @@ export const properties: Property[] = [
     "location": "Seaside Heights, US",
     "city": "Seaside Heights",
     "price": 250,
-    "guests": 6,
+    "guests": 3,
     "beds": 3,
     "bedrooms": 2,
     "bathrooms": 1,
@@ -1557,13 +1553,13 @@ export const properties: Property[] = [
       },
       {
         "author": "june",
-        "rating": 4.9,
+        "rating": 8,
         "date": "2025-10-24 18:10:52",
         "comment": "The property was a little intimidating at first, but the unit was clean and fitted our needs perfectly. The staircase wa\nPositive: The facility was super clean and  the beds super comfortable. Water pressure awesome! Nice washer and dryer!\nNegative: The stairs, also it had no coffee cups. \nThe small couch was terribly uncomfortable."
       },
       {
         "author": "Ada",
-        "rating": 5,
+        "rating": 9,
         "date": "2025-09-28 04:00:09",
         "comment": "Great beginning with a not so good ending\nPositive: Interior of the unit was nicely updated, spacious and clean. While listed as a 1 bedroom is actually a 2 bedroom with a king bed in one and a queen in the other which were both very comfortable. The living room sofa was very low and small, not comfortable at all. The exterior and exterior of the building were not as nice. Reserved parking space was great as there is no street parking allowed.\nNegative: Has not received check-in instructions by noon the day of arrival, had to message requesting them at which time they were sent.\n\nAfter checking out, received an additional charge for cleaning and message saying we had a dog and the unit was not pet friendly which was clearly advertised as being pet friendly and I had mentioned during communication. Have no problem with paying the additional cleaning fee if had been told when the reservation was made but there was no mention of it. \n\nIn addition, the shower curtain rod fell off into the tub when we were getting ready to check out, was not secured properly to wall tiles, which I messaged them about without a reply.  Later that afternoon did get a message along with the message about the dog saying that the curtain and rod were missing when it was clearly sitting inside the tub."
       },
@@ -1575,13 +1571,13 @@ export const properties: Property[] = [
       },
       {
         "author": "Elaine",
-        "rating": 4.9,
+        "rating": 3,
         "date": "2025-09-10 02:10:50",
         "comment": "Not as expected.\nPositive: Location was good.\r\nExtra towels requested were left.\nNegative: Dryer handle broken\r\n\r\nAC units were filthy and moldy.  Two travelers had lung sensitivity and we needed to turn the units off.  I tried to clean them myself.\r\n\r\nMicrowave cuts off kitchen lights.  There are electrical problems.\r\n\r\nHalf of outlets don't work.\r\n\r\nToilet flusher and seat broken.\r\n\r\nMgmt com0any was non responsive after Friday 5pm.\r\n\r\nFloors dirty white socks now brown.\r\n\r\nWhat is cleaning fee for if place was dirty?"
       },
       {
         "author": "Tatiana",
-        "rating": 5,
+        "rating": 6,
         "date": "2025-08-21 15:58:19",
         "comment": "It is affordable but not super comfortable.\nPositive: Clean, spacious enough, close to a boardwalk and arcades.\nNegative: Unfortunately we didn’t have enough toilet paper, paper towels, and no shampoo at all. Sofa is super old and uncomfortable. Apartment is located on top of a liquor store. Store A/c is very loud and vibrating and disturbing during the night. Apartment is ants infested. Also 10:00 am check out and is too early, especially without dishwasher. And check in is too late at  4pm on my opinion."
       },
@@ -1594,7 +1590,7 @@ export const properties: Property[] = [
     ],
     "lat": 39.942501,
     "lng": -74.073226,
-    "rating": 4.9,
+    "rating": 4,
     "link": "https://suitecapacity.holidayfuture.com/listings/393445"
   },
   {
@@ -1959,25 +1955,25 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Jennifer Visone",
-        "rating": 4.9,
+        "rating": 6,
         "date": "2026-02-03 19:57:31",
         "comment": "Checking in was difficult. We were given the wrong door code and the staff was rude, didn't listen, and kept transferring us to a line that no one answered. Upon entering, we noticed that the accommodations did not match the listing, which said the apartment has 1 bedroom and sleeps 3. It is actually a studio apartment and at most sleeps 2.  Additionally, the floors were dirty, the window was left unlocked and there were food particles on the stove and countertops. The soap containers were less than half full. It would have been better if they weren't provided at all. There is no heat in the bathroom. The shower curtain is not wide enough to prevent the bathroom from getting wet during a shower. Towels were only provided to accommodate 1 person when they knew that 2 guests were coming. The kitchen is lacking some helpful essentials such as kitchen towels, pot holders, dish rack, etc. During our stay, the ceiling started leaking. After inquiring about maintenance, we were told that someone would shovel the snow because the leak was probably due to snow accumulation. The following day after the storm was over, we asked multiple times about snow removal and kept receiving messages with excuses about the snow removal company they supposedly contaced. When it was time to checkout, we struggled to get our belongings to the car because of the snow and ice in front of our door and along the sidewalk to the parking lot. "
       },
       {
         "author": "Patti Deuchler",
-        "rating": 5,
+        "rating": 8,
         "date": "2025-12-18 18:38:23",
         "comment": "Very clean. Comfy bed. Good heat. "
       },
       {
         "author": "Daniel Jackson",
-        "rating": 4.9,
+        "rating": 4,
         "date": "2025-11-08 19:11:56",
         "comment": "Not the property for us.  We tried calling the rental agency but the number provided had been disconnected.   We never even opened the door to the rental unit, after hearing and seeing the the very graphic neighbor yelling told us that we weren’t comfortable here.  no refund, so renter please know before you go.  "
       },
       {
         "author": "Christen Noratel",
-        "rating": 4.9,
+        "rating": 5,
         "date": "2025-10-14 14:51:09",
         "comment": "Our room is exactly as it appears, like walking into the picture. It was exactly what we needed for our weekend stay. The room was clean and had everything stocked as we needed. Our host was super responsive and great to communicate with! PERFECT LOCATION! Highly recommend! "
       },
@@ -2002,7 +1998,7 @@ export const properties: Property[] = [
     ],
     "lat": 39.9451226,
     "lng": -74.0713941,
-    "rating": 4.8,
+    "rating": 4.9,
     "link": "https://suitecapacity.holidayfuture.com/listings/393440"
   },
   {
@@ -2091,13 +2087,13 @@ export const properties: Property[] = [
     "reviews": [
       {
         "author": "Patti Deuchler",
-        "rating": 4.9,
+        "rating": 6,
         "date": "2026-02-09 21:04:51",
         "comment": "The host communicated back ok. This room was worn. Paint chipped on heater. Could use more glasses. Needed more towels. Drain in tub didn’t drain. Bed was comfy. Heat worked good. "
       },
       {
         "author": "TRICIA DECKER",
-        "rating": 4.9,
+        "rating": 5,
         "date": "2025-12-26 23:15:16",
         "comment": "Everything was quaint and cozy. The host was fantastic."
       },
@@ -2213,7 +2209,7 @@ export const properties: Property[] = [
       },
       {
         "author": "Teresa",
-        "rating": 4.9,
+        "rating": 9,
         "date": "2025-11-20 13:56:46",
         "comment": "Comfortable, clean, convenient to my destinations both north and south, and overall just a great experience for my trip\nPositive: The apartment was great. Clean and comfortable. Bathroom was modern and had beautiful appointments. \n\nThe kitchen with the stove, full size fridge, microwave and all the amenities made things easy for me while I was there! The room thermostat worked terrific and allowed me to stay warm and cozy. \n\nThe access to the beach and boardwalk being so close allowed me the opportunity to get out and walk, as well as, capture the sea and sand here on the Jersey Shore. \n\nThe location, in respect to all the major thoroughfare, made access to points north and south east to jump on. And the fact that it is easily accessible to Ty 47 made going west to head home a breeze.\n\nHighly recommend this location and host. They’re attentive to customers needs and maintain good communications should a guest need anything. They were responsive with questions before I arrived and followed up upon my arrival to inquire as to whether there were any addt bedding or other needs. Those little details make a good host a great one!!\n\nAll in all a ten out of ten for me!! Will look to utilizing them again in future trips.\nNegative: It got a little noisy when the youngsters exited in the mornings and came back at night. That was thru no fault of the host. But maybe a sign or two posted on the outside of the building asking folks to respect other patrons before or after certain times of the day. 🙂\n\nI found I generate a lot of trash when staying for extended periods of time. I found myself overwhelming those little flip top garbage containers. 🤣🤣"
       },
@@ -2237,14 +2233,14 @@ export const properties: Property[] = [
       },
       {
         "author": "Ryan",
-        "rating": 4.9,
+        "rating": 9,
         "date": "2025-06-14 13:28:56",
         "comment": "I really enjoyed my stay as the room was very nice.  The other tenants including those who live there seemed all friendl\nPositive: The room was very nice with updated furniture appliances and bathroom.   It was on the smaller side but I was traveling alone and was perfect for me\nNegative: The parking situation is a mess here.   The lot is way too small and not easy to get in and out of.   If you have a large vehicle you’re gonna be out of luck unless you get a spot closest to the street.   Even then have to worry about the others clipping your vehicle as they try to maneuver into spots"
       }
     ],
     "lat": 39.9451226,
     "lng": -74.0713941,
-    "rating": 4.8,
+    "rating": 4.9,
     "link": "https://suitecapacity.holidayfuture.com/listings/393446"
   },
   {
@@ -2415,7 +2411,7 @@ export const properties: Property[] = [
     "location": "Seaside Heights, US",
     "city": "Seaside Heights",
     "price": 100,
-    "guests": 6,
+    "guests": 4,
     "beds": 3,
     "bedrooms": 2,
     "bathrooms": 1,
@@ -2511,12 +2507,12 @@ export const properties: Property[] = [
     "id": 472117,
     "hostawayId": 428430,
     "name": "Relaxed Shore Getaway with Porch Seating | 3BR + Sofa Bed, Parking Included – Seaside Heights",
-    "description": "Welcome to your perfect Jersey Shore getaway! This charming 3-bedroom, 1-bath Seaside Heights apartment offers comfort, convenience, and a relaxed coastal vibe ideal for families, couples, or small groups looking to enjoy everything the shore has to offer. Located close to the beach and local attractions, this home is designed for easy, stress-free stays.\n\n🛏 3 Bedrooms | 3 Beds + Pull-Out Sofa | 1 Full Bathroom\nThe apartment comfortably accommodates guests with three beds plus a sofa that converts into a pull-out bed, making it a great option for families or friends traveling together. Fresh linens, towels, and essential toiletries are provided for your stay.\n🏡 Spacious Front Porch with Seating\nEnjoy the covered front porch with seating for up to 7 guests a great spot for morning coffee, evening conversations, or unwinding after a beach day.\n🛋 Comfortable Living & Dining Area\nThe open living space offers cozy seating, a TV, and a dining area ideal for meals, games, or relaxing indoors.\n👨‍🍳 Fully Equipped Kitchen\nThe kitchen is fully stocked with everything you need to prepare home-cooked meals and enjoy casual dining during your stay.\n🚘 Free Parking for 1 Vehicle\nA dedicated parking spot is included for easy and convenient access throughout your stay.\n🧺 In-Unit Washer & Dryer\nIn-unit laundry makes longer stays and post-beach cleanups quick and easy.\n\n📍 Prime Seaside Heights Location\nLocated just minutes from the beach, boardwalk, restaurants, and local shops, while still offering a comfortable setting for quiet evenings.\nThis cozy shore apartment is the perfect home base for your Seaside Heights stay whether you’re soaking up the sun, exploring the boardwalk, or relaxing on the porch with friends and family.",
+    "description": "Welcome to your perfect Jersey Shore getaway! This charming 3-bedroom, 1-bath Seaside Heights apartment offers comfort, convenience, and a relaxed coastal vibe ideal for families, couples, or small groups looking to enjoy everything the shore has to offer. Located close to the beach and local attractions, this home is designed for easy, stress-free stays.\n\n🛏 3 Bedrooms | 3 Beds + Pull-Out Sofa | 1 Full Bathroom\nThe apartment comfortably accommodates guests with three beds plus a sofa that converts into a pull-out bed, making it a great option for families or friends traveling together. Fresh linens, towels, and essential toiletries are provided for your stay.\n🏡 Spacious Front Porch with Seating\nEnjoy the covered front porch a great spot for morning coffee, evening conversations, or unwinding after a beach day.\n🛋 Comfortable Living & Dining Area\nThe open living space offers cozy seating, a TV, and a dining area ideal for meals, games, or relaxing indoors.\n👨‍🍳 Fully Equipped Kitchen\nThe kitchen is fully stocked with everything you need to prepare home-cooked meals and enjoy casual dining during your stay.\n🚘 Free Parking for 1 Vehicle\nA dedicated parking spot is included for easy and convenient access throughout your stay.\n🧺 In-Unit Washer & Dryer\nIn-unit laundry makes longer stays and post-beach cleanups quick and easy.\n\n📍 Prime Seaside Heights Location\nLocated just minutes from the beach, boardwalk, restaurants, and local shops, while still offering a comfortable setting for quiet evenings.\nThis cozy shore apartment is the perfect home base for your Seaside Heights stay whether you’re soaking up the sun, exploring the boardwalk, or relaxing on the porch with friends and family.",
     "houseRules": "MUST BE 25+ to book! Proof of I.D. will be required.",
     "location": "Seaside Heights, US",
     "city": "Seaside Heights",
     "price": 450,
-    "guests": 6,
+    "guests": 5,
     "beds": 4,
     "bedrooms": 3,
     "bathrooms": 1,
@@ -2544,9 +2540,69 @@ export const properties: Property[] = [
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-472117-GByy1gv5lG9-p--bzGq7H48cjxgi2TySAjBFvFQkJbIw-695bd5926b0aa"
     ],
     "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Cable TV",
+        "Internet",
+        "Wireless",
+        "Dryer",
+        "24-hour checkin",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "TV",
+        "Balcony",
+        "Linens",
+        "Towels",
+        "Hot water",
+        "Cooking basics",
+        "Laundromat",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Microwave",
+        "Oven",
+        "Electric kettle",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Kitchen utensils",
+        "Dining area",
+        "Dining table",
+        "Baking sheet",
+        "Freezer"
+      ],
       "Policy": [
         "Suitable for children",
         "Suitable for infants"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Rain Shower"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ],
+      "Pool": [
+        "Pool"
       ]
     },
     "reviews": [],
@@ -2716,7 +2772,7 @@ export const properties: Property[] = [
     "location": "Seaside Heights, US",
     "city": "Seaside Heights",
     "price": 200,
-    "guests": 3,
+    "guests": 2,
     "beds": 1,
     "bedrooms": 1,
     "bathrooms": 1,
@@ -2804,7 +2860,7 @@ export const properties: Property[] = [
     "location": "Seaside Heights, US",
     "city": "Seaside Heights",
     "price": 180,
-    "guests": 3,
+    "guests": 2,
     "beds": 1,
     "bedrooms": 1,
     "bathrooms": 1,
@@ -2885,7 +2941,7 @@ export const properties: Property[] = [
     "id": 491290,
     "hostawayId": 447593,
     "name": "Seaside Coastal Getaway | 2BR 2BA Private Grill & Steps to Beach",
-    "description": "Welcome to your relaxing Seaside Heights escape! This beautifully maintained 2-bedroom, 2-bath home offers comfort, convenience, and classic Jersey Shore charm just a short stroll from the beach and boardwalk. Perfect for couples, small families, or friends looking for an easy, stress-free coastal getaway.\n\n🛏 2 Bedrooms | 2 Bathrooms\n Comfortably sleeps your group with two private bedrooms and two full bathrooms, offering privacy and space for everyone.\n\n🍔 Private Grill for Barbecuing\n Enjoy outdoor living with your own grill perfect for summer barbecues after a beach day. Fire up fresh seafood, burgers, or your favorite BBQ dishes and dine outdoors in a relaxed coastal setting.\n\n☕ Fully Equipped Kitchen & Coffee Maker\n Start your mornings with fresh coffee and prepare meals with ease in the fully stocked kitchen featuring modern appliances and ample counter space.\n\n📺 Spacious Living Area with Large TV\n Kick back and unwind with your favorite shows or movies on the flat-screen TV after a day in the sun.\n\n🏖 Just Steps to the Beach & Boardwalk\n Located very close to the calm sandy beach and Ocean Gate’s peaceful mile-long boardwalk   perfect for morning walks, sunset views, fishing, or simply enjoying the bay breeze.\n\n🌅 Outdoor Recreation & Family Fun Nearby\n Take advantage of the calm bay waters for swimming, kayaking, or paddleboarding. Nearby parks, playgrounds, and picnic areas make this a great spot for families.\n\n🍽 Walk to Local Dining & Shops\n Explore nearby seafood spots, waterfront dining, bakeries, and local cafés all within walking distance.\n\n🚗 Close to More Jersey Shore Attractions\n A short drive brings you to nearby shore towns with lively boardwalks, beaches, and entertainment for when you want a little extra excitement.\n\n🧺 In-Unit Laundry & Convenient Parking\n Includes washer and dryer for added convenience, plus easy parking for your stay.\n\n📍 Prime Ocean Gate Location\n Enjoy the peaceful, small-town coastal vibe while being just moments from the beach and everything Ocean Gate has to offer.\nWhether you're grilling outdoors, walking to the boardwalk, or spending long days at the beach, this Ocean Gate retreat delivers the perfect Jersey Shore getaway.",
+    "description": "Welcome to your relaxing Seaside Heights escape! This beautifully maintained 2-bedroom, 2-bath home offers comfort, convenience, and classic Jersey Shore charm just a short stroll from the beach and boardwalk. Perfect for couples, small families, or friends looking for an easy, stress-free coastal getaway.\n\n🛏 2 Bedrooms | 2 Bathrooms\n Comfortably sleeps your group with two private bedrooms and two full bathrooms, offering privacy and space for everyone.\n\n🍔 Private Grill for Barbecuing\n Enjoy outdoor living with your own grill perfect for summer barbecues after a beach day. Fire up fresh seafood, burgers, or your favorite BBQ dishes and dine outdoors in a relaxed coastal setting.\n\n☕ Fully Equipped Kitchen & Coffee Maker\n Start your mornings with fresh coffee and prepare meals with ease in the fully stocked kitchen featuring modern appliances and ample counter space.\n\n📺 Spacious Living Area with Large TV\n Kick back and unwind with your favorite shows or movies on the flat-screen TV after a day in the sun.\n\n🏖 Just Steps to the Beach & Boardwalk\n Located very close to the calm sandy beach and Ocean Gate’s peaceful mile-long boardwalk perfect for morning walks, sunset views, fishing, or simply enjoying the bay breeze.\n\n🌅 Outdoor Recreation & Family Fun Nearby\n Take advantage of the calm bay waters for swimming, kayaking, or paddleboarding. Nearby parks, playgrounds, and picnic areas make this a great spot for families.\n\n🍽 Walk to Local Dining & Shops\n Explore nearby seafood spots, waterfront dining, bakeries, and local cafés all within walking distance.\n\n🚗 Close to More Jersey Shore Attractions\n A short drive brings you to nearby shore towns with lively boardwalks, beaches, and entertainment for when you want a little extra excitement.\n\n🧺 In-Unit Laundry & Convenient Parking\n Includes washer and dryer for added convenience, plus easy parking for your stay.\n\n📍 Prime Ocean Gate Location\n Enjoy the peaceful, small-town coastal vibe while being just moments from the beach and everything Ocean Gate has to offer.\nWhether you're grilling outdoors, walking to the boardwalk, or spending long days at the beach, this Ocean Gate retreat delivers the perfect Jersey Shore getaway.",
     "houseRules": "House Rules:\n\n– Primary renter must be at least 25 years old\n– No parties, events, or group rentals allowed\n– No prom, graduation, or similar group gatherings\n– Quiet hours must be respected\n– Government-issued photo ID is required to confirm the reservation and verify age\n\nWe take pride in maintaining a clean, peaceful, and family-friendly home. Guests who do not meet these requirements will have their reservations canceled. Thank you for your understanding!",
     "location": "Seaside Heights, US",
     "city": "Seaside Heights",
@@ -3003,13 +3059,13 @@ export const properties: Property[] = [
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-dxpCVL8ca-eFLIysaUdBu59CnOSTvzItUKMacJpkD18-69cc3be90e005",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-fvaAa--2d8c--Hvh6rIyanCAOrrNmEH6VzOaJLd2yrVeU-69cc3bef2c557",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-9xVbh0WZITQIOPTJ8OQXZQSZo3TdZcUeb4BqyDNWrqE-69cc3bf79ffa6",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-E3YNoO5cjHtqBztV17yffz3KILgk--0mzXlAx4pOG9ak-69cc3c16d93a9",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-7226VN8QRttwpu76eHjEfcPgx35sLhebeDyC-5-2m50-69cc3bfe3dc67",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-H--PzJ5uZVQWSud0o8PvLqmYpBeIJ7B7Li4q-FGAr8a0-69cc3c0572c63",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-GCl0WVW0R9nEI6vA5yw8--3N7hbsTJ-MEjKP--zvrFWUw-69cc3c0f0ec5d",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-E3YNoO5cjHtqBztV17yffz3KILgk--0mzXlAx4pOG9ak-69cc3c16d93a9",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-j3jvWXYTFj--WcCf1JQTiDhUmDobmLqOqWg65NZynNLc-69cc3c20296eb",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-C97sO-3ZZKeyQArXRdyFgP8uCXZf0XOHWKVL0k1AVUY-69cc3c288486e",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-8hp4W8aSbqSElsMzFp--oLpw48WEU2oOGGEqVtnSgvkA-69cc3c30ab26f"
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-cLe9UhU7pk7UB6NIUlUJZks2Fe1VUW65hTL9tfPrYEA-69e2560b49891",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-UHuINKl3YODMuvSpZ----mV-y9--lzlMjgB6YnHG1mz46E-69e2561231aa5",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502808-ZjLYxBNaoNSpDsD--nOgUvy27crR5-KYE6Nf14b0cNSA-69d0ea8b89b4b"
     ],
     "amenities": {
       "General": [
@@ -3045,6 +3101,10 @@ export const properties: Property[] = [
         "Dining table",
         "Baking sheet",
         "Freezer"
+      ],
+      "Policy": [
+        "Pets allowed",
+        "Pets allowed on request"
       ],
       "Safety": [
         "Smoke detector",
@@ -3090,21 +3150,20 @@ export const properties: Property[] = [
     "bedrooms": 1,
     "bathrooms": 1,
     "images": [
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-k0-0SE7eE1pCx5v8avQovvrqwh2lFprCvtWxpgiAkio-69cfc85cca3a8",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-wQas--Mz6OaD02t1b4EsHyCoq1LuyVGvbKHJMOYbZafA-69cc414a47c0d",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-NCIUk1G4UAcAWFQKNh6hzU2EOQPlwMULAA--p56II14Y-69cc417a83e8c",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-13ts--oiRS5Zbtb0Fv-jqlkLNIYKONkoXGgmQQnTiHcQ-69cc414f8572f",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-Bm-MV9jsJEK10ElmhWkA2BOG8rNPr5wosMajL7YaohU-69cc41549b0e5",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-k0-0SE7eE1pCx5v8avQovvrqwh2lFprCvtWxpgiAkio-69cfc85cca3a8",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-GuceWl9o1zZbCPRH8uiSXFnTyGOwCfYuoHoOLxPPoNQ-69cc415a30bd5",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-meDk6wUDkmy1YUkGPA357tzXBjStKzMeJ3p7-HzlpUE-69cc4160983df",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-Bm-MV9jsJEK10ElmhWkA2BOG8rNPr5wosMajL7YaohU-69cc41549b0e5",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-NCIUk1G4UAcAWFQKNh6hzU2EOQPlwMULAA--p56II14Y-69cc417a83e8c",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-xG9raqgR-NKkEvOuSuhcNgZEmOEJm6-L1b-G4GTOPLg-69cc416a7e45e",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-WdPKSGpbVzCILsWKEviQbc6q3cAIOR-Hf90XyRVflyI-69cc41720af9f",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-WIJiKFweJMrt-2MiqdlWBy74mVefbihnR1Ob10P8--yI-69cc4183cc7b3",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-ONjcy9ZnR8ZYQa6UfIFkEYCkJ8KSJt27UO0GDkdSYRo-69cc418e258a9",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-9zInrUkLfomyDWw0aW5zQiCZYTC0gCeWopJlkxVp--Uk-69cc41989c0aa",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-9x7BVUh46em18K7yO1OG53sCcCZAFNY4nbPJIaMi030-69cc41a08652e",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-JUPsOfEOD01uffH4TytJX4BrIXHbVRf9Cd7Z7aNQS88-69cc41ac933be",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-tk4Gt8vDmJOzes-yx6fwc8--uibeljp4EcrVt7SoXqh4-69cc41b7a6711"
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-Z29mMH44WbShIhWh---Atdj6zzj96952ULkQ-wPKuO64-69e256a541530",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-qb--jPuCrzOlbwCz1YWfC7Yu8IikL9Mv7VNr09He7qGg-69e256ad26fb2",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502822-9iM0i8NKEc6TvUFF6AdZ6X1cgNnGohcUUisKQupgkLQ-69d0ead3bf7f4"
     ],
     "amenities": {
       "General": [
@@ -3140,6 +3199,10 @@ export const properties: Property[] = [
         "Dining table",
         "Baking sheet",
         "Freezer"
+      ],
+      "Policy": [
+        "Pets allowed",
+        "Pets allowed on request"
       ],
       "Safety": [
         "Smoke detector",
@@ -3196,10 +3259,10 @@ export const properties: Property[] = [
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-faUyw--BO4tR--Dt--sny4b1FYsdIdQoLNdDXaWMcut9tE-69cc451db98ed",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-tBe9wfVv2IVIEclDoq6ZcugMFuRtfl-VCFWHfOjlETM-69cc4526e58a4",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-yndgSDnaH6i6eipqYLYHdQfiqSLgU2Q67aPKa0Rqlzo-69cc45305f654",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-UDaMWVDv-NttvnJwReirxoaY6oAe0B1iHhQqnBUMl14-69cc453917b4d",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-JfNvF7jB19ToJgyai5HInbm7821ZnKD1MfKmtewY5Mc-69e2573e3aac3",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-qVDArm-q1KVFITdvNf0AaceZogctEzAgUiRCz--S--ZDI-69e257463a00d",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-mCR6G2l6w0ugeG0Jzc0pSXFM0SkFXzTVB1nS4fr5QQE-69cc45431a6b1",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-O1PVsK--edDytBVIXSbNTA7ddrtumUEGVVOOjWnsmpcI-69cc45541691f",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-d72Qu3hLMIVLeae2TrF7AYQIeLe64BqIhZymJKGb8fs-69cc455dac03d"
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502827-bdYFkKUwvXYpUB3--cT8tXBeI--IAQF4jb8eFZXJkbzkI-69d0eb2d94bec"
     ],
     "amenities": {
       "General": [
@@ -3235,6 +3298,10 @@ export const properties: Property[] = [
         "Dining table",
         "Baking sheet",
         "Freezer"
+      ],
+      "Policy": [
+        "Pets allowed",
+        "Pets allowed on request"
       ],
       "Safety": [
         "Smoke detector",
@@ -3270,7 +3337,7 @@ export const properties: Property[] = [
     "id": 502832,
     "hostawayId": 459134,
     "name": "1BR Condo in Seaside Heights | Steps to Beach & Boardwalk",
-    "description": "Welcome to your clean, comfortable, and budget-friendly stay in Seaside Heights! \n\nThis property features 1-bedroom, 1-bath, perfect for guests who want a simple, relaxing place just steps from the action without the high price tag. Whether you're booking one unit or multiple for a group, you’ll enjoy convenience, consistency, and great value.\nThe unit includes 2 beach passes and 1 dedicated parking spot, making your stay even more convenient and stress-free.\n\n🏡1 Bedroom + 1 Bathroom\nEnjoy your own private bedroom, bathroom, and living space ideal for couples, solo travelers, or small groups booking multiple units together.\n\n🛏 Clean, Comfortable Living Spaces\n Designed with a focus on cleanliness and practicality, this unit provides a cozy environment to relax after a day at the beach or boardwalk.\n\n🍳 Kitchen Essentials for Easy Meals\nThis unit includes basic kitchen amenities perfect for preparing quick meals, snacks, or morning coffee to keep your stay convenient and affordable.\n\n🏖 Walk to Seaside Heights Beach & Boardwalk\n Just a short walk brings you to the iconic Seaside Heights Boardwalk and beach. Spend your days soaking up the sun, enjoying ocean views, or taking evening strolls along the lively boardwalk.\n\n🎡 Close to Attractions\n You’re minutes away from popular spots like Casino Pier and Breakwater Beach Waterpark perfect for rides, games, and family fun.\n\n🍕 Dining & Local Favorites Nearby\n Enjoy easy access to local restaurants, pizza spots, ice cream shops, and casual beachside eats all within walking distance, so you can skip the car and explore freely.\n\n🚶 Convenient, Central Location\n Stay close to everything while still having a simple, quiet place to recharge. This location offers the perfect balance between accessibility and relaxation.\n\n💸 Great Value Near the Shore\n This property is ideal for guests looking for a low-cost stay near the beach, without sacrificing comfort or cleanliness.\n\nWhether you're visiting for a weekend getaway, a beach trip, or a longer stay, our property offers the perfect setup. This unit is located within a building of 4 private, identical units, making it a practical and affordable home base in Seaside Heights just steps from everything that makes the Jersey Shore special.",
+    "description": "Welcome to your clean, comfortable, and budget-friendly stay in Seaside Heights! \n\nThis property features 1-bedroom, 1-bath, perfect for guests who want a simple, relaxing place just steps from the action without the high price tag. Whether you're booking one unit or multiple for a group, you’ll enjoy convenience, consistency, and great value.\nThe unit includes 2 beach passes and 1 dedicated parking spot, making your stay even more convenient and stress-free.\n\n🏡1 Bedroom + 1 Bathroom\nEnjoy your own private bedroom, bathroom, and living space ideal for couples, solo travelers, or small groups booking multiple units together.\n\n🛏 Clean, Comfortable Living Spaces\n Designed with a focus on cleanliness and practicality, this unit provides a cozy environment to relax after a day at the beach or boardwalk.\n\n🍳 Kitchen Essentials for Easy Meals\nThis unit includes basic kitchen amenities perfect for preparing quick meals, snacks, or morning coffee to keep your stay convenient and affordable.\n\n🏖 Walk to Seaside Heights Beach & Boardwalk\n Just a short walk brings you to the iconic Seaside Heights Boardwalk and beach. Spend your days soaking up the sun, enjoying ocean views, or taking evening strolls along the lively boardwalk.\n\n🎡 Close to Attractions\n You’re minutes away from popular spots like Casino Pier and Breakwater Beach Waterpark perfect for rides, games, and family fun.\n\n🍕 Dining & Local Favorites Nearby\n Enjoy easy access to local restaurants, pizza spots, ice cream shops, and casual beachside eats, all within walking distance, so you can skip the car and explore freely.\n\n🚶 Convenient, Central Location\n Stay close to everything while still having a simple, quiet place to recharge. This location offers the perfect balance between accessibility and relaxation.\n\n💸 Great Value Near the Shore\n This property is ideal for guests looking for a low-cost stay near the beach, without sacrificing comfort or cleanliness.\n\nWhether you're visiting for a weekend getaway, a beach trip, or a longer stay, our property offers the perfect setup. This unit is located within a building of 4 private, identical units, making it a practical and affordable home base in Seaside Heights just steps from everything that makes the Jersey Shore special.",
     "houseRules": "MUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
     "location": "Seaside Heights, US",
     "city": "Seaside Heights",
@@ -3280,18 +3347,18 @@ export const properties: Property[] = [
     "bedrooms": 1,
     "bathrooms": 1,
     "images": [
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-iW5w0xUHCTY7A-W2zBbNXt6hki5dLevKkkYcv2Rr50U-69cfcc5f63423",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-ujIMQDoIju4eymiPeO79GW-od462U0uvpiexLvt6cOo-69cc484ed339e",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-niVpgosI3g9TfhgRct-wA-Z2Jww1kGnPlAW9c6qZj40-69cc4853d2b11",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-SMGoOI53cxZw0Bspy0dMfxqzstbHxkDFoXvykNQ5Guw-69cc485932c69",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-iW5w0xUHCTY7A-W2zBbNXt6hki5dLevKkkYcv2Rr50U-69cfcc5f63423",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-P1GHL8MqWf3CWz18nhg-rtLlz4mrORT7zMVxAVnovWI-69cc485ecb086",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-hMryD-5iWHdgNWLj4fO-A--mxto9uqP5qBshWD9wekiI-69cc4864d607c",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-niVpgosI3g9TfhgRct-wA-Z2Jww1kGnPlAW9c6qZj40-69cc4853d2b11",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-SMGoOI53cxZw0Bspy0dMfxqzstbHxkDFoXvykNQ5Guw-69cc485932c69",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-o2s-LH52dh7f6l7GkC8srg-V--bWGXPalTALXyE5yBDc-69cc486b61896",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-vhq92EpOcmMwniY1kg0UTXldIqXTI1iRb68--5sGOQvA-69cc4872957b2",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832--ATpdd5Nb6Z40GFy59W1YBT9eFQ0gi67GkyjQ1SxQnE-69cc4879984fb",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-FbI12rbarR8uoNZmhcLx6UxkjVh--85-aUFGdYd3Yu-4-69e257a810b98",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-IcJQYZr7F718Wn5U5Tp2jjUfoGyfHkfIq60gaCd8LUE-69e257aef2991",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-cSPEBg0zWWahHyZLGbJMYKLhei1bGSEKKpLU--FYfu4s-69cc48802a854",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-eza3OYD6CT--8VYgG9yBh9GgfOL0mLBFf9zRnaw6jqV0-69cc488883b1e",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-RlkGQC-8-yQjanAt--7IUc5tCj0Ucg4poP31CuxXD3WE-69cc489121d71"
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-502832-m4Mk18u5phmBhLn7y5mI4DNB12kXA1zwN8tb7ZCv3OE-69d0eb87c8db5"
     ],
     "amenities": {
       "General": [
@@ -3328,6 +3395,10 @@ export const properties: Property[] = [
         "Baking sheet",
         "Freezer"
       ],
+      "Policy": [
+        "Pets allowed",
+        "Pets allowed on request"
+      ],
       "Safety": [
         "Smoke detector",
         "Carbon Monoxide Detector"
@@ -3357,5 +3428,882 @@ export const properties: Property[] = [
     "lng": -74.0749134,
     "rating": 5,
     "link": "https://suitecapacity.holidayfuture.com/listings/502832"
+  },
+  {
+    "id": 505533,
+    "hostawayId": 461834,
+    "name": "2BR, Steps to the Beach, Free Parking",
+    "description": "Welcome to your comfortable and conveniently located stay in Seaside Heights! This clean and well-maintained 2-bedroom, 1-bath unit is just one block from the beach, making it the perfect spot for a relaxing and affordable Jersey Shore getaway. Ideal for families, couples, or small groups looking to stay close to everything.\n\n🛏 2 Bedrooms | 1 Bathroom\n Enjoy a simple, functional layout with two private bedrooms and a clean, well-kept bathroom perfect for a comfortable and restful stay.\n✨ Clean & Comfortable Living Space\n The unit is designed with a focus on cleanliness and comfort, giving you a welcoming place to relax after a day at the beach or exploring town.\n🍳 Kitchen for Everyday Convenience\n Includes essential kitchen amenities so you can easily prepare meals, snacks, or morning coffee during your stay.\n🚗 1 Dedicated Parking Spot\n Comes with one parking space, making it easy to come and go without the hassle of searching for parking in busy beach areas.\n🏖 1 Block to the Beach & Boardwalk\n You’re just steps away from the famous Seaside Heights Boardwalk and sandy beaches perfect for sunbathing, swimming, and evening walks.\n🎡 Close to Local Attractions\n Minutes from Casino Pier and Breakwater Beach Waterpark for rides, games, and family fun.\n🍔 Walk to Dining & Shops\n Enjoy being within walking distance to restaurants, cafes, ice cream spots, and local shops everything you need is right nearby.\n🚶 Stay Close to Everything\n This location offers the perfect balance right near the action, yet a clean and comfortable place to unwind.\n\n💸 Affordable Shore Stay\n Perfect for guests looking for a budget-friendly option near the beach without sacrificing convenience or comfort.\n\nWhether you're planning a weekend trip or a longer beach stay, this 2-bedroom unit offers a clean, simple, and perfectly located home base in Seaside Heights just one block from it all.\n\nMUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "houseRules": "MUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "location": "Seaside Heights, US",
+    "city": "Seaside Heights",
+    "price": 275,
+    "guests": 5,
+    "beds": 2,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-PpRuNF6xxSF3wwHWlmo-3xBbDOryEnd0cbVX5ovn6xE-69d64a7c58a8c",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-A1j6xlNLzdipz--HqEx2ZxwKveD2TJ6TgiAujx3c7iMA-69d64a7f1e967",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-U0ULLvZWgerSJRQhlOR0fdB6B1qdnh5V--hGc3LM7X2Q-69d64a822b6b5",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-Vx--bWB3yZG0fLcocKqwQqzmgoEr2i6cQyMKwllYnfzA-69d64a8563fa4",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-jrrbvM6S7ggPZF2oU36cIQOYZBKC81X-T45bvdZjO78-69d64a890f32b",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-fg5KNys7f0YuQDlNF0RLglhGcLdnVXkEZJozwc20leE-69d64a8ced8b9",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-PJwKi7sRcPFL5L-HRVqhEqUJJRkA9k7uT31o--Gbfsng-69d64a910cb6f",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-4uvJP5Flg8CuaqULcOVhcQMO3QejAWuVYn-dm8J-LAs-69d64a95edb97",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-4JQHeMBoDaQbU2tMKm5Q--vCPItXOTrfGh-aD3YLeqq0-69d64a9ada659",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-DCfXHdcXpBmHigY7DOaxswYsiU9wp2BJ2Do8irA5VM4-69d64aa03c25a",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-8s4PNpTSOtpFV--Zk00WEGGduYUUTP5rCM04rT8B2ihA-69d64aa5a3853",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-TOtyshF2ADPJ9e4wyZG-XHKcZC3spLMypS8ETKuMLUM-69d64aaba14e6",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-7WOveEtXr7NdJ6UqOOiWdrAz19kbYxTgfzLmyaeF8dY-69d64ab2319ec",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-tWcTdW7WtmLZfk--bAWV0j8MroZsUTwf-5BI26wCnHXc-69d64aba6005e",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505533-wOHpPP9aOzwffgwtpWH0Fm7hUtWOcCduOmc39uWsiGg-69d64ac18bad4"
+    ],
+    "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Internet",
+        "Wireless",
+        "24-hour checkin",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "TV",
+        "Linens",
+        "Towels",
+        "Cooking basics",
+        "WiFi speed (25+ Mbps)",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Microwave",
+        "Oven",
+        "Electric kettle",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Coffee",
+        "Freezer"
+      ],
+      "Accessibility": [
+        "Wheelchair access possible",
+        "Bedroom step free access",
+        "Bathroom step free access",
+        "Step-free access"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Tub",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Rain Shower"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ]
+    },
+    "reviews": [],
+    "lat": 39.945815,
+    "lng": -74.0715048,
+    "rating": 5,
+    "link": "https://suitecapacity.holidayfuture.com/listings/505533"
+  },
+  {
+    "id": 505545,
+    "hostawayId": 461846,
+    "name": "Beach Block, 2BR, Free Parking in Seaside Heights",
+    "description": "Welcome to your comfortable and conveniently located stay in Seaside Heights! This clean and well-kept 2-bedroom, 1-bath unit sits just one block from the beach and moments from the lively Seaside Heights Boardwalk. It’s the perfect choice for a fun yet relaxing shore getaway, ideal for families, couples, or small groups who want to be close to everything.\n\n🛏 2 Bedrooms | 1 Bathroom\n Enjoy a simple, functional layout with two private bedrooms and a clean, well-kept bathroom perfect for a comfortable and restful stay.\n✨ Clean & Comfortable Living Space\n The unit is designed with a focus on cleanliness and comfort, giving you a welcoming place to relax after a day at the beach or exploring town.\n🍳 Kitchen for Everyday Convenience\n Includes essential kitchen amenities so you can easily prepare meals, snacks, or morning coffee during your stay.\n🚗 1 Dedicated Parking Spot\n Comes with one parking space, making it easy to come and go without the hassle of searching for parking in busy beach areas.\n\n🏖 1 Block to the Beach & Boardwalk\n You’re just steps away from the famous Seaside Heights Boardwalk and sandy beaches perfect for sunbathing, swimming, and evening walks.\n🎡 Close to Local Attractions\n Minutes from Casino Pier and Breakwater Beach Waterpark for rides, games, and family fun.\n🍔 Walk to Dining & Shops\n Enjoy being within walking distance to restaurants, cafes, ice cream spots, and local shops everything you need is right nearby.\n🚶 Stay Close to Everything\n This location offers the perfect balance right near the action, yet a clean and comfortable place to unwind.\n\n💸 Affordable Shore Stay\n Perfect for guests looking for a budget-friendly option near the beach without sacrificing convenience or comfort.\n\nWhether you're planning a weekend trip or a longer beach stay, this 2-bedroom unit offers a clean, simple, and perfectly located home base in Seaside Heights just one block from it all.\n\nMUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "houseRules": "MUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "location": "Seaside Heights, US",
+    "city": "Seaside Heights",
+    "price": 275,
+    "guests": 5,
+    "beds": 2,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-x--4rvmeeEtTekWWWvMMmsynZeK5ZHRNMVgSgjEgXjU4-69d651591cc2a",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-BvIfTMt4HD3zIgul85-Ue5Hp55Aiuup7AmQw2nNP1kQ-69d6515bf0808",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-NMPqDxoo2zwxnfVsENobEHAZ7eBYrSBtjb9-go--1tLo-69d651563e590",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-9ICfv1M3QAO6McXQhv6oZJS-PJGqoCydaEw7SX409FM-69d6515f38921",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-1ENZX-8KRN3XSkHpHSLbYUoMQyzZvRAFbA02hgYHvRM-69d65163565ba",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-2bK0AEPEal06HpaH8Y673A5mkVlaEp0Cc1qr2DU4Asg-69d65166f3f44",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-ZDh2eKcBPfGt9P--5c9mzzRajRfmwOTHxc57jesShGiU-69d6516b6c4db",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-HaMuHnhQdzngcqylWiztv3xLf15DCgWiT--BpIxjZB1w-69d651700bd32",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-QPi3TZDnElTePICddOx5S5GdNLuZAeQq7YtfswGyLXs-69d651750f97e",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-rC7QMUGwQy3UvliDQHToDcMDcRNNJV23xYhoFU4F--sw-69d6517a8fab4",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-lt15CMYYv1nC4W0HnlNfGCUbQ--Ma6S9HzMI1wISo2dI-69d651803e011",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-qMJp5cxzrLAz9SxnLnZCLAO3PGS2gODHxfn3kBKgUU0-69d6518652a26",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-h2Mcr4FzV7gg9xnx0ekxHXKFkhXFE7yxzCgzHRaVZ18-69d6518d09774",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-jCbjkmf6lIjT-kGpAa6-M2dNuUw2sU1dG5Lr7dzCqPg-69d65193acde7",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505545-KNNMhbDEBKW8W1Yhr1iKZJtK8MjzqNv6HMQMAPmSTNg-69d6519b073b8"
+    ],
+    "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Internet",
+        "Wireless",
+        "24-hour checkin",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "TV",
+        "Linens",
+        "Towels",
+        "Cooking basics",
+        "WiFi speed (25+ Mbps)",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Microwave",
+        "Oven",
+        "Electric kettle",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Coffee",
+        "Freezer"
+      ],
+      "Accessibility": [
+        "Wheelchair access possible",
+        "Bedroom step free access",
+        "Bathroom step free access"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Tub",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Rain Shower"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ]
+    },
+    "reviews": [],
+    "lat": 39.945815,
+    "lng": -74.0715048,
+    "rating": 5,
+    "link": "https://suitecapacity.holidayfuture.com/listings/505545"
+  },
+  {
+    "id": 505582,
+    "hostawayId": 461882,
+    "name": "2BR, Parking, Walk to Beach | Modern Seaside Heights Retreat",
+    "description": "Enjoy a relaxing stay in Seaside Heights at this clean and comfortable 2-bedroom, 1-bath unit just one block from the beach. Located near Casino Pier, you’ll have easy access to rides, games, and entertainment while still having a cozy place to unwind. Perfect for families, couples, or small groups.\n\n🛏 2 Bedrooms | 1 Bathroom\n Enjoy a simple, functional layout with two private bedrooms and a clean, well-kept bathroom perfect for a comfortable and restful stay.\n✨ Clean & Comfortable Living Space\n The unit is designed with a focus on cleanliness and comfort, giving you a welcoming place to relax after a day at the beach or exploring town.\n🍳 Kitchen for Everyday Convenience\n Includes essential kitchen amenities so you can easily prepare meals, snacks, or morning coffee during your stay.\n🚗 1 Dedicated Parking Spot\n Comes with one parking space, making it easy to come and go without the hassle of searching for parking in busy beach areas.\n\n🏖 1 Block to the Beach & Boardwalk\n You’re just steps away from the famous Seaside Heights Boardwalk and sandy beaches perfect for sunbathing, swimming, and evening walks.\n🎡 Close to Local Attractions\n Minutes from Casino Pier and Breakwater Beach Waterpark for rides, games, and family fun.\n🍔 Walk to Dining & Shops\n Enjoy being within walking distance to restaurants, cafes, ice cream spots, and local shops everything you need is right nearby.\n🚶 Stay Close to Everything\n This location offers the perfect balance right near the action, yet a clean and comfortable place to unwind.\n\n💸 Affordable Shore Stay\n Perfect for guests looking for a budget-friendly option near the beach without sacrificing convenience or comfort.\n\nWhether you're planning a weekend trip or a longer beach stay, this 2-bedroom unit offers a clean, simple, and perfectly located home base in Seaside Heights just one block from it all.\n\nMUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "houseRules": "MUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "location": "Seaside Heights, US",
+    "city": "Seaside Heights",
+    "price": 275,
+    "guests": 5,
+    "beds": 2,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-KBtANP8Cbg15S--MV7jxPCx1H5cQ--YSodQlenVIzlNoU-69d65fbaf27bb",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-cmhknZ8Efl-4KKgoZ5pW1fvm59b9sEKTfEkigfrWJfU-69d65fbde419f",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-bKhcJJKhBSAmr3VJWHG-MXiE9TIGIdtdAYftoJ7Tzw0-69d65fc11c099",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-AD4HdTYZ2JhVAsWtBQzhRDaA-qBk--Agq26dFvHL-gcw-69d65fc47b1d7",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-qRXs5D7fPtyMAi3BuE97wgZ-y6ZKMG7kHp05YYx3Em8-69d65fc80d982",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582--TsqAcYTIh3oYCu3xzuUT6w4hrZ3W1H0Hnx1M0hQEnM-69d65fcc704a5",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-vDju7dXkc-WFhNHUDIFNWIjIo40yvIAUBEDRNJhx2z8-69d65fd1ddb75",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-1IPdGNkLgByvNHkO0RzuRvlIYPNWFy--ukeJTPXAuloA-69d65fd69d78e",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-Re7m80m5zCi6SFkYeMgtcKGVSs78R1SJ-jTgIvbWl9s-69d65fdba3b52",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-KaUN-400TkXKb7Kce--eichy4aUAsani-LP2-DuX9KAs-69d65fe14683d",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-1mpIEFLpcgSs5lnxbTB3mCoYbpsk7O3uWhsdh-P1Hbg-69d65fe79023f",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-OXrVIDqYIZwP1Qy0QOgifX54gu0U5cJIHnMPQaOQf3M-69d65fef3c059",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-T-kHBLoTTV6iJOwvJ5V-x7DeCqqMVl2l-vs17KGgZiM-69d65ff6315a6",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582--FRdrVBNDjlPa--JAI-B8RSw0I--VnS1re0LC5UvDntVg-69d65ffda4652",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505582-Yoyaldpg--X9uMnq8E7FcK0zTC4F--RHYna-PlNP8DK1E-69d6600584a98"
+    ],
+    "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Internet",
+        "Wireless",
+        "24-hour checkin",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "TV",
+        "Linens",
+        "Towels",
+        "Cooking basics",
+        "WiFi speed (25+ Mbps)",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Microwave",
+        "Oven",
+        "Electric kettle",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Coffee",
+        "Freezer"
+      ],
+      "Accessibility": [
+        "Wheelchair access possible",
+        "Bedroom step free access",
+        "Bathroom step free access"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Tub",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Rain Shower"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ]
+    },
+    "reviews": [],
+    "lat": 39.945815,
+    "lng": -74.0715048,
+    "rating": 5,
+    "link": "https://suitecapacity.holidayfuture.com/listings/505582"
+  },
+  {
+    "id": 505607,
+    "hostawayId": 461908,
+    "name": "Charming Seaside Escape | 2BR, Parking, Beach",
+    "description": "Welcome to your beachside retreat in Seaside Heights! This well-maintained 2-bedroom, 1-bath unit is just one block from the ocean and close to Breakwater Beach Waterpark, making it a great option for families and groups looking for both relaxation and fun nearby.\n\n🛏 2 Bedrooms | 1 Bathroom\n Enjoy a simple, functional layout with two private bedrooms and a clean, well-kept bathroom perfect for a comfortable and restful stay.\n✨ Clean & Comfortable Living Space\n The unit is designed with a focus on cleanliness and comfort, giving you a welcoming place to relax after a day at the beach or exploring town.\n🍳 Kitchen for Everyday Convenience\n Includes essential kitchen amenities so you can easily prepare meals, snacks, or morning coffee during your stay.\n🚗 1 Dedicated Parking Spot\n Comes with one parking space, making it easy to come and go without the hassle of searching for parking in busy beach areas.\n\n🏖 1 Block to the Beach & Boardwalk\n You’re just steps away from the famous Seaside Heights Boardwalk and sandy beaches perfect for sunbathing, swimming, and evening walks.\n🎡 Close to Local Attractions\n Minutes from Casino Pier and Breakwater Beach Waterpark for rides, games, and family fun.\n🍔 Walk to Dining & Shops\n Enjoy being within walking distance to restaurants, cafes, ice cream spots, and local shops   everything you need is right nearby.\n🚶 Stay Close to Everything\n This location offers the perfect balance right near the action, yet a clean and comfortable place to unwind.\n\n💸 Affordable Shore Stay\n Perfect for guests looking for a budget-friendly option near the beach without sacrificing convenience or comfort.\n\nWhether you're planning a weekend trip or a longer beach stay, this 2-bedroom unit offers a clean, simple, and perfectly located home base in Seaside Heights just one block from it all.\n\nMUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "houseRules": "MUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "location": "Seaside Heights, US",
+    "city": "Seaside Heights",
+    "price": 275,
+    "guests": 5,
+    "beds": 2,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-6s9qrLUfzZlgrCTcG12j2f5--z6ttUFtIrX1Y0Flghdg-69d66e5aae30f",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-E5lWAbXp3cX0Csd7K4Jf61H3E0JiXlbWK4ryWexi4aU-69d66e5e637a6",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-OYQfP0pZyDYNH--VEagrPuCw6nyy9L0Dgq9S8vOOE1nE-69e622a105a66",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-eHh54sLdRfrtPTo--CM8JBg0dBJbNCvK1Z3-y9CrO--M0-69d66e6c82b12",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-jc7ma5SjQzUnxC4NaJeYbhaLUc89Exm03dlo--rs3otY-69d66e7294acf",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-8FhYnW3Evk5kMI6ji8wIk2EBoJMVlv4lT1E3lfDaRK0-69d66e77f4092",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-Xhm-oAqoWYY25--DCvJ9rITETW4NjDuS6GjWAQ6ISM90-69d66e7da5b14",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-YWRjRDlBRjkXtjqud8x--Ld22ub1ESIllr4Aw44DpAP8-69d66e83a3ecc",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-iLZmR2WFRFqCU1VXmZFqN842Vw6Qc--hYACoGtj1XYiE-69d66e8a28932",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-2ygJWwkklc5TZ5GISGWReEUFVYXDLOvtUXIlNffYtuI-69d66e90b1411",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-q0x9AkkZzNlcyoiWKCKGLjYEDKK6a6mMI7leCYSDjsk-69d66e982e8e1",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-oaucs01qmUMjn-E0tJGOcgle-QbjwaNbL3lwOZTxbUU-69d66ea02cc62",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-Ivp1tLH62GKgG9PaULdjWmmFYlPQ--ykaQCII6rhsY-E-69d66ea83afbb",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505607-ZQTdd6nJ8--Y9ZgvuAKUT9MhLan3IMXw3iBdNwkaWXJ4-69d66eb19034f"
+    ],
+    "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Internet",
+        "Wireless",
+        "24-hour checkin",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "TV",
+        "Linens",
+        "Towels",
+        "Cooking basics",
+        "WiFi speed (25+ Mbps)",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Microwave",
+        "Oven",
+        "Electric kettle",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Coffee",
+        "Freezer"
+      ],
+      "Accessibility": [
+        "Wheelchair access possible",
+        "Bedroom step free access",
+        "Bathroom step free access"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Tub",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Rain Shower"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ]
+    },
+    "reviews": [],
+    "lat": 39.945815,
+    "lng": -74.0715048,
+    "rating": 5,
+    "link": "https://suitecapacity.holidayfuture.com/listings/505607"
+  },
+  {
+    "id": 505614,
+    "hostawayId": 461915,
+    "name": "Breezy Seaside Escape | 2BR, Free Parking, Steps to Beach",
+    "description": "Stay in the heart of Seaside Heights in this clean and inviting 2-bedroom, 1-bath unit just one block from the beach. With restaurants, cafes, and local shops all within walking distance, this unit is perfect for guests who want convenience, comfort, and an easygoing shore experience.\n\n🛏 2 Bedrooms | 1 Bathroom\n Enjoy a simple, functional layout with two private bedrooms and a clean, well-kept bathroom perfect for a comfortable and restful stay.\n✨ Clean & Comfortable Living Space\n The unit is designed with a focus on cleanliness and comfort, giving you a welcoming place to relax after a day at the beach or exploring town.\n🍳 Kitchen for Everyday Convenience\n Includes essential kitchen amenities so you can easily prepare meals, snacks, or morning coffee during your stay.\n🚗 1 Dedicated Parking Spot\n Comes with one parking space, making it easy to come and go without the hassle of searching for parking in busy beach areas.\n🏖 1 Block to the Beach & Boardwalk\n You’re just steps away from the famous Seaside Heights Boardwalk and sandy beaches perfect for sunbathing, swimming, and evening walks.\n🎡 Close to Local Attractions\n Minutes from Casino Pier and Breakwater Beach Waterpark for rides, games, and family fun.\n🍔 Walk to Dining & Shops\n Enjoy being within walking distance to restaurants, cafes, ice cream spots, and local shops everything you need is right nearby.\n🚶 Stay Close to Everything\n This location offers the perfect balance right near the action, yet a clean and comfortable place to unwind.\n\n💸 Affordable Shore Stay\n Perfect for guests looking for a budget-friendly option near the beach without sacrificing convenience or comfort.\n\nWhether you're planning a weekend trip or a longer beach stay, this 2-bedroom unit offers a clean, simple, and perfectly located home base in Seaside Heights just one block from it all.\n\nMUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "houseRules": "MUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "location": "Seaside Heights, US",
+    "city": "Seaside Heights",
+    "price": 275,
+    "guests": 5,
+    "beds": 2,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-SHP--jw1yhbgnZPrYMciIt2CqRIEUBpWjeHl2g8vH4es-69d676019ea21",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-AB7OhH7kNaFqisdmw8G8RLZAP33Co-Bxi6aRjTZ3M--c-69d67604ad214",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-ahKTMNjUNSlHPpDAQHBeoRI9r2-E6k1TNtganw2-Jw8-69d67607e1fb8",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-2--lTK1ZVF--zsdzKgca8BOQnhh86eV5uUcLNzvQypd0s-69d6760b4c7ce",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-rnVdK7QODcVRmgNYunHArXHj-LxB--Mzv8otgwGgwnKc-69d6760f2ec38",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-qR8gezhc7yhleCF4nS7doh0PUdzbIeGrDHxq--j--oglc-69d6761380079",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-s-sgomR8VLmhRJqJdusAHwER8L6kBHHyinJfnHjxOwE-69d67618266d1",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-JHBCUfXavDWlzA6OcBcvgjSqjQSy4ub9XRbnYaqcrjo-69d6761d35230",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-0yYtzi-t--wgcfW58uUrrwjvuva34U93vY0eu8FcffFU-69d676258396d",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-xxMy2ODhOaqMdXj3uzKLqq7mxWdXzmsQy19mBrIik-g-69d6762be74e4",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-DEvi6FHxL5iaTxhaPevBaANbnjolt709bFffcMXgx1M-69d67633653c4",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-tNe1xqFEKLWQSlqIG7ngdWLPg3zPBe7VqF77izp27Ow-69d6763b86121",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-nCD--0IIc5IMryJey2Ts9G0m4LXKBvzjL2JsCIWzmc20-69d67642b1823",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505614-ZnSa4zjF--bggos--h99KjHT5oOZ9pRJg-qj2fDz1KnYY-69d6764b0cd71"
+    ],
+    "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Internet",
+        "Wireless",
+        "24-hour checkin",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "TV",
+        "Linens",
+        "Towels",
+        "Cooking basics",
+        "WiFi speed (25+ Mbps)",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Microwave",
+        "Oven",
+        "Electric kettle",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Coffee",
+        "Freezer"
+      ],
+      "Accessibility": [
+        "Wheelchair access possible",
+        "Bedroom step free access",
+        "Bathroom step free access"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Tub",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Rain Shower"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ]
+    },
+    "reviews": [],
+    "lat": 39.945815,
+    "lng": -74.0715048,
+    "rating": 5,
+    "link": "https://suitecapacity.holidayfuture.com/listings/505614"
+  },
+  {
+    "id": 505620,
+    "hostawayId": 461921,
+    "name": "Cozy Shore Escape | 2BR, Parking, Walk to Beach",
+    "description": "Discover a clean and comfortable 2-bedroom, 1-bath stay in Seaside Heights, located just one block from the beach. Tucked in a convenient yet slightly quieter area, this unit offers the perfect balance of relaxation and proximity to nearby attractions ideal for families, couples, or small groups looking for a laid-back shore getaway.\n\n🛏 2 Bedrooms | 1 Bathroom\n Enjoy a simple, functional layout with two private bedrooms and a clean, well-kept bathroom perfect for a comfortable and restful stay.\n✨ Clean & Comfortable Living Space\n The unit is designed with a focus on cleanliness and comfort, giving you a welcoming place to relax after a day at the beach or exploring town.\n🍳 Kitchen for Everyday Convenience\n Includes essential kitchen amenities so you can easily prepare meals, snacks, or morning coffee during your stay.\n🚗 1 Dedicated Parking Spot\n Comes with one parking space, making it easy to come and go without the hassle of searching for parking in busy beach areas.\n🏖 1 Block to the Beach & Boardwalk\n You’re just steps away from the famous Seaside Heights Boardwalk and sandy beaches perfect for sunbathing, swimming, and evening walks.\n🎡 Close to Local Attractions\n Minutes from Casino Pier and Breakwater Beach Waterpark for rides, games, and family fun.\n🍔 Walk to Dining & Shops\n Enjoy being within walking distance to restaurants, cafes, ice cream spots, and local shops everything you need is right nearby.\n🚶 Stay Close to Everything\n This location offers the perfect balance right near the action, yet a clean and comfortable place to unwind.\n\n💸 Affordable Shore Stay\n Perfect for guests looking for a budget-friendly option near the beach without sacrificing convenience or comfort.\n\nWhether you're planning a weekend trip or a longer beach stay, this 2-bedroom unit offers a clean, simple, and perfectly located home base in Seaside Heights just one block from it all.\n\nMUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "houseRules": "MUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "location": "Seaside Heights, US",
+    "city": "Seaside Heights",
+    "price": 275,
+    "guests": 5,
+    "beds": 2,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-wCTiebg4tkyS5BxQ7fUZjoa7RKZ8cl--nyhqyt-Fz7d4-69d67a7ceda4e",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-P5CYL8CfLv4oIIioOQ0YSniu9njJYLlvhfhtNBm9Y2M-69d67a77ead57",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-bcwyVvRYdGKjwkqPQcIr--x1SZifPzFTEqz7NtMvG3YI-69d67a5cbda5d",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-FM-0kfJjneazWjXJ8ENbt6zzM0uWATksitc0b3ZMSmM-69d67a5fd8b79",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-4XZOzBQX8g2FQZ--NsBkL4e3sK4w26s8wCy0JHtVww2I-69d67a62e5c9a",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-LUK0WnMDCGKIEcffonHu8Pwen2J80M2DwdbTG2HgwTg-69d67a665ff10",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-7EtH83rXIaWhbgYliYD9Vc--hZz5iuIhRYSclYmYt4rM-69d67a6a21067",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-t5--06IVxKzWKi914EBkhVPIGTLs4MjmPE7fYgvNE5Vg-69d67a6e53b5c",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-S9HCxHzBuHd0sI3Djh9hbIazDtu0a3QFcgX6tDBfCUE-69d67a72c0735",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-k9ZW-ycfrHKY--hlQUGb4eVa30ksjc3qOI1NUSki6seY-69d67a8266298",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-SNeFlZ52RdXLwgCnx2A2ye0SqJDi0KKKwfb3kye0Jyw-69d67a88345dd",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-SH4gaVpzYtU90zPwq-6eoQzcR2jdeitVBUqFsstAUSA-69d67a8fc2cb0",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-JKyS7O0L4--gAcOhX8MN7coVLuTLfIvkVUp2M--jdYmsQ-69d67a96c0224",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-s2k2rK9f-Gmgx8XQVIUe5ncVisgy3zW6CkaGOqka--0E-69d67a9eacb11",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505620-xU1PD2YKiG40IDqvfn8fNAB9g6wdhLCbPrENq4BJFho-69d67aa669466"
+    ],
+    "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Internet",
+        "Wireless",
+        "24-hour checkin",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "TV",
+        "Linens",
+        "Towels",
+        "Cooking basics",
+        "WiFi speed (25+ Mbps)",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Microwave",
+        "Oven",
+        "Electric kettle",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Coffee",
+        "Freezer"
+      ],
+      "Accessibility": [
+        "Wheelchair access possible",
+        "Bedroom step free access",
+        "Bathroom step free access"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Tub",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Rain Shower"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ]
+    },
+    "reviews": [],
+    "lat": 39.9458033,
+    "lng": -74.0715318,
+    "rating": 5,
+    "link": "https://suitecapacity.holidayfuture.com/listings/505620"
+  },
+  {
+    "id": 505628,
+    "hostawayId": 461929,
+    "name": "1BR, Free Parking, Steps to the Boardwalk",
+    "description": "Welcome to your simple, clean, and conveniently located stay in Seaside Heights! This 1-bedroom, 1-bath unit is just one block from the beach, making it the perfect choice for couples or solo travelers looking for comfort, convenience, and value near the shore.\n\n🛏 1 Bedroom | 1 Bathroom\n Enjoy a cozy and private bedroom paired with a clean, well-maintained bathroom ideal for a comfortable and relaxing stay.\n✨ Clean & Comfortable Space\n The unit is thoughtfully kept with a focus on cleanliness and simplicity, giving you a stress-free place to unwind after a day out.\n🍳 Kitchen Essentials\n Includes basic kitchen amenities so you can easily prepare meals, snacks, or your morning coffee.\n🚗 1 Dedicated Parking Spot\n Comes with one parking space, a huge plus in Seaside Heights making your stay easy and hassle-free.\n\n🏖 Just 1 Block to the Beach & Boardwalk\n Walk minutes to the iconic Seaside Heights Boardwalk and enjoy the beach, ocean views, and lively atmosphere.\n🎡 Close to Attractions\n Near Casino Pier and Breakwater Beach Waterpark perfect for entertainment, rides, and family fun.\n🍔 Dining & Shops Nearby\n Plenty of restaurants, cafes, and local shops are just a short walk away, so you can enjoy everything without needing to drive.\n🚶 Central & Convenient Location\n Stay right in the heart of it all while having a clean, quiet space to relax.\n\n💸 Great Value Near the Beach\n Perfect for guests looking for an affordable, no-fuss stay just steps from the shore.\n\nWhether you're planning a quick beach trip or a longer stay, this 1-bedroom unit offers a comfortable, budget-friendly home base in Seaside Heights just one block from everything you need.\n\nMUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "houseRules": "MUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "location": "Seaside Heights, US",
+    "city": "Seaside Heights",
+    "price": 222,
+    "guests": 3,
+    "beds": 1,
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-kRftiFmnQfX2XtYbH6dJJ-b9uHwc0eFm6E8Ru4OrBKw-69d68054e1a07",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-r8lrci4YU2WqNjH--oisM5DXMs55g5LNQ2bO1LzZxTWU-69d6804aa6a92",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-EmpNOHPok2cmvk7UGAMDne9V--tz7VwDFqyXS1b1p2W4-69d6804e1e4ea",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-FLx7p89kRZ3rqZ7QVRheEOGkMXWfLuVm4f6tH0EcKP4-69d680514cbe8",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-jz0vFClQ87bvwO6Z8ItZmPiltzp-FkwEc6DA0eGNFeY-69d68058d1a82",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-PikJr1OkxkudwYYTEDPTxSgwa7ai4f8rnGHxSOA74n0-69d6805d909fd",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-OPUJ56uarDnosiQ1BUMIHMg9w25jc6eS0chexJ3b0Tc-69d6806201403",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-vlot5jvdq-YqcBzeyTwigMLezEOpKMt4sRHHSkQX0AI-69d6806721b64",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-bV0MgiGqvUMxRC5hpO95Pa8GAn4Sto2regfMf7-zoiI-69d6806d3296b",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-B44Gq0Ku-llUyHYfgnqdMCJNnwKcEd-RrzcjXsRHNEY-69d680734fc5e",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-Y8eaeIaAKz0OPj7x25dCJNvx26qczb2OFPAzvYym8RA-69d6807cd5d6d",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505628-yPKoUC3cYv8WrEc26F3F68iHfnBaHVZHUBdiG8VHnN8-69d68083eec98"
+    ],
+    "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Internet",
+        "Wireless",
+        "24-hour checkin",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "TV",
+        "Linens",
+        "Towels",
+        "Cooking basics",
+        "WiFi speed (25+ Mbps)",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Microwave",
+        "Oven",
+        "Electric kettle",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Coffee",
+        "Freezer"
+      ],
+      "Accessibility": [
+        "Wheelchair access possible",
+        "Bedroom step free access",
+        "Bathroom step free access"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Tub",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Rain Shower"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ]
+    },
+    "reviews": [],
+    "lat": 39.945815,
+    "lng": -74.0715048,
+    "rating": 5,
+    "link": "https://suitecapacity.holidayfuture.com/listings/505628"
+  },
+  {
+    "id": 505634,
+    "hostawayId": 461935,
+    "name": "1BR, Parking, Walk to the Beach | Cozy Seaside Heights Retreat",
+    "description": "Welcome to your clean, comfortable, and perfectly walkable stay in Seaside Heights! This 1-bedroom, 1-bath unit is located just one block from the beach and surrounded by a variety of dining spots, cafes, and local favorites making it an ideal choice for couples or solo travelers who want convenience, great food options, and everything within easy walking distance.\n\n🛏 1 Bedroom | 1 Bathroom\n Enjoy a cozy and private bedroom paired with a clean, well-maintained bathroom ideal for a comfortable and relaxing stay.\n✨ Clean & Comfortable Space\n The unit is thoughtfully kept with a focus on cleanliness and simplicity, giving you a stress-free place to unwind after a day out.\n🍳 Kitchen Essentials\n Includes basic kitchen amenities so you can easily prepare meals, snacks, or your morning coffee.\n🚗 1 Dedicated Parking Spot\n Comes with one parking space, a huge plus in Seaside Heights making your stay easy and hassle-free.\n\n🏖 Just 1 Block to the Beach & Boardwalk\n Walk minutes to the iconic Seaside Heights Boardwalk and enjoy the beach, ocean views, and lively atmosphere.\n🎡 Close to Attractions\n Near Casino Pier and Breakwater Beach Waterpark perfect for entertainment, rides, and family fun.\n🍔 Dining & Shops Nearby\n Plenty of restaurants, cafes, and local shops are just a short walk away, so you can enjoy everything without needing to drive.\n🚶 Central & Convenient Location\n Stay right in the heart of it all while having a clean, quiet space to relax.\n\n💸 Great Value Near the Beach\n Perfect for guests looking for an affordable, no-fuss stay just steps from the shore.\n\nWhether you're planning a quick beach trip or a longer stay, this 1-bedroom unit offers a comfortable, budget-friendly home base in Seaside Heights just one block from everything you need.\n\nMUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "houseRules": "MUST BE AT LEAST 25+ TO BOOK. \nProof of I.D. is required to confirm your reservation. \n\nNO PARTIES, PROMS, OR GROUP RENTALS.",
+    "location": "Seaside Heights, US",
+    "city": "Seaside Heights",
+    "price": 222,
+    "guests": 3,
+    "beds": 1,
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-k-Eyemxu--TiHKnUt4g4EKHmbGKQ9gaoZFuyJyfT3Wp8-69d68620abd3a",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-2VhOZwgij5hPStnuUC3JeaxFexqudvxueFbtMBHBAPg-69d6861d82284",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-SMIMmC2eUCIrL-r74LMpbGuFm--0jjx4q4TNFBp8QEE-69d6861a613ee",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-tXwbr--ZAcPQgUL0RH7YBqiA0eX3k--dU7G8aa8eoEH-g-69d68627ce706",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-vTn3xAowYrSqFcM0utiMKaYR6kS1JPRlRwY-J8IIu9I-69d6862c0f490",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-9dtOQIrirR--mtIuWwQaTS7K3TeftYrYJ--Ls5QivMetg-69d686308abab",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-T0cOtlGUwCpc5VQ7m8eMQ31wx7nH93uPY--twWbHmRlg-69d68635581cf",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-OJbNLd4dLmwFga5wF6dkofqMA75rlIy49B50KrPzmhc-69d6863ac1bed",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-v25M4EX3-gDud5bYxpPKRV7Ey2rjWGveyEiCgjLosLU-69d686404c21d",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-zDj8WWbaQCvCRoKaP--u0gitkQ5Lcfia--5eY35op--CMA-69d6864619322",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-KJP2iPj55hvd1dc5e4TNuvAF--qxram9skc-Zb7Y--Pug-69d6864c4f8d5",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634--a7--vElvu9t3V0xU4oVbyTQIc--Pj2-SWFgnhrQ9FY80-69d68652bddec",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-505634-Gjb9taqfrpyYc4kL--CKmpaxq38dv7--7OyQip6cpkjEY-69d68659b4a6f"
+    ],
+    "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Internet",
+        "Wireless",
+        "24-hour checkin",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "TV",
+        "Linens",
+        "Towels",
+        "Cooking basics",
+        "WiFi speed (25+ Mbps)",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Microwave",
+        "Oven",
+        "Electric kettle",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Coffee",
+        "Freezer"
+      ],
+      "Accessibility": [
+        "Wheelchair access possible",
+        "Bedroom step free access",
+        "Bathroom step free access"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Tub",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Rain Shower"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ]
+    },
+    "reviews": [],
+    "lat": 39.945815,
+    "lng": -74.0715048,
+    "rating": 5,
+    "link": "https://suitecapacity.holidayfuture.com/listings/505634"
+  },
+  {
+    "id": 509530,
+    "hostawayId": 465830,
+    "name": "New Luxury 3BR Near Boardwalk | Balcony + Parking",
+    "description": "Welcome to your brand-new Jersey Shore retreat in the heart of Seaside Heights steps from the beach, the iconic boardwalk, Casino Pier, and Breakwater Beach Waterpark.\n\nThis stunning 2025-built 3-bedroom, 2-bathroom apartment offers the perfect combination of modern luxury and classic shore town fun. With designer finishes, a dedicated kids room, and one of the best locations on the Boulevard, this is the ultimate family getaway or the perfect base for friends exploring everything Seaside Heights has to offer.\n\n🛏 3 Bedrooms | 2 Bathrooms \nThree private bedrooms give everyone their own space to unwind after a day at the beach. Both bathrooms feature modern tile showers with glass doors for a clean, spa-like feel. Endless hot water courtesy of the tankless water heater means no waiting  even with a full house getting ready for the boardwalk.\n\n🧸 Dedicated Kids Room with Toys & Books\nA standout feature of this home  the kids room is stocked with toys, books, and everything little ones need to stay entertained and happy. It's their own special space for playtime, naptime, and making vacation memories. Parents, you'll love this one.\n\n📺 Spacious Open-Concept Living Area with Large TV\nRelax and unwind in the bright, airy living space with soaring 9-foot ceilings and natural light. The large TV is perfect for family movie nights, catching a game, or winding down after a long day on the boardwalk. The open floor plan keeps everyone connected  whether you're cooking in the kitchen or lounging on the couch.\n\n🍳 Fully Equipped Gourmet Kitchen & Coffee Maker\nPrepare meals with ease in the stunning kitchen featuring quartz countertops, stainless steel appliances, flat-panel cabinets, and plenty of counter space. Ideal for family breakfasts before the beach, afternoon snacks, and dinners in after a full day of fun. The coffee maker is ready for your morning routine because vacation mornings should start right.\n\n🌅 Private Balcony with a View\nStep outside onto your own private balcony and take in the ocean breeze. It's the perfect spot for morning coffee, evening drinks, or just watching the world go by. Nothing beats fresh air and a view after a day at the shore.\n\n🏖 Steps to the Beach, Boardwalk & Top Attractions\nYour location simply can't be beat. Walk to the Seaside Heights beach, the iconic 2.5-mile boardwalk, Casino Pier amusement rides, Breakwater Beach Waterpark, Lucky Leo's arcade, and dozens of shops and eateries. Catch the free weekly fireworks right on the beach every Wednesday night all summer long visible from anywhere on the boardwalk. This is the center of it all.\n\n🎢 Endless Family Fun All Within Walking Distance\nCasino Pier offers amusement rides for all ages, from toddler-friendly attractions to thrill rides. Breakwater Beach Waterpark is perfect for hot summer days. Mini golf, go-karts, boardwalk games, arcades, and midway attractions are all right there. Kids will never run out of things to do and neither will the adults.\n\n🍽 Walkable Dining & Local Favorites\nSome of the best Jersey Shore eats are right at your doorstep. Grab a legendary slice at Maruca's Tomato Pies (a boardwalk staple since the 1950s), sit down for seafood at Hemingway's Café, enjoy late-night pizza at The Sawmill, or explore the many family-friendly restaurants, bakeries, and ice cream shops lining the Boulevard and boardwalk.\n\n🌊 Outdoor Adventures for All Ages\nBeyond the beach and boardwalk, Seaside Heights offers bay-side activities like kayaking, crabbing, fishing, and calm-water swimming perfect for younger kids. Nearby parks, playgrounds, and picnic areas give families even more options for outdoor fun. Island Beach State Park is just a short drive for a quieter beach day surrounded by nature.\n\n🚗 Protected Garage Parking\nPark your car in a dedicated spot in the protected parking garage and forget about it, everything you need is within walking distance.\n\n🧺 In-Unit Washer, Dryer & Modern Conveniences\nTravel light knowing you have a full-size in-unit washer and dryer. WiFi keeps everyone connected, central AC keeps the home comfortable on the hottest days, and the tankless water heater means hot showers are always ready no matter who's next in line.\n\n🏢 Gorgeous Building with Shared Courtyard\nEnter through the spectacular lobby with a large main elevator for easy access. The expansive second-floor courtyard is perfect for lounging, letting the kids play, or enjoying a quiet moment in the fresh air. This building was designed with families and comfort in mind.\n\n📍 Prime Seaside Heights Location\nSituated right on the Boulevard the main street running through Seaside Heights you're in the perfect spot. Walk to everything: beach, boardwalk, rides, restaurants, and shopping. Just one hour from New York City, Atlantic City, and Philadelphia, Seaside Heights is easy to get to and impossible to forget.\n\n🎆 Don't Miss: Weekly Summer Fireworks\nEvery Wednesday night throughout the summer, Seaside Heights lights up the sky with a spectacular fireworks show right over the beach. Grab a slice from the boardwalk, set up your beach chairs on the sand, and enjoy the show it's a Seaside Heights tradition your family will talk about long after you get home.\n\nWhether you're building sandcastles with the kids, riding the rides at Casino Pier, catching fireworks on the beach, or relaxing together on the balcony after a full day of shore adventures this brand-new Seaside Heights retreat is the perfect place to make unforgettable family memories.\n\nYour stay is professionally managed by Suite Capacity Property Management we're local, responsive, and here to make sure every detail of your vacation is perfect. 🌊",     "houseRules": "House Rules:\n\n– Primary renter must be at least 25 years old\n– No parties, events, or group rentals allowed\n– No prom, graduation, or similar group gatherings\n– Quiet hours must be respected\n– Government-issued photo ID is required to confirm the reservation and verify age\n\nWe take pride in maintaining a clean, peaceful, and family-friendly home. Guests who do not meet these requirements will have their reservations canceled. Thank you for your understanding!",
+    "location": "Seaside Heights, US",
+    "city": "Seaside Heights",
+    "price": 650,
+    "guests": 6,
+    "beds": 4,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "images": [
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-16tGuCYw94h0Rt5Rr3TPfxqKquG3tB4QwJjGJzopWdE-69dfb73bb68c0",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-fRdAsBW-g--xANdhVX-B6yxN2H-ald1n--8MK2bNz--H2w-69dfb73f3eef5",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-wSXQrUhNFyrxitshiX7yJcmMyd67clEfFSIaSPgXJOs-69dfb748ae5b2",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-Ua0XQPX3QT3d--u5KsM49w1fbbsdiaoyRtnQYNyrC0hc-69dfb7430adbf",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-CXNV3tAxvSGt0AGtymomqKJTZ3CjASGF--bG0dKaVC2k-69dfb74d465c3",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-Xohww7Zs7b--2u0W9B7TN--Jm0wfsXn--RHfvkKAOtf-Tk-69dfb75273e0c",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-3O81WvtUgbJ6cvO-aIYKbGuzjZT30q20PewNqTaOTSM-69dfb85158f5e",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-lPSLfz0RxTcDFvXOXTd0Lt--n4G33ThWXXw50Yb8sl6Y-69dfb75815070",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-FvM2MwF4ZTB-s3kYgEFZkGHnrTQe-Fhyb--hn4ExUVUU-69dfb75f0b906",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-wJ---xQEVQc2nk4hJcy-W0GoX9fOHfiAsNzgRWAVDfEo-69dfb765a063a",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-zNBrT-g--APqZMKK5xrFO7RQvPf9mlH0s2o3hGn476cA-69dfb76bcf399",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-s-itKxAieBAcqlsKJHIW2Lw0WZWheKT--2JWQCTBo92Q-69dfb772ce966",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-YopxFqLeHE4wBUJXieVwSUw25QP6ug4IeSRhE61sbmk-69dfb77a037ce",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-N3TcVBp0hzBVj6k2Q-WzVptayPWghxCDD0bhAlh6KBY-69dfb7815bbc6",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-S42jlss7WsZdGZT4v0gMGIOBdcyJe74XlLgMA3hJFbo-69dfb78975b1d",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-04U-B7c7NKernXjpWvdEYvwQmFcUNrELzvCy7lxgWvA-69dfb79196eb0",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-Z8C-p2wYUi9D6od2YD1M-OI8HtiRrYP1URN0pLh6jjk-69dfb79a72e87",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-cixWrI-B9ar1--Ho7rv37Z2ISx6LYpuRlbLD5ejs6V34-69dfb7a485dc1",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-Jylmro1t-oqEcwZfsrjjQRedLhCon9yaUUhok2rPG58-69dfb7ae51dd0",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-wVe7ThiH2OXhMWJMaHQfRhESaFaGgxN8jgR7PjcKCV0-69dfb7b8f0ab0",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-fb32i--eJnl4alZIZRH1po-J2ISeQBRQJcl76l--eVVjc-69dfb7c3972c8",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-26PLxUR89cedhVn-JdD2MAcZdrKMIxkFagjLahl65oE-69dfb7ce65c46",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-mPgKhiPHU0UoFprkHjgv3QXiTv5q15i6ph272--3GndU-69dfb7d988fe5",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-SQeQKpUGuzYVDdLN2-03nsJb3TE1QxTsMl0COIvX-KY-69dfb7e4a7e17",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-I3mHQKl0ZKx--ah9hCYjEJsag-OuZtBaKTc9Lbwl0IPw-69dfb7f094010",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-U7c1OONamTbmbq--VZFN--LG6XzGMpyWHnVOAhlucn0FE-69dfb7fcd2ce0",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-iyPXFv47niVMW6tQ5yRTX5b7eWIqslDwmi6r5Ym9lpU-69dfb80955359",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-3NGTmXufRq6BdTKTIee6JtBZjr1S0R9uEy54yP0--4NM-69dfb816e83b9",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-CZTIkfh9sCD8iQPoM2QakEMPW1uT1g9phbH0eYXrL3g-69dfb824a8c41",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-vrlgWmgWj1iyuEaD9tckiacZxSGVJOZkblhkoUS2JkI-69dfb8327779e",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-fYnz--5ShWMCFVnP1NOQKOHD-R2u7FBw--nRMutjSosFc-69dfb842caa11",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-cJaZL6zzOLN26yWTyhY1spDjOZVC4IjOK4HMKSu3ih0-69dfb8607560a",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/155201-509530-D8CcTl8IGToFTcOrZkXr--h6tlsa08CD0PpFYYY8hDRg-69dfb86fd5e74"
+    ],
+    "amenities": {
+      "General": [
+        "Free WiFi",
+        "Air conditioning",
+        "Washing Machine",
+        "Cable TV",
+        "Internet",
+        "Wireless",
+        "24-hour checkin",
+        "Hair Dryer",
+        "Heating",
+        "Shampoo",
+        "Hangers",
+        "Laptop Friendly workspace",
+        "TV",
+        "Balcony",
+        "Private living room ",
+        "Linens",
+        "Towels",
+        "Hot water",
+        "Private entrance",
+        "Cooking basics",
+        "Room darkening shades",
+        "Laundromat",
+        "WiFi speed (25+ Mbps)",
+        "WiFi speed (100+ Mbps)",
+        "Smart TV",
+        "Clothing storage"
+      ],
+      "Kitchen & dining": [
+        "Kitchen",
+        "Toaster",
+        "Dishwasher",
+        "Microwave",
+        "Oven",
+        "Coffee/tea maker",
+        "Stove",
+        "Refrigerator",
+        "Dining room",
+        "Kitchen utensils",
+        "Dining area",
+        "Kitchen island",
+        "Dining table",
+        "Baking sheet",
+        "Bread maker",
+        "Coffee",
+        "Freezer"
+      ],
+      "Policy": [
+        "Suitable for children",
+        "Suitable for infants"
+      ],
+      "Safety": [
+        "Smoke detector",
+        "Carbon Monoxide Detector"
+      ],
+      "Parking": [
+        "Free parking"
+      ],
+      "Bathroom": [
+        "Shower",
+        "Toilet",
+        "Body soap",
+        "Conditioner",
+        "Shower gel"
+      ],
+      "Location": [
+        "Beach"
+      ],
+      "Cleanliness": [
+        "Contactless Check-In/Out"
+      ],
+      "Children": [
+        "Books for kids",
+        "Children play area",
+        "Kids amenities"
+      ]
+    },
+    "reviews": [],
+    "lat": 39.9444116,
+    "lng": -74.0728109,
+    "rating": 5,
+    "link": "https://suitecapacity.holidayfuture.com/listings/509530"
   }
 ] as Property[];
