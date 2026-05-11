@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CheckCircle2, ArrowRight, Sparkles, BrainCircuit, Loader2 } from 'lucide-react';
@@ -88,6 +88,10 @@ export function RevenueIntelligenceWizard() {
         { id: 5, title: 'Results', description: 'Intelligence' },
     ];
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentStep]);
+
     const validateStep = (): string | null => {
         if (currentStep === 1) {
             if (!wizardData.property.address?.trim()) return 'Please enter a property address.';
@@ -124,7 +128,6 @@ export function RevenueIntelligenceWizard() {
         }
 
         setSubmissionError(null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
 
         if (currentStep === 3) {
             setIsSubmitting(true);

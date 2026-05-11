@@ -228,7 +228,7 @@ async function generateReportPdf(data: WizardData, projection: RevenueProjection
     // 2. Performance
     drawSectionHeader('2. Current Market Performance (Baseline)');
     drawWrappedText(`Estimated Annual Revenue: $${projection.currentRevenue.toLocaleString()}`, { bold: true });
-    
+
     if (projection.performanceBreakdown) {
         const pb = projection.performanceBreakdown;
         drawWrappedText(`• Peak Season Weekly Rate: $${pb.peakWeeklyRate.toLocaleString()}`, { indent: 10 });
@@ -256,7 +256,7 @@ async function generateReportPdf(data: WizardData, projection: RevenueProjection
     // 4. Optimized Projection
     drawSectionHeader('4. Suite Capacity Optimized Projection');
     drawWrappedText(`Optimized Revenue Target: $${projection.optimizedRevenue.toLocaleString()}`, { size: 14, bold: true, color: accentColor });
-    
+
     if (projection.performanceBreakdown) {
         const pb = projection.performanceBreakdown;
         // Adjust for optimized lift
@@ -479,7 +479,9 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                 const emailResult = await transporter.sendMail({
                     from: emailFrom,
                     to: data.lead.email,
-                    bcc: ['suitecapacity.dev@gmail.com'],
+                    bcc: ['suitecapacity.dev@gmail.com',
+                        'suitecapacity@gmail.com'
+                    ],
                     subject: 'Your Revenue Intelligence Report is Ready',
                     html: htmlContent,
                     attachments: [
@@ -614,8 +616,8 @@ function getTargetMarket(data: WizardData) {
         return MARKETS.find(m => m.id === data.property.marketId);
     }
     const addr = data.property.address.toLowerCase();
-    return MARKETS.find(market => 
-                        market.towns?.some(town => addr.includes(town))
+    return MARKETS.find(market =>
+        market.towns?.some(town => addr.includes(town))
     );
 }
 
@@ -625,7 +627,7 @@ function getTargetMarket(data: WizardData) {
  */
 function sanitizeAddress(address: string): string {
     if (!address) return "";
-    
+
     // Remove "Sleeps X", "Entire Complex", "Combo", etc.
     return address
         .split(/ - | Sleeps | sleeps | Sleeps: | sleeps: |, sleeps /)[0]
@@ -642,17 +644,17 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
     const rawAddress = data.property.address;
     const cleanAddress = sanitizeAddress(rawAddress);
     const market = getTargetMarket(data);
-    
+
     console.log("DEBUG: Original Address:", rawAddress);
     console.log("DEBUG: Sanitized Address:", cleanAddress);
 
     // Simple check: Does the address at least look like it has a city/state?
     // (Contains at least one comma or a Zip Code-like pattern)
     const isVague = !cleanAddress.includes(',') && !/\b\d{5}\b/.test(cleanAddress);
-    
+
     const isShore = market?.id === 'jersey-shore';
     const marketMultiplier = market?.multiplier || 1.15; // default conservative multiplier
-    
+
     try {
         // 1. Fetch Market Data from AirDNA
         // If address is vague, AirDNA Rentalizer will almost certainly fail or return garbage.
@@ -672,7 +674,7 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
         const currentAdr = data.baseline.adr || marketData.adr;
         const currentOcc = data.baseline.occupancy || marketData.occupancyRate;
         const currentRevenue = data.baseline.annualRevenue || ((currentAdr * (currentOcc / 100)) * 365);
-        
+
         // Use user revenue if available as the baseline comparison
         const baselineComparison = data.baseline.annualRevenue || (marketData.revpar * 365);
 
@@ -693,10 +695,10 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
         if (isShore) {
             // Jersey Shore Logic: Blend heuristic with real AirDNA data
             const brCount = data.property.bedrooms || 1;
-            const marketDrivenPeak = (marketData.adr * 7) * marketMultiplier; 
-            const heuristicPeak = brCount * 1050; 
+            const marketDrivenPeak = (marketData.adr * 7) * marketMultiplier;
+            const heuristicPeak = brCount * 1050;
             const peakWeeklyRate = Math.max(heuristicPeak, marketDrivenPeak);
-            
+
             const peakRevenue = peakWeeklyRate * 12; // 12 weeks of summer
             const targetSeasonality = marketData.seasonalityIndex || 0.70; // High seasonality market
             const projectedAnnual = peakRevenue / targetSeasonality;
@@ -714,17 +716,17 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
         } else {
             // Standard Global Logic: Heavily anchor on AirDNA + Form Inputs
             const dynamicVolatility = pricingData.volatilityIndex || (marketData.seasonalityIndex * 0.3) || 0.15;
-            
+
             // Market Upside: Catch up to top quartile ADR if they are operating below
             const topQuartileAdr = marketData.adr * marketMultiplier;
             const adrGap = Math.max(0, topQuartileAdr - currentAdr);
             const marketUpside = adrGap * (currentOcc / 100) * 365;
-            
+
             // Apply their specific audit gaps
             const totalMultipliers = 1 + designMult + amenitiesMult + listingMult + revMgmtMult;
             const baselineOptimized = currentRevenue * totalMultipliers;
             const pricingGain = baselineOptimized * dynamicVolatility; // Upside from implementing pro revenue management algorithm
-            
+
             optimizedRevenue = baselineOptimized + marketUpside + pricingGain;
             const totalLift = Math.max(0, optimizedRevenue - currentRevenue);
 
