@@ -77,7 +77,7 @@ export const STRBlueprint = () => {
                                         types: ['address'],
                                     }}
                                     placeholder="Enter property address for analysis"
-                                    className="w-full pl-11 pr-4 py-4 rounded-xl border border-black/10 shadow-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-base"
+                                    className="w-full pl-11 pr-32 py-4 rounded-xl border border-black/10 shadow-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-xs sm:text-base truncate"
                                 />
                                 <button className="absolute right-2 top-2 bottom-2 px-4 bg-primary/10 text-primary rounded-lg font-bold text-sm hover:bg-primary/20 transition-colors flex items-center gap-2">
                                     Analyze <ArrowRight className="w-4 h-4" />

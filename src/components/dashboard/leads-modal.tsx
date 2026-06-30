@@ -47,7 +47,7 @@ export default function LeadsModal({ isOpen, onClose }: LeadsModalProps) {
     }
   };
 
-  const filteredLeads = leads.filter(lead => 
+  const filteredLeads = leads.filter(lead =>
     lead.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     lead.email?.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -58,6 +58,45 @@ export default function LeadsModal({ isOpen, onClose }: LeadsModalProps) {
       day: 'numeric',
       year: 'numeric'
     });
+  };
+
+  const exportToCSV = () => {
+    const csvData = filteredLeads.map((lead) => ({
+      Name: lead.name || '',
+      Email: lead.email || '',
+      Phone: lead.phone || '',
+      JoinedDate: formatDate(lead.created_at),
+    }));
+
+    const headers = Object.keys(csvData[0] || {});
+
+    const csvContent = [
+      headers.join(','),
+      ...csvData.map((row) =>
+        headers
+          .map((header) => `"${String(row[header as keyof typeof row]).replace(/"/g, '""')}"`)
+          .join(',')
+      ),
+    ].join('\n');
+
+    const blob = new Blob([csvContent], {
+      type: 'text/csv;charset=utf-8;',
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute(
+      'download',
+      `guest-leads-${new Date().toISOString().split('T')[0]}.csv`
+    );
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -110,7 +149,11 @@ export default function LeadsModal({ isOpen, onClose }: LeadsModalProps) {
                     className="w-full bg-primary/5 border-none rounded-2xl py-4 pl-12 pr-4 text-black focus:ring-2 focus:ring-primary/20 transition-all outline-none"
                   />
                 </div>
-                <button className="flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-black text-white font-bold hover:bg-black/90 transition-all active:scale-95">
+                <button
+                  onClick={exportToCSV}
+                  disabled={filteredLeads.length === 0}
+                  className="flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-black text-white font-bold hover:bg-black/90 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   <Download className="w-5 h-5" />
                   Export CSV
                 </button>

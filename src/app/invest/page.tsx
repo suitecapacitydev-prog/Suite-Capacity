@@ -4,6 +4,7 @@ import SiteShell from '@/components/layout/site-shell';
 import { Rocket, ShieldCheck, Zap, BarChart3, Users, Settings, ArrowRight, CheckCircle2, TrendingUp, Building2, Landmark, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { MapPin, Globe, Hotel } from 'lucide-react';
 
 export default function InvestPage() {
   return (
@@ -27,9 +28,9 @@ export default function InvestPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="tel:+18553034545" className="w-full sm:w-auto">
-              <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-14 px-8 text-lg font-bold shadow-xl shadow-primary/20 flex items-center gap-3 hover:scale-105 transition-transform">
-                <Phone className="w-5 h-5" />
-                Call us today: +1 (855) 303-4545
+              <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-auto min-h-[3.5rem] py-3 sm:py-0 px-4 sm:px-8 text-base sm:text-lg font-bold shadow-xl shadow-primary/20 flex items-center justify-center gap-2 sm:gap-3 hover:scale-105 transition-transform">
+                <Phone className="w-5 h-5 shrink-0" />
+                <span className="text-center">Call us today: <span className="whitespace-nowrap">+1 (855) 303-4545</span></span>
               </Button>
             </a>
             <Link href="https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03">
@@ -232,5 +233,3 @@ export default function InvestPage() {
     </SiteShell>
   );
 }
-
-import { MapPin, Globe, Hotel } from 'lucide-react';

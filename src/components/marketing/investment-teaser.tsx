@@ -70,9 +70,9 @@ export function InvestmentTeaser() {
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Link href="/invest">
-                <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-12 px-10 text-lg font-black uppercase tracking-widest shadow-xl shadow-primary/20">
+                <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-auto min-h-[3.5rem] sm:min-h-0 sm:h-12 py-3 sm:py-0 px-4 sm:px-10 text-sm sm:text-lg font-black uppercase tracking-wider sm:tracking-widest shadow-xl shadow-primary/20 leading-snug">
                   Explore Investment Options
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 shrink-0" />
                 </Button>
               </Link>
             </motion.div>

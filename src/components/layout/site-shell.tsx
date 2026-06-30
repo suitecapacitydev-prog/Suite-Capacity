@@ -132,7 +132,7 @@ export default function RootLayout({
                                     </button>
                                 )}
                                 <Link href="/wizard" onClick={() => setIsMenuOpen(false)}>
-                                    <Button variant="intelligence" className="w-full">Initial Audit</Button>
+                                    <Button variant="intelligence" className="w-full">STR Blueprint</Button>
                                 </Link>
                             </div>
                         </nav>

@@ -127,13 +127,14 @@ export default function ShowcasePage() {
                     We bring the same luxury standards and operational excellence shown here to every property we manage. Let us optimize your asset.
                   </p>
                 </div>
-                <div className="shrink-0">
+                <div className="shrink-0 w-full sm:w-auto">
                   <a
                     href="https://calendly.com/suitecapacity/consultation-and-discovery-call?month=2026-03"
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="block w-full"
                   >
-                    <Button size="lg" className="bg-black text-white hover:bg-white hover:text-black h-16 px-12 text-lg font-bold rounded-2xl shadow-2xl transition-all active:scale-95">
+                    <Button size="lg" className="w-full bg-black text-white hover:bg-white hover:text-black h-auto min-h-[3.5rem] sm:min-h-0 sm:h-16 py-3.5 sm:py-0 px-6 sm:px-12 text-sm sm:text-lg font-bold rounded-xl sm:rounded-2xl shadow-2xl transition-all active:scale-95 leading-snug">
                       Get Your Free Analysis
                     </Button>
                   </a>

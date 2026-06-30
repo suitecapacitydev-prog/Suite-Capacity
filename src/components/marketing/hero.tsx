@@ -56,7 +56,7 @@ export function Hero() {
                         className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]"
                     >
                         Turn Your Property Into{' '}
-                        <span className="text-secondary">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                             Passive Income
                         </span>{' '}
                         Without Lifting a Finger
