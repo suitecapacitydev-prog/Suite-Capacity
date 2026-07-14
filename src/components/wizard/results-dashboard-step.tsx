@@ -291,15 +291,15 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-5 gap-4">
+                <div className="grid md:grid-cols-4 gap-4">
                     <div className="glass-panel p-6 intelligence-border">
                         <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-3">Est. Annual Revenue</p>
                         <p className="text-3xl font-black">{formatCurrency(projection.currentRevenue)}</p>
                     </div>
                     <div className="glass-panel p-6 border-border/30">
-                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-3">Peak Season Weekly</p>
-                        <p className="text-2xl font-bold">{formatCurrency(projection.performanceBreakdown?.peakWeeklyRate || (projection.currentRevenue * 0.7) / 12)}</p>
-                        <p className="text-[9px] font-bold text-primary italic mt-1 uppercase">{projection.performanceBreakdown?.peakContribution || 70}% Impact Window</p>
+                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-3">Peak Season Share</p>
+                        <p className="text-2xl font-bold">{projection.performanceBreakdown?.peakContribution || 70}%</p>
+                        <p className="text-[9px] font-bold text-primary italic mt-1 uppercase">Impact Window</p>
                     </div>
                     <div className="glass-panel p-6 border-border/30">
                         <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-3">Shoulder Contribution</p>
@@ -388,30 +388,47 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                         <Zap className="w-64 h-64 text-white" />
                     </div>
 
-                    <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-                        <div className="space-y-2">
+                    <div className="relative z-10 space-y-8">
+                        <div className="space-y-2 text-center md:text-left">
                             <p className="text-[10px] font-black text-white uppercase tracking-widest">Optimized Annual Target</p>
                             <h3 className="text-7xl font-black text-white tracking-tighter">{formatCurrency(animatedRevenue)}</h3>
-                            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white text-primary text-xs font-black uppercase tracking-widest">
-                                +{liftPct}% Growth Projection
-                            </div>
                         </div>
-                        <div className="glass-panel bg-white p-8 space-y-6 text-black border-none shadow-2xl relative">
-                            <div className="absolute top-0 right-0 p-4 opacity-10">
-                                <TrendingUp className="w-12 h-12 text-primary" />
-                            </div>
-                            <div>
-                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">New Peak Weekly Rate</p>
-                                <p className="text-4xl font-black text-black">{intelligence?.optimizedProjection?.newPeakWeeklyRate || formatCurrency((projection.optimizedRevenue * 0.75) / 12)}</p>
-                            </div>
-                            <div className="pt-6 border-t border-slate-100 grid grid-cols-2 gap-4">
-                                <div>
-                                    <p className="text-[9px] font-bold text-slate-500 uppercase">Projected Range</p>
-                                    <p className="text-xl font-bold text-black">{intelligence?.optimizedProjection?.revenueRange || "At Market Cap"}</p>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="glass-panel bg-white/95 p-8 space-y-5 text-black border-none shadow-2xl">
+                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Baseline / Current</p>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-[9px] font-bold text-slate-500 uppercase">Projected Revenue Range</p>
+                                        <p className="text-xl font-bold text-black">{formatCurrency(projection.currentRevenue)}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[9px] font-bold text-slate-500 uppercase">Occupancy Target</p>
+                                        <p className="text-xl font-bold text-black">{wizardData.baseline.occupancy ? `${wizardData.baseline.occupancy}%` : 'Market Average'}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[9px] font-bold text-slate-500 uppercase">Growth Projection</p>
+                                        <p className="text-xl font-bold text-slate-400">Baseline</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-[9px] font-bold text-slate-500 uppercase">Occupancy Target</p>
-                                    <p className="text-xl font-bold text-black">78%+</p>
+                            </div>
+                            <div className="glass-panel bg-white p-8 space-y-5 text-black border-none shadow-2xl relative">
+                                <div className="absolute top-0 right-0 p-4 opacity-10">
+                                    <TrendingUp className="w-12 h-12 text-primary" />
+                                </div>
+                                <p className="text-[10px] font-black text-primary uppercase tracking-widest">Suite Capacity Optimized</p>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-[9px] font-bold text-slate-500 uppercase">Projected Revenue Range</p>
+                                        <p className="text-xl font-bold text-black">{intelligence?.optimizedProjection?.revenueRange || formatCurrency(projection.optimizedRevenue)}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[9px] font-bold text-slate-500 uppercase">Occupancy Target</p>
+                                        <p className="text-xl font-bold text-black">{intelligence?.optimizedProjection?.occupancyTarget || 'N/A'}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[9px] font-bold text-slate-500 uppercase">Optimized Growth Projection</p>
+                                        <p className="text-xl font-bold text-primary">+{liftPct}%</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

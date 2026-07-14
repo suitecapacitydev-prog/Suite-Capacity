@@ -70,7 +70,6 @@ Return a JSON object with the following structure:
   "missedOpportunities": ["List of 3-4 specific missed opportunities"],
   "optimizedProjection": {
     "revenueRange": "$X - $Y",
-    "newPeakWeeklyRate": "$X",
     "occupancyTarget": "X%"
   },
   "designStrategy": {
@@ -167,7 +166,6 @@ Please generate the report content in strictly valid JSON format.
                 ],
                 optimizedProjection: {
                     revenueRange: "N/A",
-                    newPeakWeeklyRate: "N/A",
                     occupancyTarget: "N/A"
                 },
                 designStrategy: { 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PropertyProfile, PropertyType } from '@/types/wizard';
+import { PropertyProfile, PropertyType, OperatingStatus } from '@/types/wizard';
 import { cn } from '@/lib/utils';
 import {
     Home, Building2, Building, Layers, Landmark, Hotel,
@@ -30,14 +30,14 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
 
     const [autocomplete, setAutocomplete] = React.useState<google.maps.places.Autocomplete | null>(null);
     // Ocean Ave, Seaside Heights approx
-    const [mapCenter, setMapCenter] = React.useState({ lat: 39.9431, lng: -74.0759 }); 
+    const [mapCenter, setMapCenter] = React.useState({ lat: 39.9431, lng: -74.0759 });
 
     const onPlaceChanged = () => {
         if (autocomplete) {
             const place = autocomplete.getPlace();
             if (place.formatted_address) {
                 updateData({ address: place.formatted_address });
-                
+
                 // Try to auto-detect market
                 const addr = place.formatted_address.toLowerCase();
                 const matchedMarket = MARKETS.find(m => m.towns?.some(t => addr.includes(t)));
@@ -65,7 +65,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
         geocoder.geocode({ location: { lat, lng } }, (results, status) => {
             if (status === "OK" && results && results[0]) {
                 updateData({ address: results[0].formatted_address });
-                
+
                 // Try to auto-detect market
                 const addr = results[0].formatted_address.toLowerCase();
                 const matchedMarket = MARKETS.find(m => m.towns?.some(t => addr.includes(t)));
@@ -85,12 +85,12 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                         lng: position.coords.longitude,
                     };
                     setMapCenter(pos);
-                    
+
                     const geocoder = new window.google.maps.Geocoder();
                     geocoder.geocode({ location: pos }, (results, status) => {
                         if (status === "OK" && results && results[0]) {
                             updateData({ address: results[0].formatted_address });
-                            
+
                             // Try to auto-detect market
                             const addr = results[0].formatted_address.toLowerCase();
                             const matchedMarket = MARKETS.find(m => m.towns?.some(t => addr.includes(t)));
@@ -131,19 +131,23 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                         <CheckCircle2 className="w-4 h-4 text-primary" />
                         Are you currently operating?
                     </label>
-                    <div className="flex gap-3">
-                        {['yes', 'no'].map((opt) => (
+                    <div className="flex flex-col gap-2">
+                        {([
+                            { value: 'yes' as OperatingStatus, label: 'Yes, actively operating' },
+                            { value: 'considering' as OperatingStatus, label: 'No, but considering' },
+                            { value: 'researching' as OperatingStatus, label: 'No, just exploring' },
+                        ]).map((opt) => (
                             <button
-                                key={opt}
-                                onClick={() => updateQualification({ isOperating: opt })}
+                                key={opt.value}
+                                onClick={() => updateQualification({ isOperating: opt.value })}
                                 className={cn(
-                                    "flex-1 py-3 px-4 rounded-xl border-2 font-bold transition-all uppercase tracking-widest text-xs",
-                                    qualification.isOperating === opt
+                                    "w-full py-3 px-4 rounded-xl border-2 font-bold transition-all text-xs text-left",
+                                    qualification.isOperating === opt.value
                                         ? "bg-primary border-primary text-primary-foreground shadow-lg"
                                         : "bg-white border-black/5 text-black/40 hover:border-primary/30"
                                 )}
                             >
-                                {opt}
+                                {opt.label}
                             </button>
                         ))}
                     </div>
@@ -180,7 +184,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                         <MapPin className="w-4 h-4 text-primary" />
                         Property Location
                     </label>
-                    
+
                     {isLoaded ? (
                         <div className="space-y-4">
                             <div className="relative">
@@ -199,7 +203,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                                         onChange={(e) => updateData({ address: e.target.value })}
                                     />
                                 </Autocomplete>
-                                <button 
+                                <button
                                     onClick={(e) => {
                                         e.preventDefault();
                                         detectLocation();
@@ -210,7 +214,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                                     <Zap className="w-5 h-5 fill-primary/20" />
                                 </button>
                             </div>
-                            
+
                             <div className="h-[250px] w-full rounded-2xl overflow-hidden border-2 border-black/5 shadow-sm relative">
                                 <GoogleMap
                                     mapContainerStyle={{ width: '100%', height: '100%' }}
@@ -253,7 +257,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                                 </option>
                             ))}
                         </select>
-                        
+
                         {data.marketId && (
                             <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 animate-in fade-in zoom-in-95 duration-300">
                                 <div className="flex items-center gap-3">
@@ -278,21 +282,21 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
             <div className="space-y-4">
                 <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest">Property Type</label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        {propertyTypes.map((type) => (
-                            <button
-                                key={type.value}
-                                onClick={() => updateData({ propertyType: type.value })}
-                                className={cn(
-                                    "flex items-center gap-2 py-3 px-4 rounded-xl border-2 text-xs font-bold transition-all uppercase tracking-tight",
-                                    data.propertyType === type.value
-                                        ? "bg-primary border-primary text-white shadow-lg"
-                                        : "bg-white border-black/5 text-black/50 hover:border-primary/30"
-                                )}
-                            >
-                                <span className={data.propertyType === type.value ? "text-white" : "text-primary"}>{type.icon}</span>
-                                {type.label}
-                            </button>
-                        ))}
+                    {propertyTypes.map((type) => (
+                        <button
+                            key={type.value}
+                            onClick={() => updateData({ propertyType: type.value })}
+                            className={cn(
+                                "flex items-center gap-2 py-3 px-4 rounded-xl border-2 text-xs font-bold transition-all uppercase tracking-tight",
+                                data.propertyType === type.value
+                                    ? "bg-primary border-primary text-white shadow-lg"
+                                    : "bg-white border-black/5 text-black/50 hover:border-primary/30"
+                            )}
+                        >
+                            <span className={data.propertyType === type.value ? "text-white" : "text-primary"}>{type.icon}</span>
+                            {type.label}
+                        </button>
+                    ))}
                 </div>
             </div>
 
@@ -325,9 +329,19 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                     <label className="text-sm font-bold text-secondary-foreground uppercase tracking-widest">Occupancy</label>
                     <input
                         type="number"
+                        min={1}
                         className="w-full h-11 bg-white border-2 border-black/5 rounded-xl px-4 font-bold focus:border-primary focus:outline-none"
-                        value={data.maxOccupancy || 2}
-                        onChange={(e) => updateData({ maxOccupancy: parseInt(e.target.value) })}
+                        placeholder="4"
+                        value={data.maxOccupancy ?? ''}
+                        onChange={(e) => {
+                            const raw = e.target.value;
+                            if (raw === '') {
+                                updateData({ maxOccupancy: undefined });
+                            } else {
+                                const parsed = parseInt(raw, 10);
+                                if (!isNaN(parsed)) updateData({ maxOccupancy: parsed });
+                            }
+                        }}
                     />
                 </div>
             </div>
