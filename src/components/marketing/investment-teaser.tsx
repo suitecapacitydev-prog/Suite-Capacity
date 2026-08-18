@@ -1,15 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Rocket, ArrowRight, ShieldCheck, TrendingUp, Landmark } from 'lucide-react';
+import { Rocket, ArrowRight, ShieldCheck, Landmark } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export function InvestmentTeaser() {
   return (
     <section className="py-24 bg-black text-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:40px_40px]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-white/5 bg-size-[40px_40px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -70,7 +70,7 @@ export function InvestmentTeaser() {
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Link href="/invest">
-                <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-auto min-h-[3.5rem] sm:min-h-0 sm:h-12 py-3 sm:py-0 px-4 sm:px-10 text-sm sm:text-lg font-black uppercase tracking-wider sm:tracking-widest shadow-xl shadow-primary/20 leading-snug">
+                <Button size="lg" variant="intelligence" className="w-full sm:w-auto h-auto min-h-14 sm:min-h-0 sm:h-12 py-3 sm:py-0 px-4 sm:px-10 text-sm sm:text-lg font-black uppercase tracking-wider sm:tracking-widest shadow-xl shadow-primary/20 leading-snug">
                   Explore Investment Options
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 shrink-0" />
                 </Button>

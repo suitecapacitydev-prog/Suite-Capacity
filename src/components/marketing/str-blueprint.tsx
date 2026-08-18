@@ -1,24 +1,45 @@
 'use client';
 
-import { ArrowRight, CheckCircle, FileText, TrendingUp, MapPin, Clock, Phone, Calendar } from 'lucide-react'
-import Link from 'next/link'
+import { ArrowRight, TrendingUp, MapPin, Clock, Phone, Calendar } from 'lucide-react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useState, useEffect } from 'react'
+import { useSyncExternalStore } from 'react'
 import Autocomplete from 'react-google-autocomplete'
 import { Button } from '@/components/ui/button'
+import { CALENDLY_URL } from '@/lib/constants'
+
+const LAST_SEARCHED_ADDRESS_KEY = 'lastSearchedAddress'
+const LAST_SEARCHED_ADDRESS_EVENT = 'lastSearchedAddressChange'
+
+function subscribeLastAddress(onStoreChange: () => void) {
+    window.addEventListener(LAST_SEARCHED_ADDRESS_EVENT, onStoreChange)
+    window.addEventListener('storage', onStoreChange)
+    return () => {
+        window.removeEventListener(LAST_SEARCHED_ADDRESS_EVENT, onStoreChange)
+        window.removeEventListener('storage', onStoreChange)
+    }
+}
+
+function getLastAddressSnapshot() {
+    return localStorage.getItem(LAST_SEARCHED_ADDRESS_KEY)
+}
+
+function getLastAddressServerSnapshot() {
+    return null
+}
 
 export const STRBlueprint = () => {
     const router = useRouter();
-    const [lastAddress, setLastAddress] = useState<string | null>(null);
-
-    useEffect(() => {
-        const saved = localStorage.getItem('lastSearchedAddress');
-        if (saved) setLastAddress(saved);
-    }, []);
+    const lastAddress = useSyncExternalStore(
+        subscribeLastAddress,
+        getLastAddressSnapshot,
+        getLastAddressServerSnapshot,
+    );
 
     const handleAddressSubmit = (address: string) => {
         if (!address) return;
-        localStorage.setItem('lastSearchedAddress', address);
+        localStorage.setItem(LAST_SEARCHED_ADDRESS_KEY, address);
+        window.dispatchEvent(new Event(LAST_SEARCHED_ADDRESS_EVENT));
         router.push(`/wizard?address=${encodeURIComponent(address)}`);
     };
 
@@ -35,12 +56,12 @@ export const STRBlueprint = () => {
                             <span className="text-primary">Book Your Free Call Today.</span>
                         </h2>
                         <p className="text-lg text-black/60 mb-8 leading-relaxed font-medium">
-                            Don't wait for a report. Speak directly with our property strategists to see how we can maximize your revenue immediately.
+                            Don&apos;t wait for a report. Speak directly with our property strategists to see how we can maximize your revenue immediately.
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 mb-10">
                             <a
-                                href="https://calendly.com/suitecapacity/consultation-and-discovery-call"
+                                href={CALENDLY_URL}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex-1"
@@ -90,7 +111,7 @@ export const STRBlueprint = () => {
                                     <span>Recent:</span>
                                     <button
                                         onClick={() => handleAddressSubmit(lastAddress)}
-                                        className="text-primary hover:underline font-medium truncate max-w-[250px]"
+                                        className="text-primary hover:underline font-medium truncate max-w-62.5"
                                     >
                                         {lastAddress}
                                     </button>
@@ -100,13 +121,14 @@ export const STRBlueprint = () => {
 
                     </div>
                     <div className="relative group">
-                        <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl transition-transform group-hover:scale-[1.02] duration-500">
-                            <img
+                        <div className="relative z-10 aspect-4/3 rounded-3xl overflow-hidden shadow-2xl transition-transform group-hover:scale-[1.02] duration-500">
+                            <Image
                                 src="/images/beach-house.png"
                                 alt="Luxury Beach House"
-                                className="w-full aspect-[4/3] object-cover"
+                                fill
+                                className="object-cover"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
                             <div className="absolute bottom-8 left-8 right-8 p-6 glass-panel border-white/20 bg-white/10 backdrop-blur-xl">
                                 <div className="flex justify-between items-center text-white">
                                     <div>

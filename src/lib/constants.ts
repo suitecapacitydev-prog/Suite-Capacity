@@ -13,3 +13,5 @@ export const PLATFORM_CONFIG = {
     MAX_WIZARD_STEPS: 5,
     CACHING_TTL_SECONDS: 3600 * 24, // 24 hours for market data
 };
+
+export const CALENDLY_URL = 'https://calendly.com/suitecapacity/consultation-and-discovery-call';

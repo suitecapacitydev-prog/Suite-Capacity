@@ -74,7 +74,7 @@ export function MarketPageContent({
                 <img 
                   src={heroImage} 
                   alt={`${marketName} real estate`} 
-                  className="w-full aspect-[4/3] object-cover"
+                  className="w-full aspect-4/3 object-cover"
                 />
               </div>
               <div className="absolute -bottom-8 -left-8 glass-panel p-8 border-black/5 bg-white shadow-xl max-w-xs animate-in slide-in-from-bottom-5 duration-700 z-20">

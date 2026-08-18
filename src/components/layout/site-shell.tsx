@@ -175,7 +175,7 @@ export default function RootLayout({
                             />
                         </div>
                         <p className={`text-sm leading-relaxed ${dark ? 'text-white/60 font-medium' : 'text-primary font-bold'}`}>
-                            The centralized STR operating platform combining revenue intelligence and local market expertise.
+                            Suite Capacity turns vacation rentals into professionally operated, passive-income properties. You own the asset—we handle everything else.
                         </p>
                     </div>
 

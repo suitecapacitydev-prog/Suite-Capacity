@@ -1,34 +1,50 @@
 "use client";
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, FileText, Phone } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight, Phone } from 'lucide-react';
+import { CALENDLY_URL } from '@/lib/constants';
 
 const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6 },
+    },
 };
 
 const staggerContainer = {
-    animate: {
+    hidden: { opacity: 1 },
+    visible: {
+        opacity: 1,
         transition: {
-            staggerChildren: 0.1
-        }
-    }
+            staggerChildren: 0.1,
+        },
+    },
 };
+
+const HERO_STATS = [
+    { value: '$6.4M+', label: 'Revenue Generated' },
+    { value: '70+', label: 'Properties' },
+    { value: '15.9%', label: 'Avg. Revenue Increase After Optimization' },
+] as const;
 
 export function Hero() {
     return (
         <section className="relative overflow-hidden py-24 md:py-36">
             {/* Background */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <img
-                    src="/images/hero-luxury.png"
-                    alt="Luxury Property Interior"
-                    className="absolute inset-0 w-full h-full object-cover opacity-40"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/50 to-white" />
+                <div className="relative w-full h-full">
+                    <Image
+                        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1920"
+                        alt="Luxury Property Interior"
+                        fill
+                        priority
+                        className="object-cover opacity-40"
+                    />
+                </div>
+                <div className="absolute inset-0 bg-linear-to-b from-white/90 via-white/50 to-white" />
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -45,36 +61,34 @@ export function Hero() {
 
             <div className="container relative z-10 mx-auto px-6">
                 <motion.div
-                    initial="initial"
-                    animate="animate"
+                    initial="hidden"
+                    animate="visible"
                     variants={staggerContainer}
                     className="max-w-4xl mx-auto text-center space-y-8"
                 >
-
                     <motion.h1
                         variants={fadeInUp}
                         className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]"
                     >
-                        Turn Your Property Into{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                            Passive Income
-                        </span>{' '}
-                        Without Lifting a Finger
+                        Turn Your Vacation Rental Into{' '}
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent">
+                            Passive Income!
+                        </span>
                     </motion.h1>
 
                     <motion.p
                         variants={fadeInUp}
-                        className="text-lg md:text-xl text-black/85 max-w-5xl mx-auto leading-relaxed font-bold italic"
+                        className="text-lg md:text-xl text-black/85 max-w-3xl mx-auto leading-relaxed font-medium"
                     >
-                        Suite Capacity is a vacation rental property management and optimization platform. We specialize in providing a hotel-level experience to guests while allowing property owners to receive passive income.
+                        Suite Capacity maximizes your property&apos;s performance while handling the entire operation — marketing, pricing, guests, cleaning, maintenance, and everything in between.
                     </motion.p>
 
                     <motion.div
                         variants={fadeInUp}
-                        className="flex flex-col items-center gap-6 pt-4"
+                        className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
                     >
                         <a
-                            href="https://calendly.com/suitecapacity/consultation-and-discovery-call"
+                            href={CALENDLY_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-full sm:w-auto"
@@ -84,55 +98,49 @@ export function Hero() {
                                 variant="intelligence"
                                 className="w-full gap-2 group h-12 px-10 rounded-2xl font-bold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all"
                             >
-                                <FileText className="w-5 h-5" />
-                                Book Your Free Call
+                                See What Your Property Could Earn
                                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                             </Button>
                         </a>
 
-                        <div className="mt-4 flex items-center gap-3 text-black font-bold bg-white/50 backdrop-blur-sm px-6 py-3 rounded-2xl border border-black/5">
-                            <div className="p-2 rounded-full bg-primary/10">
-                                <Phone className="w-4 h-4 text-primary" />
-                            </div>
-                            Call us today: <a href="tel:+18553034545" className="text-primary hover:underline">+1 (855) 303-4545</a>
-                        </div>
+                        <a
+                            href={CALENDLY_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full sm:w-auto"
+                        >
+                            <Button
+                                size="lg"
+                                variant="outline"
+                                className="w-full gap-2 h-12 px-10 rounded-2xl font-bold text-lg border-2 hover:bg-primary/5 transition-all"
+                            >
+                                <Phone className="w-5 h-5" />
+                                Speak With Our Team
+                            </Button>
+                        </a>
                     </motion.div>
 
-                    {/* Social Proof Stats */}
+                    {/* Stats Bar */}
                     <motion.div
                         variants={fadeInUp}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 pt-8 w-full max-w-4xl"
+                        className="pt-8 w-full max-w-4xl mx-auto"
                     >
-                        <div className="text-center group">
-                            <div className="text-3xl md:text-5xl font-black mb-1 group-hover:scale-110 transition-transform">$6.4M+</div>
-                            <div className="text-xs uppercase tracking-widest font-bold text-black opacity-40">Revenue Generated</div>
-                        </div>
-                        <div className="text-center group">
-                            <div className="text-3xl md:text-5xl font-black mb-1 group-hover:scale-110 transition-transform">15.9%</div>
-                            <div className="text-xs uppercase tracking-widest font-bold text-black opacity-40">Average Revenue Increase</div>
-                        </div>
-                        <div className="text-center group">
-                            <div className="text-3xl md:text-5xl font-black mb-1 group-hover:scale-110 transition-transform">70+</div>
-                            <div className="text-xs uppercase tracking-widest font-bold text-black opacity-40">Active Units Managed</div>
+                        <div className="glass-panel grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-black/10 px-4 sm:px-6 py-5 rounded-2xl shadow-sm">
+                            {HERO_STATS.map((stat) => (
+                                <div
+                                    key={stat.value}
+                                    className="flex flex-col items-center justify-center text-center py-4 first:pt-0 last:pb-0 sm:py-0 sm:px-4"
+                                >
+                                    <span className="text-2xl md:text-3xl font-black tracking-tight leading-none tabular-nums">
+                                        {stat.value}
+                                    </span>
+                                    <p className="mt-2 min-h-10 flex items-center justify-center max-w-44 text-xs md:text-sm font-bold text-black/60 leading-snug">
+                                        {stat.label}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
                     </motion.div>
-                    <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 text-sm font-black pt-2">
-                        <Link
-                            href="/invest"
-                            className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group/link"
-                        >
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            New to STRs? <span className="underline decoration-primary/30 underline-offset-4 group-hover/link:decoration-primary">Invest With Us</span>
-                        </Link>
-
-                        <Link
-                            href="/guest-list"
-                            className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group/link"
-                        >
-                            <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                            Looking to book? <span className="underline decoration-accent/30 underline-offset-4 group-hover/link:decoration-accent">Join the Exclusive Guest List</span>
-                        </Link>
-                    </div>
                 </motion.div>
             </div>
         </section>

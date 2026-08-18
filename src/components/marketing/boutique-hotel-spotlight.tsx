@@ -49,7 +49,7 @@ export default function BoutiqueHotelSpotlight() {
 
           {/* Feature Image Grid / Visual */}
           <div className="flex-1 w-full lg:w-auto relative">
-             <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-primary/5 border border-white/10 relative group">
+             <div className="aspect-4/3 rounded-3xl overflow-hidden shadow-2xl shadow-primary/5 border border-white/10 relative group">
                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                <Image 
                  src="/images/jersey-shore-hotel.png" 

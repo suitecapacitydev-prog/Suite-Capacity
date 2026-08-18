@@ -1,374 +1,775 @@
 import { WizardData, RevenueProjection } from '@/types/wizard';
 import { MARKETS } from '@/data/markets';
 
-export function generateReportEmailHTML(data: WizardData, projection: RevenueProjection): string {
-    const intel = projection.intelligence;
-    const liftPct = Math.round((projection.optimizedRevenue / projection.currentRevenue - 1) * 100);
-    const revenueLift = projection.optimizedRevenue - projection.currentRevenue;
+const PRIMARY = '#3b82f6';
+const SLATE_50 = '#f8fafc';
+const SLATE_100 = '#f1f5f9';
+const SLATE_200 = '#e2e8f0';
+const SLATE_400 = '#94a3b8';
+const SLATE_500 = '#64748b';
+const SLATE_700 = '#334155';
+const SLATE_900 = '#0f172a';
+const EMERALD = '#10b981';
+const ROSE_50 = '#fef2f2';
+const ROSE_100 = '#fecaca';
+const ROSE_900 = '#7f1d1d';
 
-    const selectedMarket = MARKETS.find(m => m.id === data.property.marketId) || 
-                          MARKETS.find(m => data.property.address.toLowerCase().includes(m.name.toLowerCase()));
+function escapeHtml(value: string): string {
+    return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
 
-    const formatCurrency = (val: number) =>
-        new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val);
+function formatCurrency(val: number): string {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+    }).format(val);
+}
 
-    const getPositioningContent = () => {
-        if (intel?.positioning) {
-            return intel.positioning;
-        }
-        return {
-            description: "No real-time intelligence data was received for this property. This typically happens if the address is too vague or if there is an issue with the AI connection.",
-            marketPositioning: "Analysis Pending",
-            strengths: "Pending real-world verification",
-            limitations: "Pending professional audit"
-        };
+function isShoreTown(addr: string): boolean {
+    const shoreTowns = [
+        'seaside', 'lavallette', 'ortley', 'point pleasant',
+        'belmar', 'spring lake', 'asbury', 'long branch',
+    ];
+    return shoreTowns.some((t) => addr.toLowerCase().includes(t));
+}
+
+function getSelectedMarket(data: WizardData) {
+    return (
+        MARKETS.find((m) => m.id === data.property.marketId) ||
+        MARKETS.find((m) => data.property.address.toLowerCase().includes(m.name.toLowerCase()))
+    );
+}
+
+function getPositioningContent(projection: RevenueProjection) {
+    if (projection.intelligence?.positioning) {
+        return projection.intelligence.positioning;
+    }
+    return {
+        description:
+            'No real-time intelligence data was received for this property. This typically happens if the address is too vague or if there is an issue with the AI connection.',
+        marketPositioning: 'Analysis Pending',
+        strengths: 'Pending real-world verification',
+        limitations: 'Pending professional audit',
     };
+}
 
-    const pos = getPositioningContent();
+function renderProgressBar(percent: number, color = PRIMARY): string {
+    const clamped = Math.max(0, Math.min(100, Math.round(percent)));
+    const remainder = 100 - clamped;
+    return `
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+            <tr>
+                <td width="${clamped}%" bgcolor="${color}" height="8" style="background-color:${color};height:8px;border-radius:4px 0 0 4px;font-size:0;line-height:0;">&nbsp;</td>
+                <td width="${remainder}%" bgcolor="${SLATE_200}" height="8" style="background-color:${SLATE_200};height:8px;border-radius:0 4px 4px 0;font-size:0;line-height:0;">&nbsp;</td>
+            </tr>
+        </table>`;
+}
+
+function renderSectionHeader(number: string, title: string, subtitle: string, accentColor = PRIMARY): string {
+    return `
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:36px;margin-bottom:20px;border-collapse:collapse;">
+            <tr>
+                <td style="padding-bottom:12px;border-bottom:2px solid ${SLATE_200};">
+                    <p style="margin:0 0 6px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;color:${accentColor};">${escapeHtml(number)}</p>
+                    <p style="margin:0 0 4px;font-size:22px;font-weight:900;color:${SLATE_900};text-transform:uppercase;letter-spacing:-0.02em;">${escapeHtml(title)}</p>
+                    <p style="margin:0;font-size:11px;font-weight:700;color:${SLATE_500};text-transform:uppercase;letter-spacing:0.1em;">${escapeHtml(subtitle)}</p>
+                </td>
+            </tr>
+        </table>`;
+}
+
+function renderStatCard(label: string, value: string, subtext?: string): string {
+    return `
+        <td width="25%" valign="top" style="padding:6px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border:1px solid ${SLATE_200};border-radius:16px;border-collapse:collapse;">
+                <tr>
+                    <td style="padding:20px;">
+                        <p style="margin:0 0 8px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${SLATE_500};">${escapeHtml(label)}</p>
+                        <p style="margin:0;font-size:24px;font-weight:900;color:${SLATE_900};">${value}</p>
+                        ${subtext ? `<p style="margin:6px 0 0;font-size:9px;font-weight:700;color:${PRIMARY};text-transform:uppercase;">${escapeHtml(subtext)}</p>` : ''}
+                    </td>
+                </tr>
+            </table>
+        </td>`;
+}
+
+function renderTrajectoryChart(currentRevenue: number, optimizedRevenue: number): string {
+    const months = ['Start', 'Q1', 'Q2', 'Q3', 'Year 1'];
+    const baselineHeights = [160, 150, 140, 135, 130];
+    const optimizedHeights = [160, 130, 100, 80, 60];
+    const maxH = 160;
+
+    const bars = months
+        .map((label, i) => {
+            const baselinePct = Math.round(((maxH - baselineHeights[i]) / maxH) * 100);
+            const optimizedPct = Math.round(((maxH - optimizedHeights[i]) / maxH) * 100);
+            return `
+                <td width="20%" valign="bottom" align="center" style="padding:0 4px;">
+                    <p style="margin:0 0 6px;font-size:9px;font-weight:700;color:${SLATE_500};text-transform:uppercase;">${label}</p>
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="height:120px;border-collapse:collapse;">
+                        <tr valign="bottom">
+                            <td width="50%" align="center" style="padding:0 2px;">
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;">
+                                    <tr><td bgcolor="${SLATE_400}" width="14" height="${baselineHeights[i]}" style="background-color:${SLATE_400};width:14px;height:${baselineHeights[i]}px;border-radius:4px 4px 0 0;font-size:0;">&nbsp;</td></tr>
+                                </table>
+                            </td>
+                            <td width="50%" align="center" style="padding:0 2px;">
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;">
+                                    <tr><td bgcolor="${PRIMARY}" width="14" height="${optimizedHeights[i]}" style="background-color:${PRIMARY};width:14px;height:${optimizedHeights[i]}px;border-radius:4px 4px 0 0;font-size:0;">&nbsp;</td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <p style="margin:6px 0 0;font-size:8px;font-weight:700;color:${SLATE_500};">${baselinePct}% / ${optimizedPct}%</p>
+                </td>`;
+        })
+        .join('');
 
     return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f8fafc; color: #0f172a; line-height: 1.6; }
-            .container { max-width: 700px; margin: 0 auto; background-color: #ffffff; }
-            .content { padding: 40px 35px; }
-            .header { text-align: center; padding: 40px 35px 20px; background-color: #ffffff; border-bottom: 1px solid #e2e8f0; }
-            .logo { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: #3b82f6; margin-bottom: 15px; }
-            .title { font-size: 36px; font-weight: 900; letter-spacing: -0.05em; margin-bottom: 15px; }
-            .subtitle { font-size: 16px; font-weight: 600; color: #475569; }
-            .property-card { background-color: #f1f5f9; padding: 35px; border-radius: 20px; margin-bottom: 40px; border: 1px solid #e2e8f0; }
-            .property-label { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #64748b; margin-bottom: 8px; }
-            .property-name { font-size: 20px; font-weight: 900; margin-bottom: 5px; }
-            .property-address { font-size: 16px; font-weight: 500; color: #334155; }
-            .section-header { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: #3b82f6; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 25px; margin-top: 35px; }
-            .section-header.first { margin-top: 0; }
-            .section-title { font-size: 14px; font-weight: 900; margin-bottom: 8px; }
-            .section-description { font-size: 14px; color: #475569; line-height: 1.7; margin-bottom: 15px; }
-            .section-subtitle { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; margin-top: 15px; }
-            .stat-box { background-color: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #e2e8f0; }
-            .stat-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 8px; }
-            .stat-value { font-size: 26px; font-weight: 900; color: #0f172a; }
-            .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
-            .stat-row:last-child { border-bottom: none; }
-            .stat-row-label { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; }
-            .stat-row-value { font-size: 18px; font-weight: 900; }
-            .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
-            .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
-            .positioning-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; background-color: #f1f5f9; padding: 30px; border-radius: 20px; border: 1px solid #e2e8f0; }
-            .positioning-col { }
-            .positioning-col-border { border-left: 2px solid #cbd5e1; padding-left: 25px; }
-            .highlight-box { background-color: #000; color: #fff; padding: 45px 35px; border-radius: 30px; text-align: center; margin-bottom: 35px; position: relative; overflow: hidden; }
-            .highlight-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3b82f6; margin-bottom: 12px; }
-            .highlight-value { font-size: 56px; font-weight: 900; letter-spacing: -0.05em; margin-bottom: 5px; }
-            .highlight-subtext { font-size: 13px; color: rgba(255, 255, 255, 0.7); }
-            .opportunity-item { background-color: #fef2f2; padding: 18px; border-radius: 15px; margin-bottom: 12px; border-left: 4px solid #ef4444; border: 1px solid #fecaca; }
-            .opportunity-title { font-size: 14px; font-weight: 900; color: #7f1d1d; margin-bottom: 4px; }
-            .opportunity-desc { font-size: 13px; color: #b91c1c; line-height: 1.5; }
-            .lift-summary { background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 30px; border-radius: 20px; border-left: 6px solid #3b82f6; }
-            .lift-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
-            .lift-label { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; }
-            .lift-value { font-size: 20px; font-weight: 900; }
-            .lift-value.strikethrough { text-decoration: line-through; color: #94a3b8; }
-            .lift-value.primary { color: #3b82f6; }
-            .market-index { background-color: #f1f5f9; padding: 30px; border-radius: 20px; margin-bottom: 35px; border: 1px solid #e2e8f0; }
-            .market-index-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-            .market-index-title { font-size: 16px; font-weight: 900; }
-            .market-metrics { display: flex; gap: 25px; flex-wrap: wrap; justify-content: flex-end; }
-            .market-metric { text-align: center; }
-            .market-metric-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 6px; }
-            .market-metric-value { font-size: 24px; font-weight: 900; color: #0f172a; }
-            .cta-button { display: inline-block; background-color: #3b82f6; color: #fff; text-decoration: none; padding: 16px 40px; border-radius: 50px; font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 30px; }
-            .footer { text-align: center; padding: 40px 35px; border-top: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 12px; color: #64748b; }
-            .footer-title { font-weight: 900; margin-bottom: 5px; }
-            .baseline-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
-            .comparison-card { background-color: #f8fafc; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0; }
-            .comparison-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 15px; }
-            .comparison-item { margin-bottom: 15px; }
-            .comparison-item-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
-            .comparison-item-value { font-size: 18px; font-weight: 900; color: #0f172a; }
-            .badge { display: inline-block; background-color: #dbeafe; color: #1e40af; font-size: 8px; font-weight: 900; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 5px; }
-            .season-bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; }
-            .season-bar { text-align: center; }
-            .season-label { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 8px; }
-            .bar { height: 8px; background-color: #e2e8f0; border-radius: 4px; overflow: hidden; }
-            .bar-fill { height: 100%; background-color: #3b82f6; transition: width 0.3s ease; }
-            .design-strategy { background-color: #f1f5f9; padding: 30px; border-radius: 20px; margin-bottom: 35px; border: 1px solid #e2e8f0; }
-            .design-section { margin-bottom: 20px; }
-            .design-section:last-child { margin-bottom: 0; }
-            .accent-primary { color: #3b82f6; }
-            .accent-success { color: #10b981; }
-            .accent-danger { color: #ef4444; }
-            @media (max-width: 600px) {
-                .content { padding: 25px 20px; }
-                .grid-2, .grid-4 { grid-template-columns: 1fr; }
-                .positioning-grid { grid-template-columns: 1fr; }
-                .positioning-col-border { border-left: none; padding-left: 0; border-top: 2px solid #cbd5e1; padding-top: 20px; }
-                .market-index-header { flex-direction: column; align-items: flex-start; }
-                .market-metrics { justify-content: flex-start; }
-                .baseline-comparison { grid-template-columns: 1fr; }
-                .highlight-value { font-size: 42px; }
-                .title { font-size: 28px; }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <!-- Header -->
-            <div class="header">
-                <div class="logo">Suite Capacity Intel®</div>
-                <div class="title">Revenue Intelligence Report</div>
-            </div>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;border-collapse:collapse;">
+            <tr>
+                <td style="padding-bottom:16px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                        <tr>
+                            <td>
+                                <p style="margin:0;font-size:13px;font-weight:900;text-transform:uppercase;color:${SLATE_900};">Projected Trajectory</p>
+                                <p style="margin:4px 0 0;font-size:10px;font-weight:700;color:${SLATE_500};text-transform:uppercase;letter-spacing:0.1em;">12-Month Impact Analysis</p>
+                            </td>
+                            <td align="right">
+                                <p style="margin:0 0 4px;font-size:10px;font-weight:700;color:${SLATE_500};"><span style="display:inline-block;width:8px;height:8px;background-color:${SLATE_400};border-radius:50%;margin-right:4px;"></span> AirDNA Average</p>
+                                <p style="margin:0;font-size:10px;font-weight:700;color:${PRIMARY};"><span style="display:inline-block;width:8px;height:8px;background-color:${PRIMARY};border-radius:50%;margin-right:4px;"></span> Suite Capacity</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top:8px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>${bars}</tr></table></td>
+            </tr>
+            <tr>
+                <td style="padding-top:16px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                        <tr>
+                            <td align="right" style="padding:4px 8px;">
+                                <span style="display:inline-block;background-color:${PRIMARY};color:#ffffff;font-size:10px;font-weight:900;padding:4px 8px;border-radius:8px;">Optimized Target: ${formatCurrency(optimizedRevenue)}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" style="padding:4px 8px;">
+                                <span style="display:inline-block;background-color:${SLATE_100};color:${SLATE_500};font-size:10px;font-weight:900;padding:4px 8px;border-radius:8px;">Market Baseline: ${formatCurrency(currentRevenue)}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>`;
+}
 
-            <!-- Main Content -->
-            <div class="content">
-                <!-- Property Card -->
-                <div class="property-card">
-                    <div class="property-label">Property Analysis Prepared For:</div>
-                    <div class="property-name">${data.lead.name}</div>
-                    <div class="property-address">${data.property.address}</div>
-                </div>
+function renderSeasonBars(): string {
+    const seasons = [
+        { label: 'Spring', width: 80 },
+        { label: 'Summer', width: 100 },
+        { label: 'Fall', width: 70 },
+        { label: 'Winter', width: 60 },
+    ];
 
-                <!-- Market Index Analysis -->
-                ${selectedMarket ? `
-                <div class="market-index">
-                    <div class="market-index-header">
-                        <div>
-                            <div class="section-title">${selectedMarket.name} Analysis</div>
-                            <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">${selectedMarket.detail}</div>
-                        </div>
-                        <div class="market-metrics">
-                            <div class="market-metric">
-                                <div class="market-metric-label">Market Multiplier</div>
-                                <div class="market-metric-value">${selectedMarket.multiplier || '1.15'}x</div>
-                            </div>
-                            <div class="market-metric">
-                                <div class="market-metric-label">Demand Index</div>
-                                <div class="market-metric-value accent-success">${Math.round((projection.marketComparison?.demandIndex || 0))}%</div>
-                            </div>
-                            <div class="market-metric">
-                                <div class="market-metric-label">Status</div>
-                                <div style="margin-top: 6px;">
-                                    <span class="badge">${selectedMarket.status || 'Active'}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                ` : ''}
+    const cells = seasons
+        .map(
+            (s) => `
+            <td width="25%" align="center" valign="top" style="padding:4px;">
+                <p style="margin:0 0 6px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${SLATE_500};">${s.label}</p>
+                ${renderProgressBar(s.width)}
+            </td>`
+        )
+        .join('');
 
-                <!-- Section 1: Property Positioning -->
-                <div class="section-header first">1. Property Positioning Snapshot</div>
-                <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 20px;">Market Context & Asset Assessment</div>
+    return `
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;border-collapse:collapse;">
+            <tr>${cells}</tr>
+        </table>`;
+}
 
-                <div class="positioning-grid">
-                    <div class="positioning-col">
-                        <div class="section-subtitle">Asset Description</div>
-                        <p style="font-size: 14px; line-height: 1.6; color: #475569;">${pos.description}</p>
-                        
-                        <div class="section-subtitle">Market Positioning</div>
-                        <p style="font-size: 16px; font-weight: 900; color: #0f172a;">${pos.marketPositioning || 'Premium-Tier Potential'}</p>
-                    </div>
-                    <div class="positioning-col positioning-col-border">
-                        <div class="section-subtitle accent-success">Key Strengths</div>
-                        <p style="font-size: 14px; line-height: 1.6; color: #475569;">${pos.strengths}</p>
-                        
-                        <div class="section-subtitle accent-danger">Key Limitations</div>
-                        <p style="font-size: 14px; line-height: 1.6; color: #475569;">${pos.limitations}</p>
-                    </div>
-                </div>
+export function generateReportEmailHTML(data: WizardData, projection: RevenueProjection): string {
+    const intel = projection.intelligence;
+    const isMock = !intel;
+    const liftPct = Math.round((projection.optimizedRevenue / projection.currentRevenue - 1) * 100);
+    const revenueLift = projection.optimizedRevenue - projection.currentRevenue;
+    const selectedMarket = getSelectedMarket(data);
+    const pos = getPositioningContent(projection);
+    const isShore = isShoreTown(data.property.address);
+    const volatilityPct = Math.round((projection.volatilityIndex ?? 0.15) * 100);
+    const demandIndex = Math.round(projection.marketComparison?.demandIndex ?? 0);
 
-                <!-- Section 2: Current Market Performance -->
-                <div class="section-header">2. Current Market Performance (Baseline)</div>
-                <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 20px;">Historical Asset Performance</div>
+    const designImage = data.aiDesign.images[0];
+    const originalImageUrl =
+        designImage?.url ||
+        'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80';
+    const enhancedImageUrl =
+        designImage?.enhancedUrl ||
+        designImage?.url ||
+        'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80';
 
-                <div class="stat-box">
-                    <div class="stat-label">Est. Annual Revenue</div>
-                    <div class="stat-value">${formatCurrency(projection.currentRevenue)}</div>
-                </div>
+    const designTitle =
+        intel?.designStrategy?.recommendation.split(':')[0] ||
+        (isShore ? 'Tulum Tropical Modern Direction' : 'Modern Industrial Lifestyle Concept');
+    const designRecommendation =
+        intel?.designStrategy?.recommendation ||
+        'Professional design recommendations are generated specifically for your property after a successful AI audit. Please ensure your property data is complete.';
+    const designTags = intel?.designStrategy?.tags || [
+        'Neutral Palette',
+        'Natural Woods',
+        'Textured Jute',
+        'Statement Lighting',
+    ];
+    const designImpact =
+        intel?.designStrategy?.impact ||
+        'These upgrades directly support higher nightly rates and significantly improved booking conversion via platform algorithms.';
 
-                <div class="season-bars">
-                    <div class="season-bar">
-                        <div class="season-label">Peak Season</div>
-                        <div class="bar">
-                            <div class="bar-fill" style="width: ${projection.performanceBreakdown?.peakContribution || 70}%"></div>
-                        </div>
-                        <div style="font-size: 13px; font-weight: 900; margin-top: 6px;">${projection.performanceBreakdown?.peakContribution || 70}%</div>
-                    </div>
-                    <div class="season-bar">
-                        <div class="season-label">Shoulder</div>
-                        <div class="bar">
-                            <div class="bar-fill" style="width: ${projection.performanceBreakdown?.shoulderContribution || 20}%"></div>
-                        </div>
-                        <div style="font-size: 13px; font-weight: 900; margin-top: 6px;">${projection.performanceBreakdown?.shoulderContribution || 20}%</div>
-                    </div>
-                    <div class="season-bar">
-                        <div class="season-label">Off-Season</div>
-                        <div class="bar">
-                            <div class="bar-fill" style="width: ${projection.performanceBreakdown?.offSeasonContribution || 10}%"></div>
-                        </div>
-                        <div style="font-size: 13px; font-weight: 900; margin-top: 6px;">${projection.performanceBreakdown?.offSeasonContribution || 10}%</div>
-                    </div>
-                    <div class="season-bar">
-                        <div class="season-label">Market Data</div>
-                        <div style="background-color: #e2e8f0; padding: 8px; border-radius: 10px; text-align: center; font-size: 10px; font-weight: 700;">
-                            <span class="badge" style="background-color: #dbeafe; color: #1e40af;">PriceLabs® Live</span>
-                        </div>
-                    </div>
-                </div>
+    const badTitle =
+        intel?.listingStrategy?.titleStrategy?.bad ||
+        `${data.property.bedrooms} Bedroom ${data.property.propertyType.replace('-', ' ')} in ${data.property.address.split(',')[0]}`;
+    const goodTitle = intel?.listingStrategy?.titleStrategy?.good || 'Analysis Pending';
+    const descriptionStrategy = intel?.listingStrategy?.descriptionStrategy || [
+        'Experience-First: Leading with the feeling of the stay, not just square footage.',
+        'Emotion-Driven: Crafting a narrative for family or retreat demographics.',
+        'Conversion Stacking: Strategic keyword placement to win performance SEO.',
+    ];
 
-                <p style="font-size: 13px; color: #475569; line-height: 1.7; font-style: italic; margin-top: 20px;">
-                    "Based on real-time data for ${selectedMarket?.name || 'your local market'}, this property is currently performing within its baseline bracket. There is a verified ${liftPct}% upside available through active institutional management."
-                </p>
+    const whyHeadline =
+        intel?.whySuiteCapacity?.split('.')[0] ||
+        'Most properties in this market underperform because they lack professional optimization.';
+    const whyBody =
+        intel?.whySuiteCapacity ||
+        'Suite Capacity is the institutional unlock for individual owners who want to run their asset like a high-end luxury hotel.';
 
-                <!-- Section 3: Missed Opportunities -->
-                <div class="section-header">3. Missed Revenue Opportunities</div>
-                <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 20px;">Identified Leakage Areas</div>
+    const missedOpportunities = intel?.missedOpportunities || [
+        {
+            title: 'Connection Required',
+            desc: 'Real-time opportunity analysis requires a valid API connection and street-level address.',
+        },
+    ];
 
-                ${(intel?.missedOpportunities || [{ title: "Connection Required", desc: "Real-time opportunity analysis requires a valid API connection and street-level address." }]).map((opp: any) => {
-                    const title = typeof opp === 'string' ? opp : opp.title;
-                    const desc = typeof opp === 'string' ? '' : opp.desc;
-                    return `
-                    <div class="opportunity-item">
-                        <div class="opportunity-title">⚡ ${title}</div>
-                        ${desc ? `<div class="opportunity-desc">${desc}</div>` : ''}
-                    </div>
-                    `;
-                }).join('')}
+    const strategyCallUrl =
+        process.env.STRATEGY_CALL_URL ||
+        'https://calendly.com/suitecapacity/consultation-and-discovery-call';
 
-                <div style="background-color: #000; color: #fff; padding: 35px; border-radius: 25px; text-align: center; margin-top: 25px;">
-                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3b82f6; margin-bottom: 8px;">Average Loss</div>
-                    <div style="font-size: 36px; font-weight: 900; letter-spacing: -0.05em;">${formatCurrency(revenueLift)}</div>
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 8px; font-weight: 600; text-transform: uppercase;">Revenue left on table annually</div>
-                </div>
+    const mockBanner = isMock
+        ? `
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;background-color:#fffbeb;border:1px solid #fde68a;border-radius:16px;border-collapse:collapse;">
+            <tr>
+                <td style="padding:16px 20px;">
+                    <p style="margin:0 0 4px;font-size:13px;font-weight:900;text-transform:uppercase;color:#92400e;">Real-Time Intelligence Pending</p>
+                    <p style="margin:0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#b45309;">We are currently calculating your property's custom analysis. Below is a high-fidelity preview of your projected optimization strategy.</p>
+                </td>
+            </tr>
+        </table>`
+        : '';
 
-                <!-- Section 4: Optimized Projection -->
-                <div class="section-header">4. Suite Capacity Optimized Projection</div>
-                <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 20px;">Projected Delta with Institutional Management</div>
+    const marketSection = selectedMarket
+        ? `
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;background-color:${SLATE_100};border:1px solid ${SLATE_200};border-radius:24px;border-collapse:collapse;">
+            <tr>
+                <td style="padding:28px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                        <tr>
+                            <td valign="top" style="padding-bottom:16px;">
+                                <p style="margin:0 0 4px;font-size:22px;font-weight:900;color:${SLATE_900};">${escapeHtml(selectedMarket.name)} Analysis</p>
+                                <p style="margin:0;font-size:11px;font-weight:700;color:${SLATE_500};text-transform:uppercase;letter-spacing:0.1em;">${escapeHtml(selectedMarket.detail || 'General Market Context')}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                    <tr>
+                                        <td width="33%" align="center" style="padding:8px;">
+                                            <p style="margin:0 0 4px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${SLATE_500};">Market Multiplier</p>
+                                            <p style="margin:0;font-size:28px;font-weight:900;color:${PRIMARY};">${selectedMarket.multiplier || '1.15'}x</p>
+                                        </td>
+                                        <td width="33%" align="center" style="padding:8px;">
+                                            <p style="margin:0 0 4px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${SLATE_500};">Demand Index</p>
+                                            <p style="margin:0;font-size:28px;font-weight:900;color:${EMERALD};">${demandIndex}%</p>
+                                        </td>
+                                        <td width="33%" align="center" style="padding:8px;">
+                                            <p style="margin:0 0 4px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${SLATE_500};">Status</p>
+                                            <span style="display:inline-block;background-color:#d1fae5;color:#047857;font-size:10px;font-weight:900;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:0.05em;">${escapeHtml(selectedMarket.status || 'Active')}</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>`
+        : '';
 
-                <div class="highlight-box">
-                    <div class="highlight-label">Optimized Annual Target</div>
-                    <div class="highlight-value">${formatCurrency(projection.optimizedRevenue)}</div>
-                    <div class="highlight-subtext">Projected Revenue with Suite Capacity Management</div>
-                </div>
+    const opportunityItems = missedOpportunities
+        .map((opp) => {
+            const title = typeof opp === 'string' ? opp : opp.title;
+            const desc = typeof opp === 'string' ? '' : (opp as { desc?: string }).desc || '';
+            return `
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;background-color:${ROSE_50};border:1px solid ${ROSE_100};border-radius:16px;border-collapse:collapse;">
+                    <tr>
+                        <td style="padding:16px;">
+                            <p style="margin:0 0 ${desc ? '6px' : '0'};font-size:13px;font-weight:900;text-transform:uppercase;color:${ROSE_900};">⚡ ${escapeHtml(title)}</p>
+                            ${desc ? `<p style="margin:0;font-size:12px;color:#b91c1c;line-height:1.5;">${escapeHtml(desc)}</p>` : ''}
+                        </td>
+                    </tr>
+                </table>`;
+        })
+        .join('');
 
-                <div class="baseline-comparison">
-                    <div class="comparison-card">
-                        <div class="comparison-label">Baseline / Current</div>
-                        <div class="comparison-item">
-                            <div class="comparison-item-label">Projected Revenue Range</div>
-                            <div class="comparison-item-value">${formatCurrency(projection.currentRevenue)}</div>
-                        </div>
-                        <div class="comparison-item">
-                            <div class="comparison-item-label">Occupancy Target</div>
-                            <div class="comparison-item-value">${data.baseline.occupancy ? `${data.baseline.occupancy}%` : 'Market Average'}</div>
-                        </div>
-                        <div class="comparison-item">
-                            <div class="comparison-item-label">Growth Projection</div>
-                            <div class="comparison-item-value" style="color: #94a3b8;">Baseline</div>
-                        </div>
-                    </div>
+    const descriptionItems = descriptionStrategy
+        .map((item, i) => {
+            const [title, desc] =
+                typeof item === 'string' && item.includes(':')
+                    ? item.split(':').map((s) => s.trim())
+                    : [item, ''];
+            return `
+                <tr>
+                    <td style="padding:8px 0;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                            <tr>
+                                <td valign="top" width="28" style="padding-right:12px;">
+                                    <span style="display:inline-block;width:24px;height:24px;background-color:rgba(59,130,246,0.1);color:${PRIMARY};font-size:10px;font-weight:900;text-align:center;line-height:24px;border-radius:50%;">${i + 1}</span>
+                                </td>
+                                <td valign="top">
+                                    <p style="margin:0;font-size:11px;font-weight:900;text-transform:uppercase;color:${SLATE_900};">${escapeHtml(title)}</p>
+                                    ${desc ? `<p style="margin:4px 0 0;font-size:11px;color:${SLATE_500};">${escapeHtml(desc)}</p>` : ''}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>`;
+        })
+        .join('');
 
-                    <div class="comparison-card">
-                        <div class="comparison-label">Suite Capacity Optimized</div>
-                        <div class="comparison-item">
-                            <div class="comparison-item-label">Projected Revenue Range</div>
-                            <div class="comparison-item-value">${intel?.optimizedProjection?.revenueRange || formatCurrency(projection.optimizedRevenue)}</div>
-                        </div>
-                        <div class="comparison-item">
-                            <div class="comparison-item-label">Occupancy Target</div>
-                            <div class="comparison-item-value">${intel?.optimizedProjection?.occupancyTarget || 'N/A'}</div>
-                        </div>
-                        <div class="comparison-item">
-                            <div class="comparison-item-label">Optimized Growth Projection</div>
-                            <div class="comparison-item-value accent-primary">+${liftPct}%</div>
-                        </div>
-                    </div>
-                </div>
+    const designTagCells = designTags
+        .map(
+            (tag) => `
+            <td style="padding:4px;">
+                <span style="display:inline-block;background-color:rgba(59,130,246,0.08);color:${PRIMARY};font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.08em;padding:8px 12px;border-radius:12px;">✦ ${escapeHtml(tag)}</span>
+            </td>`
+        )
+        .join('');
 
-                <!-- Section 5: Revenue Lift Summary -->
-                <div class="lift-summary">
-                    <div class="lift-row">
-                        <div class="lift-label">Baseline Revenue</div>
-                        <div class="lift-value strikethrough">${formatCurrency(projection.currentRevenue)}</div>
-                    </div>
-                    <div class="lift-row">
-                        <div class="lift-label">Optimized Revenue</div>
-                        <div class="lift-value primary">${formatCurrency(projection.optimizedRevenue)}</div>
-                    </div>
-                    <div class="lift-row" style="border: none; background-color: rgba(59, 130, 246, 0.1); padding: 15px; margin: 15px -15px -15px; border-radius: 12px;">
-                        <div class="lift-label accent-primary">Net Revenue Lift</div>
-                        <div class="lift-value primary" style="font-size: 24px;">+${formatCurrency(revenueLift)}</div>
-                    </div>
-                </div>
+    const whyFeatureItems = [
+        { title: 'Dynamic Pricing', desc: 'Daily adjustment logic' },
+        { title: 'Multi-Platform', desc: 'Global distribution reach' },
+        { title: 'Guest Ops v2', desc: 'Hotel-level automation' },
+        { title: 'Review Engine', desc: 'Automated 5-star scaling' },
+    ];
 
-                <p style="font-size: 13px; font-weight: 600; color: #334155; text-align: center; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 20px;">
-                    "With professional optimization, this property has the potential to outperform the current market average by approximately ${liftPct - 5}–${liftPct + 5}%."
-                </p>
+    const renderWhyFeatureCell = (f: { title: string; desc: string }) => `
+            <td width="50%" valign="top" style="padding:8px 12px 8px 0;">
+                <p style="margin:0 0 2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${PRIMARY};">${escapeHtml(f.title)}</p>
+                <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.5);">${escapeHtml(f.desc)}</p>
+            </td>`;
 
-                <!-- Section 6: Strategy Recommendations -->
-                <div class="section-header">5. Strategic Recommendations</div>
+    const whyFeatureRows = [
+        whyFeatureItems.slice(0, 2).map(renderWhyFeatureCell).join(''),
+        whyFeatureItems.slice(2, 4).map(renderWhyFeatureCell).join(''),
+    ];
 
-                <div class="design-strategy">
-                    ${intel?.designStrategy ? `
-                    <div class="design-section">
-                        <div class="section-subtitle">Design & Amenity Strategy</div>
-                        <p style="font-size: 14px; color: #475569; line-height: 1.7;">${intel.designStrategy.recommendation || 'Premium interior refresh and modern amenity upgrades.'}</p>
-                        <div style="font-size: 12px; color: #3b82f6; font-weight: 700; margin-top: 10px;">📈 Impact: +${formatCurrency(projection.designLift || 5000)} Annual Value Lift</div>
-                    </div>
-                    ` : ''}
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Intelligence Report</title>
+</head>
+<body style="margin:0;padding:0;background-color:${SLATE_50};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif;color:${SLATE_900};line-height:1.6;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${SLATE_50};border-collapse:collapse;">
+        <tr>
+            <td align="center" style="padding:24px 12px;">
+                <table role="presentation" width="700" cellpadding="0" cellspacing="0" border="0" style="max-width:700px;width:100%;background-color:#ffffff;border-collapse:collapse;">
 
-                    ${intel?.listingStrategy ? `
-                    <div class="design-section">
-                        <div class="section-subtitle">Listing Optimization & SEO</div>
-                        <p style="font-size: 14px; font-weight: 900; color: #0f172a; margin-bottom: 8px;">Target Title Strategy:</p>
-                        <p style="font-size: 14px; color: #3b82f6; font-style: italic; margin-bottom: 15px;">"${intel.listingStrategy.titleStrategy?.good || 'Experience-first, amenity-focused SEO title.'}"</p>
-                        <p style="font-size: 12px; color: #475569; line-height: 1.6;">Copy optimization focuses on immediate value proposition, seasonal demand alignment, and guest experience messaging to drive conversion.</p>
-                    </div>
-                    ` : ''}
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="padding:40px 35px 20px;border-bottom:1px solid ${SLATE_200};">
+                            <p style="margin:0 0 12px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.3em;color:${PRIMARY};">Suite Capacity Intel®</p>
+                            <p style="margin:0;font-size:32px;font-weight:900;letter-spacing:-0.05em;color:${SLATE_900};">Revenue Intelligence Report</p>
+                        </td>
+                    </tr>
 
-                    ${intel?.whySuiteCapacity ? `
-                    <div class="design-section">
-                        <div class="section-subtitle">Why Suite Capacity?</div>
-                        <p style="font-size: 14px; color: #475569; line-height: 1.7; font-style: italic;">"${intel.whySuiteCapacity}"</p>
-                    </div>
-                    ` : ''}
-                </div>
+                    <tr>
+                        <td style="padding:32px 35px;">
 
-                <!-- Direct Booking Engine Upside -->
-                <div style="background-color: #000; color: #fff; padding: 35px; border-radius: 25px; margin-bottom: 35px;">
-                    <div style="font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #3b82f6; margin-bottom: 12px;">Direct Booking Engine Upside</div>
-                    <div style="font-size: 16px; color: #fff; margin-bottom: 15px; line-height: 1.6;">We shift 30%+ of OTA traffic to your direct portal, saving <strong>15-18%</strong> in distribution fees alone.</div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span style="font-size: 40px; font-weight: 900;">💰</span>
-                        <div>
-                            <div style="font-size: 28px; font-weight: 900; color: #3b82f6;">${liftPct}%</div>
-                            <div style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-top: 2px;">Commission Recovery</div>
-                        </div>
-                    </div>
-                </div>
+                            <!-- Property Card -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;background-color:${SLATE_100};border:1px solid ${SLATE_200};border-radius:20px;border-collapse:collapse;">
+                                <tr>
+                                    <td style="padding:28px;">
+                                        <p style="margin:0 0 6px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;color:${SLATE_500};">Property Analysis Prepared For:</p>
+                                        <p style="margin:0 0 4px;font-size:20px;font-weight:900;color:${SLATE_900};">${escapeHtml(data.lead.name)}</p>
+                                        <p style="margin:0;font-size:16px;font-weight:500;color:${SLATE_700};">${escapeHtml(data.property.address)}</p>
+                                    </td>
+                                </tr>
+                            </table>
 
-                <!-- CTA Section -->
-                <div style="text-align: center; padding: 35px; background-color: #f1f5f9; border-radius: 20px; border: 2px solid #e2e8f0;">
-                    <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px;">Ready to activate your professional management plan?</h3>
-                    <p style="font-size: 13px; color: #475569; margin-bottom: 20px;">Let's discuss how we'll implement these recommendations and capture your property's full revenue potential.</p>
-                    <a href="${process.env.STRATEGY_CALL_URL || 'https://calendly.com/suitecapacity'}" class="cta-button">Book Strategy Session</a>
-                    <p style="font-size: 12px; color: #64748b; margin-top: 15px;">Or reply to this email to speak with a property strategist directly.</p>
-                </div>
-            </div>
+                            ${mockBanner}
+                            ${marketSection}
 
-            <!-- Footer -->
-            <div class="footer">
-                <div class="footer-title">Suite Capacity®</div>
-                <p>The centralized STR operating platform combining revenue intelligence and local expertise.</p>
-                <p style="margin-top: 15px; font-size: 11px; color: #94a3b8;">This report is based on real-time market data and AI-generated intelligence for your specific property. Results may vary based on implementation and market conditions.</p>
-            </div>
-        </div>
-    </body>
-    </html>
-    `;
+                            ${renderSectionHeader('1.', 'Property Positioning Snapshot', 'Market Context & Asset Assessment')}
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border:1px solid ${SLATE_200};border-radius:20px;border-collapse:collapse;">
+                                <tr>
+                                    <td width="50%" valign="top" style="padding:28px;">
+                                        <p style="margin:0 0 6px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${PRIMARY};">Description</p>
+                                        <p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:${SLATE_700};">${escapeHtml(pos.description)}</p>
+                                        <p style="margin:0 0 6px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${PRIMARY};">Market Positioning</p>
+                                        <p style="margin:0;font-size:18px;font-weight:900;color:${SLATE_900};">${escapeHtml(pos.marketPositioning || 'Premium-Tier Potential')}</p>
+                                    </td>
+                                    <td width="50%" valign="top" style="padding:28px;border-left:1px solid ${SLATE_200};">
+                                        <p style="margin:0 0 6px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${EMERALD};">Key Strengths</p>
+                                        <p style="margin:0 0 20px;font-size:14px;color:${SLATE_700};">${escapeHtml(pos.strengths)}</p>
+                                        <p style="margin:0 0 6px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:#ef4444;">Key Limitations</p>
+                                        <p style="margin:0;font-size:14px;color:${SLATE_700};">${escapeHtml(pos.limitations)}</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            ${renderSectionHeader('', 'Revenue Comparison & Depth', 'AirDNA Standard vs. Suite Capacity Optimized')}
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                <tr>
+                                    <td width="60%" valign="top" style="padding-right:12px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border:1px solid ${SLATE_200};border-radius:20px;border-collapse:collapse;">
+                                            <tr>
+                                                <td style="padding:28px;">
+                                                    ${renderTrajectoryChart(projection.currentRevenue, projection.optimizedRevenue)}
+                                                    ${renderSeasonBars()}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="40%" valign="top" style="padding-left:12px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;background-color:#ffffff;border:1px solid ${SLATE_200};border-radius:16px;border-collapse:collapse;">
+                                            <tr>
+                                                <td style="padding:20px;">
+                                                    <p style="margin:0 0 12px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${SLATE_500};">Market Benchmark (Top 10%)</p>
+                                                    <p style="margin:0;font-size:24px;font-weight:900;color:${SLATE_900};">${formatCurrency(projection.marketComparison.topQuartileAdr)}</p>
+                                                    <p style="margin:4px 0 12px;font-size:10px;font-weight:700;color:${SLATE_500};text-transform:uppercase;">Top Tier ADR</p>
+                                                    ${renderProgressBar(85, EMERALD)}
+                                                    <p style="margin:8px 0 0;font-size:11px;font-weight:700;color:${EMERALD};">Peak Competitive Edge</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#000000;border-radius:24px;border-collapse:collapse;">
+                                            <tr>
+                                                <td style="padding:28px;color:#ffffff;">
+                                                    <p style="margin:0 0 8px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:0.05em;color:#ffffff;">Direct Booking Engine Upside</p>
+                                                    <p style="margin:0 0 16px;font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;">We shift 30%+ of OTA traffic to your direct portal, saving <strong>15-18%</strong> in distribution fees alone.</p>
+                                                    <p style="margin:0;font-size:24px;font-weight:900;color:#ffffff;">${liftPct}% <span style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;">Commission Recovery</span></p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            ${renderSectionHeader('2.', 'Current Market Performance (Baseline)', 'Historical Asset Performance')}
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                <tr>
+                                    ${renderStatCard('Est. Annual Revenue', formatCurrency(projection.currentRevenue))}
+                                    ${renderStatCard('Peak Season Share', `${projection.performanceBreakdown?.peakContribution || 70}%`, 'Impact Window')}
+                                    ${renderStatCard('Shoulder Contribution', `${projection.performanceBreakdown?.shoulderContribution || 20}%`, 'Sept-Oct / April-May')}
+                                    ${renderStatCard('Off-Season Contribution', `${projection.performanceBreakdown?.offSeasonContribution || 10}%`, 'Winter Anchor Strategy')}
+                                </tr>
+                            </table>
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;background-color:${SLATE_100};border:1px solid ${SLATE_200};border-radius:16px;border-collapse:collapse;">
+                                <tr>
+                                    <td style="padding:20px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                            <tr>
+                                                <td>
+                                                    <p style="margin:0;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${SLATE_500};">Market Intelligence</p>
+                                                </td>
+                                                <td align="right">
+                                                    <span style="display:inline-block;background-color:#dbeafe;color:#1d4ed8;font-size:8px;font-weight:900;padding:4px 8px;border-radius:20px;text-transform:uppercase;">PriceLabs® Live</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;border-collapse:collapse;">
+                                            <tr>
+                                                <td width="50%">
+                                                    <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:${SLATE_500};text-transform:uppercase;">Multiplier</p>
+                                                    <p style="margin:0;font-size:20px;font-weight:900;color:${SLATE_900};">${selectedMarket?.multiplier || 1.15}x</p>
+                                                </td>
+                                                <td width="50%">
+                                                    <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:${SLATE_500};text-transform:uppercase;">Volatility</p>
+                                                    <p style="margin:0;font-size:20px;font-weight:900;color:${PRIMARY};">${volatilityPct}%</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="margin:16px 0 0;font-size:13px;color:rgba(0,0,0,0.6);font-style:italic;line-height:1.7;">
+                                "Based on real-time data for ${escapeHtml(selectedMarket?.name || 'this market')}, this property is currently performing within its baseline bracket. There is a verified ${liftPct}% upside available through active institutional management."
+                            </p>
+
+                            ${renderSectionHeader('3.', 'Missed Revenue Opportunities', 'Identified Leakage Areas', '#ef4444')}
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                <tr>
+                                    <td width="50%" valign="top" style="padding-right:12px;">
+                                        ${opportunityItems}
+                                    </td>
+                                    <td width="50%" valign="middle" align="center" style="padding-left:12px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#000000;border-radius:24px;border-collapse:collapse;">
+                                            <tr>
+                                                <td align="center" style="padding:32px 24px;color:#ffffff;">
+                                                    <p style="margin:0 0 8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:${PRIMARY};">Average Loss</p>
+                                                    <p style="margin:0 0 8px;font-size:28px;font-weight:900;color:#ffffff;">${formatCurrency(revenueLift)}</p>
+                                                    <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.7);text-transform:uppercase;font-weight:700;letter-spacing:0.02em;">Revenue left on table annually due to sub-professional optimization.</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            ${renderSectionHeader('4.', 'Suite Capacity Optimized Projection', 'Projected Delta with Institutional Management')}
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${PRIMARY};border-radius:24px;border-collapse:collapse;">
+                                <tr>
+                                    <td style="padding:36px;">
+                                        <p style="margin:0 0 6px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.85);">Optimized Annual Target</p>
+                                        <p style="margin:0 0 28px;font-size:48px;font-weight:900;color:#ffffff;letter-spacing:-0.04em;">${formatCurrency(projection.optimizedRevenue)}</p>
+
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                            <tr>
+                                                <td width="50%" valign="top" style="padding-right:8px;">
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:rgba(255,255,255,0.95);border-radius:16px;border-collapse:collapse;">
+                                                        <tr>
+                                                            <td style="padding:24px;">
+                                                                <p style="margin:0 0 16px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${SLATE_500};">Baseline / Current</p>
+                                                                <p style="margin:0 0 4px;font-size:9px;font-weight:700;text-transform:uppercase;color:${SLATE_500};">Projected Revenue Range</p>
+                                                                <p style="margin:0 0 14px;font-size:18px;font-weight:700;color:${SLATE_900};">${formatCurrency(projection.currentRevenue)}</p>
+                                                                <p style="margin:0 0 4px;font-size:9px;font-weight:700;text-transform:uppercase;color:${SLATE_500};">Occupancy Target</p>
+                                                                <p style="margin:0 0 14px;font-size:18px;font-weight:700;color:${SLATE_900};">${data.baseline.occupancy ? `${data.baseline.occupancy}%` : 'Market Average'}</p>
+                                                                <p style="margin:0 0 4px;font-size:9px;font-weight:700;text-transform:uppercase;color:${SLATE_500};">Growth Projection</p>
+                                                                <p style="margin:0;font-size:18px;font-weight:700;color:${SLATE_400};">Baseline</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td width="50%" valign="top" style="padding-left:8px;">
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border-radius:16px;border-collapse:collapse;">
+                                                        <tr>
+                                                            <td style="padding:24px;">
+                                                                <p style="margin:0 0 16px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${PRIMARY};">Suite Capacity Optimized</p>
+                                                                <p style="margin:0 0 4px;font-size:9px;font-weight:700;text-transform:uppercase;color:${SLATE_500};">Projected Revenue Range</p>
+                                                                <p style="margin:0 0 14px;font-size:18px;font-weight:700;color:${SLATE_900};">${escapeHtml(intel?.optimizedProjection?.revenueRange || formatCurrency(projection.optimizedRevenue))}</p>
+                                                                <p style="margin:0 0 4px;font-size:9px;font-weight:700;text-transform:uppercase;color:${SLATE_500};">Occupancy Target</p>
+                                                                <p style="margin:0 0 14px;font-size:18px;font-weight:700;color:${SLATE_900};">${escapeHtml(intel?.optimizedProjection?.occupancyTarget || 'N/A')}</p>
+                                                                <p style="margin:0 0 4px;font-size:9px;font-weight:700;text-transform:uppercase;color:${SLATE_500};">Optimized Growth Projection</p>
+                                                                <p style="margin:0;font-size:18px;font-weight:700;color:${PRIMARY};">+${liftPct}%</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            ${renderSectionHeader('5.', 'Revenue Lift Summary', 'Net Annual Impact')}
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border:1px solid ${SLATE_200};border-left:8px solid ${PRIMARY};border-radius:16px;border-collapse:collapse;">
+                                <tr>
+                                    <td style="padding:28px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                            <tr>
+                                                <td width="33%" align="center" style="padding:8px;">
+                                                    <p style="margin:0 0 4px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${SLATE_500};">Baseline Revenue</p>
+                                                    <p style="margin:0;font-size:28px;font-weight:900;color:${SLATE_400};text-decoration:line-through;">${formatCurrency(projection.currentRevenue)}</p>
+                                                </td>
+                                                <td width="33%" align="center" style="padding:8px;">
+                                                    <p style="margin:0 0 4px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${PRIMARY};">Optimized Revenue</p>
+                                                    <p style="margin:0;font-size:32px;font-weight:900;color:${PRIMARY};">${formatCurrency(projection.optimizedRevenue)}</p>
+                                                </td>
+                                                <td width="33%" align="center" style="padding:8px;">
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:16px;border-collapse:collapse;">
+                                                        <tr>
+                                                            <td style="padding:16px;">
+                                                                <p style="margin:0 0 4px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${PRIMARY};">Net Revenue Lift</p>
+                                                                <p style="margin:0;font-size:32px;font-weight:900;color:${PRIMARY};">+${formatCurrency(revenueLift)}</p>
+                                                                <p style="margin:4px 0 0;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${PRIMARY};opacity:0.7;">Per Annum</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p style="margin:24px 0 0;font-size:13px;font-weight:700;color:rgba(0,0,0,0.8);text-align:center;text-transform:uppercase;letter-spacing:0.02em;">
+                                            "With professional optimization, this property has the potential to outperform the current market average by approximately ${liftPct - 5}–${liftPct + 5}%."
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            ${renderSectionHeader('6.', 'Design & Amenity Strategy', 'Visual Revenue Enhancement Preview™')}
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;border-collapse:collapse;">
+                                <tr>
+                                    <td align="right">
+                                        <p style="margin:0;font-size:24px;font-weight:900;color:${PRIMARY};">+${formatCurrency(projection.designLift || 0)}</p>
+                                        <p style="margin:0;font-size:10px;font-weight:700;color:${SLATE_500};text-transform:uppercase;">Estimated Value Lift</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                <tr>
+                                    <td width="50%" valign="top" style="padding-right:10px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:3px solid rgba(59,130,246,0.2);border-radius:20px;border-collapse:collapse;">
+                                            <tr>
+                                                <td>
+                                                    <img src="${escapeHtml(originalImageUrl)}" alt="Original Asset" width="100%" style="display:block;width:100%;max-width:100%;height:auto;border-radius:17px 17px 0 0;" />
+                                                    <p style="margin:0;padding:8px 12px;font-size:10px;font-weight:700;color:#ffffff;background-color:rgba(59,130,246,0.75);text-transform:uppercase;letter-spacing:0.08em;">Original Asset</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;border:3px solid rgba(59,130,246,0.35);border-radius:20px;border-collapse:collapse;">
+                                            <tr>
+                                                <td>
+                                                    <img src="${escapeHtml(enhancedImageUrl)}" alt="Optimized Target Concept" width="100%" style="display:block;width:100%;max-width:100%;height:auto;border-radius:17px 17px 0 0;" />
+                                                    <p style="margin:0;padding:8px 12px;font-size:10px;font-weight:700;color:#ffffff;background-color:${PRIMARY};text-transform:uppercase;letter-spacing:0.08em;">Optimized Target Concept</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="50%" valign="top" style="padding-left:10px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border:1px solid ${SLATE_200};border-radius:20px;border-collapse:collapse;">
+                                            <tr>
+                                                <td style="padding:24px;">
+                                                    <p style="margin:0 0 12px;font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:${SLATE_900};">${escapeHtml(designTitle)}</p>
+                                                    <p style="margin:0 0 20px;font-size:14px;color:rgba(0,0,0,0.7);line-height:1.6;">${escapeHtml(designRecommendation)}</p>
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;border-collapse:collapse;">
+                                                        <tr>${designTagCells}</tr>
+                                                    </table>
+                                                    <p style="margin:0;font-size:12px;font-weight:700;font-style:italic;color:${PRIMARY};">"${escapeHtml(designImpact)}"</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            ${renderSectionHeader('7.', 'Listing Optimization Strategy', 'Performance Copy & SEO Stacking')}
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                <tr>
+                                    <td width="50%" valign="top" style="padding-right:10px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border:1px solid ${SLATE_200};border-radius:16px;border-collapse:collapse;">
+                                            <tr>
+                                                <td style="padding:24px;">
+                                                    <p style="margin:0 0 16px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${PRIMARY};">Proposed Title Strategy</p>
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;background-color:${ROSE_50};border:1px solid ${ROSE_100};border-radius:12px;border-collapse:collapse;">
+                                                        <tr>
+                                                            <td style="padding:14px;">
+                                                                <p style="margin:0 0 4px;font-size:11px;font-weight:700;text-transform:uppercase;color:#be123c;">Standard (Ineffective)</p>
+                                                                <p style="margin:0;font-size:15px;color:${ROSE_900};text-decoration:line-through;opacity:0.6;">${escapeHtml(badTitle)}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;border-collapse:collapse;">
+                                                        <tr>
+                                                            <td style="padding:14px;">
+                                                                <p style="margin:0 0 4px;font-size:11px;font-weight:700;text-transform:uppercase;color:${EMERALD};">Optimized (Suite Capacity Standard)</p>
+                                                                <p style="margin:0;font-size:15px;font-weight:900;color:#065f46;">${escapeHtml(goodTitle)}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="50%" valign="top" style="padding-left:10px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border:1px solid ${SLATE_200};border-radius:16px;border-collapse:collapse;">
+                                            <tr>
+                                                <td style="padding:24px;">
+                                                    <p style="margin:0 0 16px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:${PRIMARY};">Description Logic</p>
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                                        ${descriptionItems}
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            ${renderSectionHeader('8.', 'Why Suite Capacity?', 'Institutional Management Unlock')}
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#000000;border-radius:24px;border-collapse:collapse;">
+                                <tr>
+                                    <td style="padding:36px;color:#ffffff;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                            <tr>
+                                                <td width="50%" valign="top" style="padding-right:16px;">
+                                                    <p style="margin:0 0 16px;font-size:28px;font-weight:900;line-height:1.1;letter-spacing:-0.03em;color:#ffffff;">${escapeHtml(whyHeadline)}.</p>
+                                                    <p style="margin:0 0 24px;font-size:16px;color:rgba(255,255,255,0.7);line-height:1.6;">${escapeHtml(whyBody)}</p>
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                                        <tr>${whyFeatureRows[0]}</tr>
+                                                        <tr>${whyFeatureRows[1]}</tr>
+                                                    </table>
+                                                </td>
+                                                <td width="50%" valign="top" style="padding-left:16px;">
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;background-color:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;border-collapse:collapse;">
+                                                        <tr>
+                                                            <td style="padding:24px;">
+                                                                <p style="margin:0;font-size:16px;font-weight:700;font-style:italic;color:#ffffff;line-height:1.5;">"Professional management isn't a cost — it's the only way to capture the remaining 30%+ of your property's value."</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                                        <tr>
+                                                            <td style="padding-bottom:12px;">
+                                                                <a href="${escapeHtml(strategyCallUrl)}" style="display:block;background-color:${PRIMARY};color:#ffffff;text-decoration:none;padding:16px 24px;border-radius:50px;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;text-align:center;">Book Strategy Session</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.5);text-align:center;">Or reply to this email to speak with a property strategist directly.</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="padding:32px 35px;border-top:1px solid ${SLATE_200};background-color:${SLATE_50};">
+                            <p style="margin:0 0 6px;font-size:12px;font-weight:900;color:${SLATE_900};">Suite Capacity®</p>
+                            <p style="margin:0;font-size:12px;color:${SLATE_500};">The centralized STR operating platform combining revenue intelligence and local expertise.</p>
+                            <p style="margin:16px 0 0;font-size:11px;color:${SLATE_400};">Generated by Suite Capacity Intel® · Real-Time Market Data Active</p>
+                            <p style="margin:12px 0 0;font-size:11px;color:${SLATE_400};">This report is based on real-time market data and AI-generated intelligence for your specific property. Results may vary based on implementation and market conditions.</p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>`;
 }
