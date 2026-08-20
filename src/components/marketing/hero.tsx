@@ -120,11 +120,15 @@ export function Hero() {
                         </a>
                     </motion.div>
 
-                    {/* Stats Bar */}
+                    {/* Stats + tagline */}
                     <motion.div
                         variants={fadeInUp}
                         className="pt-8 w-full max-w-4xl mx-auto"
                     >
+                        <p className="mb-6 text-lg md:text-2xl font-bold leading-snug tracking-tight font-playfair">
+                            &ldquo;Everything Your Vacation Rental Needs. One Local Management Team.{' '}
+                            <span className="text-primary">All done for you!&rdquo;</span>
+                        </p>
                         <div className="glass-panel grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-black/10 px-4 sm:px-6 py-5 rounded-2xl shadow-sm">
                             {HERO_STATS.map((stat) => (
                                 <div
