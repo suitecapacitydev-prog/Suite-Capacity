@@ -1,6 +1,6 @@
 'use server';
 
-import { supabase, supabaseAdmin } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase';
 import { WizardData, RevenueProjection } from '@/types/wizard';
 import { revalidatePath } from 'next/cache';
 import { AirDNAService } from '@/services/airdna';
@@ -8,22 +8,8 @@ import { PriceLabsService } from '@/services/pricelabs';
 import { AIREnderingService } from '@/services/ai-rendering';
 import { OpenAIService } from '@/services/openai';
 import { MARKETS } from '@/data/markets';
-import nodemailer from 'nodemailer';
-import { generateReportEmailHTML } from '@/lib/report-email';
 import { generateReportPdf } from '@/lib/report-pdf';
-
-// Initialize Nodemailer transporter
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-});
-
-const emailFrom = process.env.EMAIL_FROM || '"Suite Capacity" <onboarding@resend.dev>';
+import { sendInternalBlueprintNotification, processBookingConfirmation } from '@/lib/booking-service';
 
 /**
  * Utility to upsert a record while gracefully handling schema mismatches.
@@ -41,7 +27,7 @@ async function upsertWithSchemaFallback<T = any>(
     const payloadCopy = { ...payload };
 
     for (let attempt = 0; attempt < maxRetries; attempt += 1) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseAdmin
             .from(table)
             .upsert(payloadCopy, opts)
             .select()
@@ -170,7 +156,7 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
         if (leadError) throw leadError;
 
         // 2. Create Property Record
-        const { data: property, error: propertyError } = await supabase
+        const { data: property, error: propertyError } = await supabaseAdmin
             .from('properties')
             .insert({
                 lead_id: lead.id,
@@ -187,8 +173,8 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
 
         if (propertyError) throw propertyError;
 
-        // 3. Save Full Submission
-        const { error: submissionError } = await supabase
+        // 3. Save Full Submission (awaiting consultation booking)
+        const { data: submission, error: submissionError } = await supabaseAdmin
             .from('wizard_submissions')
             .insert({
                 lead_id: lead.id,
@@ -197,8 +183,10 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                 baseline_data: data.baseline,
                 audit_data: data.audit,
                 projection_results: projection,
-                status: 'complete',
-            });
+                status: 'pending_booking',
+            })
+            .select('id')
+            .single();
 
         if (submissionError) throw submissionError;
 
@@ -211,73 +199,33 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
                 processing_status: 'pending'
             }));
 
-            const { error: aiError } = await supabase
+            const { error: aiError } = await supabaseAdmin
                 .from('ai_enhancements')
                 .insert(imageRecords);
 
             if (aiError) console.error('Error saving AI records:', aiError);
         }
 
-        // 5. Send Email via Resend
+        // 5. Notify internal team (full blueprint + PDF; user receives audit after booking)
         let emailSent = false;
         let emailError: string | null = null;
         let emailHint: string | null = null;
-        let emailResponseId: string | null = null;
-        let emailStatus: any = null;
 
-        if (process.env.SMTP_USER && process.env.SMTP_PASS) {
-            try {
-                const htmlContent = generateReportEmailHTML(data, projection);
-
-                const emailResult = await transporter.sendMail({
-                    from: emailFrom,
-                    to: data.lead.email,
-                    bcc: ['suitecapacity.dev@gmail.com',
-                        'suitecapacity@gmail.com'
-                    ],
-                    subject: 'Your Revenue Intelligence Report is Ready',
-                    html: htmlContent,
-                    attachments: [
-                        {
-                            filename: 'Revenue Intelligence Report.pdf',
-                            content: Buffer.from(pdfBytes),
-                            contentType: 'application/pdf',
-                        },
-                    ],
-                });
-
-                emailSent = true;
-                emailResponseId = emailResult?.messageId || null;
-
-                if (emailResponseId) {
-                    try {
-                        // For Nodemailer, we can't easily retrieve status via ID like Resend
-                        // But we can check if it was accepted
-                        emailStatus = emailResult.accepted.includes(data.lead.email) ? 'accepted' : 'pending';
-                        console.log('Nodemailer email status:', emailStatus);
-                    } catch (statusErr) {
-                        console.warn('Failed to determine Nodemailer email status:', statusErr);
-                    }
-                }
-
-                console.log(
-                    'Confirmation email sent to:',
-                    data.lead.email,
-                    'emailId:',
-                    emailResponseId,
-                    'resendResult:',
-                    emailResult,
-                    'emailStatus:',
-                    emailStatus
-                );
-            } catch (emailErr: any) {
-                emailError = String(emailErr?.message || emailErr);
-                emailHint = 'Email failed to send; check SMTP configuration and network.';
-                console.error('Failed to send email:', emailErr);
+        try {
+            const internalResult = await sendInternalBlueprintNotification(
+                submission.id,
+                data,
+                projection,
+                pdfBytes,
+            );
+            emailSent = internalResult.sent;
+            if (!emailSent) {
+                emailHint = 'SMTP credentials are not set; internal team notification was not sent.';
             }
-        } else {
-            emailHint = 'SMTP credentials are not set; email was not sent.';
-            console.warn('SMTP credentials are not set. Skipping email send.');
+        } catch (emailErr: any) {
+            emailError = String(emailErr?.message || emailErr);
+            emailHint = 'Internal team notification failed; check SMTP configuration.';
+            console.error('Failed to send internal blueprint notification:', emailErr);
         }
 
         try {
@@ -288,12 +236,10 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
 
         return {
             success: true,
-            submissionId: lead.id,
+            submissionId: submission.id,
             emailSent: emailSent,
             emailError: emailError,
             emailHint: emailHint,
-            emailResponseId: emailResponseId,
-            emailStatus,
         };
     } catch (error: any) {
         console.error('Wizard Submission Error:', error);
@@ -303,6 +249,21 @@ export async function submitWizardData(data: WizardData, projection: RevenueProj
             : message;
         return { success: false, error: hint };
     }
+}
+
+/**
+ * Called when a user schedules their Blueprint review (Calendly embed or webhook).
+ */
+export async function markBookingScheduled(
+    submissionId: string,
+    options: {
+        calendlyEventUri?: string;
+        calendlyInviteeUri?: string;
+        scheduledAt?: string;
+        inviteeEmail?: string;
+    } = {},
+) {
+    return processBookingConfirmation(submissionId, options);
 }
 
 /**

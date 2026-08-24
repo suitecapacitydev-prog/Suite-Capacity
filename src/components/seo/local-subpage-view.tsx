@@ -1,12 +1,12 @@
 "use client";
 import SiteShell from '@/components/layout/site-shell';
-import { Market, SubMarket } from '@/data/markets';
+import { ClientMarket, SubMarket } from '@/data/markets';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { MapPin, ArrowLeft, Building2, TrendingUp, ShieldCheck } from 'lucide-react';
 
 interface LocalSubpageViewProps {
-  market: Market;
+  market: ClientMarket;
   subMarket: SubMarket;
 }
 

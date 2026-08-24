@@ -1,68 +1,78 @@
 import SiteShell from '@/components/layout/site-shell';
-import { MapPin, ArrowRight, TrendingUp, Users, ShieldCheck, Waves, Sun, Mountain, Trees } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import {
+  CURRENTLY_SERVING_MARKETS,
+  COMING_SOON_MARKETS,
+  JerseyShoreMarketCard,
+} from '@/data/jersey-shore-markets';
+
+function MarketCard({ market }: { market: JerseyShoreMarketCard }) {
+  return (
+    <Link
+      href={market.href}
+      className="glass-panel overflow-hidden group hover:border-primary/30 transition-all hover:scale-[1.02] flex flex-col"
+    >
+      <div className="h-48 overflow-hidden relative">
+        <img
+          src={market.image}
+          alt={`${market.name} vacation rental property`}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+            <market.icon className="w-5 h-5 text-white" />
+          </div>
+        </div>
+      </div>
+      <div className="p-8 flex flex-col flex-grow">
+        <h3 className="text-2xl font-bold mb-3">{market.name}</h3>
+        <p className="text-black opacity-70 text-sm leading-relaxed mb-6 flex-grow">
+          {market.desc}
+        </p>
+        <div className="pt-6 border-t border-border flex justify-between items-center text-sm">
+          <div className="space-y-1">
+            <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Rev Lift</p>
+            <p className="text-lg font-bold text-black">{market.performance}</p>
+          </div>
+          <div className="space-y-1 text-right">
+            <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Managed</p>
+            <p className="text-lg font-bold text-black">{market.stats}</p>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function MarketSection({
+  title,
+  badgeClass,
+  markets,
+}: {
+  title: string;
+  badgeClass: string;
+  markets: JerseyShoreMarketCard[];
+}) {
+  return (
+    <div className="mb-20 last:mb-0">
+      <div className="flex items-center justify-center mb-10">
+        <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full ${badgeClass}`}>
+          {title}
+        </span>
+      </div>
+      <div className="grid md:grid-cols-3 gap-8">
+        {markets.map((market) => (
+          <MarketCard key={market.name} market={market} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function MarketsPage() {
-  const markets = [
-    {
-      name: 'Jersey Shore',
-      desc: 'Asbury park to cape may. The Northeast’s premier beach destination. Specialized beachfront maintenance and high-intensity summer seasonal strategies.',
-      performance: '15.9%',
-      stats: '70+',
-      icon: Waves,
-      href: '/markets/jersey-shore',
-      image: '/images/jersey-shore-hotel.png',
-    },
-    {
-      name: 'Kissimmee-Orlando',
-      desc: 'Coming Soon. High-demand vacation rental market near major attractions. Deployment of our vertically integrated operating system underway.',
-      performance: 'TBD',
-      stats: 'Coming Soon',
-      icon: Sun,
-      href: '/markets/orlando-airbnb-management',
-      image: '/images/properties/orlando.png',
-    },
-    {
-      name: 'Florida Coastal',
-      desc: 'Coming Soon. Year-round demand with localized expertise in hurricane compliance and vacation rental saturation management.',
-      performance: 'TBD',
-      stats: 'Coming Soon',
-      icon: Waves,
-      href: '/markets/florida-coastal',
-      image: '/images/properties/florida-coastal.png',
-    },
-    {
-      name: 'Phoenix',
-      desc: 'Coming Soon. High-yield golf and event-driven markets. Proactive HVAC maintenance and heat-sensitive asset preservation.',
-      performance: 'TBD',
-      stats: 'Coming Soon',
-      icon: Sun,
-      href: '/markets/phoenix',
-      image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=1200',
-    },
-    {
-      name: 'Smoky Mountains',
-      desc: 'Coming Soon. Year-round mountain destination specializing in luxury cabin management and winter weather operations.',
-      performance: 'TBD',
-      stats: 'Coming Soon',
-      icon: Mountain,
-      href: '/markets/smoky-mountains',
-      image: 'https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&q=80&w=800',
-    },
-    {
-      name: 'Poconos',
-      desc: 'Coming Soon. Premier Northeast mountain retreat. Expertise in multi-seasonal demand and large-group hospitality.',
-      performance: 'TBD',
-      stats: 'Coming Soon',
-      icon: Trees,
-      href: '/markets/poconos',
-      image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800',
-    },
-  ];
-
   return (
     <SiteShell>
-      {/* Hero Section */}
       <section className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
@@ -77,44 +87,20 @@ export default function MarketsPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {markets.map((market, index) => (
-              <Link key={index} href={market.href} className="glass-panel overflow-hidden group hover:border-primary/30 transition-all hover:scale-[1.02] flex flex-col">
-                <div className="h-48 overflow-hidden relative">
-                  <img
-                    src={market.image}
-                    alt={`${market.name} vacation rental property`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                    <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                      <market.icon className="w-5 h-5 text-white" />
-                    </div>
-                  </div>
-                </div>
-                <div className="p-8 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-bold mb-3">{market.name}</h3>
-                  <p className="text-black opacity-70 text-sm leading-relaxed mb-6 flex-grow">
-                    {market.desc}
-                  </p>
-                  <div className="pt-6 border-t border-border flex justify-between items-center text-sm">
-                    <div className="space-y-1">
-                      <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Rev Lift</p>
-                      <p className="text-lg font-bold text-black">{market.performance}</p>
-                    </div>
-                    <div className="space-y-1 text-right">
-                      <p className="text-xs uppercase tracking-wider text-black opacity-60 font-bold">Managed</p>
-                      <p className="text-lg font-bold text-black">{market.stats}</p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <MarketSection
+            title="Currently Serving"
+            badgeClass="bg-primary/10 text-primary border border-primary/20"
+            markets={CURRENTLY_SERVING_MARKETS}
+          />
+
+          <MarketSection
+            title="Coming Soon / Expanding"
+            badgeClass="bg-black/10 text-black/60 border border-black/10"
+            markets={COMING_SOON_MARKETS}
+          />
         </div>
       </section>
 
-      {/* Local Layer Promo */}
       <section className="py-24 bg-primary/40 border-y border-white/5 relative">
         <div className="container mx-auto px-6 text-center max-w-3xl">
           <MapPin className="w-12 h-12 text-primary mx-auto mb-6" />

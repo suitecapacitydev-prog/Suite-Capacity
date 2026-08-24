@@ -46,7 +46,7 @@ export interface Market {
   color?: string;
   towns?: string[];
   multiplier?: number;
-  
+
   // SEO fields
   heroTitle?: string;
   heroHighlight?: string;
@@ -60,6 +60,14 @@ export interface Market {
   featuresDesc?: string;
   features?: MarketFeature[];
   subMarkets?: SubMarket[];
+}
+
+/** Serializable subset of Market safe to pass from Server to Client Components. */
+export type ClientMarket = Omit<Market, 'icon'>;
+
+export function toClientMarket(market: Market): ClientMarket {
+  const { icon: _icon, ...clientMarket } = market;
+  return clientMarket;
 }
 
 export const MARKETS: Market[] = [
@@ -128,6 +136,60 @@ export const MARKETS: Market[] = [
         name: 'Lavallette',
         intro: 'Partner with the leading Airbnb management service in Lavallette. We understand the unique family-oriented appeal of this community and optimize your property for the most discerning summer vacationers.',
         demandExplanation: 'Lavallette is highly sought after for month-long or full-season family rentals, though the market is shifting toward lucrative weekly and weekend micro-stays. We optimize your calendar to capture the highest yielding demographic.'
+      },
+      {
+        slug: 'ortley-beach-airbnb-management',
+        name: 'Ortley Beach',
+        intro: 'Unlock the revenue potential of your Ortley Beach rental with localized barrier-island expertise. We manage salt-air wear, seasonal turnover, and pricing for this tight-knit shore community.',
+        demandExplanation: 'Ortley Beach draws loyal repeat guests who prefer a quieter alternative to neighboring boardwalk towns. Strong weekly summer demand and growing shoulder-season bookings reward owners who maintain premium standards year-round.'
+      },
+      {
+        slug: 'mantoloking-airbnb-management',
+        name: 'Mantoloking',
+        intro: 'Protect and grow your Mantoloking investment with white-glove STR management on one of the Shore\'s most exclusive barrier islands. Bay-to-ocean positioning commands premium nightly rates.',
+        demandExplanation: 'Mantoloking\'s limited inventory and affluent guest profile support top-tier pricing throughout the summer season. Properties here require proactive exterior maintenance and discreet, high-touch guest service.'
+      },
+      {
+        slug: 'bay-head-airbnb-management',
+        name: 'Bay Head',
+        intro: 'Partner with Suite Capacity for Bay Head Airbnb management that matches the village\'s prestige. Victorian charm, bay access, and boutique shopping create a luxury short-term rental market.',
+        demandExplanation: 'Bay Head attracts discerning families and groups seeking an upscale shore experience without the boardwalk crowds. Extended summer stays and holiday weekends drive strong ADR when properties are impeccably maintained.'
+      },
+      {
+        slug: 'point-pleasant-airbnb-management',
+        name: 'Point Pleasant',
+        intro: 'Maximize yield on your Point Pleasant Beach or Point Pleasant Borough rental with event-driven pricing and local ops. Boardwalk traffic and inlet fishing culture fuel year-round STR demand.',
+        demandExplanation: 'Point Pleasant benefits from Jenkinson\'s boardwalk draw, inlet events, and a broader seasonal calendar than pure barrier-island towns. Dynamic pricing around holidays and fishing tournaments captures revenue others leave on the table.'
+      },
+      {
+        slug: 'ocean-gate-airbnb-management',
+        name: 'Ocean Gate',
+        intro: 'Turn your Ocean Gate bay-front or inland rental into a reliable revenue asset. Our local team handles turnover, guest communication, and off-season activation for this quiet Shore borough.',
+        demandExplanation: 'Ocean Gate appeals to guests seeking affordability and bay access without boardwalk congestion. Strong regional demand from Toms River and Central Jersey supports consistent summer occupancy with emerging off-season potential.'
+      },
+      {
+        slug: 'belmar-airbnb-management',
+        name: 'Belmar',
+        intro: 'Belmar STR management is coming soon to Suite Capacity. Classic Monmouth County beach town demand, strong weekend traffic, and walkable downtown dining make this a high-opportunity market.',
+        demandExplanation: 'Belmar sees intense Memorial Day through Labor Day weekend demand with a loyal regional guest base. Our expanding Monmouth County operations will deploy dynamic pricing and local maintenance teams to capture peak summer yield.'
+      },
+      {
+        slug: 'asbury-park-airbnb-management',
+        name: 'Asbury Park',
+        intro: 'Asbury Park Airbnb management is launching soon. Revitalized boardwalk energy, live music, and a growing remote-work guest segment create a distinct STR demand profile.',
+        demandExplanation: 'Asbury Park combines seasonal beach demand with event-driven spikes from concerts and festivals. Properties near the boardwalk and downtown command premium rates when paired with responsive guest service and event-calendar pricing.'
+      },
+      {
+        slug: 'wildwood-cape-may-airbnb-management',
+        name: 'Wildwood & Cape May',
+        intro: 'Wildwood and Cape May STR management is expanding soon. From Wildwood\'s iconic boardwalk peaks to Cape May\'s Victorian elegance, we are building dual-market seasonal expertise.',
+        demandExplanation: 'Southern Shore demand spans high-volume Wildwood summer weeks and Cape May\'s premium boutique season. A tailored strategy for each sub-market maximizes revenue across distinct guest demographics and stay patterns.'
+      },
+      {
+        slug: 'long-beach-island-beach-haven-airbnb-management',
+        name: 'Long Beach Island & Beach Haven',
+        intro: 'Long Beach Island and Beach Haven management is coming soon. Eighteen miles of barrier-island rentals with a family-first Beach Haven hub demand hurricane-ready, full-season operations.',
+        demandExplanation: 'LBI draws multi-generational families for full-week and full-season stays, with Beach Haven as the social and commercial center. Storm preparedness, linen logistics, and summer-long occupancy management are critical to protecting owner returns.'
       }
     ]
   },

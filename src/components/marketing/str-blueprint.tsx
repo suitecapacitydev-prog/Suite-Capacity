@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react'
 import { ArrowRight, TrendingUp, MapPin, Clock, Phone, Calendar } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -30,6 +31,7 @@ function getLastAddressServerSnapshot() {
 
 export const STRBlueprint = () => {
     const router = useRouter();
+    const addressInputRef = useRef<HTMLInputElement>(null);
     const lastAddress = useSyncExternalStore(
         subscribeLastAddress,
         getLastAddressSnapshot,
@@ -41,6 +43,13 @@ export const STRBlueprint = () => {
         localStorage.setItem(LAST_SEARCHED_ADDRESS_KEY, address);
         window.dispatchEvent(new Event(LAST_SEARCHED_ADDRESS_EVENT));
         router.push(`/wizard?address=${encodeURIComponent(address)}`);
+    };
+
+    const submitCurrentAddress = () => {
+        const address = addressInputRef.current?.value?.trim();
+        if (address) {
+            handleAddressSubmit(address);
+        }
     };
 
     return (
@@ -88,6 +97,7 @@ export const STRBlueprint = () => {
                                     <MapPin className="h-5 w-5 text-black/40" />
                                 </div>
                                 <Autocomplete
+                                    ref={addressInputRef}
                                     apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
                                     onPlaceSelected={(place) => {
                                         if (place && place.formatted_address) {
@@ -99,8 +109,18 @@ export const STRBlueprint = () => {
                                     }}
                                     placeholder="Enter property address for analysis"
                                     className="w-full pl-11 pr-32 py-4 rounded-xl border border-black/10 shadow-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-xs sm:text-base truncate"
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            submitCurrentAddress();
+                                        }
+                                    }}
                                 />
-                                <button className="absolute right-2 top-2 bottom-2 px-4 bg-primary/10 text-primary rounded-lg font-bold text-sm hover:bg-primary/20 transition-colors flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    onClick={submitCurrentAddress}
+                                    className="absolute right-2 top-2 bottom-2 px-4 bg-primary/10 text-primary rounded-lg font-bold text-sm hover:bg-primary/20 transition-colors flex items-center gap-2"
+                                >
                                     Analyze <ArrowRight className="w-4 h-4" />
                                 </button>
                             </div>

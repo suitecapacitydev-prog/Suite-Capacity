@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import SiteShell from '@/components/layout/site-shell';
 import { RevenueIntelligenceWizard } from '@/components/wizard/intelligence-wizard';
 
@@ -10,7 +11,9 @@ export default function WizardPage() {
                     <p className="text-black opacity-70 text-lg">Detailed analysis of your STR asset performance and growth potential.</p>
                 </div>
 
-                <RevenueIntelligenceWizard />
+                <Suspense fallback={null}>
+                    <RevenueIntelligenceWizard />
+                </Suspense>
             </div>
         </SiteShell>
     );

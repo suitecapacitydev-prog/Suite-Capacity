@@ -1,4 +1,4 @@
-import { getMarketBySlug, getSubMarketBySlug } from '@/data/markets';
+import { getMarketBySlug, getSubMarketBySlug, toClientMarket } from '@/data/markets';
 import { MarketHubView } from '@/components/seo/market-hub-view';
 import { LocalSubpageView } from '@/components/seo/local-subpage-view';
 import { notFound } from 'next/navigation';
@@ -47,13 +47,18 @@ export default async function LocationPage({ params }: LocationPageProps) {
   // Render main market page
   const market = getMarketBySlug(locationSlug);
   if (market) {
-    return <MarketHubView market={market} />;
+    return <MarketHubView market={toClientMarket(market)} />;
   }
 
   // Render local subpage
   const subMarketData = getSubMarketBySlug(locationSlug);
   if (subMarketData) {
-    return <LocalSubpageView market={subMarketData.market} subMarket={subMarketData.subMarket} />;
+    return (
+      <LocalSubpageView
+        market={toClientMarket(subMarketData.market)}
+        subMarket={subMarketData.subMarket}
+      />
+    );
   }
 
   // If neither, fallback to 404 so Next.js handles other missing routes gracefully

@@ -1,27 +1,30 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { CheckCircle2, ArrowRight, Sparkles, BrainCircuit, Loader2 } from 'lucide-react';
-import { QualificationGateStep } from './qualification-gate-step';
+import { CheckCircle2, ArrowRight, BrainCircuit, Loader2 } from 'lucide-react';
 import { PropertyProfileStep } from './property-profile-step';
 import { RevenueBaselineStep } from './revenue-baseline-step';
 import { ConversionOperationsAuditStep } from './conversion-operations-audit-step';
 import { AIDesignUploadStep } from './ai-design-upload-step';
-import { ProcessingScreenStep } from './processing-screen-step';
 import { LeadCaptureGateStep } from './lead-capture-gate-step';
+import { BlueprintPreviewStep } from './blueprint-preview-step';
+import { BlueprintBookingStep } from './blueprint-booking-step';
+import { BookingConfirmedStep } from './booking-confirmed-step';
 import { ResultsDashboardStep } from './results-dashboard-step';
-import { CustomActionPlanStep } from './custom-action-plan-step';
-import { CalendarBookingStep } from './calendar-booking-step';
 import { WizardData, RevenueProjection } from '@/types/wizard';
 import { submitWizardData, calculateRevenueIntelligence } from '@/app/actions/wizard-actions';
+
+type FinalPhase = 'preview' | 'booking' | 'unlocked';
 
 /**
  * Revenue Intelligence Wizard™ V2
  * The primary lead engine of the Suite Capacity platform.
  */
 export function RevenueIntelligenceWizard() {
+    const searchParams = useSearchParams();
     const [currentStep, setCurrentStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [wizardData, setWizardData] = useState<WizardData>({
@@ -70,6 +73,9 @@ export function RevenueIntelligenceWizard() {
     });
 
     const [projection, setProjection] = useState<RevenueProjection | null>(null);
+    const [submissionId, setSubmissionId] = useState<string | null>(null);
+    const [finalPhase, setFinalPhase] = useState<FinalPhase>('preview');
+    const [bookingScheduledAt, setBookingScheduledAt] = useState<string | undefined>();
     const [submissionError, setSubmissionError] = useState<string | null>(null);
     const [submissionStatus, setSubmissionStatus] = useState<{
         emailSent?: boolean;
@@ -91,6 +97,19 @@ export function RevenueIntelligenceWizard() {
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [currentStep]);
+
+    useEffect(() => {
+        const addressFromQuery = searchParams.get('address')?.trim();
+        if (!addressFromQuery) return;
+
+        setWizardData(prev => {
+            if (prev.property.address?.trim()) return prev;
+            return {
+                ...prev,
+                property: { ...prev.property, address: addressFromQuery },
+            };
+        });
+    }, [searchParams]);
 
     const validateStep = (): string | null => {
         if (currentStep === 1) {
@@ -150,12 +169,12 @@ export function RevenueIntelligenceWizard() {
                 const res = await submitWizardData(wizardData, projection!);
 
                 if (res.success) {
+                    setSubmissionId(res.submissionId || null);
+                    setFinalPhase('preview');
                     setSubmissionStatus({
                         emailSent: res.emailSent,
                         emailError: res.emailError,
                         emailHint: res.emailHint,
-                        emailId: res.emailResponseId,
-                        emailStatus: res.emailStatus,
                     });
                     setCurrentStep((prev) => prev + 1);
                 } else {
@@ -276,12 +295,40 @@ export function RevenueIntelligenceWizard() {
                                             <h3 className="text-2xl font-black text-primary tracking-tight">Your intelligence report is being generated...</h3>
                                             <p className="text-black/60 font-medium">Analyzing market data and property potential for {wizardData.property.address}.</p>
                                         </div>
-                                    ) : (
-                                        <ResultsDashboardStep
+                                    ) : finalPhase === 'preview' ? (
+                                        <BlueprintPreviewStep
                                             projection={projection}
                                             wizardData={wizardData}
-                                            submissionStatus={submissionStatus}
-                                            onBack={prevStep}
+                                            onSchedule={() => setFinalPhase('booking')}
+                                        />
+                                    ) : finalPhase === 'booking' && submissionId ? (
+                                        <BlueprintBookingStep
+                                            wizardData={wizardData}
+                                            submissionId={submissionId}
+                                            onBookingConfirmed={(scheduledAt) => {
+                                                setBookingScheduledAt(scheduledAt);
+                                                setFinalPhase('unlocked');
+                                            }}
+                                            onBack={() => setFinalPhase('preview')}
+                                        />
+                                    ) : finalPhase === 'unlocked' ? (
+                                        <div className="space-y-12">
+                                            <BookingConfirmedStep
+                                                scheduledAt={bookingScheduledAt}
+                                                leadEmail={wizardData.lead.email}
+                                                leadPhone={wizardData.lead.phone}
+                                            />
+                                            <ResultsDashboardStep
+                                                projection={projection}
+                                                wizardData={wizardData}
+                                                submissionStatus={submissionStatus}
+                                            />
+                                        </div>
+                                    ) : (
+                                        <BlueprintPreviewStep
+                                            projection={projection}
+                                            wizardData={wizardData}
+                                            onSchedule={() => setFinalPhase('booking')}
                                         />
                                     )}
                                 </div>

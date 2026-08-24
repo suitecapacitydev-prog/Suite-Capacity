@@ -13,6 +13,12 @@ import { useJsApiLoader, GoogleMap, Marker, Autocomplete } from '@react-google-m
 import { MARKETS } from '@/data/markets';
 
 const LIBRARIES: ("places")[] = ["places"];
+const MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
+
+function detectMarketId(address: string): string | undefined {
+    const addr = address.toLowerCase();
+    return MARKETS.find(m => m.towns?.some(t => addr.includes(t)))?.id;
+}
 
 interface PropertyProfileStepProps {
     data: Partial<PropertyProfile>;
@@ -22,36 +28,72 @@ interface PropertyProfileStepProps {
 }
 
 export function PropertyProfileStep({ data, qualification, updateData, updateQualification }: PropertyProfileStepProps) {
-    const { isLoaded } = useJsApiLoader({
+    const { isLoaded, loadError } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
+        googleMapsApiKey: MAPS_API_KEY,
         libraries: LIBRARIES
     });
 
     const [autocomplete, setAutocomplete] = React.useState<google.maps.places.Autocomplete | null>(null);
+    const addressInputRef = React.useRef<HTMLInputElement>(null);
     // Ocean Ave, Seaside Heights approx
     const [mapCenter, setMapCenter] = React.useState({ lat: 39.9431, lng: -74.0759 });
 
+    const mapsReady = Boolean(MAPS_API_KEY) && isLoaded && !loadError;
+    const mapsFailed = !MAPS_API_KEY || Boolean(loadError);
+    const mapsLoading = Boolean(MAPS_API_KEY) && !isLoaded && !loadError;
+
+    const applyAddressUpdate = React.useCallback((formattedAddress: string, location?: google.maps.LatLng) => {
+        const marketId = detectMarketId(formattedAddress);
+        updateData({
+            address: formattedAddress,
+            ...(marketId ? { marketId } : {}),
+        });
+
+        if (addressInputRef.current) {
+            addressInputRef.current.value = formattedAddress;
+        }
+
+        if (location) {
+            setMapCenter({
+                lat: location.lat(),
+                lng: location.lng(),
+            });
+        }
+    }, [updateData]);
+
+    const syncAddressInput = React.useCallback((address: string) => {
+        updateData({ address });
+    }, [updateData]);
+
+    const finalizeTypedAddress = React.useCallback((address: string) => {
+        const trimmed = address.trim();
+        if (!trimmed) return;
+        const marketId = detectMarketId(trimmed);
+        updateData({
+            address: trimmed,
+            ...(marketId ? { marketId } : {}),
+        });
+    }, [updateData]);
+
+    React.useEffect(() => {
+        if (addressInputRef.current && data.address && addressInputRef.current.value !== data.address) {
+            addressInputRef.current.value = data.address;
+        }
+    }, [data.address]);
+
     const onPlaceChanged = () => {
-        if (autocomplete) {
-            const place = autocomplete.getPlace();
-            if (place.formatted_address) {
-                updateData({ address: place.formatted_address });
+        if (!autocomplete) return;
 
-                // Try to auto-detect market
-                const addr = place.formatted_address.toLowerCase();
-                const matchedMarket = MARKETS.find(m => m.towns?.some(t => addr.includes(t)));
-                if (matchedMarket) {
-                    updateData({ marketId: matchedMarket.id });
-                }
+        const place = autocomplete.getPlace();
+        if (place.formatted_address) {
+            applyAddressUpdate(place.formatted_address, place.geometry?.location ?? undefined);
+            return;
+        }
 
-                if (place.geometry?.location) {
-                    setMapCenter({
-                        lat: place.geometry.location.lat(),
-                        lng: place.geometry.location.lng()
-                    });
-                }
-            }
+        const typed = addressInputRef.current?.value.trim();
+        if (typed) {
+            finalizeTypedAddress(typed);
         }
     };
 
@@ -64,20 +106,13 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
         const geocoder = new window.google.maps.Geocoder();
         geocoder.geocode({ location: { lat, lng } }, (results, status) => {
             if (status === "OK" && results && results[0]) {
-                updateData({ address: results[0].formatted_address });
-
-                // Try to auto-detect market
-                const addr = results[0].formatted_address.toLowerCase();
-                const matchedMarket = MARKETS.find(m => m.towns?.some(t => addr.includes(t)));
-                if (matchedMarket) {
-                    updateData({ marketId: matchedMarket.id });
-                }
+                applyAddressUpdate(results[0].formatted_address);
             }
         });
     };
 
     const detectLocation = React.useCallback(() => {
-        if (navigator.geolocation && isLoaded) {
+        if (navigator.geolocation && mapsReady) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     const pos = {
@@ -89,14 +124,7 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                     const geocoder = new window.google.maps.Geocoder();
                     geocoder.geocode({ location: pos }, (results, status) => {
                         if (status === "OK" && results && results[0]) {
-                            updateData({ address: results[0].formatted_address });
-
-                            // Try to auto-detect market
-                            const addr = results[0].formatted_address.toLowerCase();
-                            const matchedMarket = MARKETS.find(m => m.towns?.some(t => addr.includes(t)));
-                            if (matchedMarket) {
-                                updateData({ marketId: matchedMarket.id });
-                            }
+                            applyAddressUpdate(results[0].formatted_address);
                         }
                     });
                 },
@@ -105,13 +133,16 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                 }
             );
         }
-    }, [isLoaded, updateData]);
+    }, [mapsReady, applyAddressUpdate]);
 
     React.useEffect(() => {
-        if (isLoaded && !data.address) {
+        if (mapsReady && !data.address) {
             detectLocation();
         }
-    }, [isLoaded, detectLocation, data.address]);
+    }, [mapsReady, detectLocation, data.address]);
+
+    const addressInputClassName =
+        'w-full h-12 bg-white border-2 border-black/5 rounded-2xl p-4 pl-12 pr-12 focus:border-primary focus:outline-none transition-all text-lg font-medium shadow-sm';
 
     const propertyTypes: { value: PropertyType; label: string; icon: React.ReactNode }[] = [
         { value: 'single-family', label: 'Single Family', icon: <Home className="w-4 h-4" /> },
@@ -185,25 +216,61 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                         Property Location
                     </label>
 
-                    {isLoaded ? (
+                    {mapsLoading && (
                         <div className="space-y-4">
+                            <div className="w-full h-12 bg-black/5 animate-pulse rounded-2xl" />
+                            <p className="text-xs text-muted-foreground font-medium">Loading address search…</p>
+                        </div>
+                    )}
+
+                    {mapsFailed && (
+                        <div className="space-y-4">
+                            {!MAPS_API_KEY ? (
+                                <p className="text-sm text-destructive font-medium">
+                                    Google Maps is not configured. Enter your property address manually to continue.
+                                </p>
+                            ) : (
+                                <p className="text-sm text-destructive font-medium">
+                                    Address search could not load. Enter your property address manually to continue.
+                                </p>
+                            )}
                             <div className="relative">
                                 <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary z-10" />
+                                <input
+                                    type="text"
+                                    name="address"
+                                    autoComplete="street-address"
+                                    className={addressInputClassName}
+                                    placeholder="Enter your property address..."
+                                    value={data.address || ''}
+                                    onChange={(e) => updateData({ address: e.target.value })}
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    {mapsReady && (
+                        <div className="space-y-4">
+                            <div className="relative z-20">
+                                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary z-10 pointer-events-none" />
                                 <Autocomplete
                                     onLoad={setAutocomplete}
                                     onPlaceChanged={onPlaceChanged}
                                 >
                                     <input
+                                        ref={addressInputRef}
                                         type="text"
                                         name="address"
                                         autoComplete="street-address"
-                                        className="w-full h-12 bg-white border-2 border-black/5 rounded-2xl p-4 pl-12 pr-12 focus:border-primary focus:outline-none transition-all text-lg font-medium shadow-sm relative z-0"
+                                        className={addressInputClassName}
                                         placeholder="Start typing your property address..."
-                                        value={data.address || ''}
-                                        onChange={(e) => updateData({ address: e.target.value })}
+                                        defaultValue={data.address || ''}
+                                        onChange={(e) => syncAddressInput(e.target.value)}
+                                        onBlur={(e) => finalizeTypedAddress(e.target.value)}
                                     />
                                 </Autocomplete>
                                 <button
+                                    type="button"
                                     onClick={(e) => {
                                         e.preventDefault();
                                         detectLocation();
@@ -234,8 +301,6 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                                 </div>
                             </div>
                         </div>
-                    ) : (
-                        <div className="w-full h-12 bg-black/5 animate-pulse rounded-2xl" />
                     )}
                 </div>
 

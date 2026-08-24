@@ -1,12 +1,12 @@
 "use client";
 import SiteShell from '@/components/layout/site-shell';
-import { Market, iconMap } from '@/data/markets';
+import { ClientMarket, iconMap } from '@/data/markets';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { MapPin, TrendingUp, Zap } from 'lucide-react';
 
 interface MarketHubViewProps {
-  market: Market;
+  market: ClientMarket;
 }
 
 export function MarketHubView({ market }: MarketHubViewProps) {
