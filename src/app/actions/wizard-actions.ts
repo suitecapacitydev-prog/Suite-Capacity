@@ -7,7 +7,7 @@ import { AirDNAService } from '@/services/airdna';
 import { PriceLabsService } from '@/services/pricelabs';
 import { AIREnderingService } from '@/services/ai-rendering';
 import { OpenAIService } from '@/services/openai';
-import { MARKETS } from '@/data/markets';
+import { getWizardMarketById, getWizardMarketByAddress } from '@/data/wizard-markets';
 import { generateReportPdf } from '@/lib/report-pdf';
 import { sendInternalBlueprintNotification, processBookingConfirmation } from '@/lib/booking-service';
 
@@ -327,12 +327,9 @@ export async function uploadPropertyPhoto(file: File, category: string) {
  */
 function getTargetMarket(data: WizardData) {
     if (data.property.marketId) {
-        return MARKETS.find(m => m.id === data.property.marketId);
+        return getWizardMarketById(data.property.marketId);
     }
-    const addr = data.property.address.toLowerCase();
-    return MARKETS.find(market =>
-        market.towns?.some(town => addr.includes(town))
-    );
+    return getWizardMarketByAddress(data.property.address);
 }
 
 /**
@@ -366,8 +363,8 @@ export async function calculateRevenueIntelligence(data: WizardData): Promise<Re
     // (Contains at least one comma or a Zip Code-like pattern)
     const isVague = !cleanAddress.includes(',') && !/\b\d{5}\b/.test(cleanAddress);
 
-    const isShore = market?.id === 'jersey-shore';
-    const marketMultiplier = market?.multiplier || 1.15; // default conservative multiplier
+    const isShore = Boolean(market);
+    const marketMultiplier = isShore ? 1.35 : 1.15;
 
     try {
         // 1. Fetch Market Data from AirDNA

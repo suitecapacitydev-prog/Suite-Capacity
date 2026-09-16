@@ -6,7 +6,7 @@ import {
     Sparkles, TrendingUp, MapPin, BarChart3, Calendar, ArrowRight, Lock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { MARKETS } from '@/data/markets';
+import { getWizardMarketById } from '@/data/wizard-markets';
 
 interface BlueprintPreviewStepProps {
     projection: RevenueProjection;
@@ -43,7 +43,9 @@ export function BlueprintPreviewStep({ projection, wizardData, onSchedule }: Blu
         ? Math.round((projection.optimizedRevenue / projection.currentRevenue - 1) * 100)
         : 0;
 
-    const selectedMarket = MARKETS.find(m => m.id === wizardData.property.marketId);
+    const selectedMarket = wizardData.property.marketId
+        ? getWizardMarketById(wizardData.property.marketId)
+        : undefined;
     const opportunityPreview = projection.intelligence?.missedOpportunities?.slice(0, 2) ?? [
         'Revenue optimization opportunities identified across pricing and occupancy.',
         'Listing and operational gaps detected that may be limiting performance.',

@@ -1,6 +1,7 @@
 import SiteShell from '@/components/layout/site-shell';
 import { Hero } from '@/components/marketing/hero';
 import { AsSeenIn } from '@/components/marketing/as-seen-in';
+import { HomepageVideo } from '@/components/marketing/homepage-video';
 import { HowItWorks } from '@/components/marketing/how-it-works';
 import { WhatWeHandle } from '@/components/marketing/what-we-handle';
 import { WhySuiteCapacity } from '@/components/marketing/why-suite-capacity';
@@ -12,12 +13,13 @@ export default function Home() {
   return (
     <SiteShell>
       <Hero />
-      <HowItWorks />
+      <AsSeenIn />
+      <HomepageVideo />
       <WhatWeHandle />
+      <HowItWorks />
       <WhySuiteCapacity />
       <PlatformSection />
       <MarketsSection />
-      <AsSeenIn />
       <STRBlueprint />
     </SiteShell>
   );

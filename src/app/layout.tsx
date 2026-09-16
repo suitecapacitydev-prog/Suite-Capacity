@@ -18,6 +18,11 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Suite Capacity | STR Operating Platform",
   description: "The centralized STR operating platform combining revenue intelligence and local market expertise.",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

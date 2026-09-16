@@ -10,7 +10,12 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { MARKETS } from '@/data/markets';
+import {
+    getWizardMarketById,
+    getWizardMarketByAddress,
+    getWizardMarketMultiplier,
+    getWizardMarketStatusLabel,
+} from '@/data/wizard-markets';
 
 interface ResultsDashboardStepProps {
     projection: RevenueProjection;
@@ -81,7 +86,9 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
     const isMock = !intelligence;
     const liftPct = Math.round((projection.optimizedRevenue / projection.currentRevenue - 1) * 100);
 
-    const selectedMarket = MARKETS.find(m => m.id === wizardData.property.marketId) || MARKETS.find(m => wizardData.property.address.toLowerCase().includes(m.name.toLowerCase()));
+    const selectedMarket = (wizardData.property.marketId
+        ? getWizardMarketById(wizardData.property.marketId)
+        : undefined) || getWizardMarketByAddress(wizardData.property.address);
 
     return (
         <div className="space-y-20 animate-in fade-in slide-in-from-bottom-4 duration-1000">
@@ -98,18 +105,18 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
             <div className="p-8 rounded-[2rem] bg-slate-50 border border-slate-200">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="flex items-center gap-4">
-                        <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg", selectedMarket?.color || 'bg-primary text-white')}>
+                        <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg bg-primary text-white">
                             {selectedMarket?.icon ? React.createElement(selectedMarket.icon, { className: "w-8 h-8" }) : <MapPin className="w-8 h-8" />}
                         </div>
                         <div>
                             <h3 className="text-2xl font-black tracking-tight">{selectedMarket?.name || 'Local Market'} Analysis</h3>
-                            <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{selectedMarket?.detail || 'General Market Context'}</p>
+                            <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest line-clamp-2">{selectedMarket?.desc || 'General Market Context'}</p>
                         </div>
                     </div>
                     <div className="flex gap-12">
                         <div className="text-center">
                             <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-1">Market Multiplier</p>
-                            <p className="text-3xl font-black text-primary">{selectedMarket?.multiplier || '1.15'}x</p>
+                            <p className="text-3xl font-black text-primary">{getWizardMarketMultiplier(selectedMarket)}x</p>
                         </div>
                         <div className="text-center">
                             <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-1">Demand Index</p>
@@ -119,7 +126,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                             <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-1">Status</p>
                             <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase tracking-widest">
                                 <Zap className="w-2.5 h-2.5 fill-emerald-600" />
-                                {selectedMarket?.status || 'Active'}
+                                {getWizardMarketStatusLabel(selectedMarket)}
                             </div>
                         </div>
                     </div>
@@ -319,7 +326,7 @@ export function ResultsDashboardStep({ projection, wizardData, submissionStatus,
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <p className="text-xs font-bold text-slate-500 uppercase mb-1">Multiplier</p>
-                                <p className="text-xl font-black text-foreground">{selectedMarket?.multiplier || 1.15}x</p>
+                                <p className="text-xl font-black text-foreground">{getWizardMarketMultiplier(selectedMarket)}x</p>
                             </div>
                             <div>
                                 <p className="text-xs font-bold text-slate-500 uppercase mb-1">Volatility</p>

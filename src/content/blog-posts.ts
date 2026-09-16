@@ -13,7 +13,7 @@ export const blogPosts: BlogPost[] = [
     title: "Sonder’s Bankruptcy & What It Means for Your 2026 Rental Income",
     slug: "sonders-bankruptcy-what-it-means-for-your-2026-rental-income",
     excerpt: "Owners, this month’s update is an important one. With a major hospitality brand collapsing and early indicators forming for next year’s demand cycle, I strongly encourage you to read this entire newsletter.",
-    date: "May 12, 2024",
+    date: "January 12, 2026",
     author: "William \"Billy\" Butler",
     image: "https://images.unsplash.com/photo-1634733988138-bf2c3a2a13fa?auto=format&fit=crop&q=80&w=800",
     content: `Sonder Holdings Inc. filed for Chapter 7 liquidation in late 2025, marking the end of one of the hospitality industry's most ambitious experiments. For property owners and investors, this collapse isn't just news it's a critical indicator of shifting market dynamics as we head into the 2026 rental season.
@@ -119,7 +119,7 @@ What these properties have in common is a commitment to a vision. They prove tha
     title: "Maximize Airbnb Income: Expert Tips for Unlocking Your Potential",
     slug: "maximize-airbnb-income-expert-tips-for-unlocking-your-potential",
     excerpt: "Learn the secrets to boosting your rental revenue through dynamic pricing, optimized listings, and superior guest experiences.",
-    date: "January 15, 2024",
+    date: "November 15, 2025",
     author: "William \"Billy\" Butler",
     image: "https://images.unsplash.com/photo-1554224155-1696413565d3?auto=format&fit=crop&q=80&w=800",
     content: `Turning a property into a high-yielding asset requires more than just good photos and a friendly greeting. To truly maximize your Airbnb income in today's competitive landscape, you need an integrated strategy that covers everything from data-driven pricing to operational efficiency.
@@ -129,16 +129,16 @@ The first step is optimizing your search visibility. This means more than just u
 The second 'secret' is professional-grade dynamic pricing. Many hosts set a flat rate or rely on basic 'smart pricing' tools that don't capture the full potential of local demand spikes. By using true revenue intelligence, we've seen owners increase their income by 20% or more without changing anything else about their property. Finally, remember that the guest experience starts the moment they see your listing and ends only after they've left a review. Every touchpoint is an opportunity to add value.`
   },
   {
-    title: "2024 Airbnb Investing Guide: How to Find the Best Markets",
+    title: "2026 Airbnb Investing Guide: How to Find the Best Markets",
     slug: "2024-airbnb-investing-guide-how-to-find-the-best-markets",
-    excerpt: "Where should you invest in 2024? We analyze the top emerging markets for short-term rentals and what to look for.",
-    date: "February 10, 2024",
+    excerpt: "Where should you invest in 2026? We analyze the top emerging markets for short-term rentals and what to look for.",
+    date: "February 10, 2026",
     author: "William \"Billy\" Butler",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-    content: `As we look ahead to 2024, the best investment opportunities are shifting away from the over-saturated coastal cities and towards 'secondary' markets that offer a better balance of property price and rental yield. In this guide, we break down what makes a market 'investable' in the current climate.
+    content: `As we look ahead to 2026, the best investment opportunities are shifting away from the over-saturated coastal cities and towards 'secondary' markets that offer a better balance of property price and rental yield. In this guide, we break down what makes a market 'investable' in the current climate.
 
 We look for three key factors: Regulatory stability, organic demand (not just seasonal tourism), and lack of professional management competition. Markets that are friendly to short-term rentals but are currently dominated by amateur hosts present the perfect entry point for professional investors.
 
-Some of the top markets we're watching include parts of the Jersey Shore that are undergoing revitalization, and growing tech hubs in the Southeast. Successful investing in 2024 isn't about finding the 'next big thing' before everyone else; it's about applying professional standards to markets that are already showing proven demand. At Suite Capacity, we provide the localized intelligence to help you make these decisions with confidence.`
+Some of the top markets we're watching include parts of the Jersey Shore that are undergoing revitalization, and growing tech hubs in the Southeast. Successful investing in 2026 isn't about finding the 'next big thing' before everyone else; it's about applying professional standards to markets that are already showing proven demand. At Suite Capacity, we provide the localized intelligence to help you make these decisions with confidence.`
   }
 ];

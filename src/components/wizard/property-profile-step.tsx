@@ -10,14 +10,17 @@ import {
 } from 'lucide-react';
 
 import { useJsApiLoader, GoogleMap, Marker, Autocomplete } from '@react-google-maps/api';
-import { MARKETS } from '@/data/markets';
+import {
+    WIZARD_MARKETS,
+    getWizardMarketById,
+    getWizardMarketByAddress,
+} from '@/data/wizard-markets';
 
 const LIBRARIES: ("places")[] = ["places"];
 const MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
 function detectMarketId(address: string): string | undefined {
-    const addr = address.toLowerCase();
-    return MARKETS.find(m => m.towns?.some(t => addr.includes(t)))?.id;
+    return getWizardMarketByAddress(address)?.id;
 }
 
 interface PropertyProfileStepProps {
@@ -316,30 +319,34 @@ export function PropertyProfileStep({ data, qualification, updateData, updateQua
                             onChange={(e) => updateData({ marketId: e.target.value })}
                         >
                             <option value="">Select your market...</option>
-                            {MARKETS.map(market => (
+                            {WIZARD_MARKETS.map(market => (
                                 <option key={market.id} value={market.id}>
-                                    {market.name} {market.status === 'Coming Soon' ? '(Coming Soon)' : ''}
+                                    {market.name} {market.status === 'coming-soon' ? '(Coming Soon)' : ''}
                                 </option>
                             ))}
                         </select>
 
-                        {data.marketId && (
+                        {data.marketId && (() => {
+                            const selectedMarket = getWizardMarketById(data.marketId);
+                            if (!selectedMarket) return null;
+                            return (
                             <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 animate-in fade-in zoom-in-95 duration-300">
                                 <div className="flex items-center gap-3">
-                                    <div className={cn("p-2 rounded-xl", MARKETS.find(m => m.id === data.marketId)?.color)}>
-                                        {React.createElement(MARKETS.find(m => m.id === data.marketId)?.icon || MapPin, { className: "w-5 h-5" })}
+                                    <div className="p-2 rounded-xl text-blue-500 bg-blue-500/10">
+                                        <Waves className="w-5 h-5" />
                                     </div>
                                     <div>
                                         <p className="text-sm font-bold text-foreground">
-                                            {MARKETS.find(m => m.id === data.marketId)?.name} Intelligence Active
+                                            {selectedMarket.name} Intelligence Active
                                         </p>
-                                        <p className="text-[11px] text-muted-foreground font-medium">
-                                            {MARKETS.find(m => m.id === data.marketId)?.detail || 'Regional performance multipliers applied to analysis.'}
+                                        <p className="text-[11px] text-muted-foreground font-medium line-clamp-2">
+                                            {selectedMarket.desc}
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                        )}
+                            );
+                        })()}
                     </div>
                 </div>
             </div>

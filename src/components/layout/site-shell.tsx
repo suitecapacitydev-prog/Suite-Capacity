@@ -11,6 +11,11 @@ import { signOut } from '@/app/actions/auth';
 import { useRouter } from 'next/navigation';
 import GuestListModal
     from '../auth/guestlist-modal';
+import { CURRENTLY_SERVING_MARKETS } from '@/data/jersey-shore-markets';
+import { blogPosts } from '@/content/blog-posts';
+
+const FOOTER_ACTIVE_MARKETS = CURRENTLY_SERVING_MARKETS.slice(0, 6);
+const FOOTER_FEATURED_BLOG = blogPosts[0];
 
 export default function RootLayout({
     children,
@@ -166,17 +171,27 @@ export default function RootLayout({
 
             <footer className={`${dark ? 'bg-black border-white/10 text-white' : 'bg-card border-border text-foreground'} border-t py-12`}>
                 <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-                    <div className="space-y-4">
-                        <div className="flex items-center">
-                            <img
-                                src="/logo.png"
-                                alt="Suite Capacity Logo"
-                                className="h-16 w-auto"
-                            />
+                    <div className="space-y-6">
+                        <div className="space-y-4">
+                            <div className="flex items-center">
+                                <img
+                                    src="/logo.png"
+                                    alt="Suite Capacity Logo"
+                                    className="h-16 w-auto"
+                                />
+                            </div>
+                            <p className={`text-sm leading-relaxed ${dark ? 'text-white/60 font-medium' : 'text-primary font-bold'}`}>
+                                Suite Capacity turns vacation rentals into professionally operated, passive-income properties. You own the asset—we handle everything else.
+                            </p>
                         </div>
-                        <p className={`text-sm leading-relaxed ${dark ? 'text-white/60 font-medium' : 'text-primary font-bold'}`}>
-                            Suite Capacity turns vacation rentals into professionally operated, passive-income properties. You own the asset—we handle everything else.
-                        </p>
+                        <div>
+                            <h4 className="font-semibold mb-4">Contact</h4>
+                            <p className="text-sm text-secondary-foreground leading-relaxed">
+                                info@suitecapacity.com<br />
+                                +1 (855) 303-4545<br />
+                                Central Command Center
+                            </p>
+                        </div>
                     </div>
 
                     <div>
@@ -192,32 +207,53 @@ export default function RootLayout({
                     <div>
                         <h4 className="font-semibold mb-4">Markets</h4>
                         <ul className="space-y-2 text-sm text-secondary-foreground">
-                            <li><Link href="/markets/jersey-shore" className="hover:text-primary transition-colors">Jersey Shore</Link></li>
-                            <li><Link href="/markets/orlando-airbnb-management" className="hover:text-primary transition-colors">Kissimmee-Orlando</Link></li>
-                            <li><Link href="/markets/florida-coastal" className="hover:text-primary transition-colors">Florida Coastal</Link></li>
-                            <li><Link href="/markets/phoenix" className="hover:text-primary transition-colors">Phoenix</Link></li>
-                            <li><Link href="/markets/smoky-mountains" className="hover:text-primary transition-colors">Smoky Mountains</Link></li>
-                            <li><Link href="/markets/poconos" className="hover:text-primary transition-colors">Poconos</Link></li>
+                            <li>
+                                <Link href="/markets" className="hover:text-primary transition-colors font-bold text-primary">
+                                    All Jersey Shore Markets
+                                </Link>
+                            </li>
+                            {FOOTER_ACTIVE_MARKETS.map((market) => (
+                                <li key={market.href}>
+                                    <Link href={market.href} className="hover:text-primary transition-colors">
+                                        {market.name}
+                                    </Link>
+                                </li>
+                            ))}
+                            <li>
+                                <Link href="/markets" className="hover:text-primary transition-colors font-semibold text-primary/80">
+                                    View all →
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="font-semibold mb-4">Resources</h4>
                         <ul className="space-y-2 text-sm text-secondary-foreground">
-                            <li><Link href="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
+                            <li>
+                                <Link href="/blog" className="hover:text-primary transition-colors font-bold text-primary">
+                                    Blog
+                                </Link>
+                            </li>
+                            {FOOTER_FEATURED_BLOG && (
+                                <li>
+                                    <Link
+                                        href={`/blog/f/${FOOTER_FEATURED_BLOG.slug}`}
+                                        className="hover:text-primary transition-colors line-clamp-2"
+                                    >
+                                        {FOOTER_FEATURED_BLOG.title}
+                                    </Link>
+                                </li>
+                            )}
+                            <li>
+                                <Link href="/blog" className="hover:text-primary transition-colors font-semibold text-primary/80">
+                                    Latest insights →
+                                </Link>
+                            </li>
                             <li><Link href="/showcase" className="hover:text-primary transition-colors">Property Portfolio</Link></li>
                             <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
                             <li><Link href="/case-studies" className="hover:text-primary transition-colors">Case Studies</Link></li>
                         </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="font-semibold mb-4">Contact</h4>
-                        <p className="text-sm text-secondary-foreground">
-                            info@suitecapacity.com<br />
-                            +1 (855) 303-4545<br />
-                            Central Command Center
-                        </p>
                     </div>
                 </div>
                 <div className={`container mx-auto px-6 mt-12 pt-8 border-t flex justify-between items-center text-xs font-bold ${dark ? 'border-white/10 text-white/40' : 'border-border text-primary'}`}>
