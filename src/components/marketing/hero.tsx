@@ -27,7 +27,7 @@ const staggerContainer = {
 const HERO_STATS = [
     { value: '$6.4M+', label: 'Revenue Generated' },
     { value: '70+', label: 'Properties' },
-    { value: '15.9%', label: 'Avg. Revenue Increase After Optimization' },
+    { value: '31%', label: 'Avg. Revenue Increase After Optimization' },
 ] as const;
 
 export function Hero() {

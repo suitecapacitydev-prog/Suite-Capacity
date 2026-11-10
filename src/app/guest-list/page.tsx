@@ -7,10 +7,13 @@ import { ShieldCheck, Zap, ArrowRight, CheckCircle2, Star, Lock, Calendar, Clock
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { signUpGuestMember, validatePromoCode } from '@/app/actions/guest-signup';
+import { SmsConsentCheckbox } from '@/components/legal/sms-consent-checkbox';
+import { phoneRequiresSmsConsent } from '@/lib/legal';
 
 export default function GuestListPage() {
   const router = useRouter();
   const [form, setForm] = useState({ firstName: '', email: '', phone: '' });
+  const [smsConsent, setSmsConsent] = useState(false);
   const [promoInput, setPromoInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
@@ -25,6 +28,10 @@ export default function GuestListPage() {
     e.preventDefault();
     if (!form.firstName.trim() || !form.email.trim()) {
       setError('Please enter your first name and email address.');
+      return;
+    }
+    if (phoneRequiresSmsConsent(form.phone) && !smsConsent) {
+      setError('Please agree to receive SMS messages to continue with a phone number on file.');
       return;
     }
     setIsSubmitting(true);
@@ -256,6 +263,12 @@ export default function GuestListPage() {
                           onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
                         />
                       </div>
+                      <SmsConsentCheckbox
+                        id="guest-list-sms-consent"
+                        checked={smsConsent}
+                        onChange={setSmsConsent}
+                        messageTypes="guest list updates, exclusive offers, and stay-related messages"
+                      />
                       {error && (
                         <div className="rounded-xl bg-red-50 border border-red-200 text-red-700 p-3 text-sm font-medium">
                           {error}
@@ -273,8 +286,8 @@ export default function GuestListPage() {
                           <>Get Member Access <Lock className="w-4 h-4 ml-2" /></>
                         )}
                       </Button>
-                      <p className="text-[10px] text-center text-black/60 mt-6 leading-relaxed">
-                        By joining, you agree to receive direct booking updates and member-exclusive offers. Unsubscribe anytime.
+                      <p className="text-[10px] text-center text-black/60 mt-2 leading-relaxed">
+                        Email updates are separate from SMS; see our Privacy Policy for details. Unsubscribe anytime.
                       </p>
                     </form>
                   </motion.div>

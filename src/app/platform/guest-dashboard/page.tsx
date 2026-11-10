@@ -17,6 +17,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { captureGuestLead } from '@/app/actions/leads';
+import { SmsConsentCheckbox } from '@/components/legal/sms-consent-checkbox';
 import { GuestReservationData } from '@/services/hostaway';
 
 export default function GuestDashboardPage() {
@@ -25,6 +26,7 @@ export default function GuestDashboardPage() {
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [smsConsent, setSmsConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,6 +34,11 @@ export default function GuestDashboardPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!smsConsent) {
+      setError('Please agree to receive SMS messages to access your guest dashboard.');
+      return;
+    }
+
     setIsSubmitting(true);
     setError(null);
 
@@ -129,6 +136,14 @@ export default function GuestDashboardPage() {
                     />
                   </div>
                 </div>
+
+                <SmsConsentCheckbox
+                  id="guest-dashboard-sms-consent"
+                  checked={smsConsent}
+                  onChange={setSmsConsent}
+                  messageTypes="reservation updates, check-in information, and stay support"
+                  className="text-black/60"
+                />
 
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-1">Reservation Code</label>

@@ -73,6 +73,7 @@ export interface LeadCapture {
     timeline: Timeline;
     switchingManagement: 'yes' | 'maybe' | 'no';
     currentManager?: string;
+    smsConsent?: boolean;
 }
 
 export interface WizardData {

@@ -258,9 +258,16 @@ export default function RootLayout({
                 </div>
                 <div className={`container mx-auto px-6 mt-12 pt-8 border-t flex justify-between items-center text-xs font-bold ${dark ? 'border-white/10 text-white/40' : 'border-border text-primary'}`}>
                     <p>© 2026 Suite Capacity. All rights reserved.</p>
-                    <div className="flex gap-6">
-                        <Link href="#">Privacy Policy</Link>
-                        <Link href="#">Terms of Service</Link>
+                    <div className="flex flex-wrap gap-4 md:gap-6 justify-end">
+                        <Link href="/privacy-policy" className="hover:text-primary transition-colors">
+                            Privacy Policy
+                        </Link>
+                        <Link href="/terms-of-service" className="hover:text-primary transition-colors">
+                            Terms of Service
+                        </Link>
+                        <Link href="/sms-terms" className="hover:text-primary transition-colors">
+                            SMS Terms
+                        </Link>
                     </div>
                 </div>
             </footer>

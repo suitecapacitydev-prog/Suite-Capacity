@@ -68,7 +68,8 @@ export function RevenueIntelligenceWizard() {
             email: '',
             phone: '',
             timeline: 'immediately',
-            switchingManagement: 'maybe'
+            switchingManagement: 'maybe',
+            smsConsent: false,
         }
     });
 
@@ -128,6 +129,10 @@ export function RevenueIntelligenceWizard() {
             if (!wizardData.lead.email?.trim()) return 'Please enter your email address.';
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(wizardData.lead.email)) return 'Please enter a valid email address.';
+            const phone = wizardData.lead.phone?.trim();
+            if (phone && !wizardData.lead.smsConsent) {
+                return 'Please agree to receive SMS messages to continue with a phone number on file.';
+            }
         }
 
         if (currentStep === 3) {

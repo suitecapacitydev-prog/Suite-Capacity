@@ -4,6 +4,7 @@ import React from 'react';
 import { LeadCapture, Timeline } from '@/types/wizard';
 import { cn } from '@/lib/utils';
 import { User, Mail, Phone, Calendar, SwitchCamera, Sparkles } from 'lucide-react';
+import { SmsConsentCheckbox } from '@/components/legal/sms-consent-checkbox';
 
 interface LeadCaptureGateStepProps {
     data: Partial<LeadCapture>;
@@ -84,6 +85,13 @@ export function LeadCaptureGateStep({ data, updateData }: LeadCaptureGateStepPro
                     </div>
                 </div>
             </div>
+
+            <SmsConsentCheckbox
+                id="wizard-sms-consent"
+                checked={Boolean(data.smsConsent)}
+                onChange={(smsConsent) => updateData({ smsConsent })}
+                className="text-muted-foreground"
+            />
 
             <div className="space-y-4 pt-4 border-t border-border/50">
                 <label className="text-sm font-semibold text-secondary-foreground uppercase tracking-wider flex items-center gap-2">

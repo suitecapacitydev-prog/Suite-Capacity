@@ -6,6 +6,8 @@ import { X, Mail, Lock, Loader2, ArrowRight, CheckCircle2, Copy, ExternalLink, S
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { signUpGuestMember, validatePromoCode } from '@/app/actions/guest-signup';
+import { SmsConsentCheckbox } from '@/components/legal/sms-consent-checkbox';
+import { phoneRequiresSmsConsent } from '@/lib/legal';
 
 interface GuestListModalProps {
     isOpen: boolean;
@@ -23,13 +25,18 @@ export default function GuestListModal({ isOpen, onClose }: GuestListModalProps)
     const [promoInput, setPromoInput] = useState('');
     const [promoCode, setPromoCode] = useState('');
     const [isExisting, setIsExisting] = useState(false);
-    const [form, setForm] = useState({ firstName: '', email: '', phone: '' })
+    const [form, setForm] = useState({ firstName: '', email: '', phone: '' });
+    const [smsConsent, setSmsConsent] = useState(false);
     const [copied, setCopied] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!form.firstName.trim() || !form.email.trim()) {
             setError('Please enter your Full Name and email address.');
+            return;
+        }
+        if (phoneRequiresSmsConsent(form.phone) && !smsConsent) {
+            setError('Please agree to receive SMS messages to continue with a phone number on file.');
             return;
         }
         setIsSubmitting(true);
@@ -170,6 +177,12 @@ export default function GuestListModal({ isOpen, onClose }: GuestListModalProps)
                                                                 onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
                                                             />
                                                         </div>
+                                                        <SmsConsentCheckbox
+                                                            id="guestlist-modal-sms-consent"
+                                                            checked={smsConsent}
+                                                            onChange={setSmsConsent}
+                                                            messageTypes="guest list updates, exclusive offers, and stay-related messages"
+                                                        />
                                                         {error && (
                                                             <div className=" text-red-700 text-center text-md font-medium">
                                                                 {error}
