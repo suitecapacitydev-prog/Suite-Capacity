@@ -11,13 +11,14 @@ export default function SmsTermsPage() {
   return (
     <LegalPageShell
       title="SMS Terms & Conditions"
-      subtitle={`Last updated: November 10, 2026 · ${LEGAL_BRAND.name}`}
+      subtitle={`Last updated: November 13, 2026 · ${LEGAL_BRAND.name}`}
     >
       <p>
         These SMS Terms &amp; Conditions (&quot;SMS Terms&quot;) apply when you opt in to receive text messages from{' '}
-        {LEGAL_BRAND.dba}. By providing your mobile number and consenting via our website forms, verbally, or on paper,
+        {LEGAL_BRAND.dba}. By providing your mobile number and consenting to receive SMS messages,
         you agree to these SMS Terms and our{' '}
-        <Link href={LEGAL_ROUTES.privacy}>Privacy Policy</Link>.
+        <Link href={LEGAL_ROUTES.privacy}>Privacy Policy</Link>. Consent is obtained when you verbally agree during a
+        conversation with our team.
       </p>
 
       <h2>SMS consent &amp; communication</h2>
@@ -35,7 +36,6 @@ export default function SmsTermsPage() {
         <li>Follow-up messages regarding your inquiry or property onboarding</li>
         <li>Guest stay updates, check-in information, or reservation-related notices</li>
         <li>Billing or account inquiries related to management services</li>
-        <li>Member-exclusive offers or promotions for the Guest List program, where applicable</li>
       </ul>
       <p className="text-sm text-black/60 italic">
         Example: &quot;Hello, this is a reminder of your upcoming consultation with {LEGAL_BRAND.name} on [Date] at
@@ -45,8 +45,7 @@ export default function SmsTermsPage() {
       <h2>Message frequency</h2>
       <p>
         Message frequency may vary depending on the type of communication. You may receive up to 4 SMS messages per week
-        regarding appointments, guest stays, or account status, plus occasional promotional messages if you opted in to
-        those programs.
+        regarding appointments, guest stays, or account status.
       </p>
 
       <h2>Potential fees</h2>
@@ -58,8 +57,6 @@ export default function SmsTermsPage() {
       <h2>Opt-in methods</h2>
       <p>You may opt in to receive SMS messages by:</p>
       <ul>
-        <li>Checking the SMS consent box on our online intake forms</li>
-        <li>Submitting an online or paper form that includes SMS consent language</li>
         <li>Verbally agreeing during a conversation with our team</li>
       </ul>
 
