@@ -11,14 +11,16 @@ export default function SmsTermsPage() {
   return (
     <LegalPageShell
       title="SMS Terms & Conditions"
-      subtitle={`Last updated: November 13, 2026 · ${LEGAL_BRAND.name}`}
+      subtitle={`Last updated: November 17, 2026 · ${LEGAL_BRAND.name}`}
     >
       <p>
         These SMS Terms &amp; Conditions (&quot;SMS Terms&quot;) apply when you opt in to receive text messages from{' '}
         {LEGAL_BRAND.dba}. By providing your mobile number and consenting to receive SMS messages,
         you agree to these SMS Terms and our{' '}
-        <Link href={LEGAL_ROUTES.privacy}>Privacy Policy</Link>. Consent is obtained when you verbally agree during a
-        conversation with our team.
+        <Link href={LEGAL_ROUTES.privacy}>Privacy Policy</Link>. Consent may be obtained when you check the SMS consent
+        box on our{' '}
+        <Link href={LEGAL_ROUTES.contact}>Contact Us</Link> page, or when you verbally agree during a conversation with
+        our team.
       </p>
 
       <h2>SMS consent &amp; communication</h2>
@@ -57,6 +59,9 @@ export default function SmsTermsPage() {
       <h2>Opt-in methods</h2>
       <p>You may opt in to receive SMS messages by:</p>
       <ul>
+        <li>
+          Checking the SMS consent box on our <Link href={LEGAL_ROUTES.contact}>Contact Us</Link> form
+        </li>
         <li>Verbally agreeing during a conversation with our team</li>
       </ul>
 

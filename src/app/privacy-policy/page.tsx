@@ -80,7 +80,7 @@ export default function PrivacyPolicyPage() {
       <p>
         For privacy questions, contact {LEGAL_BRAND.name} at{' '}
         <a href={`mailto:${LEGAL_BRAND.email}`}>{LEGAL_BRAND.email}</a>, call {LEGAL_BRAND.phoneTollFree} or{' '}
-        {LEGAL_BRAND.phoneOffice}, or visit{' '}
+        {LEGAL_BRAND.phoneOffice}, use our <Link href={LEGAL_ROUTES.contact}>Contact Us</Link> page, or visit{' '}
         <a href={LEGAL_BRAND.website}>{LEGAL_BRAND.website.replace('https://', '')}</a>.
       </p>
 

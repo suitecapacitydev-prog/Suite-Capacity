@@ -72,6 +72,7 @@ export default function RootLayout({
                         <Link href="/solutions" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Services</Link>
                         <Link href="/showcase" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Properties</Link>
                         <Link href="/about" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>About</Link>
+                        <Link href="/contact" className={`px-3 py-2 rounded-lg transition-all active:scale-95 ${dark ? 'hover:bg-white/10' : 'hover:bg-primary/5'}`}>Contact</Link>
                     </nav>
 
                     <div className="flex items-center gap-4">
@@ -114,6 +115,7 @@ export default function RootLayout({
                             <Link href="/solutions" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Services</Link>
                             <Link href="/showcase" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Properties</Link>
                             <Link href="/about" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">About</Link>
+                            <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="px-4 py-3 rounded-xl hover:bg-primary/5 active:bg-primary/10 transition-all text-black">Contact</Link>
                             <div className="pt-4 mt-2 border-t border-black/5 flex flex-col gap-4">
                                 {isLoggedIn ? (
                                     <button
@@ -191,6 +193,9 @@ export default function RootLayout({
                                 +1 (855) 303-4545<br />
                                 Central Command Center
                             </p>
+                            <Link href="/contact" className="inline-block text-sm font-semibold text-primary hover:underline">
+                                Contact form →
+                            </Link>
                         </div>
                     </div>
 
